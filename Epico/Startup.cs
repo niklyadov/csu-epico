@@ -1,11 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Epico.Entity;
+using Epico.Entity.DAL;
+using Epico.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,10 +28,32 @@ namespace Epico
 
             var dbConnection = Configuration.GetConnectionString("DefaultConnection");
             var dbVersion = Configuration.GetValue<string>("ConnectionMysqlMariaDbVersion");
-            services.AddDbContext<ApplicationDbContext>(options => 
+            services.AddDbContext<ApplicationContext>(options => 
                 options.UseMySql(dbConnection, 
                     new MariaDbServerVersion(dbVersion)));
 
+            #endregion
+
+            #region Authentification
+
+            services.AddIdentity<User, IdentityRole>(options =>
+            {
+                options.User.RequireUniqueEmail = false;
+
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 5;
+                options.Password.RequireNonAlphanumeric = false;
+                
+                options.SignIn.RequireConfirmedEmail = false;
+                options.SignIn.RequireConfirmedAccount = false;
+                options.SignIn.RequireConfirmedPhoneNumber = false;
+
+            }).AddEntityFrameworkStores<ApplicationContext>();
+
+            services.AddScoped<IAccountService, AccountService>();
+            
             #endregion
             
             services.AddControllersWithViews();
@@ -57,6 +78,7 @@ namespace Epico
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

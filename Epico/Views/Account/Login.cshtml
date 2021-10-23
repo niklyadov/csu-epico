@@ -1,0 +1,23 @@
+@model Epico.Views.LoginViewModel
+
+@{
+    ViewData["Title"] = "Вход в систему";
+}
+
+<h2>Вход в систему</h2>
+<form method="post" asp-controller="Account" asp-action="Login">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div>
+        <label asp-for="Username"></label><br />
+        <input asp-for="Username" />
+        <span asp-validation-for="Username"></span>
+    </div>
+    <div>
+        <label asp-for="Password"></label><br />
+        <input asp-for="Password" />
+        <span asp-validation-for="Password"></span>
+    </div>
+    <div>
+        <input type="submit" value="Войти" />
+    </div>
+</form>

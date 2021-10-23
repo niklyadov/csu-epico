@@ -3,21 +3,18 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Epico.Entity;
+using Epico.Entity.DAL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Epico.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Epico.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
+        [Authorize]
         public IActionResult Index()
         {
             return View();
