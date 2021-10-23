@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Epico.Entity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,6 +25,16 @@ namespace Epico
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            #region DbConnection
+
+            var dbConnection = Configuration.GetConnectionString("DefaultConnection");
+            var dbVersion = Configuration.GetValue<string>("ConnectionMysqlMariaDbVersion");
+            services.AddDbContext<ApplicationDbContext>(options => 
+                options.UseMySql(dbConnection, 
+                    new MariaDbServerVersion(dbVersion)));
+
+            #endregion
+            
             services.AddControllersWithViews();
         }
 
