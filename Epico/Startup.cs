@@ -34,13 +34,13 @@ namespace Epico
 
             #endregion
             
-            services.AddScoped<IRepository<Feature>, FeatureRepository>();
-            services.AddScoped<IRepository<Metric>, MetricRepository>();
-            services.AddScoped<IRepository<Project>, ProjectRepository>();
-            services.AddScoped<IRepository<Roadmap>, RoadmapRepository>();
-            services.AddScoped<IRepository<Sprint>, SprintRepository>();
-            services.AddScoped<IRepository<Task>, TaskRepository>();
-            services.AddScoped<IRepository<Team>, TeamRepository>();
+            services.AddScoped<FeatureRepository>();
+            services.AddScoped<MetricRepository>();
+            services.AddScoped<ProjectRepository>();
+            services.AddScoped<RoadmapRepository>();
+            services.AddScoped<SprintRepository>();
+            services.AddScoped<TaskRepository>();
+            services.AddScoped<TeamRepository>();
             
             #region Authentification
 

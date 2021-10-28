@@ -1,9 +1,9 @@
+using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Epico.Entity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
 using Task = System.Threading.Tasks.Task;
 
 namespace Epico.Services
@@ -14,11 +14,11 @@ namespace Epico.Services
         private readonly SignInManager<User> _signInManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
         
-        public AccountService(ServiceProvider serviceProvider)
+        public AccountService(IServiceProvider serviceProvider)
         {
-            _userManager = serviceProvider.GetService<UserManager<User>>();
-            _signInManager = serviceProvider.GetService<SignInManager<User>>();
-            _httpContextAccessor = serviceProvider.GetService<IHttpContextAccessor>();
+            _userManager = serviceProvider.GetService(typeof(UserManager<User>)) as UserManager<User>;
+            _signInManager = serviceProvider.GetService(typeof(SignInManager<User>)) as SignInManager<User>;
+            _httpContextAccessor = serviceProvider.GetService(typeof(IHttpContextAccessor)) as IHttpContextAccessor;
         }        
 
         public async Task<bool> Login(string username, string password, bool persistent = true)
