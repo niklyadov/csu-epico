@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Epico.Entity.DAL;
 
 namespace Epico.Entity
 {
-    public class Task
+    public class Task : IEntity
     {
         public int ID { get; set; }
         public string Name { get; set; }

@@ -28,5 +28,10 @@ namespace Epico.Services
         /// разлогинивание 🚬🗿
         /// </summary>
         public Task Logout();
+
+        /// <summary>
+        /// получить текущую сущность пользователя
+        /// </summary>
+        public string CurrentUserId();
     }
 }

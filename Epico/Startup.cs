@@ -1,5 +1,6 @@
 using Epico.Entity;
 using Epico.Entity.DAL;
+using Epico.Entity.DAL.Repository;
 using Epico.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,6 +35,11 @@ namespace Epico
 
             #endregion
 
+            services.AddScoped<IRepository<Project>, ProjectRepository>();
+            services.AddScoped<IRepository<Sprint>, SprintRepository>();
+            services.AddScoped<IRepository<Task>, TaskRepository>();
+            services.AddScoped<IRepository<Feature>, FeatureRepository>();
+            
             #region Authentification
 
             services.AddIdentity<User, IdentityRole>(options =>
@@ -57,6 +63,8 @@ namespace Epico
             #endregion
             
             services.AddControllersWithViews();
+
+            services.AddScoped<IProjectService, ProjectService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

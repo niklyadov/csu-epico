@@ -1,6 +1,8 @@
+using Epico.Entity.DAL;
+
 namespace Epico.Entity
 {
-    public class Feature
+    public class Feature : IEntity
     {
         public int ID { get; set; }
         public string Name { get; set; }

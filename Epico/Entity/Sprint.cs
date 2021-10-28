@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using Epico.Entity.DAL;
 
 namespace Epico.Entity
 {
-    public class Sprint
+    public class Sprint : IEntity
     {
         public int ID { get; set; }
         public string Name { get; set; }
