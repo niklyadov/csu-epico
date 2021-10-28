@@ -1,6 +1,4 @@
 using System.Threading.Tasks;
-using Epico.Entity;
-using Microsoft.AspNetCore.Identity;
 using Task = System.Threading.Tasks.Task;
 
 namespace Epico.Services
@@ -30,7 +28,7 @@ namespace Epico.Services
         public Task Logout();
 
         /// <summary>
-        /// получить текущую сущность пользователя
+        /// получить текущий ID залогиненного пользователя
         /// </summary>
         public string CurrentUserId();
     }

@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using Epico.Entity;
 using Epico.Models;
 using Epico.Services;
 using Microsoft.AspNetCore.Authorization;

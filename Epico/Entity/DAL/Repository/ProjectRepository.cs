@@ -16,14 +16,14 @@ namespace Epico.Entity.DAL.Repository
         public async Task<List<Project>> GetUserProjects(string ownerUserId)
         {
             return await _dbContext.Projects
-                .Where(p => p.OwnerUserID == ownerUserId)
+                .Where(p => p.OwnerUserId == ownerUserId)
                 .ToListAsync();
         }
         
         public async Task<Project> GetUserProjectWithId(string ownerUserId, int projectId)
         {
             return await _dbContext.Projects
-                .Where(p => p.OwnerUserID == ownerUserId && p.ID == projectId)
+                .Where(p => p.OwnerUserId == ownerUserId && p.ID == projectId)
                 .SingleAsync();
         }
     }

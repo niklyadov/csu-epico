@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 namespace Epico.Entity.DAL.Repository
 {
     public class FeatureRepository : BaseRepository<Feature, ApplicationContext>

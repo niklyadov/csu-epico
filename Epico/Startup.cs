@@ -4,7 +4,6 @@ using Epico.Entity.DAL.Repository;
 using Epico.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -34,11 +33,14 @@ namespace Epico
                     new MariaDbServerVersion(dbVersion)));
 
             #endregion
-
+            
+            services.AddScoped<IRepository<Feature>, FeatureRepository>();
+            services.AddScoped<IRepository<Metric>, MetricRepository>();
             services.AddScoped<IRepository<Project>, ProjectRepository>();
+            services.AddScoped<IRepository<Roadmap>, RoadmapRepository>();
             services.AddScoped<IRepository<Sprint>, SprintRepository>();
             services.AddScoped<IRepository<Task>, TaskRepository>();
-            services.AddScoped<IRepository<Feature>, FeatureRepository>();
+            services.AddScoped<IRepository<Team>, TeamRepository>();
             
             #region Authentification
 

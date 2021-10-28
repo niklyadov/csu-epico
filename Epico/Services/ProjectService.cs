@@ -1,10 +1,7 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Epico.Entity;
-using Epico.Entity.DAL;
 using Epico.Entity.DAL.Repository;
-using Task = Epico.Entity.Task;
 
 namespace Epico.Services
 {
@@ -24,7 +21,7 @@ namespace Epico.Services
                 Vision = vision,
                 Mission = mission,
                 ProductFormula = productFormula,
-                OwnerUserID = ownerUserId
+                OwnerUserId = ownerUserId
             });
         }
 

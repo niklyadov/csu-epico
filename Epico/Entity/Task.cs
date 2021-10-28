@@ -11,7 +11,7 @@ namespace Epico.Entity
         public string Description { get; set; }
         public List<Feature> Features { get; set; }
         public User Assignee { get; set; }
-        public FeatureState State { get; set; } //todo: возможно надо добавить новое состояние
+        public TaskState State { get; set; }
         public DateTime DeadLine { get; set; }
     }
 }

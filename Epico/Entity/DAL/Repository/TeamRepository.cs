@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Epico.Entity.DAL.Repository
 {
-    public class TeamRepository : BaseRepository<Task, ApplicationContext>
+    public class TeamRepository : BaseRepository<Team, ApplicationContext>
     {
         private ApplicationContext _dbContext;
         public TeamRepository(ApplicationContext dbContext) : base(dbContext)
