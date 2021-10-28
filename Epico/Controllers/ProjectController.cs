@@ -15,8 +15,8 @@ namespace Epico.Controllers
         
         public ProjectController(IServiceProvider serviceProvider)
         {
-            _projectService = serviceProvider.GetService(typeof(ProjectService)) as ProjectService;
-            _accountService = serviceProvider.GetService(typeof(AccountService)) as AccountService;
+            _projectService = serviceProvider.GetService(typeof(IProjectService)) as IProjectService;
+            _accountService = serviceProvider.GetService(typeof(IAccountService)) as IAccountService;
         }
         
         public IActionResult Index()
@@ -44,7 +44,7 @@ namespace Epico.Controllers
                 
                 if (result != null)
                 {
-                    RedirectToAction("View", "Project", result.ID);
+                    return RedirectToAction("View", "Project", result.ID.ToString());
                 }
             }
             
