@@ -1,0 +1,19 @@
+@model ListProjectsViewModel
+
+@{
+    ViewBag.Title = "Просмотр проектов";
+}
+
+<table>
+    <tr>
+        <td>Id</td>
+        <td>Название</td>
+    </tr>
+    @foreach (var project in Model.Projects)
+    {
+        <tr>
+            <td>@project.ID</td>
+            <td><a asp-action="View" asp-route-id="@project.ID">@project.Name</a></td>
+        </tr>
+    }
+</table>

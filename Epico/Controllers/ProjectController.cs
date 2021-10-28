@@ -19,13 +19,17 @@ namespace Epico.Controllers
             _accountService = serviceProvider.GetService(typeof(IAccountService)) as IAccountService;
         }
         
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return Ok(_projectService.UserProjects(_accountService.CurrentUserId()));
+            var projects = await _projectService.UserProjects(_accountService.CurrentUserId());
+            return View(new ListProjectsViewModel
+            {
+                Projects = projects
+            });
         }
-        public IActionResult View(int id)
+        public async Task<IActionResult> View(int id)
         {
-            return Ok(_projectService.GetProjectById(id));
+            return Ok(await _projectService.GetProjectById(id));
         }
         
         [HttpGet]
@@ -44,7 +48,7 @@ namespace Epico.Controllers
                 
                 if (result != null)
                 {
-                    return RedirectToAction("View", "Project", result.ID.ToString());
+                    return RedirectToAction("View", "Project", new {id = result.ID});
                 }
             }
             
