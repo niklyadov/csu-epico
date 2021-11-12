@@ -1,0 +1,32 @@
+﻿@model NewMetricViewModel
+
+@{
+    ViewBag.Title = "Создание новой метрики";
+}
+
+<form method="post" asp-controller="Metric" asp-action="New">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div>
+        <label asp-for="Name">Название</label><br />
+        <input asp-for="Name" />
+        <span asp-validation-for="Name"></span>
+    </div>
+    <div>
+        <label asp-for="Description">Описание</label><br />
+        <input asp-for="Description" />
+        <span asp-validation-for="Description"></span>
+    </div>
+    <div>
+        <label asp-for="ParentMetricId">Родительская метрика</label><br />
+        <select disabled ="@Model.AvailableParentMetrics.Count.Equals(0)" asp-for="ParentMetricId">
+            @foreach (var item in Model.AvailableParentMetrics)
+            {
+                <option value="@item.ID">@item.Name</option>
+            }
+        </select>
+        <span asp-validation-for="ParentMetricId"></span>
+    </div>
+    <div>
+        <input type="submit" value="Создать" />
+    </div>
+</form>

@@ -24,7 +24,19 @@ namespace Epico.Entity.DAL.Repository
         {
             return await _dbContext.Projects
                 .Where(p => p.OwnerUserId == ownerUserId && p.ID == projectId)
+                .Include(x => x.Metrics)
+                .Include(x => x.Sprints)
+                .Include(x => x.Roadmaps)
                 .SingleAsync();
+        }
+
+        public async void AddMetricToProjectWithId(string ownerUserId, int projectId, Metric metric)
+        {
+            var project = await _dbContext.Projects
+                .Where(p => p.OwnerUserId == ownerUserId && p.ID == projectId)
+                .SingleAsync();
+            (project.Metrics ??= new List<Metric>()).Add(metric);
+            _dbContext.SaveChangesAsync();
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Epico.Models;
 using Epico.Services;
@@ -29,7 +30,12 @@ namespace Epico.Controllers
         }
         public async Task<IActionResult> View(int id)
         {
-            return Ok(await _projectService.GetProjectById(id));
+            //return Ok(await _projectService.GetProjectById(id));
+            var project = await _projectService.UserProject(_accountService.CurrentUserId(), id);
+            return View(new ProjectViewModel
+            {
+                CurrentProject = project
+            });
         }
         
         [HttpGet]

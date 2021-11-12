@@ -1,0 +1,53 @@
+﻿@model ProjectViewModel
+
+@{
+    ViewBag.Title = "Просмотр проекта";
+}
+
+<div class="text-info">
+    <span>Название продукт: @Model.CurrentProject.Name</span>
+    <br />
+    <span>Виденье продукт: @Model.CurrentProject.Vision</span>
+    <br />
+    <span>Миссия продукт: @Model.CurrentProject.Mission</span>
+    <br />
+    <span>Формула продукта: @Model.CurrentProject.ProductFormula</span>
+</div>
+<div class="metrics">
+    <h2>Метрики</h2>
+    @foreach(var metric in Model.CurrentProject.Metrics)
+    {
+    <span>Название: @metric.Name</span>
+    <span>Описание: @metric.Description</span>
+    <br />
+    }
+    @if(Model.CurrentProject.Metrics.Count == 0)
+    {
+    <button>Добавить новую НСМ метрику</button>
+    }
+    else
+    {
+    <button>Добавить новую метрику</button>
+    }
+
+</div>
+<div class="sprints">
+    <h2>Спринты</h2>
+    @foreach(var sprint in Model.CurrentProject.Sprints)
+    {
+    <span>Название: @sprint.Name</span>
+    <button>Изменить состояние</button>
+    <br />
+    }
+    <button>Добавить новый спринт</button>
+
+</div>
+<div class="roadmaps">
+    <h2>Роадмапы</h2>
+    @foreach(var roadmap in Model.CurrentProject.Roadmaps)
+    {
+    <span>@roadmap.Milestone.Starts + "..." + @roadmap.Milestone.Ends</span>
+    <br />
+    }
+    <button>Добавить роадмапу</button>
+</div>

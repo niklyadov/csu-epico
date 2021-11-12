@@ -21,8 +21,11 @@ namespace Epico.Services
                 Vision = vision,
                 Mission = mission,
                 ProductFormula = productFormula,
-                OwnerUserId = ownerUserId
-            });
+                OwnerUserId = ownerUserId,
+                Metrics = new List<Metric>(),
+                Sprints = new List<Sprint>(),
+                Roadmaps = new List<Roadmap>()
+            }) ;
         }
 
         public async Task<Project> GetProjectById(int id)
@@ -33,6 +36,16 @@ namespace Epico.Services
         public async Task<List<Project>> UserProjects(string ownerUserId)
         {
             return await _repository.GetUserProjects(ownerUserId);
+        }
+
+        public async Task<Project> UserProject(string ownerUserId, int id)
+        {
+            return await _repository.GetUserProjectWithId(ownerUserId, id);
+        }
+
+        public void AddMetric(string ownerUserId, int id, Metric metric)
+        {
+            _repository.AddMetricToProjectWithId(ownerUserId, id , metric);
         }
     }
 }

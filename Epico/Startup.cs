@@ -67,6 +67,7 @@ namespace Epico
             services.AddControllersWithViews();
 
             services.AddScoped<IProjectService, ProjectService>();
+            services.AddScoped<IMetricService, MetricService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
