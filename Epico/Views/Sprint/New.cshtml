@@ -1,0 +1,27 @@
+﻿@model NewSprintViewModel
+
+@{
+    ViewBag.Title = "Добавление спринта";
+}
+
+<form method="post" asp-controller="Sprint" asp-action="New">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div>
+        <label asp-for="Name">Название Спринта</label><br />
+        <input asp-for="Name" />
+        <span asp-validation-for="Name"></span>
+    </div>
+    <div>
+        <label asp-for="Tasks">Тип команды</label><br />
+        <select>
+            @foreach (var task in Model.PosibleTasks)
+            {
+                <option value="@task.ID">@task.Name</option>
+            }
+        </select>
+        <span asp-validation-for="Tasks"></span>
+    </div>
+    <div>
+        <input type="submit" value="Создать" />
+    </div>
+</form>
