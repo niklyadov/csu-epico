@@ -41,6 +41,7 @@ namespace Epico
             services.AddScoped<SprintRepository>();
             services.AddScoped<TaskRepository>();
             services.AddScoped<TeamRepository>();
+            services.AddScoped<UserRepository>();
             
             #region Authentification
 
@@ -68,6 +69,7 @@ namespace Epico
 
             services.AddScoped<IProjectService, ProjectService>();
             services.AddScoped<IMetricService, MetricService>();
+            services.AddScoped<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

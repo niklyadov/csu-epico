@@ -1,0 +1,29 @@
+﻿@model NewUserViewModel
+@{
+    ViewBag.Title = "Добавление нового сотрудника";
+}
+
+<form method="post" asp-controller="Project" asp-action="New">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div>
+        <label asp-for="FirstName"> Имя</label><br />
+        <input asp-for="FirstName" />
+        <span asp-validation-for="FirstName"></span>
+    </div>
+    <div>
+        <label asp-for="LastName">Фамилия</label><br />
+        <input asp-for="LastName" />
+        <span asp-validation-for="LastName"></span>
+    </div>
+    <!--
+        
+    <div>
+        <label asp-for="Age">Возраст</label><br />
+        <input asp-for="Age" />
+        <span asp-validation-for="Age"></span>
+    </div>
+    -->
+    <div>
+        <input type="submit" value="Создать" />
+    </div>
+</form>
