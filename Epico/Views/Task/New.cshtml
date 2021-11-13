@@ -1,0 +1,35 @@
+﻿@model NewTaskViewModel
+@{
+    ViewBag.Title = "Добавление задачи";
+}
+
+<form method="post" asp-controller="Task" asp-action="New">
+    <div>
+        <label asp-for="Name">Название задачи</label><br />
+        <input asp-for="Name" />
+        <span asp-validation-for="Name"></span>
+    </div>
+    <div>
+        <label asp-for="Description">Описание</label><br />
+        <input asp-for="Description" />
+        <span asp-validation-for="Description"></span>
+    </div>
+    <div>
+        <label asp-for="Features">Миссия</label><br />
+        <select>
+            @foreach (var feature in Model.PosibleFeatures)
+            {
+                <option value="@feature.ID">@feature.Name</option>
+            }
+        </select>
+        <span asp-validation-for="Features"></span>
+    </div>
+    <div>
+        <label asp-for="DeadLine">Дедлайн</label><br />
+        <input type="datetime-local" asp-for="DeadLine" />
+        <span asp-validation-for="DeadLine"></span>
+    </div>
+    <div>
+        <input type="submit" value="Создать" />
+    </div>
+</form>
