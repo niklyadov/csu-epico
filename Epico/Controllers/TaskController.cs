@@ -36,7 +36,9 @@ namespace Epico.Controllers
         {
             if (ModelState.IsValid)
             {
-                _taskService.AddTask(model.Name, model.Description, new List<Feature> { model.Features }, model.DeadLine);
+                // Тест
+                var feature = new Feature(); // _featureService.GetFeature(model.FeaturesId);
+                _taskService.AddTask(model.Name, model.Description, new List<Feature> { feature }, model.DeadLine);
             }
             return Ok("Задача создана");
         }

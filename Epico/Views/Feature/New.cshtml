@@ -21,24 +21,24 @@
         <span asp-validation-for="Hypothesis"></span>
     </div>
     <div>
-        <label asp-for="Team">Тип команды</label><br />
-        <select>
+        <label asp-for="TeamId">Тип команды</label><br />
+        <select asp-for="TeamId">
             @foreach (var team in Model.PosibleTeams)
             {
                 <option value="@team.ID">@team.Name [@team.Position.ToString()]</option>
             }
         </select>
-        <span asp-validation-for="Team"></span>
+        <span asp-validation-for="TeamId"></span>
     </div>
     <div>
-        <label asp-for="Metric">Миссия</label><br />
-        <select>
+        <label asp-for="MetricId">Миссия</label><br />
+        <select asp-for="MetricId">
             @foreach (var metric in Model.PosibleMetrics)
             {
                 <option value="@metric.ID">@metric.Name</option>
             }
         </select>
-        <span asp-validation-for="Metric"></span>
+        <span asp-validation-for="MetricId"></span>
     </div>
     <div>
         <input type="submit" value="Создать" />

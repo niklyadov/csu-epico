@@ -12,14 +12,14 @@
         <span asp-validation-for="Name"></span>
     </div>
     <div>
-        <label asp-for="Tasks">Тип команды</label><br />
-        <select>
+        <label asp-for="TasksId">Тип команды</label><br />
+        <select asp-for="TasksId">
             @foreach (var task in Model.PosibleTasks)
             {
                 <option value="@task.ID">@task.Name</option>
             }
         </select>
-        <span asp-validation-for="Tasks"></span>
+        <span asp-validation-for="TasksId"></span>
     </div>
     <div>
         <input type="submit" value="Создать" />

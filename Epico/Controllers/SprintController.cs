@@ -35,7 +35,9 @@ namespace Epico.Controllers
         {
             if (ModelState.IsValid)
             {
-                _sprintService.AddSprint(model.Name, new List<Entity.Task> { model.Tasks });
+                // Тест
+                var task = new Entity.Task(); // _taskService.GetTask(model.TasksId);
+                _sprintService.AddSprint(model.Name, new List<Entity.Task> { task });
             }
             return Ok("Спринт создан");
         }
