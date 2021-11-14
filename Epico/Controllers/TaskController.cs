@@ -4,6 +4,7 @@ using Epico.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Epico.Controllers
 {
@@ -22,23 +23,23 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public IActionResult New()
+        public async Task<IActionResult> New()
         {
             return View(new NewTaskViewModel 
             { 
-                PosibleFeatures = new List<Feature> // Для теста
-                { new Feature { Name = "фича1" }, new Feature { Name = "фича2" } } 
+                PosibleTeams = new List<Team> // Для теста
+                { new Team { Name = "фича1" }, new Team { Name = "фича2" } } // await _featureService.GetServices()
             });
         }
 
         [HttpPost]
-        public IActionResult New(NewTaskViewModel model)
+        public async Task<IActionResult> New(NewTaskViewModel model)
         {
             if (ModelState.IsValid)
             {
                 // Тест
                 var feature = new Feature(); // _featureService.GetFeature(model.FeaturesId);
-                _taskService.AddTask(model.Name, model.Description, new List<Feature> { feature }, model.DeadLine);
+                await _taskService.AddTask(model.Name, model.Description, new List<Feature> { feature }, model.DeadLine);
             }
             return Ok("Задача создана");
         }

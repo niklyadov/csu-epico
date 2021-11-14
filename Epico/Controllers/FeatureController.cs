@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Epico.Controllers
 {
@@ -25,26 +26,26 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public IActionResult New()
+        public async Task<IActionResult> New()
         {
             return View(new NewFeatureViewModel
             {
-                PosibleTeams = new List<Entity.Team>  // для теста
-                { new Entity.Team { Name = "команда1" }, new Entity.Team { Name = "команда2" } }, //_teamService.GetTeams()
+                PosibleTasks = new List<Entity.Task>  // для теста
+                { new Entity.Task { Name = "команда1" }, new Entity.Task { Name = "команда2" } }, // await _teamService.GetTeams()
                 PosibleMetrics = new List<Entity.Metric> // для теста
-                { new Entity.Metric { Name = "метрика1" }, new Entity.Metric { Name = "метрика2" } } // _metricService.GetMetrics()
+                { new Entity.Metric { Name = "метрика1" }, new Entity.Metric { Name = "метрика2" } } // await _metricService.GetMetrics()
             });
         }
         
         [HttpPost]
-        public IActionResult New(NewFeatureViewModel model)
+        public async Task<IActionResult> New(NewFeatureViewModel model)
         {
             if (ModelState.IsValid)
             {
                 // Тест
                 var team = new Entity.Team();  // _teamService.GetTeam(model.TeamId);
                 var metric = new Entity.Metric();  // _metricService.GetMetric(model.MetricId);
-                _featureService.AddFeature(model.Name, model.Description, model.Hypothesis, team, metric);
+                await _featureService.AddFeature(model.Name, model.Description, model.Hypothesis, team, metric);
             }
             return Ok("Фича добавлена");
         }
