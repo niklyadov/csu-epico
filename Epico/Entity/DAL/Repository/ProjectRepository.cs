@@ -44,5 +44,35 @@ namespace Epico.Entity.DAL.Repository
 
             return project;
         }
+        
+        public async Task<Project> AddSprintToProjectWithId(string ownerUserId, int projectId, Sprint sprint)
+        {
+            var project = await _dbContext.Projects
+                .Where(p => p.OwnerUserId == ownerUserId && p.ID == projectId)
+                .SingleAsync();
+            project.Sprints ??= new List<Sprint>();
+            project.Sprints.Add(sprint);
+            
+            _dbContext.Entry(project).State = EntityState.Modified;
+            
+            await _dbContext.SaveChangesAsync();
+
+            return project;
+        }
+        
+        public async Task<Project> AddRoadmapToProjectWithId(string ownerUserId, int projectId, Roadmap roadmap)
+        {
+            var project = await _dbContext.Projects
+                .Where(p => p.OwnerUserId == ownerUserId && p.ID == projectId)
+                .SingleAsync();
+            project.Roadmaps ??= new List<Roadmap>();
+            project.Roadmaps.Add(roadmap);
+            
+            _dbContext.Entry(project).State = EntityState.Modified;
+            
+            await _dbContext.SaveChangesAsync();
+
+            return project;
+        }
     }
 }

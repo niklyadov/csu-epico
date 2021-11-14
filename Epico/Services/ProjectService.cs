@@ -43,9 +43,19 @@ namespace Epico.Services
             return await _repository.GetUserProjectWithId(ownerUserId, id);
         }
         
-        public async Task<Project> AddMetric(string ownerUserId, int id, Metric metric)
+        public async Task<Project> AddMetric(string ownerUserId, int projectId, Metric metric)
         {
-            return await _repository.AddMetricToProjectWithId(ownerUserId, id , metric);
+            return await _repository.AddMetricToProjectWithId(ownerUserId, projectId , metric);
+        }
+        
+        public async Task<Project> AddSprint(string ownerUserId, int projectId, Sprint sprint)
+        {
+            return await _repository.AddSprintToProjectWithId(ownerUserId, projectId, sprint);
+        }
+        
+        public async Task<Project> AddRoadmap(string ownerUserId, int projectId, Roadmap roadmap)
+        {
+            return await _repository.AddRoadmapToProjectWithId(ownerUserId, projectId, roadmap);
         }
     }
 }
