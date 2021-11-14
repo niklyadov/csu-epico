@@ -23,9 +23,9 @@
     <div>
         <label asp-for="TeamId">Тип команды</label><br />
         <select asp-for="TeamId">
-            @foreach (var team in Model.PosibleTeams)
+            @foreach (var task in Model.PosibleTasks)
             {
-                <option value="@team.ID">@team.Name [@team.Position.ToString()]</option>
+                <option value="@task.ID">@task.Name</option>
             }
         </select>
         <span asp-validation-for="TeamId"></span>

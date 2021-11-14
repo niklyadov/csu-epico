@@ -15,11 +15,11 @@
         <span asp-validation-for="Description"></span>
     </div>
     <div>
-        <label asp-for="FeaturesId">Миссия</label><br />
+        <label asp-for="FeaturesId">Выбор команды</label><br />
         <select asp-for="FeaturesId">
-            @foreach (var feature in Model.PosibleFeatures)
+            @foreach (var team in Model.PosibleTeams)
             {
-                <option value="@feature.ID">@feature.Name</option>
+                <option value="@team.ID">@team.Name</option>
             }
         </select>
         <span asp-validation-for="FeaturesId"></span>

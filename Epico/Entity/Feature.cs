@@ -1,4 +1,5 @@
 using Epico.Entity.DAL;
+using System.Collections.Generic;
 
 namespace Epico.Entity
 {
@@ -10,6 +11,6 @@ namespace Epico.Entity
         public string Hypothesis { get; set; }
         public Metric Metric { get; set; }
         public FeatureState State { get; set; }
-        public Team Team { get; set; }
+        public List<Entity.Task> Tasks { get; set; }
     }
 }

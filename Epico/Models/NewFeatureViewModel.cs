@@ -10,9 +10,10 @@ namespace Epico.Models
         public string Hypothesis { get; set; }
         public int TeamId { get; set; }
         public int MetricId { get; set; } // List<Metric>
-                                           // Надо будет сделать список
+                                          // Надо будет сделать список
+        public List<Entity.Task> PosibleTasks { get; set; }
+
         
-        public List<Team> PosibleTeams { get; set; }
         public List<Metric> PosibleMetrics { get; set; }
     }
 }

@@ -9,9 +9,8 @@ namespace Epico.Entity
         public int ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public List<Feature> Features { get; set; }
-        public User Assignee { get; set; }
         public TaskState State { get; set; }
         public DateTime DeadLine { get; set; }
+        public Team Team { get; set; }
     }
 }
