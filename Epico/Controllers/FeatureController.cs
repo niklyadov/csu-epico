@@ -41,7 +41,10 @@ namespace Epico.Controllers
         {
             if (ModelState.IsValid)
             {
-                _featureService.AddFeature(model.Name, model.Description, model.Hypothesis, model.Team, model.Metric);
+                // Тест
+                var team = new Entity.Team();  // _teamService.GetTeam(model.TeamId);
+                var metric = new Entity.Metric();  // _metricService.GetMetric(model.MetricId);
+                _featureService.AddFeature(model.Name, model.Description, model.Hypothesis, team, metric);
             }
             return Ok("Фича добавлена");
         }

@@ -72,6 +72,8 @@ namespace Epico
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ITeamService, TeamService>();
             services.AddScoped<IFeatureService, FeatureService>();
+            services.AddScoped<ITaskService, TaskService>();
+            services.AddScoped<ISprintService, SprintService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

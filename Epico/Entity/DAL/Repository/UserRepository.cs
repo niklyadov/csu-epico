@@ -7,7 +7,7 @@ namespace Epico.Entity.DAL.Repository
     public class UserRepository
     {
         private readonly ApplicationContext _dbContext;
-        protected UserRepository(ApplicationContext dbContext)
+        public UserRepository(ApplicationContext dbContext)
         {
             _dbContext = dbContext;
         }

@@ -12,7 +12,7 @@
     </div>
     <div>
         <label asp-for="Position">Тип команды</label><br />
-        <select>
+        <select asp-for="Position">
             @foreach(var position in Model.PosiblePositions)
             {
             <option value="@((int)position)">@((int)position)</option>
@@ -21,14 +21,14 @@
         <span asp-validation-for="Position"></span>
     </div>
     <div>
-        <label asp-for="Users">Миссия</label><br />
-        <select>
+        <label asp-for="UsersId">Миссия</label><br />
+        <select asp-for="UsersId">
             @foreach (var user in Model.PosibleUsers)
             {
                 <option value="@user.Id">@user.UserName</option>
             }
         </select>
-        <span asp-validation-for="Users"></span>
+        <span asp-validation-for="UsersId"></span>
     </div>
     <div>
         <input type="submit" value="Создать" />

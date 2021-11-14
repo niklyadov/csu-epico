@@ -10,7 +10,7 @@ namespace Epico.Models
     {
         public string Name { get; set; }
         public TeamPosition Position { get; set; }
-        public List<User> Users { get; set; }
+        public int UsersId { get; set; }
         public IEnumerable<TeamPosition> PosiblePositions { get; set; }
         public List<User> PosibleUsers { get; set; }
     }
