@@ -13,13 +13,13 @@ namespace Epico.Services
         {
             _taskRepository = taskRepository;
         }
-        public async Task<Entity.Task> AddTask(string name, string description, List<Feature> features, DateTime deadLine)
+        public async Task<Entity.Task> AddTask(string name, string description, Team team, DateTime deadLine)
         {
             return await _taskRepository.Add(new Entity.Task
             {
                 Name = name,
                 Description = description,
-                Features = features,
+                Team = team,
                 DeadLine = deadLine,
                 State = TaskState.NotStarted
             });

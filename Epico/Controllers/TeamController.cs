@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Epico.Controllers
 {
@@ -23,7 +24,7 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public IActionResult New()
+        public async Task<IActionResult> New()
         {
             return View(new NewTeamViewModel
             {
@@ -33,13 +34,13 @@ namespace Epico.Controllers
         }
 
         [HttpPost]
-        public IActionResult New(NewTeamViewModel model)
+        public async Task<IActionResult> New(NewTeamViewModel model)
         {
             if (ModelState.IsValid)
             {
                 // Тест
                 var users = new List<Entity.User> { new Entity.User() };  // _userService.GetUser(model.UsersId);
-                _teamService.AddTeam(model.Name, model.Position, users);
+                await _teamService.AddTeam(model.Name, model.Position, users);
             }
             return Ok("Команда добавлена");
         }

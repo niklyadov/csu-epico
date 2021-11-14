@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Epico.Controllers
 {
@@ -22,22 +23,22 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public IActionResult New()
+        public async Task<IActionResult> New()
         {
             return View(new NewSprintViewModel
             { 
                 PosibleTasks = new List<Entity.Task> //  для теста
-                { new Entity.Task { Name = "задача1" }, new Entity.Task { Name = "задача2" } } // _taskService.GetTasks()
+                { new Entity.Task { Name = "задача1" }, new Entity.Task { Name = "задача2" } } // await _taskService.GetTasks()
             });
         }
         [HttpPost]
-        public IActionResult New(NewSprintViewModel model)
+        public async Task<IActionResult> New(NewSprintViewModel model)
         {
             if (ModelState.IsValid)
             {
                 // Тест
                 var task = new Entity.Task(); // _taskService.GetTask(model.TasksId);
-                _sprintService.AddSprint(model.Name, new List<Entity.Task> { task });
+                await _sprintService.AddSprint(model.Name, new List<Entity.Task> { task });
             }
             return Ok("Спринт создан");
         }

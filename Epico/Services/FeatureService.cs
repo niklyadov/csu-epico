@@ -1,5 +1,6 @@
 ﻿using Epico.Entity;
 using Epico.Entity.DAL.Repository;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Epico.Services
@@ -11,15 +12,15 @@ namespace Epico.Services
         {
             _featureRepository = featureRepository;
         }
-        public async Task<Feature> AddFeature(string name, string description, string hypothesis, Team team, Metric metric)
+        public async Task<Feature> AddFeature(string name, string description, string hypothesis, List<Entity.Task> tasks, Metric metric)
         {
             return await _featureRepository.Add(new Feature
             {
                 Name = name,
-                Team = team,
-                Metric = metric,
                 Description = description,
                 Hypothesis = hypothesis,
+                Tasks = tasks,
+                Metric = metric,
                 State = FeatureState.NotStarted
             });
         }
