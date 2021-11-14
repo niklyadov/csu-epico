@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Epico.Services
 {
-    public class TeamService : ITeamService
+    public class TeamService
     {
         private readonly TeamRepository _repository;
         public TeamService(TeamRepository repository)

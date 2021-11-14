@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Epico.Services
 {
-    public class FeatureService : IFeatureService
+    public class FeatureService
     {
         private readonly FeatureRepository _featureRepository;
         public FeatureService(FeatureRepository featureRepository)

@@ -8,7 +8,7 @@ using Task = System.Threading.Tasks.Task;
 
 namespace Epico.Services
 {
-    public class AccountService : IAccountService
+    public class AccountService
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;

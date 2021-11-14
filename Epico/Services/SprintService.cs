@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Epico.Services
 {
-    public class SprintService : ISprintService
+    public class SprintService
     {
         private readonly SprintRepository _sprintRepository;
         public SprintService(SprintRepository sprintRepository)

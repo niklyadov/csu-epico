@@ -61,19 +61,19 @@ namespace Epico
 
             }).AddEntityFrameworkStores<ApplicationContext>();
 
-            services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<AccountService>();
             
             #endregion
             
             services.AddControllersWithViews();
 
-            services.AddScoped<IProjectService, ProjectService>();
-            services.AddScoped<IMetricService, MetricService>();
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<ITeamService, TeamService>();
-            services.AddScoped<IFeatureService, FeatureService>();
-            services.AddScoped<ITaskService, TaskService>();
-            services.AddScoped<ISprintService, SprintService>();
+            services.AddScoped<ProjectService>();
+            services.AddScoped<MetricService>();
+            services.AddScoped<UserService>();
+            services.AddScoped<TeamService>();
+            services.AddScoped<FeatureService>();
+            services.AddScoped<TaskService>();
+            services.AddScoped<SprintService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

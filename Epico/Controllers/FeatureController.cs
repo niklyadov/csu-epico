@@ -10,14 +10,14 @@ namespace Epico.Controllers
     [Authorize]
     public class FeatureController : Controller
     {
-        private readonly IFeatureService _featureService;
-        private readonly ITeamService _teamService;
-        private readonly IMetricService _metricService;
+        private readonly FeatureService _featureService;
+        private readonly TeamService _teamService;
+        private readonly MetricService _metricService;
         public FeatureController(IServiceProvider serviceProvider)
         {
-            _featureService = serviceProvider.GetService(typeof(IFeatureService)) as IFeatureService;
-            _teamService = serviceProvider.GetService(typeof(ITeamService)) as ITeamService;
-            _metricService = serviceProvider.GetService(typeof(IMetricService)) as IMetricService;
+            _featureService = serviceProvider.GetService(typeof(FeatureService)) as FeatureService;
+            _teamService = serviceProvider.GetService(typeof(TeamService)) as TeamService;
+            _metricService = serviceProvider.GetService(typeof(MetricService)) as MetricService;
         }
         public IActionResult Index()
         {

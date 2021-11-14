@@ -30,13 +30,19 @@ namespace Epico.Entity.DAL.Repository
                 .SingleAsync();
         }
 
-        public async void AddMetricToProjectWithId(string ownerUserId, int projectId, Metric metric)
+        public async Task<Project> AddMetricToProjectWithId(string ownerUserId, int projectId, Metric metric)
         {
             var project = await _dbContext.Projects
                 .Where(p => p.OwnerUserId == ownerUserId && p.ID == projectId)
                 .SingleAsync();
-            (project.Metrics ??= new List<Metric>()).Add(metric);
-            _dbContext.SaveChangesAsync();
+            project.Metrics ??= new List<Metric>();
+            project.Metrics.Add(metric);
+            
+            _dbContext.Entry(project).State = EntityState.Modified;
+            
+            await _dbContext.SaveChangesAsync();
+
+            return project;
         }
     }
 }

@@ -10,12 +10,12 @@ namespace Epico.Controllers
 {
     public class TeamController : Controller
     {
-        private readonly ITeamService _teamService;
-        private readonly IUserService _userService;
+        private readonly TeamService _teamService;
+        private readonly UserService _userService;
         public TeamController(IServiceProvider serviceProvider)
         {
-            _teamService = serviceProvider.GetService(typeof(ITeamService)) as ITeamService;
-            _userService = serviceProvider.GetService(typeof(IUserService)) as IUserService;
+            _teamService = serviceProvider.GetService(typeof(TeamService)) as TeamService;
+            _userService = serviceProvider.GetService(typeof(UserService)) as UserService;
         }
         public IActionResult Index()
         {
