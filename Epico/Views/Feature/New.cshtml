@@ -21,17 +21,17 @@
         <span asp-validation-for="Hypothesis"></span>
     </div>
     <div>
-        <label asp-for="TeamId">Тип команды</label><br />
-        <select asp-for="TeamId">
+        <label asp-for="TaskId">Выбор задачи</label><br />
+        <select asp-for="TaskId">
             @foreach (var task in Model.PosibleTasks)
             {
                 <option value="@task.ID">@task.Name</option>
             }
         </select>
-        <span asp-validation-for="TeamId"></span>
+        <span asp-validation-for="TaskId"></span>
     </div>
     <div>
-        <label asp-for="MetricId">Миссия</label><br />
+        <label asp-for="MetricId">Выбор метрик</label><br />
         <select asp-for="MetricId">
             @foreach (var metric in Model.PosibleMetrics)
             {
