@@ -1,4 +1,5 @@
-﻿using Epico.Models;
+﻿using Epico.Entity;
+using Epico.Models;
 using Epico.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,12 +13,12 @@ namespace Epico.Controllers
     public class FeatureController : Controller
     {
         private readonly FeatureService _featureService;
-        private readonly TeamService _teamService;
+        private readonly TaskService _taskService;
         private readonly MetricService _metricService;
         public FeatureController(IServiceProvider serviceProvider)
         {
             _featureService = serviceProvider.GetService(typeof(FeatureService)) as FeatureService;
-            _teamService = serviceProvider.GetService(typeof(TeamService)) as TeamService;
+            _taskService = serviceProvider.GetService(typeof(TaskService)) as TaskService;
             _metricService = serviceProvider.GetService(typeof(MetricService)) as MetricService;
         }
         public IActionResult Index()
@@ -43,9 +44,11 @@ namespace Epico.Controllers
             if (ModelState.IsValid)
             {
                 // Тест
-                var team = new Entity.Team();  // _teamService.GetTeam(model.TeamId);
-                var metric = new Entity.Metric();  // _metricService.GetMetric(model.MetricId);
-                await _featureService.AddFeature(model.Name, model.Description, model.Hypothesis, team, metric);
+                var tasks = new List<Entity.Task> { new Entity.Task { Name = "задача 1" }, new Entity.Task { Name = "задача 2" } };
+                // await _taskService.GetTasks();
+                var metrics = new List<Metric> { new Metric { Name = "Метрика 1" }, new Metric { Name = "Метрика 1" } };
+                // _metricService.GetMetrics(model.MetricId);
+                await _featureService.AddFeature(model.Name, model.Description, model.Hypothesis, tasks, metrics);
             }
             return Ok("Фича добавлена");
         }

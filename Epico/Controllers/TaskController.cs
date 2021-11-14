@@ -11,11 +11,11 @@ namespace Epico.Controllers
     public class TaskController : Controller
     {
         private readonly TaskService _taskService;
-        private readonly FeatureService _featureService;
+        private readonly TeamService _teamService;
         public TaskController(IServiceProvider serviceProvider)
         {
             _taskService = serviceProvider.GetService(typeof(TaskService)) as TaskService;
-            _featureService = serviceProvider.GetService(typeof(FeatureService)) as FeatureService;
+            _teamService = serviceProvider.GetService(typeof(TeamService)) as TeamService;
         }
         public IActionResult Index()
         {
@@ -28,7 +28,7 @@ namespace Epico.Controllers
             return View(new NewTaskViewModel 
             { 
                 PosibleTeams = new List<Team> // Для теста
-                { new Team { Name = "фича1" }, new Team { Name = "фича2" } } // await _featureService.GetServices()
+                { new Team { Name = "фича1" }, new Team { Name = "фича2" } } // await _featureService.GetTeams()
             });
         }
 
@@ -37,9 +37,9 @@ namespace Epico.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Тест
-                var feature = new Feature(); // _featureService.GetFeature(model.FeaturesId);
-                await _taskService.AddTask(model.Name, model.Description, new List<Feature> { feature }, model.DeadLine);
+                // Тест                
+                var team = new Team(); // await _teamService.GetTeamById(model.TeamId);
+                await _taskService.AddTask(model.Name, model.Description, team, model.DeadLine);
             }
             return Ok("Задача создана");
         }

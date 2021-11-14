@@ -12,7 +12,7 @@ namespace Epico.Services
         {
             _featureRepository = featureRepository;
         }
-        public async Task<Feature> AddFeature(string name, string description, string hypothesis, List<Entity.Task> tasks, Metric metric)
+        public async Task<Feature> AddFeature(string name, string description, string hypothesis, List<Entity.Task> tasks, List<Metric> metric)
         {
             return await _featureRepository.Add(new Feature
             {
