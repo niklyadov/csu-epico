@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Epico.Services
 {
-    public class UserService : IUserService
+    public class UserService
     {
         private UserRepository _repository;
         public UserService(UserRepository repository)

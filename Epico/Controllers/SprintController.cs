@@ -10,11 +10,11 @@ namespace Epico.Controllers
     [Authorize]
     public class SprintController : Controller
     {
-        private readonly ISprintService _sprintService;
-        private readonly ITaskService _taskService;
+        private readonly SprintService _sprintService;
+        private readonly TaskService _taskService;
         public SprintController(IServiceProvider serviceProvider)
         {
-            _sprintService = serviceProvider.GetService(typeof(ISprintService)) as ISprintService;
+            _sprintService = serviceProvider.GetService(typeof(SprintService)) as SprintService;
         }
         public IActionResult Index()
         {

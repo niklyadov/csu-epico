@@ -11,13 +11,13 @@ namespace Epico.Controllers
     [Authorize]
     public class ProjectController : Controller
     {
-        private readonly IProjectService _projectService;
-        private readonly IAccountService _accountService;
+        private readonly ProjectService _projectService;
+        private readonly AccountService _accountService;
         
         public ProjectController(IServiceProvider serviceProvider)
         {
-            _projectService = serviceProvider.GetService(typeof(IProjectService)) as IProjectService;
-            _accountService = serviceProvider.GetService(typeof(IAccountService)) as IAccountService;
+            _projectService = serviceProvider.GetService(typeof(ProjectService)) as ProjectService;
+            _accountService = serviceProvider.GetService(typeof(AccountService)) as AccountService;
         }
         
         public async Task<IActionResult> Index()

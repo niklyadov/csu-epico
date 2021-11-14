@@ -14,15 +14,15 @@ namespace Epico.Controllers
     public class MetricController : Controller
     {
 
-        private readonly IProjectService _projectService;
-        private readonly IAccountService _accountService;
-        private readonly IMetricService _metricService;
+        private readonly ProjectService _projectService;
+        private readonly AccountService _accountService;
+        private readonly MetricService _metricService;
 
         public MetricController(IServiceProvider serviceProvider)
         {
-            _projectService = serviceProvider.GetService(typeof(IProjectService)) as IProjectService;
-            _accountService = serviceProvider.GetService(typeof(IAccountService)) as IAccountService;
-            _metricService = serviceProvider.GetService(typeof(IMetricService)) as IMetricService;
+            _projectService = serviceProvider.GetService(typeof(ProjectService)) as ProjectService;
+            _accountService = serviceProvider.GetService(typeof(AccountService)) as AccountService;
+            _metricService = serviceProvider.GetService(typeof(MetricService)) as MetricService;
         }
         public IActionResult Index()
         {
@@ -35,34 +35,34 @@ namespace Epico.Controllers
             var project = await _projectService.GetProjectById(id);
             return View(new NewMetricViewModel
             {
-                AvailableParentMetrics = (project.Metrics ??= new List<Metric>())
+                AvailableParentMetrics = project.Metrics ??= new List<Metric>()
             });
         }
 
         [HttpPost]
         public async Task<IActionResult> New(int id, NewMetricViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
+            
+            var metric = new Metric
             {
-                Metric metric;
-                if (model.AvailableParentMetrics == null || model.AvailableParentMetrics.Count == 0)
+                Name = model.Name,
+                Description = model.Description
+            };
+                
+            if (model.AvailableParentMetrics != null && model.AvailableParentMetrics.Count != 0)
+            {
+                if (!model.ParentMetricId.HasValue) // Ошибка
                 {
-                    metric = await _metricService.AddMetric(model.Name, model.Description, null);
+                    return BadRequest("ParentMetricId is not set");
                 }
-                else
-                {
-                    if (!model.ParentMetricId.HasValue) // Ошибка
-                    {
-                        return BadRequest("Проблемы?");
-                    }
-                    metric = await _metricService.AddMetric(model.Name, model.Description, model.ParentMetricId.Value);
-
-                }
-                var project = await _projectService.GetProjectById(id);
-                _projectService.AddMetric(_accountService.CurrentUserId(), id, metric);
-                //(project.Metrics ??= new List<Metric>()).Add(metric);
+                    
+                metric.ParentMetric = await _metricService.GetMetricById(model.ParentMetricId.Value);
             }
-            return Ok("Работает :D");
+
+            var userOwner = _accountService.CurrentUserId();
+            
+            return Ok(await _projectService.AddMetric(userOwner, id, metric ));
         }
     }
 }

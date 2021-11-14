@@ -12,11 +12,11 @@ namespace Epico.Controllers
     [Authorize]
     public class UserController : Controller
     {
-        private readonly IUserService _userService;
+        private readonly UserService _userService;
 
         public UserController(IServiceProvider serviceProvider)
         {
-            _userService = serviceProvider.GetService(typeof(IUserService)) as IUserService;
+            _userService = serviceProvider.GetService(typeof(UserService)) as UserService;
         }
         public IActionResult Index()
         {

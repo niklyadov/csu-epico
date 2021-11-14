@@ -7,8 +7,8 @@ namespace Epico.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IAccountService _accountService;
-        public AccountController(IAccountService accountService)
+        private readonly AccountService _accountService;
+        public AccountController(AccountService accountService)
         {
             _accountService = accountService;
         }

@@ -7,34 +7,12 @@ using System.Threading.Tasks;
 
 namespace Epico.Services
 {
-    public class MetricService : IMetricService
+    public class MetricService
     {
         private MetricRepository _repository;
         public MetricService(MetricRepository repository)
         {
             _repository = repository;
-        }
-        public async Task<Metric> AddMetric(string name, string description, int? parentMetricId)
-        {
-            Metric metric;
-            if (parentMetricId.HasValue)
-            {
-                metric = new Metric
-                {
-                    Name = name,
-                    Description = description,
-                    ParentMetric = await GetMetricById(parentMetricId.Value)
-                };
-            }
-            else
-            {
-                metric = new Metric
-                {
-                    Name = name,
-                    Description = description
-                };
-            }
-            return await _repository.Add(metric);
         }
 
         public async Task<Metric> GetMetricById(int id)

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Epico.Services
 {
-    public class TaskService : ITaskService
+    public class TaskService
     {
         private readonly TaskRepository _taskRepository;
         public TaskService(TaskRepository taskRepository)

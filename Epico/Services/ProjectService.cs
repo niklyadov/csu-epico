@@ -5,7 +5,7 @@ using Epico.Entity.DAL.Repository;
 
 namespace Epico.Services
 {
-    public class ProjectService : IProjectService
+    public class ProjectService
     {
         private ProjectRepository _repository;
         public ProjectService(ProjectRepository repository)
@@ -42,10 +42,10 @@ namespace Epico.Services
         {
             return await _repository.GetUserProjectWithId(ownerUserId, id);
         }
-
-        public void AddMetric(string ownerUserId, int id, Metric metric)
+        
+        public async Task<Project> AddMetric(string ownerUserId, int id, Metric metric)
         {
-            _repository.AddMetricToProjectWithId(ownerUserId, id , metric);
+            return await _repository.AddMetricToProjectWithId(ownerUserId, id , metric);
         }
     }
 }

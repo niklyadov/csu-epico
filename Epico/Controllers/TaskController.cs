@@ -9,12 +9,12 @@ namespace Epico.Controllers
 {
     public class TaskController : Controller
     {
-        private readonly ITaskService _taskService;
-        private readonly IFeatureService _featureService;
+        private readonly TaskService _taskService;
+        private readonly FeatureService _featureService;
         public TaskController(IServiceProvider serviceProvider)
         {
-            _taskService = serviceProvider.GetService(typeof(ITaskService)) as ITaskService;
-            _featureService = serviceProvider.GetService(typeof(IFeatureService)) as IFeatureService;
+            _taskService = serviceProvider.GetService(typeof(TaskService)) as TaskService;
+            _featureService = serviceProvider.GetService(typeof(FeatureService)) as FeatureService;
         }
         public IActionResult Index()
         {
