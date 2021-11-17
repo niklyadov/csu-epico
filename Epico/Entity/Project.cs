@@ -11,6 +11,7 @@ namespace Epico.Entity
         public string Mission { get; set; }
         public string ProductFormula { get; set; }
         public string OwnerUserId { get; set; }
+        public List<Task> Tasks { get; set; }
         public List<Metric> Metrics { get; set; }
         public List<Sprint> Sprints { get; set; }
         public List<Roadmap> Roadmaps { get; set; }

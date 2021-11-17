@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Epico.Models;
 using Epico.Services;
@@ -19,7 +18,8 @@ namespace Epico.Controllers
             _projectService = serviceProvider.GetService(typeof(ProjectService)) as ProjectService;
             _accountService = serviceProvider.GetService(typeof(AccountService)) as AccountService;
         }
-        
+
+        [Route("[controller]")]
         public async Task<IActionResult> Index()
         {
             var projects = await _projectService.UserProjects(_accountService.CurrentUserId());
@@ -28,6 +28,7 @@ namespace Epico.Controllers
                 Projects = projects
             });
         }
+        [Route("[controller]/{id:int}")]
         public async Task<IActionResult> View(int id)
         {
             //return Ok(await _projectService.GetProjectById(id));

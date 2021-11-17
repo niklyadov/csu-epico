@@ -5,30 +5,28 @@
 }
 
 <div class="text-info">
-    <span>Название продукт: @Model.CurrentProject.Name</span>
+    <span>Название продукта: @Model.CurrentProject.Name</span>
     <br />
-    <span>Виденье продукт: @Model.CurrentProject.Vision</span>
+    <span>Виденье продукта: @Model.CurrentProject.Vision</span>
     <br />
-    <span>Миссия продукт: @Model.CurrentProject.Mission</span>
+    <span>Миссия продукта: @Model.CurrentProject.Mission</span>
     <br />
     <span>Формула продукта: @Model.CurrentProject.ProductFormula</span>
 </div>
 <div class="metrics">
     <h2>Метрики</h2>
-    @foreach(var metric in Model.CurrentProject.Metrics)
+    @foreach (var metric in Model.CurrentProject.Metrics)
     {
-    <span>Название: @metric.Name</span>
-    <span>Описание: @metric.Description</span>
-    <br />
+        <span>Название: @metric.Name</span>
+        <span>Описание: @metric.Description</span>
+        <br />
     }
-    @if(Model.CurrentProject.Metrics.Count == 0)
-    {
-    <button>Добавить новую НСМ метрику</button>
+    @{ 
+    string text = "Добавить новую метрику";
+    if (Model.CurrentProject.Metrics.Count == 0)
+        text = "Добавить новую НСМ метрику";
     }
-    else
-    {
-    <button>Добавить новую метрику</button>
-    }
+    <button onclick="window.location.href='../Metric/New?projectId=@Model.CurrentProject.ID'">@text</button>
 
 </div>
 <div class="sprints">
@@ -39,15 +37,6 @@
     <button>Изменить состояние</button>
     <br />
     }
-    <button>Добавить новый спринт</button>
+    <button onclick="window.location.href='../Sprint/New?projectId=@Model.CurrentProject.ID'">Добавить новый спринт</button>
 
-</div>
-<div class="roadmaps">
-    <h2>Роадмапы</h2>
-    @foreach(var roadmap in Model.CurrentProject.Roadmaps)
-    {
-    <span>@roadmap.Milestone.Starts + "..." + @roadmap.Milestone.Ends</span>
-    <br />
-    }
-    <button>Добавить роадмапу</button>
 </div>

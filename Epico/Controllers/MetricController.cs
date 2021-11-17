@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Epico.Controllers
@@ -30,17 +29,18 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> New(int id)
+        public async Task<IActionResult> New([FromQuery] int projectId)
         {
-            var project = await _projectService.GetProjectById(id);
+            var project = await _projectService.GetProjectById(projectId);
             return View(new NewMetricViewModel
             {
-                AvailableParentMetrics = project.Metrics ??= new List<Metric>()
+                AvailableParentMetrics = project.Metrics ??= new List<Metric>(),
+                ProjectId = projectId
             });
         }
 
         [HttpPost]
-        public async Task<IActionResult> New(int id, NewMetricViewModel model)
+        public async Task<IActionResult> New(NewMetricViewModel model)
         {
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
             
@@ -62,7 +62,7 @@ namespace Epico.Controllers
 
             var userOwner = _accountService.CurrentUserId();
             
-            return Ok(await _projectService.AddMetric(userOwner, id, metric ));
+            return Ok(await _projectService.AddMetric(userOwner, model.ProjectId, metric ));
         }
     }
 }

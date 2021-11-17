@@ -5,6 +5,7 @@
 }
 
 <form method="post" asp-controller="Metric" asp-action="New">
+    <input type="hidden" asp-for="ProjectId"/>
     <div asp-validation-summary="ModelOnly"></div>
     <div>
         <label asp-for="Name">Название</label><br />
@@ -18,7 +19,7 @@
     </div>
     <div>
         <label asp-for="ParentMetricId">Родительская метрика</label><br />
-        <select disabled ="@Model.AvailableParentMetrics.Count.Equals(0)" asp-for="ParentMetricId">
+        <select disabled="@Model.AvailableParentMetrics.Count.Equals(0)" asp-for="ParentMetricId">
             @foreach (var item in Model.AvailableParentMetrics)
             {
                 <option value="@item.ID">@item.Name</option>

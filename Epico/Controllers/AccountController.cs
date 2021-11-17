@@ -28,7 +28,7 @@ namespace Epico.Controllers
         {
             if (ModelState.IsValid && await _accountService.Login(model.Username, model.Password))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Project");
             }
 
             return BadRequest();
@@ -39,7 +39,7 @@ namespace Epico.Controllers
         {
             if (ModelState.IsValid && await _accountService.Register(model.Username, model.Password))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("New", "Project");
             }
             
             return BadRequest();
