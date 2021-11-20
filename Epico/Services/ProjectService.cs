@@ -7,7 +7,7 @@ namespace Epico.Services
 {
     public class ProjectService
     {
-        private ProjectRepository _repository;
+        private readonly ProjectRepository _repository;
         public ProjectService(ProjectRepository repository)
         {
             _repository = repository;

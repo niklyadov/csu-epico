@@ -3,6 +3,7 @@ using Epico.Entity.DAL.Repository;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Task = Epico.Entity.Task;
 
 namespace Epico.Services
 {
@@ -13,15 +14,34 @@ namespace Epico.Services
         {
             _taskRepository = taskRepository;
         }
-        public async Task<Entity.Task> AddTask(string name, string description, DateTime deadLine)
+        public async Task<Entity.Task> AddTask(string name, string description, List<User> team, DateTime deadLine)
         {
-            return await _taskRepository.Add(new Entity.Task
+            try
             {
-                Name = name,
-                Description = description,
-                DeadLine = deadLine,
-                State = TaskState.NotStarted
-            });
+                return await _taskRepository.Add(new Entity.Task
+                {
+                    Name = name,
+                    Description = description,
+                    DeadLine = deadLine,
+                    State = TaskState.NotStarted,
+                    Team = team
+                });
+            } catch (Exception exception)
+            {
+                // логирование :D
+            }
+
+            return null;
+        }
+        
+        public async Task<List<Task>> GetTaskList()
+        {
+            return await _taskRepository.GetAll();
+        }
+        
+        public async Task<List<Task>> GetTaskListByIds(List<int> ids)
+        {
+            return await _taskRepository.GetByIds(ids);
         }
     }
 }
