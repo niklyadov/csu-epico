@@ -15,11 +15,13 @@ namespace Epico.Controllers
         private readonly ProjectService _projectService;
         private readonly SprintService _sprintService;
         private readonly TaskService _taskService;
+        private readonly FeatureService _featureService;
         public SprintController(IServiceProvider serviceProvider)
         {
             _projectService = serviceProvider.GetService(typeof(ProjectService)) as ProjectService;
             _sprintService = serviceProvider.GetService(typeof(SprintService)) as SprintService;
             _taskService = serviceProvider.GetService(typeof(TaskService)) as TaskService;
+            _featureService = serviceProvider.GetService(typeof(FeatureService)) as FeatureService;
         }
         public IActionResult Index()
         {
@@ -30,19 +32,10 @@ namespace Epico.Controllers
         public async Task<IActionResult> New([FromQuery] int projectId)
         {
             //var project = await _projectService.GetProjectById(projectId);
-            // заменить на базу
-            var features = new List<Feature> 
-            { 
-                new Feature { Name = "фича 1", ID = 1 }, 
-                new Feature { Name = "фича 2", ID = 2 },
-                new Feature { Name = "фича 3", ID = 3 },
-                new Feature { Name = "фича 4", ID = 4 },
-                new Feature { Name = "фича 5", ID = 5 },
-            };
             return View(new NewSprintViewModel
             {
                 ProjectID = projectId,
-                PosibleFeatures = features
+                PosibleFeatures =  await _featureService.GetFeaturesList()
             });
         }
 

@@ -24,5 +24,10 @@ namespace Epico.Services
                 State = FeatureState.NotStarted
             });
         }
+
+        public async Task<List<Feature>> GetFeaturesList()
+        {
+            return await _featureRepository.GetAll();
+        }
     }
 }

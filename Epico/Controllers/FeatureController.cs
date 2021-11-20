@@ -29,28 +29,11 @@ namespace Epico.Controllers
         [HttpGet]
         public async Task<IActionResult> New([FromQuery] int projectId)
         {
-            // заменить на базу
-            var tasks = new List<Entity.Task>
-            {
-                new Entity.Task { Name = "задача 1", ID = 1 },
-                new Entity.Task { Name = "задача 2", ID = 2 },
-                new Entity.Task { Name = "задача 3", ID = 3 },
-                new Entity.Task { Name = "задача 4", ID = 4 },
-                new Entity.Task { Name = "задача 5", ID = 5 },
-            };
-            var metrics = new List<Metric>
-            {
-                new Metric { Name = "метрика 1" , ID = 1 },
-                new Metric { Name = "метрика 2" , ID = 2 },
-                new Metric { Name = "метрика 3" , ID = 3 },
-                new Metric { Name = "метрика 4" , ID = 4 },
-                new Metric { Name = "метрика 5" , ID = 5 },
-            };
             return View(new NewFeatureViewModel
             {
                 ProjectId = projectId,
-                PosibleTasks = tasks,
-                PosibleMetrics = metrics
+                PosibleTasks = await _taskService.GetTaskList(),
+                PosibleMetrics = await _metricService.GetMetricList()
             });
         }
 
@@ -60,16 +43,8 @@ namespace Epico.Controllers
             if (ModelState.IsValid)
             {
                 // Вытаскивать задачи и метрики по Id из модели
-                var tasks = new List<Entity.Task> 
-                { 
-                    new Entity.Task { Name = "задача 1" }, 
-                    new Entity.Task { Name = "задача 2" } 
-                };
-                var metrics = new List<Metric> 
-                { 
-                    new Metric { Name = "Метрика 1" },
-                    new Metric { Name = "Метрика 1" } 
-                };
+                var tasks = await _taskService.GetTaskListByIds(model.Tasks);
+                var metrics =  await _metricService.GetMetricListByIds(model.Tasks);
 
                 await _featureService.AddFeature(model.Name, model.Description, model.Hypothesis, tasks, metrics);
             }

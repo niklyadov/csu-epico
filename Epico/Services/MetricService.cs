@@ -9,15 +9,25 @@ namespace Epico.Services
 {
     public class MetricService
     {
-        private MetricRepository _repository;
+        private readonly MetricRepository _metricRepository;
         public MetricService(MetricRepository repository)
         {
-            _repository = repository;
+            _metricRepository = repository;
         }
 
         public async Task<Metric> GetMetricById(int id)
         {
-            return await _repository.GetById(id);
+            return await _metricRepository.GetById(id);
+        }
+        
+        public async Task<List<Metric>> GetMetricList()
+        {
+            return await _metricRepository.GetAll();
+        }
+        
+        public async Task<List<Metric>> GetMetricListByIds(List<int> ids)
+        {
+            return await _metricRepository.GetByIds(ids);
         }
     }
 }

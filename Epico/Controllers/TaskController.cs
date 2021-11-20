@@ -11,9 +11,11 @@ namespace Epico.Controllers
     public class TaskController : Controller
     {
         private readonly TaskService _taskService;
+        private readonly UserService _userService;
         public TaskController(IServiceProvider serviceProvider)
         {
             _taskService = serviceProvider.GetService(typeof(TaskService)) as TaskService;
+            _userService = serviceProvider.GetService(typeof(UserService)) as UserService;
         }
         public IActionResult Index()
         {
@@ -21,20 +23,11 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> New([FromQuery] int projectId)
+        public async Task<IActionResult> New()
         {
-            // заменить на базу
-            var users = new List<User>
-                {
-                    new User{ Id = "1", UserName = "Юзер 1" },
-                    new User{ Id = "2", UserName = "Юзер 2" },
-                    new User{ Id = "3", UserName = "Юзер 3" },
-                };
             return View(new NewTaskViewModel 
-            {
-                ProjectId = projectId,
-                PosibleUsers = users
-                
+            { 
+                PosibleUsers = await _userService.GetUsersList()
             });
         }
 
@@ -43,8 +36,8 @@ namespace Epico.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Тест                
-                await _taskService.AddTask(model.Name, model.Description, model.DeadLine);
+                var team = new List<User>();
+                await _taskService.AddTask(model.Name, model.Description, team, model.DeadLine);
             }
             return Ok("Задача создана");
         }
