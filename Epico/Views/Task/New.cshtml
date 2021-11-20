@@ -15,14 +15,12 @@
         <span asp-validation-for="Description"></span>
     </div>
     <div>
-        <label asp-for="TeamId">Выбор команды</label><br />
-        <select asp-for="TeamId">
-            @foreach (var team in Model.PosibleTeams)
-            {
-                <option value="@team.ID">@team.Name</option>
-            }
-        </select>
-        <span asp-validation-for="TeamId"></span>
+        <label asp-for="Users">Выбор команды</label><br />
+        @foreach (var user in Model.PosibleUsers)
+        {
+            <input type="checkbox" value="@user.Id" name="Users"/>@user.UserName <br/>
+        }
+        <span asp-validation-for="Users"></span>
     </div>
     <div>
         <label asp-for="DeadLine">Дедлайн</label><br />

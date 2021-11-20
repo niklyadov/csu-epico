@@ -24,9 +24,9 @@ namespace Epico.Entity.DAL.Repository
         {
             return await _dbContext.Projects
                 .Where(p => p.OwnerUserId == ownerUserId && p.ID == projectId)
-                .Include(x => x.Metrics)
+                //.Include(x => x.Metrics)
                 .Include(x => x.Sprints)
-                .Include(x => x.Roadmaps)
+                //.Include(x => x.Roadmaps)
                 .SingleAsync();
         }
 
@@ -35,8 +35,8 @@ namespace Epico.Entity.DAL.Repository
             var project = await _dbContext.Projects
                 .Where(p => p.OwnerUserId == ownerUserId && p.ID == projectId)
                 .SingleAsync();
-            project.Metrics ??= new List<Metric>();
-            project.Metrics.Add(metric);
+            //project.Metrics ??= new List<Metric>();
+            //project.Metrics.Add(metric);
             
             _dbContext.Entry(project).State = EntityState.Modified;
             
@@ -60,13 +60,13 @@ namespace Epico.Entity.DAL.Repository
             return project;
         }
         
-        public async Task<Project> AddRoadmapToProjectWithId(string ownerUserId, int projectId, Roadmap roadmap)
+        public async Task<Project> AddRoadmapToProjectWithId(string ownerUserId, int projectId)
         {
             var project = await _dbContext.Projects
                 .Where(p => p.OwnerUserId == ownerUserId && p.ID == projectId)
                 .SingleAsync();
-            project.Roadmaps ??= new List<Roadmap>();
-            project.Roadmaps.Add(roadmap);
+            //project.Roadmaps ??= new List<Roadmap>();
+            //project.Roadmaps.Add(roadmap);
             
             _dbContext.Entry(project).State = EntityState.Modified;
             

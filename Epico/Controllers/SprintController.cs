@@ -11,11 +11,14 @@ namespace Epico.Controllers
     [Authorize]
     public class SprintController : Controller
     {
+        private readonly ProjectService _projectService;
         private readonly SprintService _sprintService;
         private readonly TaskService _taskService;
         public SprintController(IServiceProvider serviceProvider)
         {
+            _projectService = serviceProvider.GetService(typeof(ProjectService)) as ProjectService;
             _sprintService = serviceProvider.GetService(typeof(SprintService)) as SprintService;
+            _taskService = serviceProvider.GetService(typeof(TaskService)) as TaskService;
         }
         public IActionResult Index()
         {
@@ -23,14 +26,15 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> New()
+        public async Task<IActionResult> New([FromQuery] int projectId)
         {
+            var project = await _projectService.GetProjectById(projectId);
             return View(new NewSprintViewModel
-            { 
-                PosibleTasks = new List<Entity.Task> //  для теста
-                { new Entity.Task { Name = "задача1" }, new Entity.Task { Name = "задача2" } } // await _taskService.GetTasks()
+            {
+                ProjectID = projectId
             });
         }
+
         [HttpPost]
         public async Task<IActionResult> New(NewSprintViewModel model)
         {

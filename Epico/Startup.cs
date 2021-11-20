@@ -37,10 +37,8 @@ namespace Epico
             services.AddScoped<FeatureRepository>();
             services.AddScoped<MetricRepository>();
             services.AddScoped<ProjectRepository>();
-            services.AddScoped<RoadmapRepository>();
             services.AddScoped<SprintRepository>();
             services.AddScoped<TaskRepository>();
-            services.AddScoped<TeamRepository>();
             services.AddScoped<UserRepository>();
             
             #region Authentification
@@ -70,7 +68,6 @@ namespace Epico
             services.AddScoped<ProjectService>();
             services.AddScoped<MetricService>();
             services.AddScoped<UserService>();
-            services.AddScoped<TeamService>();
             services.AddScoped<FeatureService>();
             services.AddScoped<TaskService>();
             services.AddScoped<SprintService>();

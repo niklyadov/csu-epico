@@ -22,9 +22,7 @@ namespace Epico.Services
                 Mission = mission,
                 ProductFormula = productFormula,
                 OwnerUserId = ownerUserId,
-                Metrics = new List<Metric>(),
-                Sprints = new List<Sprint>(),
-                Roadmaps = new List<Roadmap>()
+                Sprints = new List<Sprint>()
             }) ;
         }
 
@@ -53,9 +51,9 @@ namespace Epico.Services
             return await _repository.AddSprintToProjectWithId(ownerUserId, projectId, sprint);
         }
         
-        public async Task<Project> AddRoadmap(string ownerUserId, int projectId, Roadmap roadmap)
+        public async Task<Project> AddRoadmap(string ownerUserId, int projectId)
         {
-            return await _repository.AddRoadmapToProjectWithId(ownerUserId, projectId, roadmap);
+            return await _repository.AddRoadmapToProjectWithId(ownerUserId, projectId);
         }
     }
 }

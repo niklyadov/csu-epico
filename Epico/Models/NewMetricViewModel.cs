@@ -11,6 +11,6 @@ namespace Epico.Models
         public string Description { get; set; }
         public int? ParentMetricId { get; set; }
         public int ProjectId { get; set; }
-        public List<Metric> AvailableParentMetrics { get; set; }
+        public List<Metric> PosibleParentMetrics { get; set; }
     }
 }

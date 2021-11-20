@@ -11,11 +11,9 @@ namespace Epico.Controllers
     public class TaskController : Controller
     {
         private readonly TaskService _taskService;
-        private readonly TeamService _teamService;
         public TaskController(IServiceProvider serviceProvider)
         {
             _taskService = serviceProvider.GetService(typeof(TaskService)) as TaskService;
-            _teamService = serviceProvider.GetService(typeof(TeamService)) as TeamService;
         }
         public IActionResult Index()
         {
@@ -27,8 +25,13 @@ namespace Epico.Controllers
         {
             return View(new NewTaskViewModel 
             { 
-                PosibleTeams = new List<Team> // Для теста
-                { new Team { Name = "фича1" }, new Team { Name = "фича2" } } // await _featureService.GetTeams()
+                PosibleUsers = new List<User> // для теста норм работает. Прикрутить тут базу юзеров
+                {
+                    new User{ Id = "1", UserName = "Первый" },
+                    new User{ Id = "2", UserName = "Второй" },
+                    new User{ Id = "3", UserName = "Третий" },
+                }
+                
             });
         }
 
@@ -38,8 +41,7 @@ namespace Epico.Controllers
             if (ModelState.IsValid)
             {
                 // Тест                
-                var team = new Team(); // await _teamService.GetTeamById(model.TeamId);
-                await _taskService.AddTask(model.Name, model.Description, team, model.DeadLine);
+                await _taskService.AddTask(model.Name, model.Description, model.DeadLine);
             }
             return Ok("Задача создана");
         }

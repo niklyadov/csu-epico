@@ -19,8 +19,8 @@
     </div>
     <div>
         <label asp-for="ParentMetricId">Родительская метрика</label><br />
-        <select disabled="@Model.AvailableParentMetrics.Count.Equals(0)" asp-for="ParentMetricId">
-            @foreach (var item in Model.AvailableParentMetrics)
+        <select disabled="@Model.PosibleParentMetrics.Count.Equals(0)" asp-for="ParentMetricId">
+            @foreach (var item in Model.PosibleParentMetrics)
             {
                 <option value="@item.ID">@item.Name</option>
             }

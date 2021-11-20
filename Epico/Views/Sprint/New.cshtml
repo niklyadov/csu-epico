@@ -5,6 +5,7 @@
 }
 
 <form method="post" asp-controller="Sprint" asp-action="New">
+    <input type="hidden" asp-for="ProjectID" />
     <div asp-validation-summary="ModelOnly"></div>
     <div>
         <label asp-for="Name">Название Спринта</label><br />
@@ -12,14 +13,14 @@
         <span asp-validation-for="Name"></span>
     </div>
     <div>
-        <label asp-for="TasksId">Тип команды</label><br />
-        <select asp-for="TasksId">
-            @foreach (var task in Model.PosibleTasks)
+        <label asp-for="FeatureId">Тип команды</label><br />
+        <select asp-for="FeatureId">
+            @foreach (var feature in Model.PosibleFeatures)
             {
-                <option value="@task.ID">@task.Name</option>
+                <option value="@feature.ID">@feature.Name</option>
             }
         </select>
-        <span asp-validation-for="TasksId"></span>
+        <span asp-validation-for="FeatureId"></span>
     </div>
     <div>
         <input type="submit" value="Создать" />

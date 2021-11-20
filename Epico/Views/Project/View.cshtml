@@ -15,17 +15,18 @@
 </div>
 <div class="metrics">
     <h2>Метрики</h2>
-    @foreach (var metric in Model.CurrentProject.Metrics)
+    @*@foreach (var metric in Model.CurrentProject.Metrics)
     {
         <span>Название: @metric.Name</span>
         <span>Описание: @metric.Description</span>
         <br />
-    }
-    @{ 
-    string text = "Добавить новую метрику";
+    }*@
+    @*@{ 
+    
     if (Model.CurrentProject.Metrics.Count == 0)
         text = "Добавить новую НСМ метрику";
-    }
+    }*@
+    @{string text = "Добавить новую метрику"; }
     <button onclick="window.location.href='../Metric/New?projectId=@Model.CurrentProject.ID'">@text</button>
 
 </div>

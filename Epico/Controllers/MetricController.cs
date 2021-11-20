@@ -34,7 +34,6 @@ namespace Epico.Controllers
             var project = await _projectService.GetProjectById(projectId);
             return View(new NewMetricViewModel
             {
-                AvailableParentMetrics = project.Metrics ??= new List<Metric>(),
                 ProjectId = projectId
             });
         }
@@ -50,7 +49,7 @@ namespace Epico.Controllers
                 Description = model.Description
             };
                 
-            if (model.AvailableParentMetrics != null && model.AvailableParentMetrics.Count != 0)
+            if (model.PosibleParentMetrics != null && model.PosibleParentMetrics.Count != 0)
             {
                 if (!model.ParentMetricId.HasValue) // Ошибка
                 {

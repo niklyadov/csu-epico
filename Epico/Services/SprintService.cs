@@ -16,8 +16,7 @@ namespace Epico.Services
         {
             return await _sprintRepository.Add(new Sprint
             {
-                Name = name,
-                Tasks = tasks
+                Name = name
             });
         }
     }
