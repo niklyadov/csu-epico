@@ -4,6 +4,7 @@
 }
 
 <form method="post" asp-controller="Feature" asp-action="New">
+    <input type="hidden" asp-for="ProjectId"/>
     <div asp-validation-summary="ModelOnly"></div>
     <div>
         <label asp-for="Name">Название фичи</label><br />
@@ -21,24 +22,20 @@
         <span asp-validation-for="Hypothesis"></span>
     </div>
     <div>
-        <label asp-for="TaskId">Выбор задачи</label><br />
-        <select asp-for="TaskId">
-            @foreach (var task in Model.PosibleTasks)
-            {
-                <option value="@task.ID">@task.Name</option>
-            }
-        </select>
-        <span asp-validation-for="TaskId"></span>
+        <label asp-for="Tasks">Выбор задачи</label><br />
+        @foreach (var task in Model.PosibleTasks)
+        {
+            <input type="checkbox" value="@task.ID" name="Tasks" />@task.Name <br />
+        }
+        <span asp-validation-for="Tasks"></span>
     </div>
     <div>
-        <label asp-for="MetricId">Выбор метрик</label><br />
-        <select asp-for="MetricId">
-            @foreach (var metric in Model.PosibleMetrics)
-            {
-                <option value="@metric.ID">@metric.Name</option>
-            }
-        </select>
-        <span asp-validation-for="MetricId"></span>
+        <label asp-for="Metrics">Выбор метрик</label><br />
+        @foreach (var metric in Model.PosibleMetrics)
+        {
+            <input type="checkbox" value="@metric.ID" name="Metrics" />@metric.Name <br />
+        }
+        <span asp-validation-for="Metrics"></span>
     </div>
     <div>
         <input type="submit" value="Создать" />

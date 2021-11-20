@@ -8,6 +8,7 @@ namespace Epico.Models
 {
     public class NewTaskViewModel
     {
+        public int ProjectId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         //public int TeamId { get; set; } // List<Feature> несколько фич в одной задаче

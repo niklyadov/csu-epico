@@ -13,14 +13,12 @@
         <span asp-validation-for="Name"></span>
     </div>
     <div>
-        <label asp-for="FeatureId">Тип команды</label><br />
-        <select asp-for="FeatureId">
-            @foreach (var feature in Model.PosibleFeatures)
-            {
-                <option value="@feature.ID">@feature.Name</option>
-            }
-        </select>
-        <span asp-validation-for="FeatureId"></span>
+        <label asp-for="Features">Фичи для спринта</label><br />
+        @foreach (var feature in Model.PosibleFeatures)
+        {
+            <input type="checkbox" value="@feature.ID" name="Features" />@feature.Name <br />
+        }
+        <span asp-validation-for="Features"></span>
     </div>
     <div>
         <input type="submit" value="Создать" />

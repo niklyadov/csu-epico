@@ -31,10 +31,21 @@ namespace Epico.Controllers
         [HttpGet]
         public async Task<IActionResult> New([FromQuery] int projectId)
         {
-            var project = await _projectService.GetProjectById(projectId);
+            //var project = await _projectService.GetProjectById(projectId);
+
+            //заменить на базу
+            var metrics = new List<Metric> 
+            {
+                new Metric { Name = "метрика 1", ID = 1 }, 
+                new Metric { Name = "метрика 2", ID = 2 },
+                new Metric { Name = "метрика 3", ID = 3 },
+                new Metric { Name = "метрика 4", ID = 4 },
+                new Metric { Name = "метрика 5", ID = 5 },
+            };
             return View(new NewMetricViewModel
             {
-                ProjectId = projectId
+                ProjectId = projectId,
+                PosibleParentMetrics = metrics
             });
         }
 
@@ -56,7 +67,7 @@ namespace Epico.Controllers
                     return BadRequest("ParentMetricId is not set");
                 }
                     
-                metric.ParentMetric = await _metricService.GetMetricById(model.ParentMetricId.Value);
+                metric.ParentMetricId = model.ParentMetricId.Value;
             }
 
             var userOwner = _accountService.CurrentUserId();

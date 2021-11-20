@@ -4,6 +4,7 @@
 }
 
 <form method="post" asp-controller="Task" asp-action="New">
+    <input type="hidden" asp-for="ProjectId"/>
     <div>
         <label asp-for="Name">Название задачи</label><br />
         <input asp-for="Name" />
@@ -15,7 +16,7 @@
         <span asp-validation-for="Description"></span>
     </div>
     <div>
-        <label asp-for="Users">Выбор команды</label><br />
+        <label asp-for="Users">Команда для задачи</label><br />
         @foreach (var user in Model.PosibleUsers)
         {
             <input type="checkbox" value="@user.Id" name="Users"/>@user.UserName <br/>

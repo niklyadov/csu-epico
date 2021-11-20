@@ -1,4 +1,5 @@
-﻿using Epico.Models;
+﻿using Epico.Entity;
+using Epico.Models;
 using Epico.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -28,10 +29,20 @@ namespace Epico.Controllers
         [HttpGet]
         public async Task<IActionResult> New([FromQuery] int projectId)
         {
-            var project = await _projectService.GetProjectById(projectId);
+            //var project = await _projectService.GetProjectById(projectId);
+            // заменить на базу
+            var features = new List<Feature> 
+            { 
+                new Feature { Name = "фича 1", ID = 1 }, 
+                new Feature { Name = "фича 2", ID = 2 },
+                new Feature { Name = "фича 3", ID = 3 },
+                new Feature { Name = "фича 4", ID = 4 },
+                new Feature { Name = "фича 5", ID = 5 },
+            };
             return View(new NewSprintViewModel
             {
-                ProjectID = projectId
+                ProjectID = projectId,
+                PosibleFeatures = features
             });
         }
 

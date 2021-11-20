@@ -21,16 +21,19 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> New()
+        public async Task<IActionResult> New([FromQuery] int projectId)
         {
-            return View(new NewTaskViewModel 
-            { 
-                PosibleUsers = new List<User> // для теста норм работает. Прикрутить тут базу юзеров
+            // заменить на базу
+            var users = new List<User>
                 {
-                    new User{ Id = "1", UserName = "Первый" },
-                    new User{ Id = "2", UserName = "Второй" },
-                    new User{ Id = "3", UserName = "Третий" },
-                }
+                    new User{ Id = "1", UserName = "Юзер 1" },
+                    new User{ Id = "2", UserName = "Юзер 2" },
+                    new User{ Id = "3", UserName = "Юзер 3" },
+                };
+            return View(new NewTaskViewModel 
+            {
+                ProjectId = projectId,
+                PosibleUsers = users
                 
             });
         }

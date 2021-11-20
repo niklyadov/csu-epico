@@ -5,39 +5,50 @@
 }
 
 <div class="text-info">
-    <span>Название продукта: @Model.CurrentProject.Name</span>
+    <span>Название продукта: @Model.Name</span>
     <br />
-    <span>Виденье продукта: @Model.CurrentProject.Vision</span>
+    <span>Виденье продукта: @Model.Vision</span>
     <br />
-    <span>Миссия продукта: @Model.CurrentProject.Mission</span>
+    <span>Миссия продукта: @Model.Mission</span>
     <br />
-    <span>Формула продукта: @Model.CurrentProject.ProductFormula</span>
+    <span>Формула продукта: @Model.ProductFormula</span>
 </div>
 <div class="metrics">
     <h2>Метрики</h2>
-    @*@foreach (var metric in Model.CurrentProject.Metrics)
+    @foreach (var metric in Model.Metrics)
     {
         <span>Название: @metric.Name</span>
         <span>Описание: @metric.Description</span>
         <br />
-    }*@
-    @*@{ 
-    
-    if (Model.CurrentProject.Metrics.Count == 0)
-        text = "Добавить новую НСМ метрику";
-    }*@
-    @{string text = "Добавить новую метрику"; }
-    <button onclick="window.location.href='../Metric/New?projectId=@Model.CurrentProject.ID'">@text</button>
+    }
+    @{ 
+        string text = (Model.Metrics.Count == 0) ? "Добавить новую НСМ метрику" : "Добавить новую метрику";
+    }
+    <button onclick="window.location.href = '../Metric/New?projectId=@Model.ProjectId'">@text</button>
 
 </div>
 <div class="sprints">
     <h2>Спринты</h2>
-    @foreach(var sprint in Model.CurrentProject.Sprints)
+    @foreach(var sprint in Model.Sprints)
     {
-    <span>Название: @sprint.Name</span>
-    <button>Изменить состояние</button>
-    <br />
+        <span>Название: @sprint.Name</span><br />
     }
-    <button onclick="window.location.href='../Sprint/New?projectId=@Model.CurrentProject.ID'">Добавить новый спринт</button>
+    <button onclick="window.location.href='../Sprint/New?projectId=@Model.ProjectId'">Добавить новый спринт</button>
 
+</div>
+<div class="features">
+    <h2>Фичи</h2>
+    @foreach (var feature in Model.Features)
+    {
+        <span>Название: @feature.Name</span><br />
+    }
+    <button onclick="window.location.href='../Feature/New?projectId=@Model.ProjectId'">Добавить новую фичу</button>
+</div>
+<div class="tasks">
+    <h2>Задачи</h2>
+    @foreach (var task in Model.Tasks)
+    {
+        <span>Название: @task.Name</span><br />
+    }
+    <button onclick="window.location.href='../Task/New?projectId=@Model.ProjectId'">Добавить новую задачу</button>
 </div>
