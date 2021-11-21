@@ -20,6 +20,12 @@ namespace Epico.Services
             });
         }
 
+        public async Task<Sprint> UpdateSprint(int id, string name, List<Feature> features)
+        {
+            // todo прикрутить изменение спринта в базе
+            return null;
+        }
+
         public async Task<Sprint> DeleteSprint(int id)
         {
             // todo прикрутить удаление спринта из базы

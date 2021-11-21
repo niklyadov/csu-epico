@@ -1,0 +1,26 @@
+﻿@model EditSprintViewModel
+
+@{
+    ViewBag.Title = "Изменение спринта";
+}
+
+<form method="post" asp-controller="Sprint" asp-action="Edit">
+    <input type="hidden" asp-for="ProjectID" />
+    <div asp-validation-summary="ModelOnly"></div>
+    <div>
+        <label asp-for="Name">Название Спринта</label><br />
+        <input asp-for="Name" value="@Model.Name"/>
+        <span asp-validation-for="Name"></span>
+    </div>
+    <div>
+        <label asp-for="Features">Фичи для спринта</label><br />
+        @foreach (var feature in Model.PosibleFeatures)
+        {
+            <input type="checkbox" value="@feature.ID" name="Features" @Html.Raw(Model.Features.Contains(feature.ID) ? "checked" : "") />@feature.Name <br />
+        }
+        <span asp-validation-for="Features"></span>
+    </div>
+    <div>
+        <input type="submit" value="Создать" />
+    </div>
+</form>
