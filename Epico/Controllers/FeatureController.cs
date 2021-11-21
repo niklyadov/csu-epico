@@ -58,18 +58,8 @@ namespace Epico.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit([FromQuery] int projectId, [FromQuery] int featureId)
         {
-            // todo прикрутить вытаскивание из базы для обновления
-            var feature = new Feature
-            {
-                ID = featureId,
-                Name = "фича 123 тест",
-                Description = "Опиание фичи 123 тест",
-                Hypothesis = "Гипотеза фичи 123 тест",
-                State = FeatureState.NotStarted,
-                Roadmap = RoadmapType.DoNow,
-                Metric = new List<Metric>(),
-                Tasks = new List<Entity.Task>()
-            };
+            var feature = await FeatureService.GetFeature(featureId);
+            
             return View(new EditFeatureViewModel
             {
                 ID = feature.ID,
@@ -95,15 +85,23 @@ namespace Epico.Controllers
             var tasks = await TaskService.GetTaskListByIds(model.Tasks);
             var metrics = await MetricService.GetMetricListByIds(model.Metrics);
 
-            await FeatureService.UpdateFeature(model.Name, model.Description, model.Hypothesis, tasks, metrics);
+            await FeatureService.UpdateFeature(new Feature()
+            {
+                ID = model.ID,
+                Name = model.Name,
+                Description = model.Description,
+                Hypothesis = model.Hypothesis,
+                Metric = metrics,
+                Tasks = tasks,
+                State = model.State
+            });
             return Ok("Фича изменена");
         }
 
         public async Task<IActionResult> Delete([FromQuery] int featureId)
         {
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
-
-            // todo Прикрутить удаление фичи из базы
+            
             await FeatureService.DeleteFeature(featureId);
             return Ok("Фича удалена");
         }

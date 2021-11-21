@@ -33,17 +33,20 @@ namespace Epico.Services
 
             return null;
         }
-
-        public async Task<Entity.Task> UpdateTask(int id, string name, string description, List<User> team, DateTime deadLine)
+        
+        public async Task<Task> GetTaskById(int id)
         {
-            // todo прикрутить изменение задачи в базе
-            return null;
+            return await _taskRepository.GetById(id);
+        }
+
+        public async Task<Entity.Task> UpdateTask(Task task)
+        {
+            return await _taskRepository.Update(task);
         }
 
         public async Task<Entity.Task> DeleteTask(int id)
         {
-            // todo прикрутить удаление задачи из базы
-            return null;
+            return await _taskRepository.Delete(id);
         }
 
         public async Task<List<Task>> GetTaskList()

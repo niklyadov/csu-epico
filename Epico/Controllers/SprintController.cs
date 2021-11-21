@@ -41,8 +41,7 @@ namespace Epico.Controllers
             
             if (ModelState.IsValid)
             {
-                // todo прикрутить вытаскивание фич по айдишкам
-                var features = new List<Feature> { new Feature() };
+                var features = await FeatureService.GetFeaturesListByIds(model.Features);
 
                 await ProjectService.AddSprint(model.ProjectID, new Sprint
                 {
@@ -57,13 +56,7 @@ namespace Epico.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit([FromQuery] int projectId, [FromQuery] int sprintId)
         {
-            // todo прикрутить вытаскивание из базы
-            var sprint = new Sprint
-            {
-                ID = 123,
-                Name = "Спринт 123",
-                Features = new List<Feature>()
-            };
+            var sprint = await SprintService.GetSprintById(sprintId);
 
             return View(new EditSprintViewModel
             {
@@ -80,9 +73,13 @@ namespace Epico.Controllers
         {
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
 
-            // todo прикрутить вытаскивание фич по айдишкам
-            var features = new List<Feature> { new Feature() };
-            await SprintService.UpdateSprint(model.ID, model.Name, features);
+            var features = await FeatureService.GetFeaturesListByIds(model.Features);
+            await SprintService.UpdateSprint(new Sprint()
+            {
+                ID = model.ID, 
+                Name = model.Name,
+                Features = features
+            });
             return Ok("Спринт изменён");
         }
 
@@ -90,7 +87,6 @@ namespace Epico.Controllers
         {
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
 
-            // todo Прикрутить удаление спринта из базы
             await SprintService.DeleteSprint(sprintId);
             return Ok("Спринт удалён");
         }

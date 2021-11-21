@@ -56,23 +56,8 @@ namespace Epico.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit([FromQuery] int projectId, [FromQuery] int metricId)
         {
-            // todo заменить на вытаскивание из базы
-            var metric = new Metric
-            {
-                ID = 123,
-                Name = "метрика 123 тест",
-                Description = "описание метрики 123 тест",
-                ParentMetricId = 122
-            };
-            // todo заменить на вытаскивание из базы
-            var posibleParentMetrics = new List<Metric>
-            {
-                new Metric { Name = "метрика 1", ID = 1 },
-                new Metric { Name = "метрика 2", ID = 2 },
-                new Metric { Name = "метрика 3", ID = 3 },
-                new Metric { Name = "метрика 4", ID = 4 },
-                new Metric { Name = "метрика 5", ID = 5 },
-            };
+            var metric = await MetricService.GetMetricById(metricId);
+            var possibleParentMetrics = await MetricService.GetMetricList();
             return View(new EditMetricViewModel
             {
                 ID = metric.ID,
@@ -80,7 +65,7 @@ namespace Epico.Controllers
                 Description = metric.Description,
                 ParentMetricId = metric.ParentMetricId,
                 ProjectId = projectId,
-                PosibleParentMetrics = posibleParentMetrics
+                PosibleParentMetrics = possibleParentMetrics
             });
         }
 
@@ -89,7 +74,13 @@ namespace Epico.Controllers
         {
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
 
-            await MetricService.UpdateMetric(model.ID, model.Name, model.Description, model.ParentMetricId);
+            await MetricService.UpdateMetric(new Metric()
+            {
+                ID = model.ID, 
+                Name = model.Name, 
+                Description = model.Description, 
+                ParentMetricId = model.ParentMetricId
+            });
             return Ok("Метрика изменена");
         }
 
@@ -97,7 +88,6 @@ namespace Epico.Controllers
         {
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
 
-            // todo Прикрутить удаление метрики из базы
             await MetricService.DeleteMetric(metricId);
             return Ok("Метрика удалена");
         }

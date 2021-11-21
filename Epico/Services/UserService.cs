@@ -31,8 +31,7 @@ namespace Epico.Services
 
         public async Task<User> DeleteUser(string id)
         {
-            // todo прикрутить удаление юзера из базы
-            return null;
+            return await _repository.Delete(id);
         }
         
         public async Task<List<User>> GetUsersListByIds(List<string> ids)

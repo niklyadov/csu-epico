@@ -13,22 +13,30 @@ namespace Epico.Services
         {
             _featureRepository = featureRepository;
         }
-
-        public async Task<Feature> UpdateFeature(string name, string description, string hypothesis, List<Entity.Task> tasks, List<Metric> metric)
+        
+        public async Task<Feature> GetFeature(int featureId)
         {
-            // todo прикрутить обновление в базе
-            return null;
+            return await _featureRepository.GetById(featureId);
+        }
+
+        public async Task<Feature> UpdateFeature(Feature feature)
+        {
+            return await _featureRepository.Update(feature);
         }
 
         public async Task<List<Feature>> GetFeaturesList()
         {
             return await _featureRepository.GetAll();
         }
+        
+        public async Task<List<Feature>> GetFeaturesListByIds(List<int> ids)
+        {
+            return await _featureRepository.GetByIds(ids);
+        }
 
         public async Task<Feature> DeleteFeature(int featureId)
         {
-            // todo прикрутить удаление фичи из базы
-            return null;
+            return await _featureRepository.Delete(featureId);
         }
     }
 }

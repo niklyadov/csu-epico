@@ -31,8 +31,7 @@ namespace Epico.Services
 
         public async Task<Project> DeleteProject(int projectId)
         {
-            // todo прикрутить удаление проекта из базы
-            return null;
+            return await _projectRepository.Delete(projectId);
         }
 
         public async Task<Project> GetProjectById(int id)

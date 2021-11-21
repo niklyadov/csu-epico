@@ -14,6 +14,11 @@ namespace Epico.Services
             _sprintRepository = sprintRepository;
         }
         
+        public async Task<Sprint> GetSprintById(int id)
+        {
+            return await _sprintRepository.GetById(id);
+        }
+        
         public async Task<Sprint> AddFeature(int sprintId, Feature feature)
         {
             try
@@ -28,16 +33,14 @@ namespace Epico.Services
             return null;
         }
 
-        public async Task<Sprint> UpdateSprint(int id, string name, List<Feature> features)
+        public async Task<Sprint> UpdateSprint(Sprint sprint)
         {
-            // todo прикрутить изменение спринта в базе
-            return null;
+            return await _sprintRepository.Update(sprint);
         }
 
         public async Task<Sprint> DeleteSprint(int id)
         {
-            // todo прикрутить удаление спринта из базы
-            return null;
+            return await _sprintRepository.Delete(id);
         }
     }
 }
