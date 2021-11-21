@@ -33,10 +33,9 @@ namespace Epico.Controllers
         [Route("[controller]/{id:int}")]
         public async Task<IActionResult> View(int id)
         {
-            //return Ok(await _projectService.GetProjectById(id));
             var project = await _projectService.UserProject(_accountService.CurrentUserId(), id);
 
-            // Это всё заменить на базу
+            // todo прикрутить вытаскивание всего из базы
             var tasks = new List<Entity.Task>
             {
                 new Entity.Task { Name = "задача 1" },
@@ -88,18 +87,27 @@ namespace Epico.Controllers
         [HttpPost]
         public async Task<IActionResult> New(NewProjectViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                var result = await _projectService.AddProject(model.Name,
+            if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
+
+            var result = await _projectService.AddProject(model.Name,
                     model.Vision, model.Mission, model.ProductFormula, _accountService.CurrentUserId());
 
-                if (result != null)
-                {
-                    return RedirectToAction("View", "Project", new { id = result.ID });
-                }
+            if (result != null)
+            {
+                return RedirectToAction("View", "Project", new { id = result.ID });
             }
 
+            return Ok("Hello");
+        }
 
+        public async Task<IActionResult> Delete(int projectId)
+        {
+            if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
+
+            // todo прикрутить удаление проекта из базы
+            // думаю всё что относится к проекту тоже
+            // каскадное удаление
+            await _projectService.DeleteProject(projectId);
             return Ok("Hello");
         }
     }

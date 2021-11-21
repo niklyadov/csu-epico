@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Epico.Entity;
@@ -24,6 +25,12 @@ namespace Epico.Services
                 OwnerUserId = ownerUserId,
                 Sprints = new List<Sprint>()
             }) ;
+        }
+
+        public async Task<Project> DeleteProject(int projectId)
+        {
+            // todo прикрутить удаление проекта из базы
+            return null;
         }
 
         public async Task<Project> GetProjectById(int id)

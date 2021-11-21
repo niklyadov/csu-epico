@@ -15,6 +15,18 @@ namespace Epico.Services
             _metricRepository = repository;
         }
 
+        public async Task<Metric> UpdateMetric(int id, string name, string description, int? parentMetricId)
+        {
+            // todo прикрутить обновление метрики в базе
+            return null;
+        }
+
+        public async Task<Metric> DeleteMetric(int id)
+        {
+            // todo прикрутить удаление метрики из базы
+            return null;
+        }
+
         public async Task<Metric> GetMetricById(int id)
         {
             return await _metricRepository.GetById(id);

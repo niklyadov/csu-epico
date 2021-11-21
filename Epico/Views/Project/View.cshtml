@@ -52,13 +52,37 @@
 <br />
 <br />
 <div class="features">
-    <h2 style="font-weight: 300">Фичи</h2>
-    @foreach (var feature in Model.Features)
-    {
-        <br />
-        <h5>Название: </h5> <p><span>@feature.Name</span></p>
-    }
-    <button class="btn btn-primary" onclick="window.location.href='../Feature/New?projectId=@Model.ProjectId'">Добавить новую фичу</button>
+    <h2>Фичи</h2>
+
+    <div class="features-do-now">
+        <h5>Делаем сейчас</h5>
+        @foreach (var feature in Model.Features.Where(x => x.Roadmap == Epico.Entity.RoadmapType.DoNow))
+        {
+            <div>
+                <span>@feature.Name</span>
+            </div>
+        }
+    </div>
+    <div class="features-do-then">
+        <h5>Делаем потом</h5>
+        @foreach (var feature in Model.Features.Where(x => x.Roadmap == Epico.Entity.RoadmapType.DoThen))
+        {
+            <div>
+                <span>@feature.Name</span>
+            </div>
+        }
+    </div>
+    <div class="features-do-newer">
+        <h5>Делаем когда-нибудь</h5>
+        @foreach (var feature in Model.Features.Where(x => x.Roadmap == Epico.Entity.RoadmapType.Newer))
+        {
+            <div>
+                <span>@feature.Name</span>
+            </div>
+        }
+    </div>
+
+    <button onclick="window.location.href='../Feature/New?projectId=@Model.ProjectId'">Добавить новую фичу</button>
 </div>
 <br />
 <br />
