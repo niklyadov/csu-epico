@@ -4,29 +4,41 @@
     ViewBag.Title = "Добавление проекта";
 }
 
+<h2 class="display-4">Создание проекта</h2>
+<br />
+<br />
 <form method="post" asp-controller="Project" asp-action="New">
     <div asp-validation-summary="ModelOnly"></div>
-    <div>
-        <label asp-for="Name">Название</label><br />
-        <input asp-for="Name" />
-        <span asp-validation-for="Name"></span>
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label lead" asp-for="Name">Название</label><br />
+        <div class="col-sm-10">
+            <input class="form-control" asp-for="Name" />
+            <span asp-validation-for="Name"></span>
+        </div>
     </div>
-    <div>
-        <label asp-for="Vision">Виденье</label><br />
-        <input asp-for="Vision" />
-        <span asp-validation-for="Vision"></span>
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label lead" asp-for="Vision">Виденье</label><br />
+        <div class="col-sm-10">
+            <input class="form-control" asp-for="Vision" />
+            <span asp-validation-for="Vision"></span>
+        </div>
     </div>
-    <div>
-        <label asp-for="Mission">Миссия</label><br />
-        <input asp-for="Mission" />
-        <span asp-validation-for="Mission"></span>
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label lead" asp-for="Mission">Миссия</label><br />
+        <div class="col-sm-10">
+            <input class="form-control" asp-for="Mission" />
+            <span asp-validation-for="Mission"></span>
+        </div>
     </div>
-    <div>
-        <label asp-for="ProductFormula">Продуктовая формула</label><br />
-        <input asp-for="ProductFormula" />
-        <span asp-validation-for="ProductFormula"></span>
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label lead" asp-for="ProductFormula">Продуктовая формула</label><br />
+        <div class="col-sm-10">
+            <input class="form-control" asp-for="ProductFormula" />
+            <span asp-validation-for="ProductFormula"></span>
+        </div>
     </div>
+    <br />
     <div>
-        <input type="submit" value="Создать" />
+        <input class="btn btn-primary" type="submit" value="Создать" />
     </div>
 </form>

@@ -4,11 +4,13 @@
     ViewBag.Title = "Просмотр проектов";
 }
 
-<table>
-    <tr>
-        <td>Id</td>
-        <td>Название</td>
-    </tr>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col" class="blockquote">ID</th>
+            <th scope="col" class="blockquote">Название</th>
+        </tr>
+    </thead>
     @foreach (var project in Model.Projects)
     {
         <tr>

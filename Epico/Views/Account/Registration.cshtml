@@ -4,26 +4,36 @@
     ViewData["Title"] = "Регистрация в системе";
 }
 
-<h2>Регистрация в системе</h2>
-<a asp-action="Login">Вход</a>
+<h2 class="display-4">Регистрация в системе</h2>
+<br />
+<br />
 <form method="post" asp-controller="Account" asp-action="Registration">
     <div asp-validation-summary="ModelOnly"></div>
-    <div>
-        <label asp-for="Username"></label><br />
-        <input asp-for="Username" />
-        <span asp-validation-for="Username"></span>
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label lead" asp-for="Username"></label><br />
+        <div class="col-sm-10">
+            <input class="form-control" asp-for="Username" />
+            <span asp-validation-for="Username"></span>
+        </div>
     </div>
-    <div>
-        <label asp-for="Password"></label><br />
-        <input asp-for="Password" />
-        <span asp-validation-for="Password"></span>
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label lead" asp-for="Password"></label><br />
+        <div class="col-sm-10">
+            <input class="form-control" asp-for="Password" />
+            <span asp-validation-for="Password"></span>
+        </div>
     </div>
-    <div>
-        <label asp-for="PasswordConfirm"></label><br />
-        <input asp-for="PasswordConfirm" />
-        <span asp-validation-for="PasswordConfirm"></span>
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label lead" asp-for="PasswordConfirm"></label><br />
+        <div class="col-sm-10">
+            <input class="form-control" asp-for="PasswordConfirm" />
+            <span asp-validation-for="PasswordConfirm"></span>
+        </div>
     </div>
+    <br />
     <div>
-        <input type="submit" value="Отправить" />
+        <input class="btn btn-primary" type="submit" value="Отправить" />
     </div>
+    <br />
+    <a class="align-content-end" asp-action="Login">Вернуться ко входу в ситему</a>
 </form>
