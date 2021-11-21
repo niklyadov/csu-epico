@@ -1,6 +1,5 @@
 ﻿using Epico.Entity;
 using Epico.Models;
-using Epico.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,16 +10,10 @@ using System.Threading.Tasks;
 namespace Epico.Controllers
 {
     [Authorize]
-    public class FeatureController : Controller
+    public class FeatureController : BaseController
     {
-        private readonly FeatureService _featureService;
-        private readonly TaskService _taskService;
-        private readonly MetricService _metricService;
-        public FeatureController(IServiceProvider serviceProvider)
+        public FeatureController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
-            _featureService = serviceProvider.GetService(typeof(FeatureService)) as FeatureService;
-            _taskService = serviceProvider.GetService(typeof(TaskService)) as TaskService;
-            _metricService = serviceProvider.GetService(typeof(MetricService)) as MetricService;
         }
         public IActionResult Index()
         {
@@ -30,23 +23,35 @@ namespace Epico.Controllers
         [HttpGet]
         public async Task<IActionResult> New([FromQuery] int projectId)
         {
+            var tasks = await MetricService.GetMetricList();
+            
             return View(new NewFeatureViewModel
             {
                 ProjectId = projectId,
-                PosibleTasks = await _taskService.GetTaskList(),
-                PosibleMetrics = await _metricService.GetMetricList()
+                PosibleTasks = await TaskService.GetTaskList(),
+                PosibleMetrics = await MetricService.GetMetricList()
             });
         }
 
         [HttpPost]
         public async Task<IActionResult> New(NewFeatureViewModel model)
         {
-            if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
+            if (ModelState.IsValid)
+            {
+                var tasks = await TaskService.GetTaskListByIds(model.Tasks);
+                var metrics =  await MetricService.GetMetricListByIds(model.Metrics);
 
-            var tasks = await _taskService.GetTaskListByIds(model.Tasks);
-            var metrics = await _metricService.GetMetricListByIds(model.Metrics);
-
-            await _featureService.AddFeature(model.Name, model.Description, model.Hypothesis, tasks, metrics);
+                // todo тут должен передаваться id спринта а не  1
+                await SprintService.AddFeature(1, new Feature
+                {
+                    Name = model.Name,
+                    Description = model.Description,
+                    Hypothesis = model.Hypothesis,
+                    Tasks = tasks,
+                    Metric = metrics,
+                    State = FeatureState.NotStarted
+                });
+            }
             return Ok("Фича добавлена");
         }
 
@@ -77,8 +82,8 @@ namespace Epico.Controllers
                 State = feature.State,
 
                 ProjectId = projectId,
-                PosibleTasks = await _taskService.GetTaskList(),
-                PosibleMetrics = await _metricService.GetMetricList()
+                PosibleTasks = await TaskService.GetTaskList(),
+                PosibleMetrics = await MetricService.GetMetricList()
             }); 
         }
 
@@ -87,10 +92,10 @@ namespace Epico.Controllers
         {
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
 
-            var tasks = await _taskService.GetTaskListByIds(model.Tasks);
-            var metrics = await _metricService.GetMetricListByIds(model.Metrics);
+            var tasks = await TaskService.GetTaskListByIds(model.Tasks);
+            var metrics = await MetricService.GetMetricListByIds(model.Metrics);
 
-            await _featureService.UpdateFeature(model.Name, model.Description, model.Hypothesis, tasks, metrics);
+            await FeatureService.UpdateFeature(model.Name, model.Description, model.Hypothesis, tasks, metrics);
             return Ok("Фича изменена");
         }
 
@@ -99,7 +104,7 @@ namespace Epico.Controllers
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
 
             // todo Прикрутить удаление фичи из базы
-            await _featureService.DeleteFeature(featureId);
+            await FeatureService.DeleteFeature(featureId);
             return Ok("Фича удалена");
         }
     }

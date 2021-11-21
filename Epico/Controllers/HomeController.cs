@@ -1,12 +1,17 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Epico.Models;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Epico.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
+        public HomeController(IServiceProvider serviceProvider) : base(serviceProvider)
+        {
+        }
+        
         [Authorize]
         public IActionResult Index()
         {

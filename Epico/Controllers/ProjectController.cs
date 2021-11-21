@@ -1,66 +1,42 @@
-using Epico.Entity;
 using Epico.Models;
-using Epico.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Epico.Controllers
 {
     [Authorize]
-    public class ProjectController : Controller
+    public class ProjectController : BaseController
     {
-        private readonly ProjectService _projectService;
-        private readonly AccountService _accountService;
-
-        public ProjectController(IServiceProvider serviceProvider)
+        public ProjectController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
-            _projectService = serviceProvider.GetService(typeof(ProjectService)) as ProjectService;
-            _accountService = serviceProvider.GetService(typeof(AccountService)) as AccountService;
         }
 
         [Route("[controller]")]
         public async Task<IActionResult> Index()
         {
-            var projects = await _projectService.UserProjects(_accountService.CurrentUserId());
-            return View(new ListProjectsViewModel
-            {
-                Projects = projects
-            });
+            var userProjectId = await ProjectService.UserProjectId(AccountService.CurrentUserId());
+            if (!userProjectId.HasValue)
+                return NotFound("This user does not have a project!");
+            
+            return View(await ProjectService.GetProjectById(userProjectId.Value));
         }
         [Route("[controller]/{id:int}")]
         public async Task<IActionResult> View(int id)
         {
-            var project = await _projectService.UserProject(_accountService.CurrentUserId(), id);
-
-            // todo прикрутить вытаскивание всего из базы
-            var tasks = new List<Entity.Task>
-            {
-                new Entity.Task { Name = "задача 1" },
-                new Entity.Task { Name = "задача 2" }
-            };
-            var features = new List<Feature>
-            {
-                new Feature { Name = "фича 1" },
-                new Feature { Name = "фича 2" }
-            };
-            var sprints = new List<Sprint>
-            {
-                new Sprint { Name = "спринт 1" },
-                new Sprint { Name = "спринт 2" }
-            };
-            var metrics = new List<Metric>
-            {
-                new Metric { Name = "метрика 1", Description = "описание метрики 1" },
-                new Metric { Name = "метрика 2", Description = "описание метрики 2" }
-            };
-            var users = new List<User>
-            {
-                new User { UserName = "юзер 1" },
-                new User { UserName = "юзер 2" }
-            };
+            var userProjectId = await ProjectService.UserProjectId(AccountService.CurrentUserId());
+            if (!userProjectId.HasValue)
+                return NotFound("This user does not have a project!");
+            
+            var project = await ProjectService.GetProjectById(userProjectId.Value);
+            var sprints = project.Sprints;
+            
+            var features = sprints?.SelectMany(x => x.Features).ToList();
+            var metrics = features?.SelectMany(x=> x.Metric).ToList();
+            var tasks = features?.SelectMany(x => x.Tasks).ToList();
+            var users = tasks?.SelectMany(x=> x.Team).ToList();
 
             return View(new ProjectViewModel
             {
@@ -87,27 +63,24 @@ namespace Epico.Controllers
         [HttpPost]
         public async Task<IActionResult> New(NewProjectViewModel model)
         {
-            if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
-
-            var result = await _projectService.AddProject(model.Name,
-                    model.Vision, model.Mission, model.ProductFormula, _accountService.CurrentUserId());
-
-            if (result != null)
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("View", "Project", new { id = result.ID });
-            }
+                var result = await ProjectService.AddProject(model.Name,
+                    model.Vision, model.Mission, model.ProductFormula, AccountService.CurrentUserId());
 
+                if (result != null)
+                {
+                    return RedirectToAction("View", "Project", new {id = result.ID});
+                }
+            }
             return Ok("Hello");
         }
 
         public async Task<IActionResult> Delete(int projectId)
         {
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
-
-            // todo прикрутить удаление проекта из базы
-            // думаю всё что относится к проекту тоже
-            // каскадное удаление
-            await _projectService.DeleteProject(projectId);
+            
+            await ProjectService.DeleteProject(projectId);
             return Ok("Hello");
         }
     }

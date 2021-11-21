@@ -1,7 +1,10 @@
 ﻿using Epico.Entity;
 using Epico.Entity.DAL.Repository;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Task = Epico.Entity.Task;
 
 namespace Epico.Services
 {
@@ -30,6 +33,11 @@ namespace Epico.Services
         {
             // todo прикрутить удаление юзера из базы
             return null;
+        }
+        
+        public async Task<List<User>> GetUsersListByIds(List<string> ids)
+        {
+            return await _repository.GetByIds(ids);
         }
     }
 }

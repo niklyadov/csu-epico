@@ -13,6 +13,7 @@ namespace Epico.Entity
         public string OwnerUserId { get; set; }
 
         public List<Sprint> Sprints { get; set; }
+            = new List<Sprint>();
 
 
         /*

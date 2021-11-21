@@ -12,6 +12,20 @@ namespace Epico.Entity.DAL.Repository
         {
             _dbContext = dbContext;
         }
+
+        public new async Task<Project> GetById(int projectId)
+        {
+            return await _dbContext.Projects
+                .Include(p => p.Sprints)
+                    .ThenInclude(s => s.Features)
+                .Include(p => p.Sprints)
+                    .ThenInclude(s => s.Features)
+                        .ThenInclude(f => f.Tasks)
+                .Include(p => p.Sprints)
+                    .ThenInclude(s => s.Features)
+                        .ThenInclude(f => f.Metric)
+                .SingleAsync(x => x.ID == projectId);
+        }
         
         public async Task<List<Project>> GetUserProjects(string ownerUserId)
         {
@@ -20,20 +34,22 @@ namespace Epico.Entity.DAL.Repository
                 .ToListAsync();
         }
         
-        public async Task<Project> GetUserProjectWithId(string ownerUserId, int projectId)
-        {
-            return await _dbContext.Projects
-                .Where(p => p.OwnerUserId == ownerUserId && p.ID == projectId)
-                //.Include(x => x.Metrics)
-                .Include(x => x.Sprints)
-                //.Include(x => x.Roadmaps)
-                .SingleAsync();
-        }
-
-        public async Task<Project> AddMetricToProjectWithId(string ownerUserId, int projectId, Metric metric)
+        public async Task<int?> GetUserProjectId(string ownerUserId)
         {
             var project = await _dbContext.Projects
-                .Where(p => p.OwnerUserId == ownerUserId && p.ID == projectId)
+                .Where(p => p.OwnerUserId == ownerUserId)
+                .SingleAsync();
+
+            if (project == null)
+                return null;
+            
+            return project.ID;
+        }
+
+        public async Task<Project> AddMetricToProjectWithId(int projectId, Metric metric)
+        {
+            var project = await _dbContext.Projects
+                .Where(p => p.ID == projectId)
                 .SingleAsync();
             //project.Metrics ??= new List<Metric>();
             //project.Metrics.Add(metric);
@@ -45,10 +61,10 @@ namespace Epico.Entity.DAL.Repository
             return project;
         }
         
-        public async Task<Project> AddSprintToProjectWithId(string ownerUserId, int projectId, Sprint sprint)
+        public async Task<Project> AddSprintToProjectWithId(int projectId, Sprint sprint)
         {
             var project = await _dbContext.Projects
-                .Where(p => p.OwnerUserId == ownerUserId && p.ID == projectId)
+                .Where(p => p.ID == projectId)
                 .SingleAsync();
             project.Sprints ??= new List<Sprint>();
             project.Sprints.Add(sprint);
@@ -60,10 +76,10 @@ namespace Epico.Entity.DAL.Repository
             return project;
         }
         
-        public async Task<Project> AddRoadmapToProjectWithId(string ownerUserId, int projectId)
+        public async Task<Project> AddRoadmapToProjectWithId(int projectId)
         {
             var project = await _dbContext.Projects
-                .Where(p => p.OwnerUserId == ownerUserId && p.ID == projectId)
+                .Where(p => p.ID == projectId)
                 .SingleAsync();
             //project.Roadmaps ??= new List<Roadmap>();
             //project.Roadmaps.Add(roadmap);

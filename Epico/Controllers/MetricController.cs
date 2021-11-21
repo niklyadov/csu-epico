@@ -10,18 +10,10 @@ using System.Threading.Tasks;
 namespace Epico.Controllers
 {
     [Authorize]
-    public class MetricController : Controller
+    public class MetricController : BaseController
     {
-
-        private readonly ProjectService _projectService;
-        private readonly AccountService _accountService;
-        private readonly MetricService _metricService;
-
-        public MetricController(IServiceProvider serviceProvider)
+        public MetricController(IServiceProvider serviceProvider) :base(serviceProvider)
         {
-            _projectService = serviceProvider.GetService(typeof(ProjectService)) as ProjectService;
-            _accountService = serviceProvider.GetService(typeof(AccountService)) as AccountService;
-            _metricService = serviceProvider.GetService(typeof(MetricService)) as MetricService;
         }
         public IActionResult Index()
         {
@@ -31,19 +23,10 @@ namespace Epico.Controllers
         [HttpGet]
         public async Task<IActionResult> New([FromQuery] int projectId)
         {
-            // todo заменить на вытаскивание из базы
-            var metrics = new List<Metric> 
-            {
-                new Metric { Name = "метрика 1", ID = 1 }, 
-                new Metric { Name = "метрика 2", ID = 2 },
-                new Metric { Name = "метрика 3", ID = 3 },
-                new Metric { Name = "метрика 4", ID = 4 },
-                new Metric { Name = "метрика 5", ID = 5 },
-            };
             return View(new NewMetricViewModel
             {
                 ProjectId = projectId,
-                PosibleParentMetrics = metrics
+                PosibleParentMetrics = await MetricService.GetMetricList()
             });
         }
 
@@ -67,10 +50,7 @@ namespace Epico.Controllers
                     
                 metric.ParentMetricId = model.ParentMetricId.Value;
             }
-
-            var userOwner = _accountService.CurrentUserId();
-            
-            return Ok(await _projectService.AddMetric(userOwner, model.ProjectId, metric ));
+            return Ok(await ProjectService.AddMetric(model.ProjectId, metric ));
         }
 
         [HttpGet]
@@ -109,7 +89,7 @@ namespace Epico.Controllers
         {
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
 
-            await _metricService.UpdateMetric(model.ID, model.Name, model.Description, model.ParentMetricId);
+            await MetricService.UpdateMetric(model.ID, model.Name, model.Description, model.ParentMetricId);
             return Ok("Метрика изменена");
         }
 
@@ -118,7 +98,7 @@ namespace Epico.Controllers
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
 
             // todo Прикрутить удаление метрики из базы
-            await _metricService.DeleteMetric(metricId);
+            await MetricService.DeleteMetric(metricId);
             return Ok("Метрика удалена");
         }
     }

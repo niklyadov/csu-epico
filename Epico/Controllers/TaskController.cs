@@ -9,14 +9,11 @@ using System.Threading.Tasks;
 
 namespace Epico.Controllers
 {
-    public class TaskController : Controller
+    public class TaskController : BaseController
     {
-        private readonly TaskService _taskService;
-        private readonly UserService _userService;
-        public TaskController(IServiceProvider serviceProvider)
+        public TaskController(IServiceProvider serviceProvider):base(serviceProvider)
         {
-            _taskService = serviceProvider.GetService(typeof(TaskService)) as TaskService;
-            _userService = serviceProvider.GetService(typeof(UserService)) as UserService;
+            
         }
         public IActionResult Index()
         {
@@ -28,17 +25,18 @@ namespace Epico.Controllers
         {
             return View(new NewTaskViewModel 
             { 
-                PosibleUsers = await _userService.GetUsersList()
+                PosibleUsers = await UserService.GetUsersList()
             });
         }
 
         [HttpPost]
         public async Task<IActionResult> New(NewTaskViewModel model)
         {
-            if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
-            
-            var team = new List<User>();
-            await _taskService.AddTask(model.Name, model.Description, team, model.DeadLine);
+            if (ModelState.IsValid)
+            {
+                var team = await UserService.GetUsersListByIds(model.Users);
+                await TaskService.AddTask(model.Name, model.Description, team, model.DeadLine);
+            }
             return Ok("Задача создана");
         }
 
@@ -65,7 +63,7 @@ namespace Epico.Controllers
                 State = task.State,
                 Users = task.Team.Select(x => x.Id).ToList(),
                 ProjectId = projectId,
-                PosibleUsers = await _userService.GetUsersList()
+                PosibleUsers = await UserService.GetUsersList()
             });
         }
         
@@ -76,7 +74,7 @@ namespace Epico.Controllers
 
             // todo прикрутить вытаскивание юзеров из базы
             var team = new List<User>();
-            await _taskService.UpdateTask(model.ID, model.Name, model.Description, team, model.DeadLine);
+            await TaskService.UpdateTask(model.ID, model.Name, model.Description, team, model.DeadLine);
             return Ok("Задача создана");
         }
 
@@ -85,7 +83,7 @@ namespace Epico.Controllers
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
 
             // todo Прикрутить удаление задачи из базы
-            await _taskService.DeleteTask(taskId);
+            await TaskService.DeleteTask(taskId);
             return Ok("Задача удалена");
         }
     }

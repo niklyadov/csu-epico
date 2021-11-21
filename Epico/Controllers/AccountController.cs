@@ -1,18 +1,15 @@
+using System;
 using System.Threading.Tasks;
-using Epico.Services;
 using Epico.Views;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Epico.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
-        private readonly AccountService _accountService;
-        public AccountController(AccountService accountService)
+        public AccountController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
-            _accountService = accountService;
         }
-        
         public ActionResult Login()
         {
             return View(new LoginViewModel());
@@ -26,7 +23,7 @@ namespace Epico.Controllers
         [HttpPost]
         public async Task<ActionResult> Login(LoginViewModel model)
         {
-            if (ModelState.IsValid && await _accountService.Login(model.Username, model.Password))
+            if (ModelState.IsValid && await AccountService.Login(model.Username, model.Password))
             {
                 return RedirectToAction("Index", "Project");
             }
@@ -37,7 +34,7 @@ namespace Epico.Controllers
         [HttpPost]
         public async Task<ActionResult> Registration(RegistrationViewModel model)
         {
-            if (ModelState.IsValid && await _accountService.Register(model.Username, model.Password))
+            if (ModelState.IsValid && await AccountService.Register(model.Username, model.Password))
             {
                 return RedirectToAction("New", "Project");
             }

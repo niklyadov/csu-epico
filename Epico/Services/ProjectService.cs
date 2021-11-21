@@ -8,15 +8,17 @@ namespace Epico.Services
 {
     public class ProjectService
     {
-        private readonly ProjectRepository _repository;
-        public ProjectService(ProjectRepository repository)
+        private readonly ProjectRepository _projectRepository;
+        private readonly MetricRepository _metricRepository;
+        public ProjectService(ProjectRepository projectRepository, MetricRepository metricRepository)
         {
-            _repository = repository;
+            _projectRepository = projectRepository;
+            _metricRepository = metricRepository;
         }
         
         public async Task<Project> AddProject(string name, string vision, string mission, string productFormula, string ownerUserId)
         {
-            return await _repository.Add(new Project
+            return await _projectRepository.Add(new Project
             {
                 Name = name,
                 Vision = vision,
@@ -35,32 +37,36 @@ namespace Epico.Services
 
         public async Task<Project> GetProjectById(int id)
         {
-            return await _repository.GetById(id);
+            return await _projectRepository.GetById(id);
         }
 
-        public async Task<List<Project>> UserProjects(string ownerUserId)
+        public async Task<int?> UserProjectId(string ownerUserId)
         {
-            return await _repository.GetUserProjects(ownerUserId);
+            try
+            {
+                return await _projectRepository.GetUserProjectId(ownerUserId);
+            }
+            catch (Exception ex)
+            {
+                
+            }
+
+            return null;
+        }
+        
+        public async Task<Project> AddMetric(int projectId, Metric metric)
+        {
+            return await _projectRepository.AddMetricToProjectWithId(projectId , metric);
         }
 
-        public async Task<Project> UserProject(string ownerUserId, int id)
+        public async Task<Project> AddSprint(int projectId, Sprint sprint)
         {
-            return await _repository.GetUserProjectWithId(ownerUserId, id);
+            return await _projectRepository.AddSprintToProjectWithId(projectId, sprint);
         }
         
-        public async Task<Project> AddMetric(string ownerUserId, int projectId, Metric metric)
+        public async Task<Project> AddRoadmap(int projectId)
         {
-            return await _repository.AddMetricToProjectWithId(ownerUserId, projectId , metric);
-        }
-        
-        public async Task<Project> AddSprint(string ownerUserId, int projectId, Sprint sprint)
-        {
-            return await _repository.AddSprintToProjectWithId(ownerUserId, projectId, sprint);
-        }
-        
-        public async Task<Project> AddRoadmap(string ownerUserId, int projectId)
-        {
-            return await _repository.AddRoadmapToProjectWithId(ownerUserId, projectId);
+            return await _projectRepository.AddRoadmapToProjectWithId(projectId);
         }
     }
 }

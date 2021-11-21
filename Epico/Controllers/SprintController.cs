@@ -11,20 +11,13 @@ using System.Threading.Tasks;
 namespace Epico.Controllers
 {
     [Authorize]
-    public class SprintController : Controller
+    public class SprintController : BaseController
     {
-        private readonly ProjectService _projectService;
-        private readonly SprintService _sprintService;
-        private readonly TaskService _taskService; // todo поидее taskService выпилить надо, ибо у нас фичи в спринтах
-        private readonly FeatureService _featureService;
-        public SprintController(IServiceProvider serviceProvider)
+        public SprintController(IServiceProvider serviceProvider):base(serviceProvider)
         {
-            _projectService = serviceProvider.GetService(typeof(ProjectService)) as ProjectService;
-            _sprintService = serviceProvider.GetService(typeof(SprintService)) as SprintService;
-            // todo поидее taskService выпилить надо, ибо у нас фичи в спринтах
-            _taskService = serviceProvider.GetService(typeof(TaskService)) as TaskService;
-            _featureService = serviceProvider.GetService(typeof(FeatureService)) as FeatureService;
+            
         }
+        
         public IActionResult Index()
         {
             return View();
@@ -37,7 +30,7 @@ namespace Epico.Controllers
             return View(new NewSprintViewModel
             {
                 ProjectID = projectId,
-                PosibleFeatures =  await _featureService.GetFeaturesList()
+                PosibleFeatures =  await FeatureService.GetFeaturesList()
             });
         }
 
@@ -45,10 +38,19 @@ namespace Epico.Controllers
         public async Task<IActionResult> New(NewSprintViewModel model)
         {
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
+            
+            if (ModelState.IsValid)
+            {
+                // todo прикрутить вытаскивание фич по айдишкам
+                var features = new List<Feature> { new Feature() };
 
-            // todo прикрутить вытаскивание фич по айдишкам
-            var features = new List<Feature> { new Feature() };
-            await _sprintService.AddSprint(model.Name, features);
+                await ProjectService.AddSprint(model.ProjectID, new Sprint
+                {
+                    Features = features,
+                    Name = model.Name
+                });
+            }
+            
             return Ok("Спринт создан");
         }
 
@@ -69,7 +71,7 @@ namespace Epico.Controllers
                 Name = sprint.Name,
                 Features = sprint.Features.Select(x => x.ID).ToList(),
                 ProjectID = projectId,
-                PosibleFeatures = await _featureService.GetFeaturesList()
+                PosibleFeatures = await FeatureService.GetFeaturesList()
             });
         }
 
@@ -80,7 +82,7 @@ namespace Epico.Controllers
 
             // todo прикрутить вытаскивание фич по айдишкам
             var features = new List<Feature> { new Feature() };
-            await _sprintService.UpdateSprint(model.ID, model.Name, features);
+            await SprintService.UpdateSprint(model.ID, model.Name, features);
             return Ok("Спринт изменён");
         }
 
@@ -89,7 +91,7 @@ namespace Epico.Controllers
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
 
             // todo Прикрутить удаление спринта из базы
-            await _sprintService.DeleteSprint(sprintId);
+            await SprintService.DeleteSprint(sprintId);
             return Ok("Спринт удалён");
         }
     }

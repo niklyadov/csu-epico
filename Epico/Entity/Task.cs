@@ -12,5 +12,6 @@ namespace Epico.Entity
         public TaskState State { get; set; }
         public DateTime DeadLine { get; set; }
         public List<User> Team { get; set; }
+            = new List<User>();
     }
 }

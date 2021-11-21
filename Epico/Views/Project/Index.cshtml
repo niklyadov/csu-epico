@@ -1,4 +1,4 @@
-@model ListProjectsViewModel
+@model Epico.Entity.Project
 
 @{
     ViewBag.Title = "Просмотр проектов";
@@ -11,15 +11,12 @@
             <th scope="col" class="blockquote">Название</th>
         </tr>
     </thead>
-    @foreach (var project in Model.Projects)
-    {
-        <tr>
-            <td>@project.ID</td>
-            <td><a asp-action="View" asp-route-id="@project.ID">@project.Name</a></td>
-        </tr>
-    }
+    <tr>
+        <td>@Model.ID</td>
+        <td><a asp-action="View" asp-route-id="@Model.ID">@Model.Name</a></td>
+    </tr>
 </table>
 
 <div>
-    <button onclick="window.location.href='../Project/New'">Создать новый проект</button>
+    <button onclick="window.location.href='/Project/New'">Создать новый проект</button>
 </div>

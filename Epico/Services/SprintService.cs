@@ -1,4 +1,5 @@
-﻿using Epico.Entity;
+﻿using System;
+using Epico.Entity;
 using Epico.Entity.DAL.Repository;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -12,12 +13,19 @@ namespace Epico.Services
         {
             _sprintRepository = sprintRepository;
         }
-        public async Task<Sprint> AddSprint(string name, List<Feature> features)
+        
+        public async Task<Sprint> AddFeature(int sprintId, Feature feature)
         {
-            return await _sprintRepository.Add(new Sprint
+            try
             {
-                Name = name
-            });
+                return await _sprintRepository.AddFeature(sprintId, feature);
+            }
+            catch (Exception e)
+            {
+                
+            }
+
+            return null;
         }
 
         public async Task<Sprint> UpdateSprint(int id, string name, List<Feature> features)

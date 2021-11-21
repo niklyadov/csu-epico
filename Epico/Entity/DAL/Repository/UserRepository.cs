@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,6 +21,12 @@ namespace Epico.Entity.DAL.Repository
         public async Task<User> GetById(int id)
         {
             return await _dbContext.Set<User>().FindAsync(id);
+        }
+        
+        public async Task<List<User>> GetByIds(List<string> ids)
+        {
+            return await _dbContext.Set<User>()
+                .Where(l => ids.Contains(l.Id)).ToListAsync();
         }
 
         public async Task<User> Add(User entity)

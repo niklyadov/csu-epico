@@ -9,10 +9,9 @@ namespace Epico.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public string Hypothesis { get; set; }
+        [BindProperty] public List<int> Tasks { get; set; } = new List<int>();
         [BindProperty]
-        public List<int> Tasks { get; set; }
-        [BindProperty]
-        public List<int> Metrics { get; set; }
+        public List<int> Metrics { get; set; } = new List<int>();
 
         public int ProjectId { get; set; }
         public List<Entity.Task> PosibleTasks { get; set; }
