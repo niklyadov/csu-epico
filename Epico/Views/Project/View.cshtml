@@ -29,7 +29,7 @@
 </div>
 <div class="sprints">
     <h2>Спринты</h2>
-    @foreach(var sprint in Model.Sprints)
+    @foreach (var sprint in Model.Sprints)
     {
         <span>Название: @sprint.Name</span><br />
     }
@@ -38,10 +38,35 @@
 </div>
 <div class="features">
     <h2>Фичи</h2>
-    @foreach (var feature in Model.Features)
-    {
-        <span>Название: @feature.Name</span><br />
-    }
+
+    <div class="features-do-now">
+        <h5>Делаем сейчас</h5>
+        @foreach (var feature in Model.Features.Where(x => x.Roadmap == Epico.Entity.RoadmapType.DoNow))
+        {
+            <div>
+                <span>@feature.Name</span>
+            </div>
+        }
+    </div>
+    <div class="features-do-then">
+        <h5>Делаем потом</h5>
+        @foreach (var feature in Model.Features.Where(x => x.Roadmap == Epico.Entity.RoadmapType.DoThen))
+        {
+            <div>
+                <span>@feature.Name</span>
+            </div>
+        }
+    </div>
+    <div class="features-do-newer">
+        <h5>Делаем когда-нибудь</h5>
+        @foreach (var feature in Model.Features.Where(x => x.Roadmap == Epico.Entity.RoadmapType.Newer))
+        {
+            <div>
+                <span>@feature.Name</span>
+            </div>
+        }
+    </div>
+
     <button onclick="window.location.href='../Feature/New?projectId=@Model.ProjectId'">Добавить новую фичу</button>
 </div>
 <div class="tasks">
