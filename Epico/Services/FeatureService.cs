@@ -26,6 +26,12 @@ namespace Epico.Services
             });
         }
 
+        public async Task<Feature> UpdateFeature(string name, string description, string hypothesis, List<Entity.Task> tasks, List<Metric> metric)
+        {
+            // todo прикрутить обновление в базе
+            return null;
+        }
+
         public async Task<List<Feature>> GetFeaturesList()
         {
             return await _featureRepository.GetAll();

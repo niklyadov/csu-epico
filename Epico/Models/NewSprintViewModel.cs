@@ -11,6 +11,6 @@ namespace Epico.Models
         public List<Feature> PosibleFeatures { get; set; }
 
         public int ProjectID { get; set; }
-        public List<Feature> Features { get; set; } // List<Feature> 
+        public List<Feature> Features { get; set; }
     }
 }
