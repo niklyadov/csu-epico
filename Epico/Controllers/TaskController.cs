@@ -4,6 +4,7 @@ using Epico.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Epico.Controllers
@@ -42,6 +43,43 @@ namespace Epico.Controllers
             return Ok("Задача создана");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Edit([FromQuery] int projectId, [FromQuery] int taskId)
+        {
+            // todo прикрутить вытаскивание из базы
+            var task = new Entity.Task
+            {
+                ID = 123,
+                Name = "задача 123 тест",
+                Description = "описание задачи 123 тест",
+                DeadLine = DateTime.Today,
+                State = TaskState.NotStarted,
+                Team = new List<User>()
+            };
+
+            return View(new EditTaskViewModel
+            {
+                ID = task.ID,
+                Name = task.Name,
+                Description = task.Description,
+                DeadLine = task.DeadLine,
+                State = task.State,
+                Users = task.Team.Select(x => x.Id).ToList(),
+                ProjectId = projectId,
+                PosibleUsers = await _userService.GetUsersList()
+            });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditTaskViewModel model)
+        {
+            if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
+
+            // todo прикрутить вытаскивание юзеров из базы
+            var team = new List<User>();
+            await _taskService.UpdateTask(model.ID, model.Name, model.Description, team, model.DeadLine);
+            return Ok("Задача создана");
+        }
 
         public async Task<IActionResult> Delete([FromQuery] int taskId)
         {

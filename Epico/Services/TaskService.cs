@@ -34,6 +34,12 @@ namespace Epico.Services
             return null;
         }
 
+        public async Task<Entity.Task> UpdateTask(int id, string name, string description, List<User> team, DateTime deadLine)
+        {
+            // todo прикрутить изменение задачи в базе
+            return null;
+        }
+
         public async Task<Entity.Task> DeleteTask(int id)
         {
             // todo прикрутить удаление задачи из базы
