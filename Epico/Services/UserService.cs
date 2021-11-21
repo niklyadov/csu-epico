@@ -23,6 +23,12 @@ namespace Epico.Services
             });
         }
 
+        public async Task<User> DeleteUser(string id)
+        {
+            // todo прикрутить удаление юзера из базы
+            return null;
+        }
+
         public async Task<List<User>> GetUsersList()
         {
             // todo прикрутить пагинацию

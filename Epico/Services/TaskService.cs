@@ -33,7 +33,13 @@ namespace Epico.Services
 
             return null;
         }
-        
+
+        public async Task<Entity.Task> DeleteTask(int id)
+        {
+            // todo прикрутить удаление задачи из базы
+            return null;
+        }
+
         public async Task<List<Task>> GetTaskList()
         {
             return await _taskRepository.GetAll();

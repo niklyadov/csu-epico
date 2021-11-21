@@ -40,15 +40,22 @@ namespace Epico.Controllers
         [HttpPost]
         public async Task<IActionResult> New(NewFeatureViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                // Вытаскивать задачи и метрики по Id из модели
-                var tasks = await _taskService.GetTaskListByIds(model.Tasks);
-                var metrics =  await _metricService.GetMetricListByIds(model.Tasks);
+            if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
 
-                await _featureService.AddFeature(model.Name, model.Description, model.Hypothesis, tasks, metrics);
-            }
+            var tasks = await _taskService.GetTaskListByIds(model.Tasks);
+            var metrics = await _metricService.GetMetricListByIds(model.Tasks);
+
+            await _featureService.AddFeature(model.Name, model.Description, model.Hypothesis, tasks, metrics);
             return Ok("Фича добавлена");
+        }
+
+        public async Task<IActionResult> Delete([FromQuery] int featureId)
+        {
+            if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
+
+            // todo Прикрутить удаление фичи из базы
+            await _featureService.DeleteFeature(featureId);
+            return Ok("Фича удалена");
         }
     }
 }

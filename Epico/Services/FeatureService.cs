@@ -1,5 +1,6 @@
 ﻿using Epico.Entity;
 using Epico.Entity.DAL.Repository;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -28,6 +29,12 @@ namespace Epico.Services
         public async Task<List<Feature>> GetFeaturesList()
         {
             return await _featureRepository.GetAll();
+        }
+
+        public async Task<Feature> DeleteFeature(int featureId)
+        {
+            // todo прикрутить удаление фичи из базы
+            return null;
         }
     }
 }

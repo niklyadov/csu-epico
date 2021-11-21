@@ -31,9 +31,7 @@ namespace Epico.Controllers
         [HttpGet]
         public async Task<IActionResult> New([FromQuery] int projectId)
         {
-            //var project = await _projectService.GetProjectById(projectId);
-
-            //заменить на базу
+            // todo заменить на вытаскивание из базы
             var metrics = new List<Metric> 
             {
                 new Metric { Name = "метрика 1", ID = 1 }, 
@@ -73,6 +71,15 @@ namespace Epico.Controllers
             var userOwner = _accountService.CurrentUserId();
             
             return Ok(await _projectService.AddMetric(userOwner, model.ProjectId, metric ));
+        }
+
+        public async Task<IActionResult> Delete([FromQuery] int metricId)
+        {
+            if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
+
+            // todo Прикрутить удаление метрики из базы
+            await _metricService.DeleteMetric(metricId);
+            return Ok("Метрика удалена");
         }
     }
 }

@@ -14,12 +14,13 @@ namespace Epico.Controllers
     {
         private readonly ProjectService _projectService;
         private readonly SprintService _sprintService;
-        private readonly TaskService _taskService;
+        private readonly TaskService _taskService; // todo поидее taskService выпилить надо, ибо у нас фичи в спринтах
         private readonly FeatureService _featureService;
         public SprintController(IServiceProvider serviceProvider)
         {
             _projectService = serviceProvider.GetService(typeof(ProjectService)) as ProjectService;
             _sprintService = serviceProvider.GetService(typeof(SprintService)) as SprintService;
+            // todo поидее taskService выпилить надо, ибо у нас фичи в спринтах
             _taskService = serviceProvider.GetService(typeof(TaskService)) as TaskService;
             _featureService = serviceProvider.GetService(typeof(FeatureService)) as FeatureService;
         }
@@ -42,13 +43,21 @@ namespace Epico.Controllers
         [HttpPost]
         public async Task<IActionResult> New(NewSprintViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                // Тест
-                var task = new Entity.Task(); // _taskService.GetTask(model.TasksId);
-                await _sprintService.AddSprint(model.Name, new List<Entity.Task> { task });
-            }
+            if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
+
+            // todo прикрутить вытаскивание фич по айдишкам
+            var features = new List<Feature> { new Feature() };
+            await _sprintService.AddSprint(model.Name, features);
             return Ok("Спринт создан");
+        }
+
+        public async Task<IActionResult> Delete([FromQuery] int sprintId)
+        {
+            if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
+
+            // todo Прикрутить удаление спринта из базы
+            await _sprintService.DeleteSprint(sprintId);
+            return Ok("Спринт удалён");
         }
     }
 }

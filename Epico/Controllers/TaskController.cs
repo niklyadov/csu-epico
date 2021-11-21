@@ -34,12 +34,22 @@ namespace Epico.Controllers
         [HttpPost]
         public async Task<IActionResult> New(NewTaskViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                var team = new List<User>();
-                await _taskService.AddTask(model.Name, model.Description, team, model.DeadLine);
-            }
+            if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
+
+            // todo прикрутить вытаскивание юзеров из базы
+            var team = new List<User>();
+            await _taskService.AddTask(model.Name, model.Description, team, model.DeadLine);
             return Ok("Задача создана");
+        }
+
+
+        public async Task<IActionResult> Delete([FromQuery] int taskId)
+        {
+            if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
+
+            // todo Прикрутить удаление задачи из базы
+            await _taskService.DeleteTask(taskId);
+            return Ok("Задача удалена");
         }
     }
 }
