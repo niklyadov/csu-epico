@@ -23,13 +23,17 @@ namespace Epico.Controllers
         [HttpGet]
         public async Task<IActionResult> New([FromQuery] int projectId)
         {
-            var tasks = await MetricService.GetMetricList();
-            
+            var posibleMetrics = await MetricService.GetMetricList();
+            var allTasks = await TaskService.GetTaskList();
+            var posibleTasks = allTasks.Where(x => x.State != TaskState.Closed).ToList();
+
+            //if (posibleTasks?.Count == 0 || posibleMetrics?.Count == 0)
+            //    return RedirectToAction("View", "Project", new { id = projectId });
             return View(new NewFeatureViewModel
             {
                 ProjectId = projectId,
-                PosibleTasks = await TaskService.GetTaskList(),
-                PosibleMetrics = await MetricService.GetMetricList()
+                PosibleTasks = posibleTasks,
+                PosibleMetrics = posibleMetrics
             });
         }
 

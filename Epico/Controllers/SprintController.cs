@@ -26,11 +26,17 @@ namespace Epico.Controllers
         [HttpGet]
         public async Task<IActionResult> New([FromQuery] int projectId)
         {
-            //var project = await _projectService.GetProjectById(projectId);
+            var allFeatures = await FeatureService.GetFeaturesList();
+            var posibleFeatures = allFeatures.Where(x => x.State != FeatureState.Closed)
+                                             .ToList();
+            // Нельзя создать спринт если в проекте нет ни одной фичи
+            if (posibleFeatures?.Count == 0)
+                return RedirectToAction("View", "Project", new { id = projectId });
+
             return View(new NewSprintViewModel
             {
                 ProjectID = projectId,
-                PosibleFeatures =  await FeatureService.GetFeaturesList()
+                PosibleFeatures = posibleFeatures
             });
         }
 

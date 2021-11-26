@@ -16,9 +16,6 @@
     <span class="blockquote text-dark">Формула продукта: @Model.ProductFormula</span>
 </div>
 <br />
-<br />
-<br />
-<br />
 <div class="metrics">
     <h2 style="font-weight: 300">Метрики</h2>
     @foreach (var metric in Model.Metrics)
@@ -31,11 +28,17 @@
         string text = (Model.Metrics.Count == 0) ? "Добавить новую НСМ метрику" : "Добавить новую метрику";
     }
     <button class="btn btn-primary" onclick="window.location.href = '../Metric/New?projectId=@Model.ProjectId'">@text</button>
-
 </div>
 <br />
-<br />
-<br />
+<div class="tasks">
+    <h2 style="font-weight: 300">Задачи</h2>
+    @foreach (var task in Model.Tasks)
+    {
+        <br />
+        <h5>Название: </h5> <p><span>@task.Name</span></p>
+    }
+    <button class="btn btn-primary" onclick="window.location.href='../Task/New?projectId=@Model.ProjectId'">Добавить новую задачу</button>
+</div>
 <br />
 <div class="sprints">
     <h2 style="font-weight: 300">Спринты</h2>
@@ -44,12 +47,15 @@
         <br />
         <h5>Название: </h5> <p><span>@sprint.Name</span></p>
     }
-    <button class="btn btn-primary" onclick="window.location.href='../Sprint/New?projectId=@Model.ProjectId'">Добавить новый спринт</button>
-
+    @if (Model.Features?.Count == 0)
+    {
+        <span style="color: red">* Нельзя создать спринт, пока в продукте нет ни одной фичи</span>
+    }
+    else
+    {
+        <button class="btn btn-primary" onclick="window.location.href='../Sprint/New?projectId=@Model.ProjectId'">Добавить новый спринт</button>
+    }
 </div>
-<br />
-<br />
-<br />
 <br />
 <div class="features">
     <h2>Фичи</h2>
@@ -81,21 +87,17 @@
             </div>
         }
     </div>
-
-    <button onclick="window.location.href='../Feature/New?projectId=@Model.ProjectId'">Добавить новую фичу</button>
-</div>
-<br />
-<br />
-<br />
-<br />
-<div class="tasks">
-    <h2 style="font-weight: 300">Задачи</h2>
-    @foreach (var task in Model.Tasks)
+    @if (Model.Tasks?.Count == 0)
     {
-        <br />
-        <h5>Название: </h5> <p><span>@task.Name</span></p>
+        <span style="color: red">* Нельзя создать фичу, пока в продукте нет ни одной задачи</span><br />
     }
-    <button class="btn btn-primary" onclick="window.location.href='../Task/New?projectId=@Model.ProjectId'">Добавить новую задачу</button>
+    @if (Model.Metrics?.Count == 0)
+    {
+        <span style="color: red">* Нельзя создать фичу, пока в продукте нет ни одной метрики</span><br />
+    }
+    @if (Model.Tasks?.Count != 0 && Model.Metrics?.Count != 0)
+    {
+        <button onclick="window.location.href='../Feature/New?projectId=@Model.ProjectId'">Добавить новую фичу</button>
+    }
 </div>
-<br />
 <br />
