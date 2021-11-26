@@ -50,7 +50,8 @@ namespace Epico.Controllers
                     
                 metric.ParentMetricId = model.ParentMetricId.Value;
             }
-            return Ok(await ProjectService.AddMetric(model.ProjectId, metric ));
+            return Ok(await MetricService.AddMetric(metric));
+            //return Ok(await ProjectService.AddMetric(model.ProjectId, metric ));
         }
 
         [HttpGet]

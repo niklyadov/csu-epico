@@ -20,8 +20,9 @@ namespace Epico.Controllers
             var userProjectId = await ProjectService.UserProjectId(AccountService.CurrentUserId());
             if (!userProjectId.HasValue)
                 return NotFound("This user does not have a project!");
-            
-            return View(await ProjectService.GetProjectById(userProjectId.Value));
+
+            return RedirectToAction("View", "Project", new { id = userProjectId });
+            //return View(await ProjectService.GetProjectById(userProjectId.Value));
         }
         [Route("[controller]/{id:int}")]
         public async Task<IActionResult> View(int id)

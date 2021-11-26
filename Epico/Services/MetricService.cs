@@ -15,6 +15,20 @@ namespace Epico.Services
             _metricRepository = repository;
         }
 
+        public async Task<Metric> AddMetric(Metric metric)
+        {
+            try
+            {
+                return await _metricRepository.Add(metric);
+            }
+            catch (Exception exception)
+            {
+                // логирование :D
+            }
+
+            return metric;
+        }
+
         public async Task<Metric> UpdateMetric(Metric metric)
         {
             return await _metricRepository.Update(metric);
