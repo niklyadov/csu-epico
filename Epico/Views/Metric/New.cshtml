@@ -24,19 +24,22 @@
             <span asp-validation-for="Description"></span>
         </div>
     </div>
-    <div class="row mb-3">
-        <label class="col-sm-2 col-form-label" asp-for="ParentMetricId">Родительская метрика</label><br />
-        <div class="col-sm-10">
-            <select style="width:auto;" class="blockquote form-select form-select-lg mb-3" aria-label=".form-select-lg example" disabled="@Model.PosibleParentMetrics.Count.Equals(0)" asp-for="ParentMetricId">
-            <option selected hidden></option>
-            @foreach (var item in Model.PosibleParentMetrics)
-            {
-                <option value="@item.ID">@item.Name</option>
-            }
-        </select>
-        <span asp-validation-for="ParentMetricId"></span>
+    @if (Model.PosibleParentMetrics?.Count != 0)
+    {
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" asp-for="ParentMetricId">Родительская метрика</label><br />
+            <div class="col-sm-10">
+                <select style="width:auto;" class="blockquote form-select form-select-lg mb-3" aria-label=".form-select-lg example" disabled="@Model.PosibleParentMetrics.Count.Equals(0)" asp-for="ParentMetricId">
+                    <option selected hidden></option>
+                    @foreach (var item in Model.PosibleParentMetrics)
+                    {
+                        <option value="@item.ID">@item.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="ParentMetricId"></span>
+            </div>
         </div>
-    </div>
+    }
     <br />
     <div>
         <input class="btn btn-primary" type="submit" value="Создать" />
