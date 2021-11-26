@@ -19,6 +19,11 @@ namespace Epico.Services
             return await _sprintRepository.GetById(id);
         }
         
+        public async Task<List<Sprint>> GetSprintList()
+        {
+            return await _sprintRepository.GetAll();
+        }
+
         public async Task<Sprint> AddFeature(int sprintId, Feature feature)
         {
             try
