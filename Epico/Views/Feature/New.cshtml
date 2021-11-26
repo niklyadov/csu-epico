@@ -1,43 +1,59 @@
 ﻿@model NewFeatureViewModel
+
 @{
     ViewBag.Title = "Добавление фичи";
 }
 
+<h2 class="display-4">Новая фича</h2>
+<br />
+<br />
 <form method="post" asp-controller="Feature" asp-action="New">
-    <input type="hidden" asp-for="ProjectId"/>
+    <input type="hidden" asp-for="ProjectId" />
     <div asp-validation-summary="ModelOnly"></div>
-    <div>
-        <label asp-for="Name">Название фичи</label><br />
-        <input asp-for="Name" />
-        <span asp-validation-for="Name"></span>
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label lead" asp-for="Name">Название</label><br />
+        <div class="col-sm-10">
+            <input class="form-control" asp-for="Name" />
+            <span asp-validation-for="Name"></span>
+        </div>
     </div>
-    <div>
-        <label asp-for="Description">Описание</label><br />
-        <input asp-for="Description" />
-        <span asp-validation-for="Description"></span>
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label lead" asp-for="Description">Описание</label><br />
+        <div class="col-sm-10">
+            <input class="form-control" asp-for="Description" />
+            <span asp-validation-for="Description"></span>
+        </div>
     </div>
-    <div>
-        <label asp-for="Hypothesis">Гипотеза</label><br />
-        <input asp-for="Hypothesis" />
-        <span asp-validation-for="Hypothesis"></span>
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label lead" asp-for="Hypothesis">Гипотеза</label><br />
+        <div class="col-sm-10">
+            <input class="form-control" asp-for="Hypothesis" />
+            <span asp-validation-for="Hypothesis"></span>
+        </div>
     </div>
-    <div>
-        <label asp-for="Tasks">Выбор задачи</label><br />
+    <br />
+    <div class="form-check row mb-3">
+        <label class="lead form-check-label" asp-for="Tasks">Выбор задачи</label><br />
+        <div class="col-sm-10">
         @foreach (var task in Model.PosibleTasks)
         {
-            <input type="checkbox" value="@task.ID" name="Tasks" />@task.Name <br />
+            <input class="form-check-input" type="checkbox" value="@task.ID" name="Tasks" />@task.Name <br />
         }
+        </div>
         <span asp-validation-for="Tasks"></span>
     </div>
-    <div>
-        <label asp-for="Metrics">Выбор метрик</label><br />
+    <div class="form-check row mb-3">
+        <div class="col-sm-10">
+        <label class="lead form-check-label" asp-for="Metrics">Выбор метрик</label><br />
         @foreach (var metric in Model.PosibleMetrics)
         {
-            <input type="checkbox" value="@metric.ID" name="Metrics" />@metric.Name <br />
+            <input class="form-check-input" type="checkbox" value="@metric.ID" name="Metrics" />@metric.Name <br />
         }
+        </div>
         <span asp-validation-for="Metrics"></span>
     </div>
+    <br />
     <div>
-        <input type="submit" value="Создать" />
+        <input class="btn btn-primary" type="submit" value="Создать" />
     </div>
 </form>

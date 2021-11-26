@@ -97,7 +97,7 @@
     }
     @if (Model.Tasks?.Count != 0 && Model.Metrics?.Count != 0)
     {
-        <button onclick="window.location.href='../Feature/New?projectId=@Model.ProjectId'">Добавить новую фичу</button>
+        <button class="btn btn-primary" onclick="window.location.href='../Feature/New?projectId=@Model.ProjectId'">Добавить новую фичу</button>
     }
 </div>
 <br />
