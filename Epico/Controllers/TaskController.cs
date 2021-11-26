@@ -1,6 +1,7 @@
 ﻿using Epico.Entity;
 using Epico.Models;
 using Epico.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Epico.Controllers
 {
+    [Authorize]
     public class TaskController : BaseController
     {
         public TaskController(IServiceProvider serviceProvider):base(serviceProvider)

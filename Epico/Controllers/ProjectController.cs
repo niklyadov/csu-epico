@@ -57,7 +57,12 @@ namespace Epico.Controllers
         [HttpGet]
         public IActionResult New()
         {
-            return View();
+            // todo ревью
+            if (ProjectService.NotHasProject())
+            {
+                return View();
+            }
+            return BadRequest("Продукт уже существует.");
         }
 
         [HttpPost]

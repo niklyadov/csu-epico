@@ -34,6 +34,11 @@ namespace Epico.Services
             return await _projectRepository.Delete(projectId);
         }
 
+        public bool NotHasProject()
+        {
+            return _projectRepository.GetAll().Result?.Count == 0;
+        }
+
         public async Task<Project> GetProjectById(int id)
         {
             return await _projectRepository.GetById(id);

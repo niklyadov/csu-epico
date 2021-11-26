@@ -13,6 +13,11 @@ namespace Epico.Entity.DAL.Repository
             _dbContext = dbContext;
         }
 
+        public new async Task<List<Project>> GetAll()
+        {
+            return await _dbContext.Projects.ToListAsync();
+        }
+
         public new async Task<Project> GetById(int projectId)
         {
             return await _dbContext.Projects
