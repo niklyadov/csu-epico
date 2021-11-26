@@ -50,7 +50,9 @@ namespace Epico.Controllers
                     
                 metric.ParentMetricId = model.ParentMetricId.Value;
             }
-            return Ok(await MetricService.AddMetric(metric));
+            await MetricService.AddMetric(metric);
+            return RedirectToAction("View", "Project", new { id = model.ProjectId });
+            //return Ok(await MetricService.AddMetric(metric));
             //return Ok(await ProjectService.AddMetric(model.ProjectId, metric ));
         }
 
@@ -82,7 +84,8 @@ namespace Epico.Controllers
                 Description = model.Description, 
                 ParentMetricId = model.ParentMetricId
             });
-            return Ok("Метрика изменена");
+            return RedirectToAction("View", "Project", new { id = model.ProjectId });
+            //return Ok("Метрика изменена");
         }
 
         public async Task<IActionResult> Delete([FromQuery] int metricId)

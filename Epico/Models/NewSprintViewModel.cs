@@ -10,7 +10,7 @@ namespace Epico.Models
         [BindProperty]
         public List<int> Features { get; set; }
 
-        public int ProjectID { get; set; }
+        public int ProjectId { get; set; }
         public List<Feature> PosibleFeatures { get; set; }
     }
 }

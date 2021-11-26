@@ -24,19 +24,19 @@ namespace Epico.Services
             return await _sprintRepository.GetAll();
         }
 
-        public async Task<Sprint> AddFeature(int sprintId, Feature feature)
-        {
-            try
-            {
-                return await _sprintRepository.AddFeature(sprintId, feature);
-            }
-            catch (Exception e)
-            {
+        //public async Task<Sprint> AddFeature(int sprintId, Feature feature)
+        //{
+        //    try
+        //    {
+        //        return await _sprintRepository.AddFeature(sprintId, feature);
+        //    }
+        //    catch (Exception e)
+        //    {
                 
-            }
+        //    }
 
-            return null;
-        }
+        //    return null;
+        //}
 
         public async Task<Sprint> UpdateSprint(Sprint sprint)
         {

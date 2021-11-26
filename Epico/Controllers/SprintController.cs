@@ -35,7 +35,7 @@ namespace Epico.Controllers
 
             return View(new NewSprintViewModel
             {
-                ProjectID = projectId,
+                ProjectId = projectId,
                 PosibleFeatures = posibleFeatures
             });
         }
@@ -49,14 +49,14 @@ namespace Epico.Controllers
             {
                 var features = await FeatureService.GetFeaturesListByIds(model.Features);
 
-                await ProjectService.AddSprint(model.ProjectID, new Sprint
+                await ProjectService.AddSprint(model.ProjectId, new Sprint
                 {
                     Features = features,
                     Name = model.Name
                 });
             }
-            
-            return Ok("Спринт создан");
+            return RedirectToAction("View", "Project", new { id = model.ProjectId });
+            //return Ok("Спринт создан");
         }
 
         [HttpGet]
@@ -69,7 +69,7 @@ namespace Epico.Controllers
                 ID = sprint.ID,
                 Name = sprint.Name,
                 Features = sprint.Features.Select(x => x.ID).ToList(),
-                ProjectID = projectId,
+                ProjectId = projectId,
                 PosibleFeatures = await FeatureService.GetFeaturesList()
             });
         }
@@ -86,7 +86,8 @@ namespace Epico.Controllers
                 Name = model.Name,
                 Features = features
             });
-            return Ok("Спринт изменён");
+            return RedirectToAction("View", "Project", new { id = model.ProjectId });
+            //return Ok("Спринт изменён");
         }
 
         public async Task<IActionResult> Delete([FromQuery] int sprintId)

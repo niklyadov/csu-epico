@@ -1,5 +1,6 @@
 ﻿using Epico.Entity;
 using Epico.Entity.DAL.Repository;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -13,7 +14,20 @@ namespace Epico.Services
         {
             _featureRepository = featureRepository;
         }
-        
+
+        public async Task<Feature> AddFeature(Feature feature)
+        {
+            try
+            {
+                return await _featureRepository.Add(feature);
+            }
+            catch (Exception e)
+            {
+
+            }
+
+            return null;
+        }
         public async Task<Feature> GetFeature(int featureId)
         {
             return await _featureRepository.GetById(featureId);

@@ -39,7 +39,8 @@ namespace Epico.Controllers
                 var team = await UserService.GetUsersListByIds(model.Users);
                 await TaskService.AddTask(model.Name, model.Description, team, model.DeadLine);
             }
-            return Ok("Задача создана");
+            return RedirectToAction("View", "Project", new { id = model.ProjectId });
+            //return Ok("Задача создана");
         }
 
         [HttpGet]

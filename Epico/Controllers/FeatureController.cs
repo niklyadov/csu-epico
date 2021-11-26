@@ -45,8 +45,7 @@ namespace Epico.Controllers
                 var tasks = await TaskService.GetTaskListByIds(model.Tasks);
                 var metrics =  await MetricService.GetMetricListByIds(model.Metrics);
 
-                // todo тут должен передаваться id спринта а не  1
-                await SprintService.AddFeature(1, new Feature
+                await FeatureService.AddFeature(new Feature
                 {
                     Name = model.Name,
                     Description = model.Description,
@@ -55,8 +54,19 @@ namespace Epico.Controllers
                     Metric = metrics,
                     State = FeatureState.NotStarted
                 });
+                // todo тут должен передаваться id спринта а не  1
+                //await SprintService.AddFeature(1, new Feature
+                //{
+                //    Name = model.Name,
+                //    Description = model.Description,
+                //    Hypothesis = model.Hypothesis,
+                //    Tasks = tasks,
+                //    Metric = metrics,
+                //    State = FeatureState.NotStarted
+                //});
             }
-            return Ok("Фича добавлена");
+            return RedirectToAction("View", "Project", new { id = model.ProjectId });
+            //return Ok("Фича добавлена");
         }
 
         [HttpGet]
@@ -99,7 +109,8 @@ namespace Epico.Controllers
                 Tasks = tasks,
                 State = model.State
             });
-            return Ok("Фича изменена");
+            return RedirectToAction("View", "Project", new { id = model.ProjectId });
+            //return Ok("Фича изменена");
         }
 
         public async Task<IActionResult> Delete([FromQuery] int featureId)
