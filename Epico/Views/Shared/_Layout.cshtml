@@ -4,95 +4,82 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Epico</title>
-    <!--
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="~/css/ourCSS.css" />
-    -->
     <link rel="stylesheet" type="text/css" href="~/css/bulma.min.css" />
 
     <link rel="icon" type="image/x-icon" href="~/img/favicon.png">
 </head>
 <body>
+    <script>
+        window.onload = () => {
+            
+            Array.from(document.getElementsByClassName('left-nav_link')).forEach((target) => {
+                setActive(target);
+            });
+            
+            function setActive(target) {
+               let linkHref = target.getAttribute('href').toLowerCase();
+               let pathName = window.location.pathname.toLowerCase();
+               console.log([linkHref, pathName])
+               if (pathName.startsWith(linkHref)) {
+                    target.classList.add('active');
+               }
+            }
+        }
+    </script>
     <header>
         <!--#fcc981-->
-        <nav class="level" style="background: #ff4040; height: 40px;">
+        <nav class="level nav-top">
             <div class="level-left">
-                <div class="level-item">
-                    <img src="~/img/epico.svg" />
+                <div class="level-item logo">
+                    <img src="~/img/epico.svg"/>
                     <p class="subtitle is-12">Epico Product Management</p>
                 </div>
             </div>
         </nav>
-        <!--
-            
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-info border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Epico</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" aria-current="page" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark aria-current=" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+    </header>
+    <div class="columns main-wrapper">
+        @if (User is {Identity: {IsAuthenticated: false } })
+        {
+            <!--Боковая панель навигации-->
+            <div class="column is-narrow left-nav">
+                <div class="has-text-left">
+                    <a class="button is-fullwidth left-nav_link" asp-controller="Project" asp-action="Index" onload="setActive(this)" style="justify-content: flex-start">
+                        <img src="~/img/product.svg"/> Product
+                    </a>
+                </div>
+                <div class="has-text-left">
+                    <a class="button is-fullwidth left-nav_link" asp-controller="Metric" asp-action="Index" onload="setActive(this)" style="justify-content: flex-start">
+                        <img src="~/img/nsm&hom.svg"/> NSM & HOM
+                    </a>
+                </div>
+                <div class="has-text-left">
+                    <a class="button is-fullwidth left-nav_link" asp-controller="RoadMap" asp-action="Index" onload="setActive(this)" style="justify-content: flex-start">
+                        <img src="~/img/roadmap.svg"/> RoadMap
+                    </a>
+                </div>
+                <div class="has-text-left">
+                    <a class="button is-fullwidth left-nav_link" asp-controller="Feature" asp-action="Index" onload="setActive(this)" style="justify-content: flex-start">
+                        <img src="~/img/features.svg"/> Features
+                    </a>
+                </div>
+                <div class="has-text-left">
+                    <a class="button is-fullwidth left-nav_link" asp-controller="Hypotheses" asp-action="Index" onload="setActive(this)" style="justify-content: flex-start">
+                        <img src="~/img/hypotheses.svg"/> Hypotheses
+                    </a>
+                </div>
+                <div class="has-text-left">
+                    <a class="button is-fullwidth left-nav_link" asp-controller="Team" asp-action="Index" onload="setActive(this)" style="justify-content: flex-start">
+                        <img src="~/img/team.svg"/> Team
+                    </a>
                 </div>
             </div>
-        </nav>
-        -->
-    </header>
-    <div class="columns" style="margin-top:0px">
-        <!--Боковая панель навигации-->
-        <div class="column is-narrow" style="background: #f0faff; width: 200px; min-height: 800px; padding: 0; padding-top: 20px ">
-            <div class="has-text-left">
-                <a class="button is-fullwidth" href="#" style="justify-content: flex-start">
-                    <img src="~/img/product.svg" />
-                    Product
-                </a>
-            </div>
-            <div class="has-text-left">
-                <a class="button is-fullwidth" href="#" style="justify-content: flex-start">
-                    <img src="~/img/nsm&hom.svg" />
-                    NSM & HOM
-                </a>
-            </div>
-            <div class="has-text-left">
-                <a class="button is-fullwidth" href="#" style="justify-content: flex-start">
-                    <img src="~/img/roadmap.svg" />
-                    RoadMap
-                </a>
-            </div>
-            <div class="has-text-left">
-                <a class="button is-fullwidth" href="#" style="justify-content: flex-start">
-                    <img src="~/img/features.svg" />
-                    Features
-                </a>
-            </div>
-            <div class="has-text-left">
-                <a class="button is-fullwidth" href="#" style="justify-content: flex-start">
-                    <img src="~/img/hypotheses.svg" />
-                    Hypotheses
-                </a>
-            </div>
-            <div class="has-text-left">
-                <a class="button is-fullwidth" href="#" style="justify-content: flex-start">
-                    <img src="~/img/team.svg" style="filter: invert(11%) sepia(80%) saturate(5680%) hue-rotate(360deg) brightness(98%) contrast(118%);" />
-                    Team
-                </a>
-            </div>
-        </div>
+        }
         <!--Тело-->
-        <div class="column" style="background: #ffffff">
+        <div class="column main-container">
             <div class="container">
                 <main role="main" class="pb-3">
                     @RenderBody()
-
                 </main>
             </div>
         </div>
@@ -106,5 +93,5 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
-</body>
+    </body>
 </html>
