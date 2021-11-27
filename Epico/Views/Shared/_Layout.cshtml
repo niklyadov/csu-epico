@@ -28,7 +28,6 @@
         }
     </script>
     <header>
-        <!--#fcc981-->
         <nav class="level nav-top">
             <div class="level-left">
                 <div class="level-item logo">
@@ -45,32 +44,32 @@
             <div class="column is-narrow left-nav">
                 <div class="has-text-left">
                     <a class="button is-fullwidth left-nav_link" asp-controller="Project" asp-action="Index" onload="setActive(this)" style="justify-content: flex-start">
-                        <img src="~/img/product.svg"/> Product
+                        <img src="~/img/product.svg" alt="Product"/> Product
                     </a>
                 </div>
                 <div class="has-text-left">
                     <a class="button is-fullwidth left-nav_link" asp-controller="Metric" asp-action="Index" onload="setActive(this)" style="justify-content: flex-start">
-                        <img src="~/img/nsm&hom.svg"/> NSM & HOM
+                        <img src="~/img/nsm&hom.svg" alt="NSM & HOM"/> NSM & HOM
                     </a>
                 </div>
                 <div class="has-text-left">
                     <a class="button is-fullwidth left-nav_link" asp-controller="RoadMap" asp-action="Index" onload="setActive(this)" style="justify-content: flex-start">
-                        <img src="~/img/roadmap.svg"/> RoadMap
+                        <img src="~/img/roadmap.svg" alt="RoadMap"/> RoadMap
                     </a>
                 </div>
                 <div class="has-text-left">
                     <a class="button is-fullwidth left-nav_link" asp-controller="Feature" asp-action="Index" onload="setActive(this)" style="justify-content: flex-start">
-                        <img src="~/img/features.svg"/> Features
+                        <img src="~/img/features.svg" alt="Features"/> Features
                     </a>
                 </div>
                 <div class="has-text-left">
                     <a class="button is-fullwidth left-nav_link" asp-controller="Hypotheses" asp-action="Index" onload="setActive(this)" style="justify-content: flex-start">
-                        <img src="~/img/hypotheses.svg"/> Hypotheses
+                        <img src="~/img/hypotheses.svg" alt="Hypotheses"/> Hypotheses
                     </a>
                 </div>
                 <div class="has-text-left">
                     <a class="button is-fullwidth left-nav_link" asp-controller="Team" asp-action="Index" onload="setActive(this)" style="justify-content: flex-start">
-                        <img src="~/img/team.svg"/> Team
+                        <img src="~/img/team.svg" alt="Team"/> Team
                     </a>
                 </div>
             </div>
@@ -86,7 +85,7 @@
     </div>
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - Epico - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; @DateTime.Now.Year - Epico
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
