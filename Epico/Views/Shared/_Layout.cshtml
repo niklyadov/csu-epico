@@ -39,7 +39,7 @@
         </nav>
     </header>
     <div class="columns main-wrapper">
-        @if (User is {Identity: {IsAuthenticated: false } })
+        @if (User is {Identity: {IsAuthenticated: true } })
         {
             <!--Боковая панель навигации-->
             <div class="column is-narrow left-nav">
