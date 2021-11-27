@@ -7,25 +7,41 @@ using System.Threading.Tasks;
 
 namespace Epico.Controllers
 {
-    public class RoadMapController : Controller
+    public class RoadMapController : BaseController
     {
+        public RoadMapController(IServiceProvider serviceProvider) : base(serviceProvider)
+        {
+        }
+        
         public IActionResult Index()
         {
             return View();
         }
 
         [HttpGet]
-        public IActionResult Add()
+        public async Task<IActionResult> Add(Entity.RoadmapType roadmapType)
         {
             return View(new AddRoadmapViewModel
             {
-                Roadmap = Entity.RoadmapType.DoAfter
+                Roadmap = roadmapType,
+                Features = (await FeatureService.GetFeaturesList())
+                    .Where(x=> x.Roadmap != roadmapType).ToList()
             });
         }
         [HttpPost]
-        public IActionResult Add(AddRoadmapViewModel model)
+        public async Task<IActionResult> Add(AddRoadmapViewModel model)
         {
-            return StatusCode(418);
+            var feature = await FeatureService.GetFeature(model.FeatureId);
+
+            if (feature == null)
+            {
+                return NotFound("Feature not found");
+            }
+            
+            feature.Roadmap = model.Roadmap;
+            await FeatureService.UpdateFeature(feature);
+            
+            return RedirectToAction("Index");
         }
     }
 }
