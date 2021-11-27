@@ -82,7 +82,7 @@ namespace Epico.Controllers
                 Hypothesis = feature.Hypothesis,
                 Metrics = feature.Metric.Select(x => x.ID).ToList(),
                 Tasks = feature.Tasks.Select(x => x.ID).ToList(),
-                Roadmap = feature.Roadmap,
+                Roadmap = feature.Roadmap.Value,
                 State = feature.State,
 
                 ProjectId = projectId,

@@ -70,7 +70,7 @@
     </div>
     <div class="features-do-newer">
         <h5>Делаем когда-нибудь</h5>
-        @foreach (var feature in Model.Features.Where(x => x.Roadmap == Epico.Entity.RoadmapType.Newer))
+        @foreach (var feature in Model.Features.Where(x => x.Roadmap == Epico.Entity.RoadmapType.DoAfter))
         {
             <div>
                 <span>@feature.Name</span>

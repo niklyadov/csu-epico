@@ -14,6 +14,6 @@ namespace Epico.Entity
         public List<Entity.Task> Tasks { get; set; } 
             = new List<Entity.Task>();
         public FeatureState State { get; set; }
-        public RoadmapType Roadmap { get; set; }
+        public RoadmapType? Roadmap { get; set; }
     }
 }

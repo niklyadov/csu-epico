@@ -4,6 +4,6 @@
     {
         DoNow,
         DoThen,
-        Newer
+        DoAfter
     }
 }

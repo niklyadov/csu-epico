@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Epico.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,20 @@ namespace Epico.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult Add()
+        {
+            return View(new AddRoadmapViewModel
+            {
+                Roadmap = Entity.RoadmapType.DoAfter
+            });
+        }
+        [HttpPost]
+        public IActionResult Add(AddRoadmapViewModel model)
+        {
+            return StatusCode(418);
         }
     }
 }
