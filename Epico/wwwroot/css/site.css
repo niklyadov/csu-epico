@@ -8,16 +8,18 @@
   color: #fff;
 }
 
+/*
 .main-wrapper {
   margin-top:0;
 }
+*/
 
 .left-nav {
   background: #f0faff;
   color: #fff;
   width: 200px;
   min-height: 800px;
-  padding: 20px 0 0;
+  padding: 20px 0 0 0;
 }
 
 .left-nav a.active {
@@ -29,5 +31,9 @@
 }
 
 .main-container {
-  background: #ffffff
+  background: #ffffff;
+}
+
+.left-nav_link {
+    justify-content: flex-start;
 }
