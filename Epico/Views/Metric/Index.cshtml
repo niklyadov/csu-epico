@@ -1,0 +1,61 @@
+@{
+    ViewBag.Title = "Metrics";
+}
+
+<div class="content">
+    <h2>North Star Metric</h2>
+    <p>Вобщем тут огромный текст NSM метрики и вот оно вот да такое длинное всё</p>
+    <p>Karoche tut dlinniy text NSM metriki i vot russkaya kodirovka upala, da</p>
+</div>
+<br />
+<!--Для теста делал со здвигами в стиле-->
+<div class="content">
+    <h2>Hierarchy of Metrics</h2>
+    <span>Text 1</span><br />
+    <span style="margin-left: 40px">Text 2</span><br />
+    <span style="margin-left: 40px">Text 3</span><br />
+    <span>Text 4</span><br />
+    <span style="margin-left: 40px">Text 5</span><br />
+    <span style="margin-left: 80px">Text 6</span><br />
+    <span style="margin-left: 40px">Text 7</span><br />
+    <span style="margin-left: 40px">Text 8</span><br />
+    <h2>Test na Spanah</h2>
+    @foreach (var item in new int[] { 1, 2, 3, 4, 5 })
+    {
+        <span style="margin-left:@(40*item)px">
+            Text @item
+        </span>
+        <br />
+    }
+</div>
+<style>
+    ul {
+        list-style: none;
+    }
+</style>
+<div class="content">
+    <ul style="list-style:none">
+
+        @*@foreach (var item in new int[] { 1, 2, 3, 4, 5 })
+        {
+            <li>
+            @for (int i = 0; i < item; i++) 
+                Html.Raw("<ul><li>");
+            Text @item
+            @for (int i = 0; i < item; i++)
+                Html.Raw("</ul></li>");
+            </li>
+        }*@
+        <!--
+        <li>Text 1</li>
+        <li><ul><li>Text 2</li></ul></li>
+        <li><ul><li>Text 3</li></ul></li>
+        <li>Text 4</li>
+        <li><ul><li>Text 5</li></ul></li>
+        <li><ul><li><ul><li>Text 6</li></ul></li></ul></li>
+        <li><ul><li>Text 7</li></ul></li>
+        <li><ul><li>Text 8</li></ul></li>
+        -->
+    </ul>
+</div>
+<br />

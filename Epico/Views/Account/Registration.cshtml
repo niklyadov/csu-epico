@@ -4,9 +4,8 @@
     ViewData["Title"] = "Регистрация в системе";
 }
 
+<!--
 <h2 class="display-4">Регистрация в системе</h2>
-<br />
-<br />
 <form method="post" asp-controller="Account" asp-action="Registration">
     <div asp-validation-summary="ModelOnly"></div>
     <div class="row mb-3">
@@ -37,3 +36,48 @@
     <br />
     <a class="align-content-end" asp-action="Login">Вернуться ко входу в ситему</a>
 </form>
+-->
+    
+
+<div class="content is-medium has-text-centered">
+    <h2>Регистрация в системе</h2>
+</div>
+<div class="box" style="max-width:300px;margin:0 auto;">
+    <form asp-controller="Account" asp-action="Login">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="field">
+            <label class="label" asp-for="Username">Email</label>
+            <div class="control">
+                <!--Email-->
+                <input class="input" asp-for="Username" type="text" placeholder="e.g. alex@example.com">
+                <span asp-validation-for="Username"></span>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label" asp-for="Password">Password</label>
+            <div class="control">
+                <!--Password-->
+                <input class="input" asp-for="Password" type="password" placeholder="********">
+                <span asp-validation-for="Password"></span>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label" asp-for="PasswordConfirm">Password confirm</label>
+            <div class="control">
+                <!--Password-->
+                <input class="input" asp-for="PasswordConfirm" type="password" placeholder="********">
+                <span asp-validation-for="PasswordConfirm"></span>
+            </div>
+        </div>
+
+        <div class="has-text-centered">
+            <button class="button is-primary">Registration</button>
+        </div>
+    </form>
+    <br />
+    <div class="has-text-centered">
+        <a class="align-content-end" asp-action="Login">Вернуться ко входу в ситему</a>
+    </div>
+</div>

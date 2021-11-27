@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = "RoadMap";
+}
+
+<div class="columns">
+    <div class="column box" style="background: #ededed; margin: 10px;">
+        <span><strong>Now</strong></span>
+        @*
+            foreach(var item in model.Features.Where(x => x.FeatureType == Now))
+            {
+                <div class="box">
+                    <p>@item.Name</p>
+                </div>
+            }
+        *@
+        <div class="box">
+            <p>Тестовая фича 1</p>
+        </div>
+        <div class="box">
+            <p>Тестовая фича 2</p>
+        </div>
+        <div class="box">
+            <p>Тестовая фича 3</p>
+        </div>
+        <div class="has-text-centered">
+            <input type="image" src="~/img/plus.svg"/>
+        </div>
+    </div>
+    <div class="column box" style="background: #ededed; margin: 10px;">
+        <span><strong>Then</strong></span>
+        <div class="box">
+            <p>Тестовая фича 4</p>
+        </div>
+        <div class="box">
+            <p>Тестовая фича 5</p>
+        </div>
+        <div class="box">
+            <p>Тестовая фича 6</p>
+        </div>
+        <div class="box">
+            <p>Тестовая фича 10</p>
+        </div>
+        <div class="box">
+            <p>Тестовая фича 11</p>
+        </div>
+        <div class="has-text-centered">
+            <input type="image" src="~/img/plus.svg" />
+        </div>
+    </div>
+    <div class="column box" style="background: #ededed; margin: 10px;">
+        <span><strong>After</strong></span>
+        <div class="box">
+            <p>Тестовая фича 7</p>
+        </div>
+        <div class="box">
+            <p>Тестовая фича 8</p>
+        </div>
+        <div class="box">
+            <p>Тестовая фича 9</p>
+        </div>
+        <div class="box">
+            <p>Тестовая фича 12</p>
+        </div>
+        <div class="has-text-centered">
+            <input type="image" src="~/img/plus.svg" />
+        </div>
+    </div>
+</div>

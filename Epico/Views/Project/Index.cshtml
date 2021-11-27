@@ -1,8 +1,9 @@
 @model Epico.Entity.Project
 
 @{
-    ViewBag.Title = "Просмотр проектов";
+    ViewBag.Title = "Продукт";
 }
+<!--
 
 <table class="table">
     <thead>
@@ -20,3 +21,10 @@
 <div>
     <button onclick="window.location.href='/Project/New'">Создать новый проект</button>
 </div>
+-->
+
+
+<div class="content">
+    <p>@Model.Name</p>
+</div>
+<input type="image" src=~/img/more.svg />

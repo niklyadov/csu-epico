@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Вход в систему";
 }
-
+<!--
 <h2 class="display-4">Вход в систему</h2>
 <br />
 <br />
@@ -30,3 +30,37 @@
 </form>
 <br />
 <a asp-action="Registration">Регистрация</a>
+-->
+<div class="content is-medium has-text-centered">
+    <h2>Вход в систему</h2>
+</div>
+<div class="box" style="max-width:300px;margin:0 auto;">
+    <form asp-controller="Account" asp-action="Login">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="field">
+            <label class="label" asp-for="Username">Email</label>
+            <div class="control">
+                <!--Username-->
+                <input class="input" asp-for="Username" type="text" placeholder="e.g. alex@example.com">
+                <span asp-validation-for="Username"></span>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label" asp-for="Password">Password</label>
+            <div class="control">
+                <!--Password-->
+                <input class="input" asp-for="Password" type="password" placeholder="********">
+                <span asp-validation-for="Password"></span>
+            </div>
+        </div>
+        <div class="has-text-centered">
+            <button class="button is-primary">Sign in</button>
+        </div>
+
+    </form>
+    <br />
+    <div class="has-text-centered">
+        <a asp-action="Registration">Регистрация</a>
+    </div>
+</div>
