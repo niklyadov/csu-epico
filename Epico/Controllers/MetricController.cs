@@ -40,8 +40,8 @@ namespace Epico.Controllers
                 Name = model.Name,
                 Description = model.Description
             };
-                
-            if (model.PosibleParentMetrics != null && model.PosibleParentMetrics.Count != 0)
+            var posibleParentMetrics = await MetricService.GetMetricList();
+            if (posibleParentMetrics?.Count != 0)
             {
                 if (!model.ParentMetricId.HasValue) // Ошибка
                 {

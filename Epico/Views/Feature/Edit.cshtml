@@ -3,6 +3,8 @@
     ViewBag.Title = "Изменение фичи";
 }
 
+<!--
+    
 <form method="post" asp-controller="Feature" asp-action="Edit">
     <input type="hidden" asp-for="ProjectId" />
     <div asp-validation-summary="ModelOnly"></div>
@@ -40,7 +42,7 @@
     </div>
 
     <div>
-        <label asp-for="State">Роадмап</label><br />
+        <label asp-for="State">Состояние</label><br />
         <select asp-for="State">
             @foreach (var state in Model.StateTypes)
             {
@@ -77,3 +79,87 @@
         <input type="submit" value="Сохранить" />
     </div>
 </form>
+-->
+
+
+
+<div class="content is-medium ">
+    <h2>Изменение фичи</h2>
+</div>
+<div class="box" style="margin:0 auto;">
+    <form method="post" asp-controller="Feature" asp-action="New">
+        <input type="hidden" asp-for="ProjectId" />
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="field">
+            <label class="label" asp-for="Name">Название</label>
+            <div class="control">
+                <input class="input" asp-for="Name" value="@Model.Name" />
+                <span asp-validation-for="Name"></span>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label" asp-for="Description">Описание</label>
+            <div class="control">
+                <input class="input" asp-for="Description" value="@Model.Description" />
+                <span asp-validation-for="Description"></span>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label" asp-for="Hypothesis">Гипотеза</label>
+            <div class="control">
+                <input class="input" asp-for="Hypothesis" value="@Model.Hypothesis" />
+                <span asp-validation-for="Hypothesis"></span>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label" asp-for="Tasks">Выбор задач</label>
+            <div class="control">
+                @foreach (var task in Model.PosibleTasks)
+                {
+                    <label class="checkbox">
+                        <input type="checkbox" value="@task.ID" name="Tasks" @Html.Raw(Model.Tasks.Contains(task.ID) ? "checked" : "") />
+                        @task.Name
+                    </label>
+                    <br />
+                }
+            </div>
+            <span asp-validation-for="Tasks"></span>
+        </div>
+
+        <div class="field">
+            <label class="label" asp-for="Metrics">Выбор метрик</label>
+            <div class="control">
+                @foreach (var metric in Model.PosibleMetrics)
+                {
+                    <label class="radio">
+                        <input type="radio" value="@metric.ID" name="Metrics" @Html.Raw(Model.Metrics.Contains(metric.ID) ? "checked" : "") />
+                        @metric.Name
+                    </label>
+                    <br />
+                }
+            </div>
+            <span asp-validation-for="Metrics"></span>
+        </div>
+
+        <div class="field">
+            <label class="label" asp-for="State">Состояние фичи</label>
+            <div class="control">
+                @foreach (var state in Model.StateTypes)
+                {
+                    <label class="radio">
+                        <input type="radio" name="state" @Html.Raw(Model.State.Equals(state) ? "checked" : "")>
+                        @state.ToString()
+                    </label>
+                }
+            </div>
+            <span asp-validation-for="State"></span>
+        </div>
+
+        <div class="has-text-centered">
+            <button class="button is-primary">Сохранить</button>
+        </div>
+    </form>
+</div>

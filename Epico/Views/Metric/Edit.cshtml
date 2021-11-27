@@ -4,6 +4,8 @@
     ViewBag.Title = "Изменение метрики";
 }
 
+<!--
+    
 <form method="post" asp-controller="Metric" asp-action="Edit">
     <input type="hidden" asp-for="ProjectId" />
     <div asp-validation-summary="ModelOnly"></div>
@@ -14,7 +16,7 @@
     </div>
     <div>
         <label asp-for="Description">Описание</label><br />
-        <input asp-for="Description" value="@Model.Description"/>
+        <input asp-for="Description" value="@Model.Description" />
         <span asp-validation-for="Description"></span>
     </div>
     <div>
@@ -40,3 +42,57 @@
         <input type="submit" value="Сохранить" />
     </div>
 </form>
+-->
+
+
+<div class="content is-medium">
+    <h2>Изменение метрики</h2>
+</div>
+<div>
+    <form method="post" asp-controller="Metric" asp-action="New">
+        <input type="hidden" asp-for="ProjectId" />
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="field">
+            <label class="label" asp-for="Name">Название</label>
+            <div class="control">
+                <input class="input" asp-for="Name" value="@Model.Name" />
+                <span asp-validation-for="Name"></span>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label" asp-for="Description">Описание</label>
+            <div class="control">
+                <input class="input" asp-for="Description" value="@Model.Description" />
+                <span asp-validation-for="Description"></span>
+            </div>
+        </div>
+        @if (Model.PosibleParentMetrics?.Count != 0)
+        {
+            <div class="field">
+                <label class="label" asp-for="ParentMetricId">Родительская метрика</label>
+                <div class="select">
+                    <!-- style="width:auto;"-->
+                    <select asp-for="ParentMetricId">
+                        <option selected hidden></option>
+                        @foreach (var parent in Model.PosibleParentMetrics)
+                        {
+                            if (Model.ParentMetricId == parent.ID)
+                            {
+                                <option selected value="@parent.ID">@parent.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@parent.ID">@parent.Name</option>
+                            }
+                        }
+                    </select>
+                    <span asp-validation-for="ParentMetricId"></span>
+                </div>
+            </div>
+        }
+        <br />
+        <div class="has-text-centered">
+            <button class="button is-primary">Сохранить</button>
+        </div>
+    </form>
+</div>

@@ -3,51 +3,66 @@
     ViewBag.Title = "Измнение задачи";
 }
 
-<form method="post" asp-controller="Task" asp-action="Edit">
-    <input type="hidden" asp-for="ProjectId" />
-    <div>
-        <label asp-for="Name">Название задачи</label><br />
-        <input asp-for="Name" value="@Model.Name" />
-        <span asp-validation-for="Name"></span>
-    </div>
-    <div>
-        <label asp-for="Description">Описание</label><br />
-        <input asp-for="Description" value="@Model.Description" />
-        <span asp-validation-for="Description"></span>
-    </div>
-    <div>
-        <label asp-for="Users">Команда для задачи</label><br />
-        @foreach (var user in Model.PosibleUsers)
-        {
-            <input type="checkbox" value="@user.Id" name="Users" @Html.Raw(Model.Users.Contains(user.Id) ? "checked" : "") />@user.UserName <br />
-        }
-        <span asp-validation-for="Users"></span>
-    </div>
-    <div>
-        <label asp-for="DeadLine">Дедлайн</label><br />
-        <input type="datetime-local" asp-for="DeadLine" value="@Model.DeadLine" />
-        <span asp-validation-for="DeadLine"></span>
-    </div>
+<div class="content is-medium">
+    <h2>Изменение задачи</h2>
+</div>
+<div class="box" style="margin:0 auto">
+    <form method="post" asp-controller="Task" asp-action="Edit">
+        <input type="hidden" asp-for="ProjectId" />
+        <div class="field">
+            <label class="label" asp-for="Name">Название задачи</label>
+            <div class="control">
+                <input class="input" asp-for="Name" value="@Model.Name" />
+                <span asp-validation-for="Name"></span>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label" asp-for="Description">Описание</label>
+            <div class="control">
+                <input class="input" asp-for="Description" value="@Model.Description" />
+                <span asp-validation-for="Description"></span>
+            </div>
+        </div>
+        <br />
+        <div class="field">
+            <label class="label" asp-for="Users">Команда для задачи</label>
+            <div class="control">
+                @foreach (var user in Model.PosibleUsers)
+                {
+                    <label class="checkbox">
+                        <input type="checkbox" value="@user.Id" name="Users" @Html.Raw(Model.Users.Contains(user.Id) ? "checked" : "") />
+                        @user.UserName
+                    </label>
+                    <br />
+                }
+                <span asp-validation-for="Users"></span>
+            </div>
+        </div>
+        <br />
+        <div class="field">
+            <label class="label" asp-for="DeadLine">Дедлайн</label>
+            <div class="control">
+                <input type="datetime-local" asp-for="DeadLine" value="@Model.DeadLine" />
+                <span asp-validation-for="DeadLine"></span>
+            </div>
+        </div>
 
-    <div>
-        <label asp-for="State">Роадмап</label><br />
-        <select asp-for="State">
+        <div class="field">
+            <label class="label" asp-for="State">Состояние задачи</label>
+            <div class="control">
             @foreach (var state in Model.StateTypes)
             {
-                if (state == Model.State)
-                {
-                    <option selected value="@state">@state</option>
-                }
-                else
-                {
-                    <option value="@state">@state</option>
-                }
+                <label class="radio">
+                    <input type="radio" name="state" @Html.Raw(Model.State.Equals(state) ? "checked" : "")>
+                    @state.ToString()
+                </label>
             }
-        </select>
-        <span asp-validation-for="State"></span>
-    </div>
+            </div>
+            <span asp-validation-for="State"></span>
+        </div>
 
-    <div>
-        <input type="submit" value="Сохранить" />
-    </div>
-</form>
+        <div class="has-text-centered">
+            <button class="button is-primary">Сохранить</button>
+        </div>
+    </form>
+</div>

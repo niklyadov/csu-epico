@@ -4,23 +4,35 @@
     ViewBag.Title = "Изменение спринта";
 }
 
-<form method="post" asp-controller="Sprint" asp-action="Edit">
-    <input type="hidden" asp-for="ProjectId" />
-    <div asp-validation-summary="ModelOnly"></div>
-    <div>
-        <label asp-for="Name">Название Спринта</label><br />
-        <input asp-for="Name" value="@Model.Name"/>
-        <span asp-validation-for="Name"></span>
-    </div>
-    <div>
-        <label asp-for="Features">Фичи для спринта</label><br />
-        @foreach (var feature in Model.PosibleFeatures)
-        {
-            <input type="checkbox" value="@feature.ID" name="Features" @Html.Raw(Model.Features.Contains(feature.ID) ? "checked" : "") />@feature.Name <br />
-        }
-        <span asp-validation-for="Features"></span>
-    </div>
-    <div>
-        <input type="submit" value="Создать" />
-    </div>
-</form>
+<div class="content is-medium ">
+    <h2>Изменение спринта</h2>
+</div>
+<div class="box" style="margin:0 auto">
+    <form method="post" asp-controller="Sprint" asp-action="New">
+        <input type="hidden" asp-for="ProjectId" />
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="field">
+            <label class="label" asp-for="Name">Название Спринта</label>
+            <div class="control">
+                <input class="input" asp-for="Name" value="@Model.Name" />
+                <span asp-validation-for="Name"></span>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label" asp-for="Features">Фичи для спринта</label>
+            @foreach (var feature in Model.PosibleFeatures)
+            {
+                <label class="checkbox">
+                    <input type="checkbox" value="@feature.ID" name="Features" @Html.Raw(Model.Features.Contains(feature.ID) ? "checked" : "") />
+                    @feature.Name
+                </label>
+                <br />
+            }
+            <span asp-validation-for="Features"></span>
+        </div>
+        <div class="has-text-centered">
+            <button class="button is-primary">Сохранить</button>
+        </div>
+    </form>
+</div>
