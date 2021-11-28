@@ -1,4 +1,4 @@
-using Epico.Models;
+п»їusing Epico.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -19,7 +19,7 @@ namespace Epico.Controllers
         {
             var userProjectId = await ProjectService.UserProjectId(AccountService.CurrentUserId());
             if (!userProjectId.HasValue)
-                return NotFound("This user does not have a project!");
+                return RedirectToAction("New");
 
             return RedirectToAction("View", "Project", new { id = userProjectId });
             //return View(await ProjectService.GetProjectById(userProjectId.Value));
@@ -57,13 +57,11 @@ namespace Epico.Controllers
         [HttpGet]
         public IActionResult New()
         {
-            return View();
-            // todo ревью
-            if (ProjectService.NotHasProject())
+            if (!ProjectService.NotHasProject())
             {
-                return View();
+                return RedirectToAction("New");
             }
-            return BadRequest("Продукт уже существует.");
+            return View();
         }
 
         [HttpPost]
