@@ -1,10 +1,8 @@
 ﻿using Epico.Entity;
 using Epico.Models;
-using Epico.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Epico.Controllers
@@ -15,9 +13,15 @@ namespace Epico.Controllers
         public MetricController(IServiceProvider serviceProvider) :base(serviceProvider)
         {
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var metric = await MetricService.GetNsmMetric();
+            if (metric == null)
+            {
+                return RedirectToAction("New");
+            }
+            
+            return View(metric);
         }
 
         [HttpGet]
@@ -40,8 +44,8 @@ namespace Epico.Controllers
                 Name = model.Name,
                 Description = model.Description
             };
-            var posibleParentMetrics = await MetricService.GetMetricList();
-            if (posibleParentMetrics?.Count != 0)
+            var possibleParentMetrics = await MetricService.GetMetricList();
+            if (possibleParentMetrics?.Count != 0)
             {
                 if (!model.ParentMetricId.HasValue) // Ошибка
                 {
@@ -49,11 +53,14 @@ namespace Epico.Controllers
                 }
                     
                 metric.ParentMetricId = model.ParentMetricId.Value;
+
+                var parentMetricNew = await MetricService.GetMetricById(model.ParentMetricId.Value);
+                parentMetricNew.Children.Add(metric);
+                await MetricService.UpdateMetric(parentMetricNew);
+                return RedirectToAction("View", "Project", new { id = model.ProjectId });
             }
             await MetricService.AddMetric(metric);
             return RedirectToAction("View", "Project", new { id = model.ProjectId });
-            //return Ok(await MetricService.AddMetric(metric));
-            //return Ok(await ProjectService.AddMetric(model.ProjectId, metric ));
         }
 
         [HttpGet]
@@ -77,15 +84,29 @@ namespace Epico.Controllers
         {
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
 
-            await MetricService.UpdateMetric(new Metric()
+            var metric = await MetricService.GetMetricById(model.ID);
+
+            metric.Name = model.Name;
+            metric.Description = model.Description;
+            metric.ParentMetricId = model.ParentMetricId;
+
+            if (metric.ParentMetricId.HasValue) // удаляем старого child из родителя
             {
-                ID = model.ID, 
-                Name = model.Name, 
-                Description = model.Description, 
-                ParentMetricId = model.ParentMetricId
-            });
+                var parentMetricOld = await MetricService.GetMetricById(metric.ParentMetricId.Value);
+                    parentMetricOld.Children.Remove(metric);
+                await MetricService.UpdateMetric(parentMetricOld);
+            }
+
+            if (model.ParentMetricId.HasValue) // добавляем новый child из родителя
+            {
+                var parentMetricNew = await MetricService.GetMetricById(model.ParentMetricId.Value);
+                    parentMetricNew.Children.Add(metric);
+                await MetricService.UpdateMetric(parentMetricNew);
+            }
+
+            await MetricService.UpdateMetric(metric);
+            
             return RedirectToAction("View", "Project", new { id = model.ProjectId });
-            //return Ok("Метрика изменена");
         }
 
         public async Task<IActionResult> Delete([FromQuery] int metricId)

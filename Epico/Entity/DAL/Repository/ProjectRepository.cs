@@ -56,8 +56,6 @@ namespace Epico.Entity.DAL.Repository
             var project = await _dbContext.Projects
                 .Where(p => p.ID == projectId)
                 .SingleAsync();
-            //project.Metrics ??= new List<Metric>();
-            //project.Metrics.Add(metric);
             
             _dbContext.Entry(project).State = EntityState.Modified;
             

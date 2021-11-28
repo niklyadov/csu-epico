@@ -1,0 +1,15 @@
+@model Epico.Entity.Metric
+
+<ul style="list-style-type:none;">
+    <li>
+        @Model.Name
+        <ul style="list-style-type:none;">
+            @foreach (var metric in Model.Children)
+            {
+                <li>
+                    @await Html.PartialAsync("MetricWalk", metric)
+                </li>
+            }
+        </ul>
+    </li>
+</ul>  

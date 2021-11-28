@@ -41,17 +41,22 @@ namespace Epico.Services
 
         public async Task<Metric> GetMetricById(int id)
         {
-            return await _metricRepository.GetById(id);
+            return await _metricRepository.GetMetricById(id);
         }
         
-        public async Task<List<Metric>> GetMetricList()
+        public async Task<Metric> GetNsmMetric()
         {
-            return await _metricRepository.GetAll();
+            return await _metricRepository.GetNsmMetric();
         }
         
         public async Task<List<Metric>> GetMetricListByIds(List<int> ids)
         {
             return await _metricRepository.GetByIds(ids);
+        }
+        
+        public async Task<List<Metric>> GetMetricList()
+        {
+            return await _metricRepository.GetAll();
         }
     }
 }

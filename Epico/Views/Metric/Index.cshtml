@@ -1,30 +1,17 @@
+п»ї@using Epico.Entity
+@model Epico.Entity.Metric
 @{
     ViewBag.Title = "Metrics";
 }
 
 <div class="content">
-    <h2>North Star Metric</h2>
-    <p>Karoche tut dlinniy text NSM metriki i vot russkaya kodirovka upala, da</p>
+    <h2>@Model.Name</h2>
+    <p>@Model.Description</p>
 </div>
 <br />
-<!--Для теста делал со cдвигами в стиле-->
 <div class="content">
     <h2>Hierarchy of Metrics</h2>
-    <span>Text 1</span><br />
-    <span style="margin-left: 40px">Text 2</span><br />
-    <span style="margin-left: 40px">Text 3</span><br />
-    <span>Text 4</span><br />
-    <span style="margin-left: 40px">Text 5</span><br />
-    <span style="margin-left: 80px">Text 6</span><br />
-    <span style="margin-left: 40px">Text 7</span><br />
-    <span style="margin-left: 40px">Text 8</span><br />
-    <h2>Test na Spanah</h2>
-    @foreach (var item in new int[] { 1, 2, 3, 4, 5 })
-    {
-        <span style="margin-left:@(40*item)px">
-            Text @item
-        </span>
-        <br />
-    }
+
+    @await Html.PartialAsync("MetricWalk", Model)
 </div>
 <br />

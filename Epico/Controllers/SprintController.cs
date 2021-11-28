@@ -81,7 +81,7 @@ namespace Epico.Controllers
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
 
             var features = await FeatureService.GetFeaturesListByIds(model.Features);
-            await SprintService.UpdateSprint(new Sprint()
+            await SprintService.UpdateSprint(new Sprint
             {
                 ID = model.ID, 
                 Name = model.Name,

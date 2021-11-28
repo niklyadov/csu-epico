@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using Epico.Entity.DAL;
 
 namespace Epico.Entity
@@ -9,5 +11,8 @@ namespace Epico.Entity
         public bool IsNSM { get { return ParentMetricId == null; } }
         public string Name { get; set; }
         public string Description { get; set; }
+        
+        public List<Metric> Children { get; set; } 
+            = new List<Metric>();
     }
 }
