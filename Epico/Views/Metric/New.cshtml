@@ -30,7 +30,6 @@
             <div class="field">
                 <label class="label" asp-for="ParentMetricId">Родительская метрика</label>
                 <div class="select">
-                    <!-- style="width:auto;"-->
                     <select asp-for="ParentMetricId">
                         <option selected hidden></option>
                         @foreach (var parent in Model.PosibleParentMetrics)

@@ -1,17 +1,46 @@
-﻿@{
+﻿@model TaskViewModel
+@{
     ViewBag.Title = "Teams";
 }
 
 <div class="column box" style="background: #ededed; margin: 10px;">
+
+    @*
+        
+    @foreach (var task in Model.Tasks)
+    {
+        <span><strong>@task.Name</strong></span>
+        <div class="box">
+            @foreach (var user in task.Team)
+            {
+                <p>@user.UserName</p>
+            }-->
+            <!--тут скорее всего заменить на форму придётся чтоб на страницу с добавлением юзеров
+        отправлять id команды (из существующих юзеров исключать занятые этой задачей)-->
+            <!--<div class="has-text-centered">
+                <input type="image" src="~/img/plus.svg" />
+            </div>
+        </div>
+    }
+    *@
+
+
+
     <span><strong>Test feature 1</strong></span>
     <div class="box">
         <p>People 1</p>
         <p>People 2</p>
         <p>People 3</p>
         <p>People 4</p>
-        <div class="has-text-centered">
-            <input type="image" src="~/img/plus.svg" />
-        </div>
+        <!--Кнопка для добавления Юзера в команду-->
+        <form method="get" asp-action="Add" asp-controller="Team">
+            <div class="is-flex" style="justify-content: center;">
+                <input type="hidden" value="123" />
+                <button class="image is-24x24" type="submit">
+                    <img src="~/img/plus.svg" />
+                </button>
+            </div>
+        </form>
     </div>
     <span><strong>Test feature 2</strong></span>
     <div class="box">
@@ -19,8 +48,11 @@
         <p>People 6</p>
         <p>People 7</p>
         <p>People 8</p>
-        <div class="has-text-centered">
-            <input type="image" src="~/img/plus.svg" />
+        <!--Кнопка для добавления Юзера в команду-->
+        <div class="is-flex" style="justify-content: center;">
+            <a class="image is-24x24" asp-action="Add" asp-controller="RoadMap">
+                <img src="~/img/plus.svg" />
+            </a>
         </div>
     </div>
     <span><strong>Test feature 3</strong></span>
@@ -33,7 +65,10 @@
             <input type="image" src="~/img/plus.svg" />
         </div>
     </div>
-    <div class="has-text-centered">
-        <input type="image" src="~/img/plus.svg" />
+    <!--Кнопка для добавления Юзера в команду-->
+    <div class="is-flex" style="justify-content: center;">
+        <a class="image is-24x24" asp-action="Add" asp-controller="RoadMap">
+            <img src="~/img/plus.svg" />
+        </a>
     </div>
 </div>

@@ -4,47 +4,6 @@
     ViewBag.Title = "Изменение метрики";
 }
 
-<!--
-    
-<form method="post" asp-controller="Metric" asp-action="Edit">
-    <input type="hidden" asp-for="ProjectId" />
-    <div asp-validation-summary="ModelOnly"></div>
-    <div>
-        <label asp-for="Name">Название</label><br />
-        <input asp-for="Name" value="@Model.Name" />
-        <span asp-validation-for="Name"></span>
-    </div>
-    <div>
-        <label asp-for="Description">Описание</label><br />
-        <input asp-for="Description" value="@Model.Description" />
-        <span asp-validation-for="Description"></span>
-    </div>
-    <div>
-        <label asp-for="ParentMetricId">Родительская метрика</label><br />
-        <select disabled="@Model.PosibleParentMetrics.Count.Equals(0)" asp-for="ParentMetricId">
-            <option></option>
-            @foreach (var parent in Model.PosibleParentMetrics)
-            {
-                if (Model.ParentMetricId == parent.ID)
-                {
-                    <option selected value="@parent.ID">@parent.Name</option>
-                }
-                else
-                {
-                    <option value="@parent.ID">@parent.Name</option>
-                }
-
-            }
-        </select>
-        <span asp-validation-for="ParentMetricId"></span>
-    </div>
-    <div>
-        <input type="submit" value="Сохранить" />
-    </div>
-</form>
--->
-
-
 <div class="content is-medium">
     <h2>Изменение метрики</h2>
 </div>
@@ -71,20 +30,19 @@
             <div class="field">
                 <label class="label" asp-for="ParentMetricId">Родительская метрика</label>
                 <div class="select">
-                    <!-- style="width:auto;"-->
                     <select asp-for="ParentMetricId">
                         <option selected hidden></option>
-                        @foreach (var parent in Model.PosibleParentMetrics)
+                    @foreach (var parent in Model.PosibleParentMetrics)
+                    {
+                        if (Model.ParentMetricId == parent.ID)
                         {
-                            if (Model.ParentMetricId == parent.ID)
-                            {
-                                <option selected value="@parent.ID">@parent.Name</option>
-                            }
-                            else
-                            {
-                                <option value="@parent.ID">@parent.Name</option>
-                            }
+                            <option selected value="@parent.ID">@parent.Name</option>
                         }
+                        else
+                        {
+                            <option value="@parent.ID">@parent.Name</option>
+                        }
+                    }
                     </select>
                     <span asp-validation-for="ParentMetricId"></span>
                 </div>
