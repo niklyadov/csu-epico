@@ -6,12 +6,12 @@
 <div class="columns">
     <div class="column box" style="background: #ededed; margin: 10px;">
         <span><strong>Now</strong></span>
-        @foreach(var feature in Model.Features.Where(x => x.Roadmap == Epico.Entity.RoadmapType.Now))
+        @*@foreach(var feature in Model.Features.Where(x => x.Roadmap == Epico.Entity.RoadmapType.Now))
         {
             <div class="box">
                 <p>@feature.Name</p>
             </div>
-        }
+        }*@
         <!--тестовые фичи Now-->
         <div class="box">
             <p>Тестовая фича 1</p>
@@ -31,12 +31,12 @@
     </div>
     <div class="column box" style="background: #ededed; margin: 10px;">
         <span><strong>Then</strong></span>
-        @foreach (var feature in Model.Features.Where(x => x.Roadmap == Epico.Entity.RoadmapType.Then))
+        @*@foreach (var feature in Model.Features.Where(x => x.Roadmap == Epico.Entity.RoadmapType.Then))
         {
             <div class="box">
                 <p>@feature.Name</p>
             </div>
-        }
+        }*@
         <!--тестовые фичи Then-->
         <div class="box">
             <p>Тестовая фича 4</p>
@@ -62,12 +62,12 @@
     </div>
     <div class="column box" style="background: #ededed; margin: 10px;">
         <span><strong>After</strong></span>
-        @foreach (var feature in Model.Features.Where(x => x.Roadmap == Epico.Entity.RoadmapType.After))
+        @*@foreach (var feature in Model.Features.Where(x => x.Roadmap == Epico.Entity.RoadmapType.After))
         {
             <div class="box">
                 <p>@feature.Name</p>
             </div>
-        }
+        }*@
         <!--тестовые фичи After-->
         <div class="box">
             <p>Тестовая фича 7</p>
