@@ -3,45 +3,17 @@
 @{
     ViewData["Title"] = "Вход в систему";
 }
-<!--
-<h2 class="display-4">Вход в систему</h2>
-<br />
-<br />
-<form method="post" asp-controller="Account" asp-action="Login">
-    <div asp-validation-summary="ModelOnly"></div>
-    <div class="row mb-3">
-        <label class="col-sm-2 col-form-label lead" asp-for="Username"></label><br />
-        <div class="col-sm-10">
-            <input class="form-control" asp-for="Username" />
-            <span asp-validation-for="Username"></span>
-        </div>
-    </div>
-    <div class="row mb-3">
-        <label class="col-sm-2 col-form-label lead" asp-for="Password"></label><br />
-        <div class="col-sm-10">
-            <input class="form-control" asp-for="Password" />
-            <span asp-validation-for="Password"></span>
-        </div>
-    </div>
-    <br />
-    <div>
-        <input class="btn btn-primary" type="submit" value="Войти" />
-    </div>
-</form>
-<br />
-<a asp-action="Registration">Регистрация</a>
--->
 <div class="content is-medium has-text-centered">
-    <h2>Вход в систему</h2>
+    <h2>Login</h2>
 </div>
 <div class="box" style="max-width:300px;margin:0 auto;">
     <form asp-controller="Account" asp-action="Login">
         <div asp-validation-summary="ModelOnly"></div>
         <div class="field">
-            <label class="label" asp-for="Username">Email</label>
+            <label class="label" asp-for="Username">Username</label>
             <div class="control">
                 <!--Username-->
-                <input class="input" asp-for="Username" type="text" placeholder="e.g. alex@example.com">
+                <input class="input" asp-for="Username" type="text" placeholder="Username">
                 <span asp-validation-for="Username"></span>
             </div>
         </div>
@@ -55,12 +27,12 @@
             </div>
         </div>
         <div class="has-text-centered">
-            <button class="button is-primary">Войти</button>
+            <button class="button is-primary">Login</button>
         </div>
 
     </form>
     <br />
     <div class="has-text-centered">
-        <a asp-action="Registration">Регистрация</a>
+        <a asp-action="Registration">Register</a>
     </div>
 </div>
