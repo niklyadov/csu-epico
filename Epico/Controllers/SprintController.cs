@@ -99,16 +99,16 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Add([FromQuery] int sprintId)
+        public async Task<IActionResult> Add(SprintViewModel model)
         {
-            var sprint = await SprintService.GetSprintById(sprintId);
+            var sprint = await SprintService.GetSprintById(model.SprintId);
             var features = await FeatureService.GetFeaturesList();
             return View(new AddSprintViewModel
             {
                 SprintName = sprint.Name,
-                SprintId = sprintId,
+                SprintId = sprint.ID,
                 Features = features.Where(x => !sprint.Features.Contains(x)).ToList()
-        });
+            });
         }
 
         [HttpPost]
