@@ -2,3 +2,12 @@ a, a:hover, a:visited, a:focus {
     text-decoration: none;
 }
 
+#tab-content p {
+    display: none;
+}
+
+#tab-content p.is-active {
+    display: block;
+}
+
+
