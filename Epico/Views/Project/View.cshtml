@@ -52,7 +52,7 @@
     <h2>Фичи</h2>
     <div class="features-do-now">
         <h5>Делаем сейчас</h5>
-        @foreach (var feature in Model.Features.Where(x => x.Roadmap == Epico.Entity.RoadmapType.DoNow))
+        @foreach (var feature in Model.Features.Where(x => x.Roadmap == Epico.Entity.RoadmapType.Now))
         {
             <div>
                 <span>@feature.Name</span>
@@ -61,7 +61,7 @@
     </div>
     <div class="features-do-then">
         <h5>Делаем потом</h5>
-        @foreach (var feature in Model.Features.Where(x => x.Roadmap == Epico.Entity.RoadmapType.DoThen))
+        @foreach (var feature in Model.Features.Where(x => x.Roadmap == Epico.Entity.RoadmapType.Then))
         {
             <div>
                 <span>@feature.Name</span>
@@ -70,7 +70,7 @@
     </div>
     <div class="features-do-newer">
         <h5>Делаем когда-нибудь</h5>
-        @foreach (var feature in Model.Features.Where(x => x.Roadmap == Epico.Entity.RoadmapType.DoAfter))
+        @foreach (var feature in Model.Features.Where(x => x.Roadmap == Epico.Entity.RoadmapType.After))
         {
             <div>
                 <span>@feature.Name</span>

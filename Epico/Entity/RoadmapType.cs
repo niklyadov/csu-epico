@@ -2,8 +2,8 @@
 {
     public enum RoadmapType
     {
-        DoNow,
-        DoThen,
-        DoAfter
+        Now,
+        Then,
+        After
     }
 }

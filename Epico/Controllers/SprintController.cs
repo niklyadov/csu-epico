@@ -97,5 +97,36 @@ namespace Epico.Controllers
             await SprintService.DeleteSprint(sprintId);
             return Ok("Спринт удалён");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Add([FromQuery] int sprintId)
+        {
+            var sprint = await SprintService.GetSprintById(sprintId);
+            var features = await FeatureService.GetFeaturesList();
+            return View(new AddSprintViewModel
+            {
+                SprintName = sprint.Name,
+                SprintId = sprintId,
+                Features = features.Where(x => !sprint.Features.Contains(x)).ToList()
+        });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(AddSprintViewModel model)
+        {
+            var feature = await FeatureService.GetFeature(model.FeatureId);
+            var sprint = await SprintService.GetSprintById(model.SprintId);
+
+            if (feature == null)
+            {
+                return NotFound("Feature not found");
+            }
+
+            sprint.Features.Add(feature);
+            
+            await SprintService.UpdateSprint(sprint);
+
+            return RedirectToAction("Index");
+        }
     }
 }

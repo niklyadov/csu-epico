@@ -32,12 +32,6 @@ namespace Epico.Controllers
                 return NotFound("This user does not have a project!");
             
             var project = await ProjectService.GetProjectById(userProjectId.Value);
-            //var sprints = project.Sprints;
-
-            //var features = sprints?.SelectMany(x => x.Features).ToList();
-            //var metrics = features?.SelectMany(x=> x.Metric).ToList();
-            //var tasks = features?.SelectMany(x => x.Tasks).ToList();
-            //var users = tasks?.SelectMany(x=> x.Team).ToList();
             var sprints = await SprintService.GetSprintList();
             var features = await FeatureService.GetFeaturesList();
             var metrics = await MetricService.GetMetricList();
@@ -63,6 +57,7 @@ namespace Epico.Controllers
         [HttpGet]
         public IActionResult New()
         {
+            return View();
             // todo ревью
             if (ProjectService.NotHasProject())
             {
