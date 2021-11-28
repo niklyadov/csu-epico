@@ -1,8 +1,27 @@
+@model SprintViewModel
 @{
     ViewBag.Title = "Sprints";
 }
 
 <div class="column box" style="background: #ededed; margin: 10px;">
+    @foreach (var sprint in Model.Sprints)
+    {
+        <span><strong>@sprint.Name</strong></span>
+        <div class="box">
+        @foreach (var feature in sprint.Features)
+        {
+            <p>@feature.Name</p>
+        }
+            <!--тут скорее всего заменить на форму придётся чтоб на страницу с добавлением фич
+                отправлять id спринта (из существующих фич исключать занятые этим спринтом)-->
+            <div class="has-text-centered">
+                <input type="image" src="~/img/plus.svg" />
+            </div>
+        </div>
+    }
+
+
+    <!--Тестовые спринты-->
     <span><strong>Test sprint 1</strong></span>
     <div class="box">
         <p>Feature 1</p>
@@ -33,7 +52,12 @@
             <input type="image" src="~/img/plus.svg" />
         </div>
     </div>
-    <div class="has-text-centered">
-        <input type="image" src="~/img/plus.svg" />
+
+
+    <!-- Кнопка добавления нового спринта-->
+    <div class="is-flex" style="justify-content: center;">
+        <a class="image is-24x24" asp-action="New" asp-controller="Sprint">
+            <img src="~/img/plus.svg" />
+        </a>
     </div>
 </div>
