@@ -1,12 +1,12 @@
-﻿@model TaskViewModel
+﻿@model TeamViewModel
 @{
     ViewBag.Title = "Teams";
 }
 
 <div class="column box" style="background: #ededed; margin: 10px;">
-
-    @*
         
+    @*      
+        <!--Раскоментить когда релизную версию выкатывать будем-->
     @foreach (var task in Model.Tasks)
     {
         <span><strong>@task.Name</strong></span>
@@ -14,61 +14,69 @@
             @foreach (var user in task.Team)
             {
                 <p>@user.UserName</p>
-            }-->
-            <!--тут скорее всего заменить на форму придётся чтоб на страницу с добавлением юзеров
-        отправлять id команды (из существующих юзеров исключать занятые этой задачей)-->
-            <!--<div class="has-text-centered">
-                <input type="image" src="~/img/plus.svg" />
-            </div>
+            }
+            <form method="get" onclick="this.submit()" asp-action="Add" asp-controller="Team">
+                <div class="is-flex" style="justify-content: center;">
+                    <!--костыль чтоб курсор менялся-->
+                    <a>
+                        <input type="hidden" asp-for="TaskId" />
+                        <img src="~/img/plus.svg" />
+                    </a>
+                </div>
+            </form>
         </div>
     }
-    *@
+    *@      
 
-
-
-    <span><strong>Test feature 1</strong></span>
+    <!--тестовые задачи с командами-->
+    <span><strong>Test task 1</strong></span>
     <div class="box">
         <p>People 1</p>
         <p>People 2</p>
         <p>People 3</p>
         <p>People 4</p>
         <!--Кнопка для добавления Юзера в команду-->
-        <form method="get" asp-action="Add" asp-controller="Team">
+        <form method="get" onclick="this.submit()" asp-action="Add" asp-controller="Team">
             <div class="is-flex" style="justify-content: center;">
-                <input type="hidden" value="123" />
-                <button class="image is-24x24" type="submit">
+                <!--костыль чтоб курсор менялся-->
+                <a>
+                    <input type="hidden" asp-for="TaskId" value="222"/>
                     <img src="~/img/plus.svg" />
-                </button>
+                </a>
             </div>
         </form>
     </div>
-    <span><strong>Test feature 2</strong></span>
+    <span><strong>Test task 2</strong></span>
     <div class="box">
         <p>People 5</p>
         <p>People 6</p>
         <p>People 7</p>
         <p>People 8</p>
         <!--Кнопка для добавления Юзера в команду-->
-        <div class="is-flex" style="justify-content: center;">
-            <a class="image is-24x24" asp-action="Add" asp-controller="RoadMap">
-                <img src="~/img/plus.svg" />
-            </a>
-        </div>
+        <form method="get" onclick="this.submit()" asp-action="Add" asp-controller="Team">
+            <div class="is-flex" style="justify-content: center;">
+                <!--костыль чтоб курсор менялся-->
+                <a>
+                    <input type="hidden" asp-for="TaskId" value="333" />
+                    <img src="~/img/plus.svg" />
+                </a>
+            </div>
+        </form>
     </div>
-    <span><strong>Test feature 3</strong></span>
+    <span><strong>Test task 3</strong></span>
     <div class="box">
         <p>People 9</p>
         <p>People 10</p>
         <p>People 11</p>
         <p>People 12</p>
-        <div class="has-text-centered">
-            <input type="image" src="~/img/plus.svg" />
-        </div>
-    </div>
-    <!--Кнопка для добавления Юзера в команду-->
-    <div class="is-flex" style="justify-content: center;">
-        <a class="image is-24x24" asp-action="Add" asp-controller="RoadMap">
-            <img src="~/img/plus.svg" />
-        </a>
+        <form method="get" onclick="this.submit()" asp-action="Add" asp-controller="Team">
+            <div class="is-flex" style="justify-content: center;">
+                <!--костыль чтоб курсор менялся-->
+                <a>
+                    <input type="hidden" asp-for="TaskId" value="444" />
+                    <img src="~/img/plus.svg" />
+                </a>
+            </div>
+        </form>
     </div>
 </div>

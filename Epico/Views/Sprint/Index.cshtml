@@ -4,21 +4,28 @@
 }
 
 <div class="column box" style="background: #ededed; margin: 10px;">
-    @foreach (var sprint in Model.Sprints)
-    {
-        <span><strong>@sprint.Name</strong></span>
-        <div class="box">
-        @foreach (var feature in sprint.Features)
+    @*
+            <!--Раскоментить когда релизную версию выкатывать будем-->
+        @foreach (var sprint in Model.Sprints)
         {
-            <p>@feature.Name</p>
-        }
-            <!--тут скорее всего заменить на форму придётся чтоб на страницу с добавлением фич
-                отправлять id спринта (из существующих фич исключать занятые этим спринтом)-->
-            <div class="has-text-centered">
-                <input type="image" src="~/img/plus.svg" />
+            <span><strong>@sprint.Name</strong></span>
+            <div class="box">
+            @foreach (var feature in sprint.Features)
+            {
+                <p>@feature.Name</p>
+            }
+            <form method="get" onclick="this.submit()" asp-action="Add" asp-controller="Team">
+                <div class="is-flex" style="justify-content: center;">
+                    <!--костыль чтоб курсор менялся-->
+                    <a>
+                        <input type="hidden" asp-for="SprintId" />
+                        <img src="~/img/plus.svg" />
+                    </a>
+                </div>
+            </form>
             </div>
-        </div>
-    }
+        }
+    *@
 
 
     <!--Тестовые спринты-->
@@ -28,9 +35,15 @@
         <p>Feature 2</p>
         <p>Feature 3</p>
         <p>Feature 4</p>
-        <div class="has-text-centered">
-            <input type="image" src="~/img/plus.svg" />
-        </div>
+        <form method="get" onclick="this.submit()" asp-action="Add" asp-controller="Sprint">
+            <div class="is-flex" style="justify-content: center;">
+                <!--костыль чтоб курсор менялся-->
+                <a>
+                    <input type="hidden" asp-for="SprintId" value="222" />
+                    <img src="~/img/plus.svg" />
+                </a>
+            </div>
+        </form>
     </div>
     <span><strong>Test sprint 2</strong></span>
     <div class="box">
@@ -38,9 +51,15 @@
         <p>Feature 6</p>
         <p>Feature 7</p>
         <p>Feature 8</p>
-        <div class="has-text-centered">
-            <input type="image" src="~/img/plus.svg" />
-        </div>
+        <form method="get" onclick="this.submit()" asp-action="Add" asp-controller="Sprint">
+            <div class="is-flex" style="justify-content: center;">
+                <!--костыль чтоб курсор менялся-->
+                <a>
+                    <input type="hidden" asp-for="SprintId" value="333" />
+                    <img src="~/img/plus.svg" />
+                </a>
+            </div>
+        </form>
     </div>
     <span><strong>Test sprint 3</strong></span>
     <div class="box">
@@ -48,9 +67,15 @@
         <p>Feature 10</p>
         <p>Feature 11</p>
         <p>Feature 12</p>
-        <div class="has-text-centered">
-            <input type="image" src="~/img/plus.svg" />
-        </div>
+        <form method="get" onclick="this.submit()" asp-action="Add" asp-controller="Sprint">
+            <div class="is-flex" style="justify-content: center;">
+                <!--костыль чтоб курсор менялся-->
+                <a>
+                    <input type="hidden" asp-for="SprintId" value="444" />
+                    <img src="~/img/plus.svg" />
+                </a>
+            </div>
+        </form>
     </div>
 
 

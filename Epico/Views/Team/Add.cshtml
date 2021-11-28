@@ -1,6 +1,6 @@
 ﻿@model AddTeamViewModel
 @{
-
+    ViewBag.Title = "Add user to team";
 }
 
 <div class="column box" style="background: #ededed; margin: 10px;">
@@ -47,6 +47,7 @@
         <input type="hidden" asp-for="UserId" />
         <input type="hidden" asp-for="TeamId" />
         <span asp-validation-for="UserId"></span>
+        <span asp-validation-for="TeamId"></span>
         <p>Test sprint 4</p>
     </form>
 
