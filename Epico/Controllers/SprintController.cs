@@ -15,28 +15,30 @@ namespace Epico.Controllers
     {
         public SprintController(IServiceProvider serviceProvider):base(serviceProvider)
         {
-            
         }
         
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            return View(new SprintViewModel
+            {
+                Sprints = await SprintService.GetSprintList()
+            });
         }
 
         [HttpGet]
         public async Task<IActionResult> New([FromQuery] int projectId)
         {
             var allFeatures = await FeatureService.GetFeaturesList();
-            var posibleFeatures = allFeatures.Where(x => x.State != FeatureState.Closed)
+            var possibleFeatures = allFeatures.Where(x => x.State != FeatureState.Closed)
                                              .ToList();
             // Нельзя создать спринт если в проекте нет ни одной фичи
-            if (posibleFeatures?.Count == 0)
+            if (possibleFeatures?.Count == 0)
                 return RedirectToAction("View", "Project", new { id = projectId });
 
             return View(new NewSprintViewModel
             {
                 ProjectId = projectId,
-                PosibleFeatures = posibleFeatures
+                PosibleFeatures = possibleFeatures
             });
         }
 
@@ -56,7 +58,6 @@ namespace Epico.Controllers
                 });
             }
             return RedirectToAction("View", "Project", new { id = model.ProjectId });
-            //return Ok("Спринт создан");
         }
 
         [HttpGet]
@@ -87,7 +88,6 @@ namespace Epico.Controllers
                 Features = features
             });
             return RedirectToAction("View", "Project", new { id = model.ProjectId });
-            //return Ok("Спринт изменён");
         }
 
         public async Task<IActionResult> Delete([FromQuery] int sprintId)
