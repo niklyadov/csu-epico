@@ -1,17 +1,20 @@
+@model FeatureViewModel
+
 @{
     ViewBag.Title = "Features";
 }
 
 <div class="column box" style="background: #ededed; margin: 10px;">
     <span><strong>Features</strong></span>
-    @*
-        foreach(var item in model.Features)
-        {
-            <div class="box">
-                <p>@item.Name</p>
-            </div>
-        }
-    *@
+    
+    @foreach(var feature in Model.Features)
+    {
+        <div class="box">
+            <p>@feature.Name</p>
+        </div>
+    }
+    
+    <!--Тестовые фичи-->
     <div class="box">
         <p>Test feature 1</p>
     </div>
@@ -33,7 +36,11 @@
     <div class="box">
         <p>Test feature 7</p>
     </div>
-    <div class="has-text-centered">
-        <input type="image" src="~/img/plus.svg" />
+
+    <!-- Кнопка добавления новой фичи-->
+    <div class="is-flex" style="justify-content: center;">
+        <a class="image is-24x24" asp-action="New" asp-controller="Feature">
+            <img src="~/img/plus.svg" />
+        </a>
     </div>
 </div>
