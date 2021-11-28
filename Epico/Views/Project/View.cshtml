@@ -4,111 +4,28 @@
     ViewBag.Title = "Просмотр проекта";
 }
 
-<div class="text-info">
-    <h2 class="display-4 text-dark">
-        <span>@Model.Name</span>
+<section class="section">
+    <h2 class="subtitle">
+        Здесь должно быть описание нашего продукта. А ещё, когда жмакаешь на ссылки с низу, тебя телепортирует в хардмод Террарии.
     </h2>
-    <br />
-    <span class="blockquote text-dark">Виденье продукта: @Model.Vision</span>
-    <br />
-    <span class="blockquote text-dark">Миссия продукта: @Model.Mission</span>
-    <br />
-    <span class="blockquote text-dark">Формула продукта: @Model.ProductFormula</span>
-</div>
-<br />
-<div class="metrics">
-    <h2 style="font-weight: 300">Метрики</h2>
-    @foreach (var metric in Model.Metrics)
-    {
-        <div>
-            <span style="font-weight:bold">Название: </span>
-            <span>@metric.Name</span><br />
-            <span style="font-weight:bold">Описание: </span>
-            <span>@metric.Description</span><br />
-        </div>
-        <br />
-    }
-    @{ var text = (Model.Metrics.Count == 0) ? "Добавить новую НСМ метрику" : "Добавить новую метрику"; }
-    <button class="btn btn-primary" onclick="window.location.href = '../Metric/New?projectId=@Model.ProjectId'">@text</button>
-</div>
-<br />
-<div class="tasks">
-    <h2 style="font-weight: 300">Задачи</h2>
-    @foreach (var task in Model.Tasks)
-    {
-        <div>
-            <span style="font-weight:bold">Название: </span>
-            <a href="../Task/Edit/?projectId=@Model.ProjectId&taskId=@task.ID">
-                <span>@task.Name</span>
-            </a>
-        </div>
-        <br />
-    }
-    <br />
-    <button class="btn btn-primary" onclick="window.location.href='../Task/New?projectId=@Model.ProjectId'">Добавить новую задачу</button>
-</div>
-<br />
-<div class="features">
-    <h2>Фичи</h2>
-    <div class="features-do-now">
-        <h5>Делаем сейчас</h5>
-        @foreach (var feature in Model.Features.Where(x => x.Roadmap == Epico.Entity.RoadmapType.Now))
-        {
-            <div>
-                <span>@feature.Name</span>
-            </div>
-        }
-    </div>
-    <div class="features-do-then">
-        <h5>Делаем потом</h5>
-        @foreach (var feature in Model.Features.Where(x => x.Roadmap == Epico.Entity.RoadmapType.Then))
-        {
-            <div>
-                <span>@feature.Name</span>
-            </div>
-        }
-    </div>
-    <div class="features-do-newer">
-        <h5>Делаем когда-нибудь</h5>
-        @foreach (var feature in Model.Features.Where(x => x.Roadmap == Epico.Entity.RoadmapType.After))
-        {
-            <div>
-                <span>@feature.Name</span>
-            </div>
-        }
-    </div>
-    @if (Model.Tasks?.Count == 0)
-    {
-        <span style="color: red">* Нельзя создать фичу, пока в продукте нет ни одной задачи</span><br />
-    }
-    @if (Model.Metrics?.Count == 0)
-    {
-        <span style="color: red">* Нельзя создать фичу, пока в продукте нет ни одной метрики</span><br />
-    }
-    @if (Model.Tasks?.Count != 0 && Model.Metrics?.Count != 0)
-    {
-        <button class="btn btn-primary" onclick="window.location.href='../Feature/New?projectId=@Model.ProjectId'">Добавить новую фичу</button>
-    }
-</div>
-<br />
-<div class="sprints">
-    <h2 style="font-weight: 300">Спринты</h2>
-    @foreach (var sprint in Model.Sprints)
-    {
-        <div>
-            <span style="font-weight:bold">Название: </span>
-            <span>@sprint.Name</span>
-        </div>
-        <br />
-    }
-    @if (Model.Features?.Count == 0)
-    {
-        <span style="color: red">* Нельзя создать спринт, пока в продукте нет ни одной фичи</span>
-    }
-    else
-    {
-        <button class="btn btn-primary" onclick="window.location.href='../Sprint/New?projectId=@Model.ProjectId'">Добавить новый спринт</button>
-    }
-</div>
-<br />
+    <p><img src="~/img/Ter.png"></p>
+</section>
 
+
+<div class="tabs">
+    <div id="content-1">
+        Содержимое 1...
+    </div>
+    <div id="content-2">
+        Содержимое 2...
+    </div>
+    <div id="content-3">
+        Содержимое 3...
+    </div>
+
+    <div class="tabs__links">
+        <a href="#content-1">Видение</a>
+        <a href="#content-2">Миссия</a>
+        <a href="#content-3">Стратегия</a>
+    </div>
+</div>
