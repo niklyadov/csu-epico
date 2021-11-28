@@ -3,14 +3,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Epico.Models;
+using Epico.Services;
 
 namespace Epico.Controllers
 {
-    public class HypothesesController : Controller
+    public class HypothesesController : BaseController
     {
-        public IActionResult Index()
+        public HypothesesController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
-            return View();
+        }
+        public async Task<IActionResult> Index()
+        {
+            return View(new FeatureViewModel
+            {
+                Features = await FeatureService.GetFeaturesList()
+            });
         }
     }
 }

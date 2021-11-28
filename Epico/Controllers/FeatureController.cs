@@ -15,25 +15,26 @@ namespace Epico.Controllers
         public FeatureController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            return View(new FeatureViewModel
+            {
+                Features = await FeatureService.GetFeaturesList()
+            });
         }
 
         [HttpGet]
         public async Task<IActionResult> New([FromQuery] int projectId)
         {
-            var posibleMetrics = await MetricService.GetMetricList();
+            var possibleMetrics = await MetricService.GetMetricList();
             var allTasks = await TaskService.GetTaskList();
-            var posibleTasks = allTasks.Where(x => x.State != TaskState.Closed).ToList();
+            var possibleTasks = allTasks.Where(x => x.State != TaskState.Closed).ToList();
 
-            //if (posibleTasks?.Count == 0 || posibleMetrics?.Count == 0)
-            //    return RedirectToAction("View", "Project", new { id = projectId });
             return View(new NewFeatureViewModel
             {
                 ProjectId = projectId,
-                PosibleTasks = posibleTasks,
-                PosibleMetrics = posibleMetrics
+                PosibleTasks = possibleTasks,
+                PosibleMetrics = possibleMetrics
             });
         }
 
@@ -54,19 +55,8 @@ namespace Epico.Controllers
                     Metric = metrics,
                     State = FeatureState.NotStarted
                 });
-                // todo тут должен передаваться id спринта а не  1
-                //await SprintService.AddFeature(1, new Feature
-                //{
-                //    Name = model.Name,
-                //    Description = model.Description,
-                //    Hypothesis = model.Hypothesis,
-                //    Tasks = tasks,
-                //    Metric = metrics,
-                //    State = FeatureState.NotStarted
-                //});
             }
             return RedirectToAction("View", "Project", new { id = model.ProjectId });
-            //return Ok("Фича добавлена");
         }
 
         [HttpGet]
@@ -110,7 +100,6 @@ namespace Epico.Controllers
                 State = model.State
             });
             return RedirectToAction("View", "Project", new { id = model.ProjectId });
-            //return Ok("Фича изменена");
         }
 
         public async Task<IActionResult> Delete([FromQuery] int featureId)
