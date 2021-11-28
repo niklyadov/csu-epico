@@ -45,8 +45,9 @@
 
     <form class="box button" onclick="this.submit();" asp-action="Add" asp-controller="RoadMap">
         <input type="hidden" asp-for="UserId" />
-        <input type="hidden" asp-for="SprintId" />
+        <input type="hidden" asp-for="TeamId" />
         <span asp-validation-for="UserId"></span>
+        <span asp-validation-for="TeamId"></span>
         <p>Test sprint 4</p>
     </form>
 
