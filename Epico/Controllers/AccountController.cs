@@ -12,11 +12,21 @@ namespace Epico.Controllers
         }
         public ActionResult Login()
         {
+            if (AccountService.CurrentUserId() != null)
+            {
+                return RedirectToAction("Index", "Project");
+            }
+
             return View(new LoginViewModel());
         }
 
         public IActionResult Registration()
         {
+            if (AccountService.CurrentUserId() != null)
+            {
+                return RedirectToAction("Index", "Project");
+            }
+            
             return View();
         }
         
