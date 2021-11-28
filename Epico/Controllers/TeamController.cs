@@ -15,7 +15,7 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public IActionResult Add()
+        public IActionResult Add(TeamViewModel model)
         {
             return StatusCode(418, "I,m a teapot");
         }
