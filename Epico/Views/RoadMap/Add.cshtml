@@ -6,17 +6,18 @@
 
 <div class="column box" style="background: #ededed; margin: 10px;">
     <span><strong>Add to the @Model.Roadmap.ToString() section</strong></span>
-    @*
-        foreach(var item in model.Features)
-        {
-        <form class="box button" onclick="this.submit();" asp-action="Add" asp-controller="RoadMap">
-            <input type="hidden" asp-for="FeatureId" />
-            <span asp-validation-for="FeatureId"></span>
-            <p>Test feature 1</p>
-        </form>
-        }
-    *@
-
+    
+    @foreach(var feature in Model.Features)
+    {
+    <form class="box button" onclick="this.submit();" asp-action="Add" asp-controller="RoadMap">
+        <input type="hidden" asp-for="FeatureId" />
+        <input type="hidden" asp-for="Roadmap" />
+        <span asp-validation-for="FeatureId"></span>
+        <span asp-validation-for="Roadmap"></span>
+        <p>@feature.Name</p>
+    </form>
+    }
+    
     <!--Тестовые формы-->
     <form class="box button" onclick="this.submit();" asp-action="Add" asp-controller="RoadMap">
         <input type="hidden" asp-for="FeatureId" />
@@ -59,29 +60,4 @@
         <span asp-validation-for="FeatureId"></span>
         <p>Test feature 6</p>
     </form>
-
-
-    <!--
-    <div class="box">
-        <p>Test feature 2</p>
-    </div>
-    <div class="box">
-        <p>Test feature 3</p>
-    </div>
-    <div class="box">
-        <p>Test feature 4</p>
-    </div>
-    <div class="box">
-        <p>Test feature 5</p>
-    </div>
-    <div class="box">
-        <p>Test feature 6</p>
-    </div>
-    <div class="box">
-        <p>Test feature 7</p>
-    </div>
-    <div class="has-text-centered">
-        <input type="image" src="~/img/plus.svg" />
-    </div>
-    -->
 </div>

@@ -1,18 +1,18 @@
-﻿@{
+﻿@model RoadMapViewModel
+@{
     ViewBag.Title = "RoadMap";
 }
 
 <div class="columns">
     <div class="column box" style="background: #ededed; margin: 10px;">
         <span><strong>Now</strong></span>
-        @*
-            foreach(var item in model.Features.Where(x => x.FeatureType == Now))
-            {
-                <div class="box">
-                    <p>@item.Name</p>
-                </div>
-            }
-        *@
+        @foreach(var feature in Model.Features.Where(x => x.Roadmap == Epico.Entity.RoadmapType.Now))
+        {
+            <div class="box">
+                <p>@feature.Name</p>
+            </div>
+        }
+        <!--тестовые фичи Now-->
         <div class="box">
             <p>Тестовая фича 1</p>
         </div>
@@ -22,12 +22,22 @@
         <div class="box">
             <p>Тестовая фича 3</p>
         </div>
-        <div class="has-text-centered">
-            <input type="image" src="~/img/plus.svg"/>
+        <!--Кнопка для добавления фичи в Now-->
+        <div class="is-flex" style="justify-content: center;">
+            <a class="image is-24x24" asp-action="Add" asp-controller="RoadMap">
+                <img src="~/img/plus.svg" />
+            </a>
         </div>
     </div>
     <div class="column box" style="background: #ededed; margin: 10px;">
         <span><strong>Then</strong></span>
+        @foreach (var feature in Model.Features.Where(x => x.Roadmap == Epico.Entity.RoadmapType.Then))
+        {
+            <div class="box">
+                <p>@feature.Name</p>
+            </div>
+        }
+        <!--тестовые фичи Then-->
         <div class="box">
             <p>Тестовая фича 4</p>
         </div>
@@ -43,12 +53,22 @@
         <div class="box">
             <p>Тестовая фича 11</p>
         </div>
-        <div class="has-text-centered">
-            <input type="image" src="~/img/plus.svg" />
+        <!--Кнопка для добавления фичи в Then-->
+        <div class="is-flex" style="justify-content: center;">
+            <a class="image is-24x24" asp-action="Add" asp-controller="RoadMap">
+                <img src="~/img/plus.svg" />
+            </a>
         </div>
     </div>
     <div class="column box" style="background: #ededed; margin: 10px;">
         <span><strong>After</strong></span>
+        @foreach (var feature in Model.Features.Where(x => x.Roadmap == Epico.Entity.RoadmapType.After))
+        {
+            <div class="box">
+                <p>@feature.Name</p>
+            </div>
+        }
+        <!--тестовые фичи After-->
         <div class="box">
             <p>Тестовая фича 7</p>
         </div>
@@ -61,8 +81,11 @@
         <div class="box">
             <p>Тестовая фича 12</p>
         </div>
-        <div class="has-text-centered">
-            <input type="image" src="~/img/plus.svg" />
+        <!--Кнопка для добавления фичи в After-->
+        <div class="is-flex" style="justify-content: center;">
+            <a class="image is-24x24" asp-action="Add" asp-controller="RoadMap">
+                <img src="~/img/plus.svg" />
+            </a>
         </div>
     </div>
 </div>

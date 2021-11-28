@@ -1,0 +1,68 @@
+﻿@model AddTeamViewModel
+@{
+
+}
+
+<div class="column box" style="background: #ededed; margin: 10px;">
+    <span><strong>Add to the @Model.TeamName section</strong></span>
+    @* 
+    @foreach (var user in Model.Users)
+    {
+        <form class="box button" onclick="this.submit();" asp-action="Add" asp-controller="RoadMap">
+            <input type="hidden" asp-for="UserId" />
+            <input type="hidden" asp-for="TeamId" />
+            <span asp-validation-for="UserId"></span>
+            <span asp-validation-for="TeamId"></span>
+            <p>@user.UserName</p>
+        </form>
+    }
+    *@
+
+    <!--Тестовые формы-->
+    <form class="box button" onclick="this.submit();" asp-action="Add" asp-controller="RoadMap">
+        <input type="hidden" asp-for="UserId" />
+        <input type="hidden" asp-for="TeamId" />
+        <span asp-validation-for="UserId"></span>
+        <span asp-validation-for="TeamId"></span>
+        <p>Test sprint 1</p>
+    </form>
+
+    <form class="box button" onclick="this.submit();" asp-action="Add" asp-controller="RoadMap">
+        <input type="hidden" asp-for="UserId" />
+        <input type="hidden" asp-for="TeamId" />
+        <span asp-validation-for="UserId"></span>
+        <span asp-validation-for="TeamId"></span>
+        <p>Test sprint 2</p>
+    </form>
+
+    <form class="box button" onclick="this.submit();" asp-action="Add" asp-controller="RoadMap">
+        <input type="hidden" asp-for="UserId" />
+        <input type="hidden" asp-for="TeamId" />
+        <span asp-validation-for="UserId"></span>
+        <span asp-validation-for="TeamId"></span>
+        <p>Test sprint 3</p>
+    </form>
+
+    <form class="box button" onclick="this.submit();" asp-action="Add" asp-controller="RoadMap">
+        <input type="hidden" asp-for="UserId" />
+        <input type="hidden" asp-for="SprintId" />
+        <span asp-validation-for="UserId"></span>
+        <p>Test sprint 4</p>
+    </form>
+
+    <form class="box button" onclick="this.submit();" asp-action="Add" asp-controller="RoadMap">
+        <input type="hidden" asp-for="UserId" />
+        <input type="hidden" asp-for="TeamId" />
+        <span asp-validation-for="UserId"></span>
+        <span asp-validation-for="TeamId"></span>
+        <p>Test sprint 5</p>
+    </form>
+
+    <form class="box button" onclick="this.submit();" asp-action="Add" asp-controller="RoadMap">
+        <input type="hidden" asp-for="UserId" />
+        <input type="hidden" asp-for="TeamId" />
+        <span asp-validation-for="UserId"></span>
+        <span asp-validation-for="TeamId"></span>
+        <p>Test sprint 6</p>
+    </form>
+</div>
