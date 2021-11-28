@@ -6,39 +6,26 @@
 
 <section class="section">
     <h2 class="subtitle">
-        A simple container to divide your page into <strong>sections</strong>, like the one you're currently reading.
-        Shise
+        Здесь должно быть описание нашего продукта. А ещё, когда жмакаешь на ссылки с низу, тебя телепортирует в хардмод Террарии.
     </h2>
+    <p><img src="~/img/Ter.png"></p>
 </section>
 
-<div class="tabs" id="tabs is-toggle is-fullwidth">
-    <ul>
-        <li class="is-active" data-tab="1">
-            <a>
-                <span>Test</span>
-            </a>
-        </li>
-        <li data-tab="2">
-            <a>
-                <span>Test2</span>
-            </a>
-        </li>
-        <li data-tab="3">
-            <a>
-                <span>Test3</span>
-            </a>
-        </li>
-    </ul>
-</div>
 
-<div id="tab-content">
-    <p class="is-active" data-content="1">
-        Test1
-    </p>
-    <p data-content="2">
-        Test2
-    </p>
-    <p data-content="3">
-        Test3
-    </p>
+<div class="tabs">
+    <div id="content-1">
+        Содержимое 1...
+    </div>
+    <div id="content-2">
+        Содержимое 2...
+    </div>
+    <div id="content-3">
+        Содержимое 3...
+    </div>
+
+    <div class="tabs__links">
+        <a href="#content-1">Видение</a>
+        <a href="#content-2">Миссия</a>
+        <a href="#content-3">Стратегия</a>
+    </div>
 </div>
