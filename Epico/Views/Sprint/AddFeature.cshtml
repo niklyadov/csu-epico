@@ -1,4 +1,4 @@
-﻿@model AddSprintViewModel
+﻿@model AddFeatureToSprintViewModel
 
 @{
     ViewBag.Title = "Добавление фичи в спринт";
@@ -7,19 +7,68 @@
 
 <div class="column box" style="background: #ededed; margin: 10px;">
     <span><strong>Add to the @Model.SprintName section</strong></span>
-    
-    @foreach(var feature in Model.Features)
-    {
-    <form class="box button" onclick="this.submit();" asp-action="Add" asp-controller="RoadMap">
-        <input type="hidden" asp-for="FeatureId" />
+
+    <form method="post" asp-action="Add" asp-controller="Sprint">
         <input type="hidden" asp-for="SprintId" />
-        <span asp-validation-for="FeatureId"></span>
         <span asp-validation-for="SprintId"></span>
-        <p>@feature.Name</p>
+        <div class="field">
+            @*@foreach (var feature in Model.PosibleFeatures)
+        {
+            <label class="checkbox">
+                <input type="checkbox" value="@feature.ID" name="FeatureIds" />
+                @feature.Name
+            </label>
+            <br />
+        }*@
+
+            <!--Тестовые данные-->
+            <label class="checkbox">
+                <input type="checkbox" value="111" name="FeatureIds" />
+                Feature 1
+            </label>
+            <br />
+            <label class="checkbox">
+                <input type="checkbox" value="222" name="FeatureIds" />
+                Feature 2
+            </label>
+            <br />
+            <label class="checkbox">
+                <input type="checkbox" value="333" name="FeatureIds" />
+                Feature 3
+            </label>
+            <br />
+            <label class="checkbox">
+                <input type="checkbox" value="444" name="FeatureIds" />
+                Feature 4
+            </label>
+            <br />
+            <!--Конец тестовых данных-->
+
+
+            <span asp-validation-for="FeatureIds"></span>
+        </div>
+        <div class="has-text-centered">
+            <button class="button is-primary">Добавить</button>
+        </div>
     </form>
-    }
+
+    @*
+        @foreach (var feature in Model.PosibleFeatures)
+        {
+
+            <form class="box button" onclick="this.submit();" asp-action="Add" asp-controller="RoadMap">
+                <input type="hidden" asp-for="FeatureId" />
+                <span asp-validation-for="FeatureId"></span>
+                <span asp-validation-for="SprintId"></span>
+                <input type="hidden" asp-for="SprintId" />
+                <p>@feature.Name</p>
+            </form>
+        }
+    *@
+
 
     <!--Тестовые формы-->
+    <!--
     <form class="box button" onclick="this.submit();" asp-action="Add" asp-controller="RoadMap">
         <input type="hidden" asp-for="FeatureId" />
         <input type="hidden" asp-for="SprintId" />
@@ -30,7 +79,7 @@
 
     <form class="box button" onclick="this.submit();" asp-action="Add" asp-controller="RoadMap">
         <input type="hidden" asp-for="FeatureId" />
-        <input type="hidden" asp-for="SprintId" />
+        <input type="hidden" asp-for="FeatureId" />
         <span asp-validation-for="FeatureId"></span>
         <p>Test sprint 2</p>
     </form>
@@ -57,9 +106,11 @@
     </form>
 
     <form class="box button" onclick="this.submit();" asp-action="Add" asp-controller="RoadMap">
-        <input type="hidden" asp-for="FeatureId" />
+        <input type="hidden" asp-for="SprintId" />
         <input type="hidden" asp-for="SprintId" />
         <span asp-validation-for="FeatureId"></span>
         <p>Test sprint 6</p>
     </form>
+    -->
+
 </div>

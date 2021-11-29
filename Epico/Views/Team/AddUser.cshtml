@@ -1,0 +1,51 @@
+﻿@model AddUserToTeamViewModel
+@{
+    ViewBag.Title = "Add user to team";
+}
+
+<div class="column box" style="background: #ededed; margin: 10px;">
+    <span><strong>Add to the @Model.TaskName section</strong></span>
+
+    <form method="post" asp-action="AddUser" asp-controller="Team">
+        <input type="hidden" asp-for="TaskId" />
+        <span asp-validation-for="TaskId"></span>
+        <div class="field">
+            @*@foreach (var user in Model.PosibleUsers)
+            {
+            <label class="checkbox">
+                <input type="checkbox" value="@user.Id" name="UserIds" />
+                @user.UserName
+            </label>
+            <br />
+            }*@
+
+            <!--Тестовые данные-->
+            <label class="checkbox">
+                <input type="checkbox" value="111" name="UserIds" />
+                User 1
+            </label>
+            <br />
+            <label class="checkbox">
+                <input type="checkbox" value="222" name="UserIds" />
+                User 1
+            </label>
+            <br />
+            <label class="checkbox">
+                <input type="checkbox" value="333" name="UserIds" />
+                User 1
+            </label>
+            <br />
+            <label class="checkbox">
+                <input type="checkbox" value="444" name="UserIds" />
+                User 1
+            </label>
+            <br />
+            <!--Конец тестовых данных-->
+
+            <span asp-validation-for="UserIds"></span>
+        </div>
+        <div class="has-text-centered">
+            <button class="button is-primary">Добавить</button>
+        </div>
+    </form> 
+</div>

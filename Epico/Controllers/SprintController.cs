@@ -101,30 +101,30 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Add(SprintViewModel model)
+        public async Task<IActionResult> AddFeature(SprintViewModel model)
         {
             var sprint = await SprintService.GetSprintById(model.SprintId);
             var features = await FeatureService.GetFeaturesList();
-            return View(new AddSprintViewModel
+            return View(new AddFeatureToSprintViewModel
             {
                 SprintName = sprint.Name,
                 SprintId = sprint.ID,
-                Features = features.Where(x => !sprint.Features.Contains(x)).ToList()
+                PosibleFeatures = features.Where(x => !sprint.Features.Contains(x)).ToList()
             });
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(AddSprintViewModel model)
+        public async Task<IActionResult> AddFeature(AddFeatureToSprintViewModel model)
         {
-            var feature = await FeatureService.GetFeature(model.FeatureId);
+            var features = await FeatureService.GetFeaturesListByIds(model.FeatureIds);
             var sprint = await SprintService.GetSprintById(model.SprintId);
 
-            if (feature == null)
+            if (features == null)
             {
                 return NotFound("Feature not found");
             }
 
-            sprint.Features.Add(feature);
+            sprint.Features.AddRange(features);
             
             await SprintService.UpdateSprint(sprint);
 

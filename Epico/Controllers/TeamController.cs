@@ -23,21 +23,21 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Add(TeamViewModel model)
+        public async Task<IActionResult> AddUser(TeamViewModel model)
         {
             // todo проверки на нуллы и т.д.
             var task = await TaskService.GetTaskById(model.TaskId);
             var users = await UserService.GetUsersList();
-            return View(new AddTeamViewModel 
+            return View(new AddUserToTeamViewModel 
             {
                 TaskId = task.ID,
                 TaskName = task.Name,
-                Users = users.Where(x => !task.Team.Contains(x)).ToList()
+                PosibleUsers = users.Where(x => !task.Team.Contains(x)).ToList()
             });
         }
 
         [HttpPost]
-        public IActionResult Add(AddTeamViewModel model)
+        public IActionResult AddUser(AddUserToTeamViewModel model)
         {
             // todo сохранить в базу изменения команды у задачи
             return RedirectToAction("Index", "Team");

@@ -19,7 +19,7 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Add(Entity.RoadmapType roadmapType)
+        public async Task<IActionResult> AddFeature(Entity.RoadmapType roadmapType)
         {
             return View(new AddRoadmapViewModel
             {
@@ -29,7 +29,7 @@ namespace Epico.Controllers
             });
         }
         [HttpPost]
-        public async Task<IActionResult> Add(AddRoadmapViewModel model)
+        public async Task<IActionResult> AddFeature(AddRoadmapViewModel model)
         {
             var feature = await FeatureService.GetFeature(model.FeatureId);
 

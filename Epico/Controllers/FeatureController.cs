@@ -112,25 +112,5 @@ namespace Epico.Controllers
             await FeatureService.DeleteFeature(featureId);
             return Ok("Фича удалена");
         }
-
-        [HttpGet]
-        public async Task<IActionResult> Add(SprintViewModel model)
-        {
-            var sprint = await SprintService.GetSprintById(model.SprintId);
-            var features = await FeatureService.GetFeaturesList();
-            return View(new AddFeatureViewModel
-            {
-                SprintName = sprint.Name,
-                SprintId = sprint.ID,
-                Features = features.Where(x => !sprint.Features.Contains(x)).ToList()
-            });
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Add(AddFeatureViewModel model)
-        {
-            // todo сохранить в базу новую фичу в спринте
-            return RedirectToAction("Index", "Sprint");
-        }
     }
 }
