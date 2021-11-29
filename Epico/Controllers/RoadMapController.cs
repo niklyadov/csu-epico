@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Routing;
 
 namespace Epico.Controllers
 {
@@ -19,13 +20,16 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
+        [Route("[controller]/add/{roadmapType}")]
         public async Task<IActionResult> Add(Entity.RoadmapType roadmapType)
         {
+            var features = await FeatureService.GetFeaturesList();
             return View(new AddRoadmapViewModel
             {
                 Roadmap = roadmapType,
-                Features = (await FeatureService.GetFeaturesList())
-                    .Where(x=> x.Roadmap != roadmapType).ToList()
+                Features = features
+                    .Where(x=> x.Roadmap != roadmapType)
+                    .ToList()
             });
         }
         [HttpPost]
