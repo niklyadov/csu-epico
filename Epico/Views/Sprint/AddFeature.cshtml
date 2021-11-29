@@ -8,18 +8,18 @@
 <div class="column box" style="background: #ededed; margin: 10px;">
     <span><strong>Add to the @Model.SprintName section</strong></span>
 
-    <form method="post" asp-action="Add" asp-controller="Sprint">
+    <form method="post" asp-action="AddFeature" asp-controller="Sprint">
         <input type="hidden" asp-for="SprintId" />
         <span asp-validation-for="SprintId"></span>
         <div class="field">
-            @*@foreach (var feature in Model.PosibleFeatures)
+        @foreach (var feature in Model.PosibleFeatures)
         {
             <label class="checkbox">
                 <input type="checkbox" value="@feature.ID" name="FeatureIds" />
                 @feature.Name
             </label>
             <br />
-        }*@
+        }
 
             <!--Тестовые данные-->
             <label class="checkbox">

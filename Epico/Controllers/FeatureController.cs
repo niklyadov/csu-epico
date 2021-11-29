@@ -125,19 +125,17 @@ namespace Epico.Controllers
             var feature = await FeatureService.GetFeatureById(model.FeatureId);
             return View(new EditStateFeatureViewModel
             {
-                SprintName = sprint.Name,
-                SprintId = sprint.ID,
-                PossibleFeatures = features.Where(x => !sprint.Features.Contains(x)).ToList()
+                Feature = feature,
+                FeatureId = feature.ID,
             });
         }
 
         [HttpPost]
         public async Task<IActionResult> EditState(EditStateFeatureViewModel model)
         {
-            // todo сохранить в базу новую фичу в спринте
-            var sprint = await SprintService.GetSprintById(model.SprintId);
-            sprint.Features.Add(await FeatureService.GetFeature(model.FeatureId));
-            await SprintService.UpdateSprint(sprint);
+            var feature = await FeatureService.GetFeatureById(model.FeatureId);
+            feature.State = model.State;
+            await FeatureService.UpdateFeature(feature);
             return RedirectToAction("Index", "Sprint");
         }
     }

@@ -25,7 +25,7 @@ namespace Epico.Controllers
                 return RedirectToAction("New", "Product");
             }
 
-            
+            // todo sprints[i].Features пустой список
             var sprints = await SprintService.GetSprintList();
             return View(new SprintViewModel
             {

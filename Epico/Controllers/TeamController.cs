@@ -41,10 +41,11 @@ namespace Epico.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddUser(AddUserToTeamViewModel model)
+        public async Task<IActionResult> AddUser(AddUserToTeamViewModel model)
         {
             var task = await TaskService.GetTaskById(model.TaskId);
-            task.Team = model.Users;
+            var users = await UserService.GetUsersListByIds(model.UserIds);
+            task.Team = users;
             await TaskService.UpdateTask(task);
             
             return RedirectToAction("Index", "Team");
