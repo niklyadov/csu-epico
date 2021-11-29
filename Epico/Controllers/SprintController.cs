@@ -63,16 +63,16 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit([FromQuery] int projectId, [FromQuery] int sprintId)
+        public async Task<IActionResult> Edit(SprintViewModel model)
         {
-            var sprint = await SprintService.GetSprintById(sprintId);
+            var sprint = await SprintService.GetSprintById(model.SprintId);
 
             return View(new EditSprintViewModel
             {
-                ID = sprint.ID,
+                SprintId = sprint.ID,
                 Name = sprint.Name,
                 Features = sprint.Features.Select(x => x.ID).ToList(),
-                ProductId = projectId,
+                ProductId = 1, // todo take from DB
                 PosibleFeatures = await FeatureService.GetFeaturesList()
             });
         }
@@ -81,23 +81,23 @@ namespace Epico.Controllers
         public async Task<IActionResult> Edit(EditSprintViewModel model)
         {
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
-
+            // todo fix adding features
             var features = await FeatureService.GetFeaturesListByIds(model.Features);
             await SprintService.UpdateSprint(new Sprint
             {
-                ID = model.ID, 
+                ID = model.SprintId, 
                 Name = model.Name,
                 Features = features
             });
-            return RedirectToAction("View", "Project", new { id = model.ProductId });
+            return RedirectToAction("Index", "Sprint");
         }
 
         public async Task<IActionResult> Delete([FromQuery] int sprintId)
         {
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
-
+            // todo fix delete from DB
             await SprintService.DeleteSprint(sprintId);
-            return Ok("Спринт удалён");
+            return RedirectToAction("Index", "Sprint");
         }
 
         [HttpGet]
@@ -128,7 +128,7 @@ namespace Epico.Controllers
             
             await SprintService.UpdateSprint(sprint);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Sprint");
         }
     }
 }

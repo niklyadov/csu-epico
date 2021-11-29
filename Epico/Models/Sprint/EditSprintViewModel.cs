@@ -6,7 +6,7 @@ namespace Epico.Models
 {
     public class EditSprintViewModel
     {
-        public int ID { get; set; }
+        public int SprintId { get; set; }
         public string Name { get; set; }
         [BindProperty]
         public List<int> Features { get; set; }

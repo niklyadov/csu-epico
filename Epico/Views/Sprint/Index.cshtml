@@ -24,6 +24,15 @@
                 </a>
             </div>
         </form>
+            
+        <form method="get" asp-action="Edit" asp-controller="Sprint">
+            <input type="hidden" asp-for="SprintId" value="@sprint.ID"/>
+            <button>Change Sprint</button>
+        </form>
+        <form method="get" asp-action="Delete" asp-controller="Sprint">
+            <input type="hidden" asp-for="SprintId" value="@sprint.ID"/>
+            <button >Delete Sprint</button>
+        </form>
         </div>
     }
     
@@ -33,8 +42,6 @@
     <div class="box">
         <p>Feature 1</p>
         <p>Feature 2</p>
-        <p>Feature 3</p>
-        <p>Feature 4</p>
         <form method="get" onclick="this.submit()" asp-action="Add" asp-controller="Sprint">
             <div class="is-flex" style="justify-content: center;">
                 <!--костыль чтоб курсор менялся-->
@@ -49,8 +56,6 @@
     <div class="box">
         <p>Feature 5</p>
         <p>Feature 6</p>
-        <p>Feature 7</p>
-        <p>Feature 8</p>
         <form method="get" onclick="this.submit()" asp-action="Add" asp-controller="Sprint">
             <div class="is-flex" style="justify-content: center;">
                 <!--костыль чтоб курсор менялся-->
@@ -65,8 +70,6 @@
     <div class="box">
         <p>Feature 9</p>
         <p>Feature 10</p>
-        <p>Feature 11</p>
-        <p>Feature 12</p>
         <form method="get" onclick="this.submit()" asp-action="Add" asp-controller="Sprint">
             <div class="is-flex" style="justify-content: center;">
                 <!--костыль чтоб курсор менялся-->
