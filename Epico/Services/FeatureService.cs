@@ -28,6 +28,12 @@ namespace Epico.Services
 
             return null;
         }
+
+        public async Task<Feature> GetFeatureById(int id)
+        {
+            return await _featureRepository.GetById(id);
+        }
+
         public async Task<Feature> GetFeature(int featureId)
         {
             return await _featureRepository.GetById(featureId);

@@ -8,6 +8,7 @@ namespace Epico.Models
 {
     public class FeatureViewModel
     {
+        public int FeatureId { get; set; }
         public int ProductId { get; set; }
         public List<Feature> Features { get; set; }
     }

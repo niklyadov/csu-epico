@@ -11,6 +11,18 @@
     {
         <div class="box">
             <p>@feature.Name</p>
+            <form method="get" asp-action="EditState" asp-controller="Feature">
+                <input type="hidden" asp-for="FeatureId" value="@feature.ID"/>
+                <button >Change status</button>
+            </form>
+            <form method="get" asp-action="Edit" asp-controller="Feature">
+                <input type="hidden" asp-for="FeatureId" value="@feature.ID"/>
+                <button >Change feature</button>
+            </form>
+            <form method="get" asp-action="Delete" asp-controller="Feature">
+                <input type="hidden" asp-for="FeatureId" value="@feature.ID"/>
+                <button >Delete feature</button>
+            </form>
         </div>
     }
 

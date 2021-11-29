@@ -5,12 +5,24 @@
 
 <div class="column box" style="background: #ededed; margin: 10px;">
     <span><strong>Tasks</strong></span>
-    
-        <!--Раскоментить когда релизную версию выкатывать будем-->
-    @foreach(var task in Model.Tasks)
+
+    <!--Раскоментить когда релизную версию выкатывать будем-->
+    @foreach (var task in Model.Tasks)
     {
         <div class="box">
-            <p>@task.Name</p>
+            <p>@task.Name [@task.State]</p>
+            <form method="get" asp-action="EditState" asp-controller="Task">
+                <input type="hidden" asp-for="TaskId" value="@task.ID"/>
+                <button >Change status</button>
+            </form>
+            <form method="get" asp-action="Edit" asp-controller="Task">
+                <input type="hidden" asp-for="TaskId" value="@task.ID"/>
+                <button >Change task</button>
+            </form>
+            <form method="get" asp-action="Delete" asp-controller="Task">
+                <input type="hidden" asp-for="TaskId" value="@task.ID"/>
+                <button >Delete task</button>
+            </form>
         </div>
     }
 

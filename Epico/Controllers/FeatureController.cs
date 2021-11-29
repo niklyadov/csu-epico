@@ -102,15 +102,34 @@ namespace Epico.Controllers
                 Tasks = tasks,
                 State = model.State
             });
-            return RedirectToAction("View", "Project", new { id = model.ProductId });
+            return RedirectToAction("Index", "Feature");
         }
 
+        [HttpGet]
         public async Task<IActionResult> Delete([FromQuery] int featureId)
         {
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
             
             await FeatureService.DeleteFeature(featureId);
-            return Ok("Фича удалена");
+            return RedirectToAction("Index", "Feature");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditState(FeatureViewModel model)
+        {
+            var feature = await FeatureService.GetFeatureById(model.FeatureId);
+            return View(new EditStateFeatureViewModel
+            {
+                FeatureId = feature.ID,
+                Feature = feature
+            });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditState(EditStateFeatureViewModel model)
+        {
+            // todo save state changes
+            return RedirectToAction("Index", "Feature");
         }
     }
 }

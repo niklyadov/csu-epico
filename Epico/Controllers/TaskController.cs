@@ -49,9 +49,9 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit([FromQuery] int projectId, [FromQuery] int taskId)
+        public async Task<IActionResult> Edit(TaskViewModel model)
         {
-            var task = await TaskService.GetTaskById(taskId);
+            var task = await TaskService.GetTaskById(model.TaskId);
 
             return View(new EditTaskViewModel
             {
@@ -61,7 +61,7 @@ namespace Epico.Controllers
                 DeadLine = task.DeadLine,
                 State = task.State,
                 Users = task.Team.Select(x => x.Id).ToList(),
-                ProductId = projectId,
+                ProductId = 1, // todo take from DB
                 PosibleUsers = await UserService.GetUsersList()
             });
         }
@@ -81,16 +81,34 @@ namespace Epico.Controllers
                 DeadLine = model.DeadLine,
                 State = model.State
             });
-            
-            return Ok("Задача изменена");
-        }
 
+            return RedirectToAction("Index", "Task");
+        }
+        [HttpGet]
         public async Task<IActionResult> Delete([FromQuery] int taskId)
         {
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
 
             await TaskService.DeleteTask(taskId);
-            return Ok("Задача удалена");
+            return RedirectToAction("Index", "Task");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditState(TaskViewModel model)
+        {
+            var task = await TaskService.GetTaskById(model.TaskId);
+            return View(new EditStateTaskViewModel
+            {
+                TaskId = task.ID,
+                Task = task
+            });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditState(EditStateTaskViewModel model)
+        {
+            // todo save state changes
+            return RedirectToAction("Index", "Task");
         }
     }
 }
