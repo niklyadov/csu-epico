@@ -25,8 +25,12 @@ namespace Epico.Controllers
         [HttpGet]
         public async Task<IActionResult> Add(TeamViewModel model)
         {
-            // todo проверки на нуллы и т.д.
             var task = await TaskService.GetTaskById(model.TaskId);
+            if (task == null)
+            {
+                return BadRequest("Сначала нужно создать хотя бы одну задачу!");
+            }
+            
             var users = await UserService.GetUsersList();
             return View(new AddTeamViewModel 
             {
@@ -37,9 +41,12 @@ namespace Epico.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(AddTeamViewModel model)
+        public async Task<IActionResult> Add(AddTeamViewModel model)
         {
-            // todo сохранить в базу изменения команды у задачи
+            var task = await TaskService.GetTaskById(model.TaskId);
+            task.Team = model.Users;
+            await TaskService.UpdateTask(task);
+            
             return RedirectToAction("Index", "Team");
         }
     }

@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Epico.Entity;
 using Epico.Entity.DAL.Repository;
+using Task = Epico.Entity.Task;
 
 namespace Epico.Services
 {
@@ -15,6 +17,9 @@ namespace Epico.Services
             _productRepository = productRepository;
             _metricRepository = metricRepository;
         }
+
+        public async Task<Product> GetProduct()
+            => (await _productRepository.GetAll()).First();
         
         public async Task<Product> AddProduct(string name, string vision, string mission, string productFormula, string ownerUserId)
         {

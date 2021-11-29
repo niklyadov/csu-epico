@@ -7,7 +7,7 @@
 <div class="column box" style="background: #ededed; margin: 10px;">
     <span><strong>Add to the @Model.SprintName section</strong></span>
 
-    @foreach (var feature in Model.Features)
+    @foreach (var feature in Model.PossibleFeatures)
     {
         <form class="box button" onclick="this.submit();" asp-action="Add" asp-controller="Feature">
             <input type="hidden" asp-for="FeatureId" value="@feature.ID" />

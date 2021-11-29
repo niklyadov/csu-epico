@@ -19,10 +19,17 @@ namespace Epico.Controllers
         
         public async Task<IActionResult> Index()
         {
+            var product = await ProductService.GetProduct();
+            if (product == null)
+            {
+                return RedirectToAction("New", "Product");
+            }
+
+            
             var sprints = await SprintService.GetSprintList();
             return View(new SprintViewModel
             {
-                ProductId = 1, // todo извлекать из базы
+                ProductId = product.ID,
                 Sprints = sprints
             });
         }
@@ -48,17 +55,13 @@ namespace Epico.Controllers
         public async Task<IActionResult> New(NewSprintViewModel model)
         {
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
-            // todo камень 
-            if (ModelState.IsValid)
-            {
-                var features = await FeatureService.GetFeaturesListByIds(model.Features);
+            var features = await FeatureService.GetFeaturesListByIds(model.Features);
 
-                await ProductService.AddSprint(model.ProductId, new Sprint
-                {
-                    Features = features,
-                    Name = model.Name
-                });
-            }
+            await ProductService.AddSprint(model.ProductId, new Sprint
+            {
+                Features = features,
+                Name = model.Name
+            });
             return RedirectToAction("Index", "Sprint");
         }
 
@@ -89,7 +92,7 @@ namespace Epico.Controllers
                 Name = model.Name,
                 Features = features
             });
-            return RedirectToAction("View", "Project", new { id = model.ProductId });
+            return RedirectToAction("Show", "Product", new { id = model.ProductId });
         }
 
         public async Task<IActionResult> Delete([FromQuery] int sprintId)

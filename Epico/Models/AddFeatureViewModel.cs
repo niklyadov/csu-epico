@@ -10,7 +10,7 @@ namespace Epico.Models
     {
         public string SprintName { get; set; }
         public int SprintId { get; set; }
-        public List<Feature> Features { get; set; }
+        public List<Feature> PossibleFeatures { get; set; }
         public int FeatureId { get; set; }
     }
 }

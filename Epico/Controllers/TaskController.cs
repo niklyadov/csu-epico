@@ -19,10 +19,16 @@ namespace Epico.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            var product = await ProductService.GetProduct();
+            if (product == null)
+            {
+                return RedirectToAction("New", "Product");
+            }
+            
             var tasks = await TaskService.GetTaskList();
             return View(new TaskViewModel
             {
-                ProductId = 1, // todo извлекать из базы
+                ProductId = product.ID,
                 Tasks = tasks
             });
         }
@@ -30,9 +36,15 @@ namespace Epico.Controllers
         [HttpGet]
         public async Task<IActionResult> New()
         {
+            var product = await ProductService.GetProduct();
+            if (product == null)
+            {
+                return RedirectToAction("New", "Product");
+            }
+            
             return View(new NewTaskViewModel 
             {
-                ProductId = 1, // todo извлекать из базы
+                ProductId = product.ID,
                 PosibleUsers = await UserService.GetUsersList()
             });
         }
