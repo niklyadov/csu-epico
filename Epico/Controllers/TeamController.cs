@@ -7,23 +7,40 @@ using Epico.Models;
 
 namespace Epico.Controllers
 {
-    public class TeamController : Controller
+    public class TeamController : BaseController
     {
-        public IActionResult Index()
+        public TeamController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
-            return View();
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var tasks = await TaskService.GetTaskList();
+            return View(new TeamViewModel 
+            {
+                Tasks = tasks
+            });
         }
 
         [HttpGet]
-        public IActionResult Add(TeamViewModel model)
+        public async Task<IActionResult> Add(TeamViewModel model)
         {
-            return StatusCode(418, "I,m a teapot");
+            // todo проверки на нуллы и т.д.
+            var task = await TaskService.GetTaskById(model.TaskId);
+            var users = await UserService.GetUsersList();
+            return View(new AddTeamViewModel 
+            {
+                TaskId = task.ID,
+                TaskName = task.Name,
+                Users = users.Where(x => !task.Team.Contains(x)).ToList()
+            });
         }
 
         [HttpPost]
         public IActionResult Add(AddTeamViewModel model)
         {
-            return StatusCode(418, "I,m a teapot");
+            // todo сохранить в базу изменения команды у задачи
+            return RedirectToAction("Index", "Team");
         }
     }
 }

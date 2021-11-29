@@ -36,7 +36,7 @@ namespace Epico
             
             services.AddScoped<FeatureRepository>();
             services.AddScoped<MetricRepository>();
-            services.AddScoped<ProjectRepository>();
+            services.AddScoped<ProductRepository>();
             services.AddScoped<SprintRepository>();
             services.AddScoped<TaskRepository>();
             services.AddScoped<UserRepository>();
@@ -65,7 +65,7 @@ namespace Epico
             
             services.AddControllersWithViews();
 
-            services.AddScoped<ProjectService>();
+            services.AddScoped<ProductService>();
             services.AddScoped<MetricService>();
             services.AddScoped<UserService>();
             services.AddScoped<FeatureService>();

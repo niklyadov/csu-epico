@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 namespace Epico.Controllers
 {
     [Authorize]
-    public class ProjectController : BaseController
+    public class ProductController : BaseController
     {
-        public ProjectController(IServiceProvider serviceProvider) : base(serviceProvider)
+        public ProductController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
         }
 
         [Route("[controller]")]
         public async Task<IActionResult> Index()
         {
-            var userProjectId = await ProjectService.UserProjectId(AccountService.CurrentUserId());
+            var userProjectId = await ProductService.UserProductId(AccountService.CurrentUserId());
             if (!userProjectId.HasValue)
                 return RedirectToAction("New");
 
@@ -27,20 +27,20 @@ namespace Epico.Controllers
         [Route("[controller]/{id:int}")]
         public async Task<IActionResult> View(int id)
         {
-            var userProjectId = await ProjectService.UserProjectId(AccountService.CurrentUserId());
+            var userProjectId = await ProductService.UserProductId(AccountService.CurrentUserId());
             if (!userProjectId.HasValue)
                 return NotFound("This user does not have a project!");
             
-            var project = await ProjectService.GetProjectById(userProjectId.Value);
+            var project = await ProductService.GetProductById(userProjectId.Value);
             var sprints = await SprintService.GetSprintList();
             var features = await FeatureService.GetFeaturesList();
             var metrics = await MetricService.GetMetricList();
             var tasks = await TaskService.GetTaskList();
             var users = await UserService.GetUsersList();
 
-            return View(new ProjectViewModel
+            return View(new ProductViewModel
             {
-                ProjectId = project.ID,
+                ProductId = project.ID,
                 Name = project.Name,
                 Mission = project.Mission,
                 Vision = project.Vision,
@@ -57,7 +57,7 @@ namespace Epico.Controllers
         [HttpGet]
         public IActionResult New()
         {
-            if (!ProjectService.NotHasProject())
+            if (!ProductService.NotHasProject())
             {
                 return RedirectToAction("New");
             }
@@ -65,11 +65,11 @@ namespace Epico.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> New(NewProjectViewModel model)
+        public async Task<IActionResult> New(NewProductViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var result = await ProjectService.AddProject(model.Name,
+                var result = await ProductService.AddProduct(model.Name,
                     model.Vision, model.Mission, model.ProductFormula, AccountService.CurrentUserId());
 
                 if (result != null)
@@ -84,7 +84,7 @@ namespace Epico.Controllers
         {
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
             
-            await ProjectService.DeleteProject(projectId);
+            await ProductService.DeleteProduct(projectId);
             return Ok("Hello");
         }
     }

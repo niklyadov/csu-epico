@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Epico.Models
 {
-    public class NewProjectViewModel
+    public class NewProductViewModel
     {
         [Required]
         public string Name { get; set; }

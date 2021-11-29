@@ -50,7 +50,7 @@ namespace Epico.Services
         public async Task Logout() => await _signInManager.SignOutAsync();
         public string CurrentUserId()
         {
-            return _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         }
     }
 }

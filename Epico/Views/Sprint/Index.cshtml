@@ -4,38 +4,38 @@
 }
 
 <div class="column box" style="background: #ededed; margin: 10px;">
-    @*
-            <!--Раскоментить когда релизную версию выкатывать будем-->
-        @foreach (var sprint in Model.Sprints)
+    
+    <!--Раскоментить когда релизную версию выкатывать будем-->
+    @foreach (var sprint in Model.Sprints)
+    {
+        <!-- todo Добавить даты сроков спринта после названия -->
+        <span><strong>@sprint.Name <!--@* (@sprint.Start — @sprint.End *@)--> </strong></span>
+        <div class="box">
+        @foreach (var feature in sprint.Features)
         {
-            <span><strong>@sprint.Name</strong></span>
-            <div class="box">
-            @foreach (var feature in sprint.Features)
-            {
-                <p>@feature.Name</p>
-            }
-            <form method="get" onclick="this.submit()" asp-action="Add" asp-controller="Team">
-                <div class="is-flex" style="justify-content: center;">
-                    <!--костыль чтоб курсор менялся-->
-                    <a>
-                        <input type="hidden" asp-for="SprintId" />
-                        <img src="~/img/plus.svg" />
-                    </a>
-                </div>
-            </form>
-            </div>
+            <p>@feature.Name</p>
         }
-    *@
-
-
+        <form method="get" onclick="this.submit()" asp-action="Add" asp-controller="Feature">
+            <div class="is-flex" style="justify-content: center;">
+                <!--костыль чтоб курсор менялся-->
+                <a>
+                    <input type="hidden" asp-for="SprintId" value="@sprint.ID" />
+                    <img src="~/img/plus.svg" />
+                </a>
+            </div>
+        </form>
+        </div>
+    }
+    
     <!--Тестовые спринты-->
-    <span><strong>Test sprint 1</strong></span>
+    <h2>Test data</h2>
+    <span><strong>Test sprint 1 (17.09.2021 — 2.10.2021)</strong></span>
     <div class="box">
         <p>Feature 1</p>
         <p>Feature 2</p>
         <p>Feature 3</p>
         <p>Feature 4</p>
-        <form method="get" onclick="this.submit()" asp-action="Add" asp-controller="Sprint">
+        <form method="get" onclick="this.submit()" asp-action="Add" asp-controller="Feature">
             <div class="is-flex" style="justify-content: center;">
                 <!--костыль чтоб курсор менялся-->
                 <a>
@@ -45,13 +45,13 @@
             </div>
         </form>
     </div>
-    <span><strong>Test sprint 2</strong></span>
+    <span><strong>Test sprint 2 (21.10.2021 — 04.11.2021)</strong></span>
     <div class="box">
         <p>Feature 5</p>
         <p>Feature 6</p>
         <p>Feature 7</p>
         <p>Feature 8</p>
-        <form method="get" onclick="this.submit()" asp-action="Add" asp-controller="Sprint">
+        <form method="get" onclick="this.submit()" asp-action="Add" asp-controller="Feature">
             <div class="is-flex" style="justify-content: center;">
                 <!--костыль чтоб курсор менялся-->
                 <a>
@@ -61,13 +61,13 @@
             </div>
         </form>
     </div>
-    <span><strong>Test sprint 3</strong></span>
+    <span><strong>Test sprint 3 (05.11.2021 — 19.11.2021)</strong></span>
     <div class="box">
         <p>Feature 9</p>
         <p>Feature 10</p>
         <p>Feature 11</p>
         <p>Feature 12</p>
-        <form method="get" onclick="this.submit()" asp-action="Add" asp-controller="Sprint">
+        <form method="get" onclick="this.submit()" asp-action="Add" asp-controller="Feature">
             <div class="is-flex" style="justify-content: center;">
                 <!--костыль чтоб курсор менялся-->
                 <a>
@@ -77,12 +77,16 @@
             </div>
         </form>
     </div>
-
+    <!--Конец тестовых данных-->
 
     <!-- Кнопка добавления нового спринта-->
-    <div class="is-flex" style="justify-content: center;">
-        <a class="image is-24x24" asp-action="New" asp-controller="Sprint">
-            <img src="~/img/plus.svg" />
-        </a>
-    </div>
+    <form method="get" onclick="this.submit()" asp-action="New" asp-controller="Sprint">
+        <div class="is-flex" style="justify-content: center;">
+            <!--костыль чтоб курсор менялся-->
+            <a>
+                <input type="hidden" asp-for="ProductId" />
+                <img src="~/img/plus.svg" />
+            </a>
+        </div>
+    </form>
 </div>

@@ -9,7 +9,7 @@ namespace Epico.Controllers
         protected readonly AccountService AccountService;
         protected readonly FeatureService FeatureService;
         protected readonly MetricService MetricService;
-        protected readonly ProjectService ProjectService;
+        protected readonly ProductService ProductService;
         protected readonly SprintService SprintService;
         protected readonly TaskService TaskService;
         protected readonly UserService UserService;
@@ -20,7 +20,7 @@ namespace Epico.Controllers
             FeatureService = serviceProvider.GetService(typeof(FeatureService)) as FeatureService;
             MetricService = serviceProvider.GetService(typeof(MetricService)) as MetricService;
             AccountService = serviceProvider.GetService(typeof(AccountService)) as AccountService;
-            ProjectService = serviceProvider.GetService(typeof(ProjectService)) as ProjectService;
+            ProductService = serviceProvider.GetService(typeof(ProductService)) as ProductService;
             SprintService = serviceProvider.GetService(typeof(SprintService)) as SprintService;
             TaskService = serviceProvider.GetService(typeof(TaskService)) as TaskService;
             UserService = serviceProvider.GetService(typeof(UserService)) as UserService;

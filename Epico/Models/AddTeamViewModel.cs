@@ -8,8 +8,8 @@ namespace Epico.Models
 {
     public class AddTeamViewModel
     {
-        public string TeamName { get; set; }
-        public int TeamId { get; set; }
+        public string TaskName { get; set; }
+        public int TaskId { get; set; }
         public List<User> Users { get; set; }
 
         public string UserId { get; set; }

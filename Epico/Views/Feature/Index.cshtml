@@ -14,9 +14,14 @@
         </div>
     }
 
+<form method="get" onclick="this.submit()" asp-action="New" asp-controller="Feature">
     <div class="is-flex" style="justify-content: center;">
-        <a class="image is-24x24" asp-action="New" asp-controller="Feature">
+        <!--костыль чтоб курсор менялся-->
+        <a>
+            <input type="hidden" asp-for="ProductId" />
+            <span asp-validation-for="ProductId"></span>
             <img src="~/img/plus.svg" />
         </a>
     </div>
+</form>
 </div>

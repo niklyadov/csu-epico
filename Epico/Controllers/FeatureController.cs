@@ -19,12 +19,13 @@ namespace Epico.Controllers
         {
             return View(new FeatureViewModel
             {
+                ProductId = 1, // todo извлекать из базы
                 Features = await FeatureService.GetFeaturesList()
             });
         }
 
         [HttpGet]
-        public async Task<IActionResult> New([FromQuery] int projectId)
+        public async Task<IActionResult> New(FeatureViewModel model)
         {
             var possibleMetrics = await MetricService.GetMetricList();
             var allTasks = await TaskService.GetTaskList();
@@ -32,7 +33,7 @@ namespace Epico.Controllers
 
             return View(new NewFeatureViewModel
             {
-                ProjectId = projectId,
+                ProductId = model.ProductId,
                 PosibleTasks = possibleTasks,
                 PosibleMetrics = possibleMetrics
             });
@@ -44,6 +45,7 @@ namespace Epico.Controllers
             if (ModelState.IsValid)
             {
                 var tasks = await TaskService.GetTaskListByIds(model.Tasks);
+                // todo переделать на одну метрику
                 var metrics =  await MetricService.GetMetricListByIds(model.Metrics);
 
                 await FeatureService.AddFeature(new Feature
@@ -56,7 +58,7 @@ namespace Epico.Controllers
                     State = FeatureState.NotStarted
                 });
             }
-            return RedirectToAction("View", "Project", new { id = model.ProjectId });
+            return RedirectToAction("Index", "Feature");
         }
 
         [HttpGet]
@@ -75,7 +77,7 @@ namespace Epico.Controllers
                 Roadmap = feature.Roadmap.Value,
                 State = feature.State,
 
-                ProjectId = projectId,
+                ProductId = projectId,
                 PosibleTasks = await TaskService.GetTaskList(),
                 PosibleMetrics = await MetricService.GetMetricList()
             }); 
@@ -99,7 +101,7 @@ namespace Epico.Controllers
                 Tasks = tasks,
                 State = model.State
             });
-            return RedirectToAction("View", "Project", new { id = model.ProjectId });
+            return RedirectToAction("View", "Project", new { id = model.ProductId });
         }
 
         public async Task<IActionResult> Delete([FromQuery] int featureId)
@@ -108,6 +110,26 @@ namespace Epico.Controllers
             
             await FeatureService.DeleteFeature(featureId);
             return Ok("Фича удалена");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Add(SprintViewModel model)
+        {
+            var sprint = await SprintService.GetSprintById(model.SprintId);
+            var features = await FeatureService.GetFeaturesList();
+            return View(new AddFeatureViewModel
+            {
+                SprintName = sprint.Name,
+                SprintId = sprint.ID,
+                Features = features.Where(x => !sprint.Features.Contains(x)).ToList()
+            });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(AddFeatureViewModel model)
+        {
+            // todo сохранить в базу новую фичу в спринте
+            return RedirectToAction("Index", "Sprint");
         }
     }
 }

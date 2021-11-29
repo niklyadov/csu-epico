@@ -1,20 +1,23 @@
+@model TaskViewModel
 @{
     ViewBag.Title = "Tasks";
 }
 
 <div class="column box" style="background: #ededed; margin: 10px;">
     <span><strong>Tasks</strong></span>
-    @*
+    
         <!--Раскоментить когда релизную версию выкатывать будем-->
-        foreach(var item in model.Tasks)
-        {
-            <div class="box">
-                <p>@item.Name</p>
-            </div>
-        }
-    *@
-    <div class="box">
-        <p>Test task 1</p>
+    @foreach(var task in Model.Tasks)
+    {
+        <div class="box">
+            <p>@task.Name</p>
+        </div>
+    }
+
+    <!--Тестовые данные-->
+    <h2>Test data</h2>
+    <div class="box" style="word-break: break-all">
+        <p>Test task 1woiyqroiyowhfwogfhweioghwoeighwogbnwoghwoiyqroiyowhfwogfhweioghwoeighwogbnwoghwoiyqroiyowhfwogfhweioghwoeighwogbnwoghwoiyqroiyowhfwogfhweioghwoeighwogbnwoghwoiyqroiyowhfwogfhweioghwoeighwogbnwoghwoiyqroiyowhfwogfhweioghwoeighwogbnwoghwoiyqroiyowhfwogfhweioghwoeighwogbnwoghwoiyqroiyowhfwogfhweioghwoeighwogbnwoghwoiyqroiyowhfwogfhweioghwoeighwogbnwoghwoiyqroiyowhfwogfhweioghwoeighwogbnwoghwoiyqroiyowhfwogfhweioghwoeighwogbnwoghwoiyqroiyowhfwogfhweioghwoeighwogbnwoghwoiyqroiyowhfwogfhweioghwoeighwogbnwoghwoiyqroiyowhfwogfhweioghwoeighwogbnwoghwoiyqroiyowhfwogfhweioghwoeighwogbnwogh</p>
     </div>
     <div class="box">
         <p>Test task 2</p>
@@ -34,11 +37,15 @@
     <div class="box">
         <p>Test task 7</p>
     </div>
+    <!--Конец тестовых данных-->
 
-    <!-- Кнопка добавления новой задачи-->
-    <div class="is-flex" style="justify-content: center;">
-        <a class="image is-24x24" asp-action="New" asp-controller="Task">
-            <img src="~/img/plus.svg" />
-        </a>
-    </div>
+    <form method="get" onclick="this.submit()" asp-action="New" asp-controller="Task">
+        <div class="is-flex" style="justify-content: center;">
+            <!--костыль чтоб курсор менялся-->
+            <a>
+                <input type="hidden" asp-for="ProductId" />
+                <img src="~/img/plus.svg" />
+            </a>
+        </div>
+    </form>
 </div>

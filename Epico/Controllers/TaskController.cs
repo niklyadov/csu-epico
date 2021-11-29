@@ -17,16 +17,22 @@ namespace Epico.Controllers
         {
             
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var tasks = await TaskService.GetTaskList();
+            return View(new TaskViewModel
+            {
+                ProductId = 1, // todo извлекать из базы
+                Tasks = tasks
+            });
         }
 
         [HttpGet]
         public async Task<IActionResult> New()
         {
             return View(new NewTaskViewModel 
-            { 
+            {
+                ProductId = 1, // todo извлекать из базы
                 PosibleUsers = await UserService.GetUsersList()
             });
         }
@@ -39,8 +45,7 @@ namespace Epico.Controllers
                 var team = await UserService.GetUsersListByIds(model.Users);
                 await TaskService.AddTask(model.Name, model.Description, team, model.DeadLine);
             }
-            return RedirectToAction("View", "Project", new { id = model.ProjectId });
-            //return Ok("Задача создана");
+            return RedirectToAction("Index", "Task");
         }
 
         [HttpGet]
@@ -56,7 +61,7 @@ namespace Epico.Controllers
                 DeadLine = task.DeadLine,
                 State = task.State,
                 Users = task.Team.Select(x => x.Id).ToList(),
-                ProjectId = projectId,
+                ProductId = projectId,
                 PosibleUsers = await UserService.GetUsersList()
             });
         }

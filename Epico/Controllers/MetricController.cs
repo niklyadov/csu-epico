@@ -21,15 +21,19 @@ namespace Epico.Controllers
                 return RedirectToAction("New");
             }
             
-            return View(metric);
+            return View(new MetricViewModel
+            {
+                ProductId = 1, // todo надо извлекать из базы
+                Metric = metric
+            });
         }
 
         [HttpGet]
-        public async Task<IActionResult> New([FromQuery] int projectId)
+        public async Task<IActionResult> New(MetricViewModel model)
         {
             return View(new NewMetricViewModel
             {
-                ProjectId = projectId,
+                ProductId = model.ProductId,
                 PosibleParentMetrics = await MetricService.GetMetricList()
             });
         }
@@ -57,10 +61,10 @@ namespace Epico.Controllers
                 var parentMetricNew = await MetricService.GetMetricById(model.ParentMetricId.Value);
                 parentMetricNew.Children.Add(metric);
                 await MetricService.UpdateMetric(parentMetricNew);
-                return RedirectToAction("View", "Project", new { id = model.ProjectId });
+                return RedirectToAction("Index", "Metric");
             }
             await MetricService.AddMetric(metric);
-            return RedirectToAction("View", "Project", new { id = model.ProjectId });
+            return RedirectToAction("Index", "Metric");
         }
 
         [HttpGet]
@@ -74,7 +78,7 @@ namespace Epico.Controllers
                 Name = metric.Name,
                 Description = metric.Description,
                 ParentMetricId = metric.ParentMetricId,
-                ProjectId = projectId,
+                ProductId = projectId,
                 PosibleParentMetrics = possibleParentMetrics
             });
         }
@@ -106,7 +110,7 @@ namespace Epico.Controllers
 
             await MetricService.UpdateMetric(metric);
             
-            return RedirectToAction("View", "Project", new { id = model.ProjectId });
+            return RedirectToAction("Index", "Metric");
         }
 
         public async Task<IActionResult> Delete([FromQuery] int metricId)

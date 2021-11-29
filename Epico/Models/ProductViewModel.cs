@@ -1,11 +1,12 @@
+﻿using System;
 using System.Collections.Generic;
-using Epico.Entity.DAL;
+using Epico.Entity;
 
-namespace Epico.Entity
+namespace Epico.Models
 {
-    public class Project : IEntity
+    public class ProductViewModel
     {
-        public int ID { get; set; }
+        public int ProductId { get; set; }
         public string Name { get; set; }
         public string Vision { get; set; }
         public string Mission { get; set; }
@@ -13,13 +14,9 @@ namespace Epico.Entity
         public string OwnerUserId { get; set; }
 
         public List<Sprint> Sprints { get; set; }
-            = new List<Sprint>();
-
-
-        /*
+        public List<Feature> Features { get; set; }
         public List<Task> Tasks { get; set; }
         public List<Metric> Metrics { get; set; }
-        public List<User> Roadmaps { get; set; }
-        */
+        public List<User> Users { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace Epico.Models
     {
         public int SprintId { get; set; }
 
-        public int ProjectId { get; set; }
+        public int ProductId { get; set; }
         public List<Sprint> Sprints { get; set; }
             = new List<Sprint>();
     }

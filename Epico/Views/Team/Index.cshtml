@@ -4,9 +4,8 @@
 }
 
 <div class="column box" style="background: #ededed; margin: 10px;">
-        
-    @*      
-        <!--Раскоментить когда релизную версию выкатывать будем-->
+
+    <!--Раскоментить когда релизную версию выкатывать будем-->
     @foreach (var task in Model.Tasks)
     {
         <span><strong>@task.Name</strong></span>
@@ -26,9 +25,10 @@
             </form>
         </div>
     }
-    *@      
+
 
     <!--тестовые задачи с командами-->
+    <h2>Test data</h2>
     <span><strong>Test task 1</strong></span>
     <div class="box">
         <p>People 1</p>
@@ -40,7 +40,7 @@
             <div class="is-flex" style="justify-content: center;">
                 <!--костыль чтоб курсор менялся-->
                 <a>
-                    <input type="hidden" asp-for="TaskId" value="222"/>
+                    <input type="hidden" asp-for="TaskId" value="222" />
                     <img src="~/img/plus.svg" />
                 </a>
             </div>
@@ -79,4 +79,5 @@
             </div>
         </form>
     </div>
+    <!--Конец тестовых данных-->
 </div>

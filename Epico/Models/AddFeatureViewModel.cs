@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace Epico.Models
 {
-    public class FeatureViewModel
+    public class AddFeatureViewModel
     {
-        public int ProductId { get; set; }
+        public string SprintName { get; set; }
+        public int SprintId { get; set; }
         public List<Feature> Features { get; set; }
+        public int FeatureId { get; set; }
     }
 }

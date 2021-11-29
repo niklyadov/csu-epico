@@ -20,7 +20,7 @@ namespace Epico.Models
         public FeatureState State { get; set; }
         public RoadmapType Roadmap { get; set; }
 
-        public int ProjectId { get; set; }
+        public int ProductId { get; set; }
         public List<Entity.Task> PosibleTasks { get; set; }
         public List<Metric> PosibleMetrics { get; set; }
         public IEnumerable<RoadmapType> RoadmapTypes { get; set; } = Enum.GetValues(typeof(RoadmapType)).Cast<RoadmapType>();

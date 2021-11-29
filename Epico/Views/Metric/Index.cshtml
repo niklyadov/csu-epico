@@ -1,17 +1,28 @@
 ﻿@using Epico.Entity
-@model Epico.Entity.Metric
+@model MetricViewModel
 @{
     ViewBag.Title = "Metrics";
 }
 
 <div class="content">
-    <h2>@Model.Name</h2>
-    <p>@Model.Description</p>
+    <h2>@Model.Metric.Name</h2>
+    <p>@Model.Metric.Description</p>
 </div>
 <br />
 <div class="content">
-    <h2>Hierarchy of Metrics</h2>
+    <div>
+        <h2>Hierarchy of Metrics</h2>
+        <form method="get" onclick="this.submit()" asp-action="New" asp-controller="Metric">
+            <div class="is-flex" style="justify-content: center;">
+                <!--костыль чтоб курсор менялся-->
+                <a>
+                    <input type="hidden" asp-for="ProductId" />
+                    <img src="~/img/plus.svg" />
+                </a>
+            </div>
+        </form>
+    </div>
 
-    @await Html.PartialAsync("MetricWalk", Model)
+    @await Html.PartialAsync("MetricWalk", Model.Metric)
 </div>
 <br />

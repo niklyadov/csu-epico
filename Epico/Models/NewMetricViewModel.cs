@@ -10,7 +10,7 @@ namespace Epico.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public int? ParentMetricId { get; set; }
-        public int ProjectId { get; set; }
+        public int ProductId { get; set; }
         public List<Metric> PosibleParentMetrics { get; set; }
     }
 }

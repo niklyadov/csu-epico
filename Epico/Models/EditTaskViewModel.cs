@@ -17,7 +17,7 @@ namespace Epico.Models
         [BindProperty]
         public List<string> Users { get; set; }
 
-        public int ProjectId { get; set; }
+        public int ProductId { get; set; }
         public List<User> PosibleUsers { get; set; }
         public IEnumerable<TaskState> StateTypes { get; set; } = Enum.GetValues<TaskState>().Cast<TaskState>();
     }
