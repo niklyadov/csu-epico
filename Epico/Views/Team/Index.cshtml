@@ -12,7 +12,7 @@
         <div class="box">
             @foreach (var user in task.Team)
             {
-                <p>@user.UserName</p>
+                <p>@user.UserName [@user.Position]</p>
             }
             <form method="get" onclick="this.submit()" asp-action="AddUser" asp-controller="Team">
                 <div class="is-flex" style="justify-content: center;">
@@ -32,9 +32,6 @@
     <span><strong>Test task 1</strong></span>
     <div class="box">
         <p>People 1</p>
-        <p>People 2</p>
-        <p>People 3</p>
-        <p>People 4</p>
         <!--Кнопка для добавления Юзера в команду-->
         <form method="get" onclick="this.submit()" asp-action="AddUser" asp-controller="Team">
             <div class="is-flex" style="justify-content: center;">
@@ -50,8 +47,6 @@
     <div class="box">
         <p>People 5</p>
         <p>People 6</p>
-        <p>People 7</p>
-        <p>People 8</p>
         <!--Кнопка для добавления Юзера в команду-->
         <form method="get" onclick="this.submit()" asp-action="AddUser" asp-controller="Team">
             <div class="is-flex" style="justify-content: center;">
@@ -67,8 +62,6 @@
     <div class="box">
         <p>People 9</p>
         <p>People 10</p>
-        <p>People 11</p>
-        <p>People 12</p>
         <form method="get" onclick="this.submit()" asp-action="AddUser" asp-controller="Team">
             <div class="is-flex" style="justify-content: center;">
                 <!--костыль чтоб курсор менялся-->

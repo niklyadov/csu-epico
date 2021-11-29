@@ -44,7 +44,7 @@ namespace Epico.Controllers
         [HttpPost]
         public async Task<ActionResult> Registration(RegistrationViewModel model)
         {
-            if (ModelState.IsValid && await AccountService.Register(model.Username, model.Password))
+            if (ModelState.IsValid && await AccountService.Register(model.Username, model.Position, model.Password))
             {
                 return RedirectToAction("New", "Product");
             }

@@ -1,4 +1,5 @@
-﻿@model RoadMapViewModel
+﻿@using Epico.Entity;
+@model RoadMapViewModel
 @{
     ViewBag.Title = "RoadMap";
 }
@@ -6,86 +7,74 @@
 <div class="columns">
     <div class="column box" style="background: #ededed; margin: 10px;">
         <span><strong>Now</strong></span>
-        @*@foreach(var feature in Model.Features.Where(x => x.Roadmap == Epico.Entity.RoadmapType.Now))
+        @foreach(var feature in Model.Features.Where(x => x.Roadmap == RoadmapType.Now))
         {
             <div class="box">
                 <p>@feature.Name</p>
             </div>
-        }*@
+        }
         <!--тестовые фичи Now-->
         <div class="box">
             <p>Тестовая фича 1</p>
         </div>
-        <div class="box">
-            <p>Тестовая фича 2</p>
-        </div>
-        <div class="box">
-            <p>Тестовая фича 3</p>
-        </div>
         <!--Кнопка для добавления фичи в Now-->
-        <div class="is-flex" style="justify-content: center;">
-            <a class="image is-24x24" asp-action="Add" asp-controller="RoadMap">
-                <img src="~/img/plus.svg" />
-            </a>
-        </div>
+        <form method="get" onclick="this.submit()" asp-action="AddFeature" asp-controller="RoadMap">
+            <div class="is-flex" style="justify-content: center;">
+                <!--костыль чтоб курсор менялся-->
+                <a>
+                    <input type="hidden" asp-for="Roadmap" value="0" />
+                    <span asp-validation-for="Roadmap"></span>
+                    <img src="~/img/plus.svg" />
+                </a>
+            </div>
+        </form>
     </div>
     <div class="column box" style="background: #ededed; margin: 10px;">
         <span><strong>Then</strong></span>
-        @*@foreach (var feature in Model.Features.Where(x => x.Roadmap == Epico.Entity.RoadmapType.Then))
+        @foreach (var feature in Model.Features.Where(x => x.Roadmap == RoadmapType.Then))
         {
             <div class="box">
                 <p>@feature.Name</p>
             </div>
-        }*@
+        }
         <!--тестовые фичи Then-->
         <div class="box">
             <p>Тестовая фича 4</p>
         </div>
-        <div class="box">
-            <p>Тестовая фича 5</p>
-        </div>
-        <div class="box">
-            <p>Тестовая фича 6</p>
-        </div>
-        <div class="box">
-            <p>Тестовая фича 10</p>
-        </div>
-        <div class="box">
-            <p>Тестовая фича 11</p>
-        </div>
         <!--Кнопка для добавления фичи в Then-->
-        <div class="is-flex" style="justify-content: center;">
-            <a class="image is-24x24" asp-action="Add" asp-controller="RoadMap">
-                <img src="~/img/plus.svg" />
-            </a>
-        </div>
+        <form method="get" onclick="this.submit()" asp-action="AddFeature" asp-controller="RoadMap">
+            <div class="is-flex" style="justify-content: center;">
+                <!--костыль чтоб курсор менялся-->
+                <a>
+                    <input type="hidden" asp-for="Roadmap" value="1" />
+                    <span asp-validation-for="Roadmap"></span>
+                    <img src="~/img/plus.svg" />
+                </a>
+            </div>
+        </form>
     </div>
     <div class="column box" style="background: #ededed; margin: 10px;">
         <span><strong>After</strong></span>
-        @*@foreach (var feature in Model.Features.Where(x => x.Roadmap == Epico.Entity.RoadmapType.After))
+        @foreach (var feature in Model.Features.Where(x => x.Roadmap == RoadmapType.After))
         {
             <div class="box">
                 <p>@feature.Name</p>
             </div>
-        }*@
+        }
         <!--тестовые фичи After-->
         <div class="box">
             <p>Тестовая фича 7</p>
         </div>
-        <div class="box">
-            <p>Тестовая фича 8</p>
-        </div>
-        <div class="box">
-            <p>Тестовая фича 9</p>
-        </div>
-        <div class="box">
-            <p>Тестовая фича 12</p>
-        </div>
         <!--Кнопка для добавления фичи в After-->
-        <div class="is-flex" style="justify-content: center;">
-            <a class="image is-24x24" asp-action="Add" asp-controller="RoadMap">
-                <img src="~/img/plus.svg" />
-            </a>
-        </div>
+        <form method="get" onclick="this.submit()" asp-action="AddFeature" asp-controller="RoadMap">
+            <div class="is-flex" style="justify-content: center;">
+                <!--костыль чтоб курсор менялся-->
+                <a>
+                    <input type="hidden" asp-for="Roadmap" value="2" />
+                    <span asp-validation-for="Roadmap"></span>
+                    <img src="~/img/plus.svg" />
+                </a>
+            </div>
+        </form>
     </div>
 </div>

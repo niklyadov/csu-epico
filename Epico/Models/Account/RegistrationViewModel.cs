@@ -7,7 +7,11 @@ namespace Epico.Views
         [Required]
         [Display(Name = "Имя пользователя")]
         public string Username { get; set; }
-        
+
+        [Required]
+        [Display(Name = "Должность пользователя")]
+        public string Position { get; set; }
+
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Пароль")]

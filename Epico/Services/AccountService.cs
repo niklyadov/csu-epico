@@ -31,9 +31,9 @@ namespace Epico.Services
             return (await _signInManager.PasswordSignInAsync(username, password, persistent, false)).Succeeded;
         }
         
-        public async Task<bool> Register(string username, string password)
+        public async Task<bool> Register(string username, string position, string password)
         {
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(username)|| string.IsNullOrEmpty(position) || string.IsNullOrEmpty(password))
             {
                 return false;
             }
@@ -41,7 +41,8 @@ namespace Epico.Services
             var user = new User
             {
                 UserName = username,
-                Email = null
+                Email = null,
+                Position = position
             };
             
             return (await _userManager.CreateAsync(user, password)).Succeeded;

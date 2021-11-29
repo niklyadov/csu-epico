@@ -9,7 +9,7 @@
     
     @foreach(var feature in Model.Features)
     {
-    <form class="box button" onclick="this.submit();" asp-action="Add" asp-controller="RoadMap">
+    <form class="box button" onclick="this.submit();" asp-action="AddFeature" asp-controller="RoadMap">
         <input type="hidden" asp-for="FeatureId" value="@feature.ID" />
         <input type="hidden" asp-for="Roadmap" />
         <span asp-validation-for="FeatureId"></span>
@@ -19,27 +19,10 @@
     }
     
     <!--Тестовые формы-->
-    <form class="box button" onclick="this.submit();" asp-action="Add" asp-controller="RoadMap">
+    <form class="box button" onclick="this.submit();" asp-action="AddFeature" asp-controller="RoadMap">
         <input type="hidden" asp-for="FeatureId" value="111" />
         <input type="hidden" asp-for="Roadmap" />
         <span asp-validation-for="FeatureId"></span>
         <p>Test feature 1</p>
-    </form>
-
-    <form class="box button" onclick="this.submit();" asp-action="Add" asp-controller="RoadMap">
-        <input type="hidden" asp-for="FeatureId" value="222" />
-        <input type="hidden" asp-for="Roadmap" />
-        <span asp-validation-for="FeatureId"></span>
-        <span asp-validation-for="Roadmap"></span>
-        <p>Test feature 2</p>
-    </form>
-
-    <form class="box button" onclick="this.submit();" asp-action="Add" asp-controller="RoadMap">
-        <input type="hidden" asp-for="FeatureId" value="333"/>
-        <input type="hidden" asp-for="Roadmap"  />
-        <span asp-validation-for="FeatureId"></span>
-        <span asp-validation-for="Roadmap"></span>
-
-        <p>Test feature 3</p>
     </form>
 </div>

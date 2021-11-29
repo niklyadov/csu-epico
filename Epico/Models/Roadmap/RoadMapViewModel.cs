@@ -1,4 +1,5 @@
 ﻿using Epico.Entity;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,6 @@ namespace Epico.Models
     public class RoadMapViewModel
     {
         public List<Feature> Features { get; set; }
+        public int Roadmap { get; set; }
     }
 }

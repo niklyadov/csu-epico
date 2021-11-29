@@ -10,7 +10,7 @@
     @foreach(var feature in Model.Features)
     {
         <div class="box">
-            <p>@feature.Name</p>
+            <p>@feature.Name [@feature.State.ToString()]</p>
             <form method="get" asp-action="EditState" asp-controller="Feature">
                 <input type="hidden" asp-for="FeatureId" value="@feature.ID"/>
                 <button >Change status</button>
