@@ -5,11 +5,11 @@
 
 <div class="column box" style="background: #ededed; margin: 10px;">
     
-    <!--Ğàñêîìåíòèòü êîãäà ğåëèçíóş âåğñèş âûêàòûâàòü áóäåì-->
+    <!--Ğ Ğ°ÑĞºĞ¾Ğ¼ĞµĞ½Ñ‚Ğ¸Ñ‚ÑŒ ĞºĞ¾Ğ³Ğ´Ğ° Ñ€ĞµĞ»Ğ¸Ğ·Ğ½ÑƒÑ Ğ²ĞµÑ€ÑĞ¸Ñ Ğ²Ñ‹ĞºĞ°Ñ‚Ñ‹Ğ²Ğ°Ñ‚ÑŒ Ğ±ÑƒĞ´ĞµĞ¼-->
     @foreach (var sprint in Model.Sprints)
     {
-        <!-- todo Äîáàâèòü äàòû ñğîêîâ ñïğèíòà ïîñëå íàçâàíèÿ -->
-        <span><strong>@sprint.Name <!--@* (@sprint.Start — @sprint.End *@)--> </strong></span>
+        <!-- todo Ğ”Ğ¾Ğ±Ğ°Ğ²Ğ¸Ñ‚ÑŒ Ğ´Ğ°Ñ‚Ñ‹ ÑÑ€Ğ¾ĞºĞ¾Ğ² ÑĞ¿Ñ€Ğ¸Ğ½Ñ‚Ğ° Ğ¿Ğ¾ÑĞ»Ğµ Ğ½Ğ°Ğ·Ğ²Ğ°Ğ½Ğ¸Ñ -->
+        <span><strong>@sprint.Name <!--@* (@sprint.Start â€” @sprint.End *@)--> </strong></span>
         <div class="box">
         @foreach (var feature in sprint.Features)
         {
@@ -17,7 +17,7 @@
         }
         <form method="get" onclick="this.submit()" asp-action="Add" asp-controller="Sprint">
             <div class="is-flex" style="justify-content: center;">
-                <!--êîñòûëü ÷òîá êóğñîğ ìåíÿëñÿ-->
+                <!--ĞºĞ¾ÑÑ‚Ñ‹Ğ»ÑŒ Ñ‡Ñ‚Ğ¾Ğ± ĞºÑƒÑ€ÑĞ¾Ñ€ Ğ¼ĞµĞ½ÑĞ»ÑÑ-->
                 <a>
                     <input type="hidden" asp-for="SprintId" value="@sprint.ID" />
                     <img src="~/img/plus.svg" />
@@ -36,15 +36,15 @@
         </div>
     }
     
-    <!--Òåñòîâûå ñïğèíòû-->
+    <!--Ğ¢ĞµÑÑ‚Ğ¾Ğ²Ñ‹Ğµ ÑĞ¿Ñ€Ğ¸Ğ½Ñ‚Ñ‹-->
     <h2>Test data</h2>
-    <span><strong>Test sprint 1 (17.09.2021 — 2.10.2021)</strong></span>
+    <span><strong>Test sprint 1 (17.09.2021 â€” 2.10.2021)</strong></span>
     <div class="box">
         <p>Feature 1</p>
         <p>Feature 2</p>
         <form method="get" onclick="this.submit()" asp-action="Add" asp-controller="Sprint">
             <div class="is-flex" style="justify-content: center;">
-                <!--êîñòûëü ÷òîá êóğñîğ ìåíÿëñÿ-->
+                <!--ĞºĞ¾ÑÑ‚Ñ‹Ğ»ÑŒ Ñ‡Ñ‚Ğ¾Ğ± ĞºÑƒÑ€ÑĞ¾Ñ€ Ğ¼ĞµĞ½ÑĞ»ÑÑ-->
                 <a>
                     <input type="hidden" asp-for="SprintId" value="222" />
                     <img src="~/img/plus.svg" />
@@ -52,13 +52,13 @@
             </div>
         </form>
     </div>
-    <span><strong>Test sprint 2 (21.10.2021 — 04.11.2021)</strong></span>
+    <span><strong>Test sprint 2 (21.10.2021 â€” 04.11.2021)</strong></span>
     <div class="box">
         <p>Feature 5</p>
         <p>Feature 6</p>
         <form method="get" onclick="this.submit()" asp-action="Add" asp-controller="Sprint">
             <div class="is-flex" style="justify-content: center;">
-                <!--êîñòûëü ÷òîá êóğñîğ ìåíÿëñÿ-->
+                <!--ĞºĞ¾ÑÑ‚Ñ‹Ğ»ÑŒ Ñ‡Ñ‚Ğ¾Ğ± ĞºÑƒÑ€ÑĞ¾Ñ€ Ğ¼ĞµĞ½ÑĞ»ÑÑ-->
                 <a>
                     <input type="hidden" asp-for="SprintId" value="333" />
                     <img src="~/img/plus.svg" />
@@ -66,13 +66,13 @@
             </div>
         </form>
     </div>
-    <span><strong>Test sprint 3 (05.11.2021 — 19.11.2021)</strong></span>
+    <span><strong>Test sprint 3 (05.11.2021 â€” 19.11.2021)</strong></span>
     <div class="box">
         <p>Feature 9</p>
         <p>Feature 10</p>
         <form method="get" onclick="this.submit()" asp-action="Add" asp-controller="Sprint">
             <div class="is-flex" style="justify-content: center;">
-                <!--êîñòûëü ÷òîá êóğñîğ ìåíÿëñÿ-->
+                <!--ĞºĞ¾ÑÑ‚Ñ‹Ğ»ÑŒ Ñ‡Ñ‚Ğ¾Ğ± ĞºÑƒÑ€ÑĞ¾Ñ€ Ğ¼ĞµĞ½ÑĞ»ÑÑ-->
                 <a>
                     <input type="hidden" asp-for="SprintId" value="444" />
                     <img src="~/img/plus.svg" />
@@ -80,12 +80,12 @@
             </div>
         </form>
     </div>
-    <!--Êîíåö òåñòîâûõ äàííûõ-->
+    <!--ĞšĞ¾Ğ½ĞµÑ† Ñ‚ĞµÑÑ‚Ğ¾Ğ²Ñ‹Ñ… Ğ´Ğ°Ğ½Ğ½Ñ‹Ñ…-->
 
-    <!-- Êíîïêà äîáàâëåíèÿ íîâîãî ñïğèíòà-->
+    <!-- ĞšĞ½Ğ¾Ğ¿ĞºĞ° Ğ´Ğ¾Ğ±Ğ°Ğ²Ğ»ĞµĞ½Ğ¸Ñ Ğ½Ğ¾Ğ²Ğ¾Ğ³Ğ¾ ÑĞ¿Ñ€Ğ¸Ğ½Ñ‚Ğ°-->
     <form method="get" onclick="this.submit()" asp-action="New" asp-controller="Sprint">
         <div class="is-flex" style="justify-content: center;">
-            <!--êîñòûëü ÷òîá êóğñîğ ìåíÿëñÿ-->
+            <!--ĞºĞ¾ÑÑ‚Ñ‹Ğ»ÑŒ Ñ‡Ñ‚Ğ¾Ğ± ĞºÑƒÑ€ÑĞ¾Ñ€ Ğ¼ĞµĞ½ÑĞ»ÑÑ-->
             <a>
                 <input type="hidden" asp-for="ProductId" />
                 <img src="~/img/plus.svg" />

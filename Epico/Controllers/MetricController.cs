@@ -15,6 +15,12 @@ namespace Epico.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            var product = await ProductService.GetProduct();
+            if (product == null)
+            {
+                return RedirectToAction("New", "Product");
+            }
+
             var metric = await MetricService.GetNsmMetric();
             if (metric == null)
             {
@@ -23,7 +29,7 @@ namespace Epico.Controllers
             
             return View(new MetricViewModel
             {
-                ProductId = 1, // todo надо извлекать из базы
+                ProductId = product.ID,
                 Metric = metric
             });
         }

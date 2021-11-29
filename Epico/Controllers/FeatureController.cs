@@ -3,7 +3,6 @@ using Epico.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,9 +16,15 @@ namespace Epico.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            var product = await ProductService.GetProduct();
+            if (product == null)
+            {
+                return RedirectToAction("New", "Product");
+            }
+            
             return View(new FeatureViewModel
             {
-                ProductId = 1, // todo извлекать из базы
+                ProductId = product.ID,
                 Features = await FeatureService.GetFeaturesList()
             });
         }
@@ -92,7 +97,7 @@ namespace Epico.Controllers
             var tasks = await TaskService.GetTaskListByIds(model.Tasks);
             var metrics = await MetricService.GetMetricListByIds(model.Metrics);
 
-            await FeatureService.UpdateFeature(new Feature()
+            await FeatureService.UpdateFeature(new Feature
             {
                 ID = model.ID,
                 Name = model.Name,
@@ -120,16 +125,20 @@ namespace Epico.Controllers
             var feature = await FeatureService.GetFeatureById(model.FeatureId);
             return View(new EditStateFeatureViewModel
             {
-                FeatureId = feature.ID,
-                Feature = feature
+                SprintName = sprint.Name,
+                SprintId = sprint.ID,
+                PossibleFeatures = features.Where(x => !sprint.Features.Contains(x)).ToList()
             });
         }
 
         [HttpPost]
         public async Task<IActionResult> EditState(EditStateFeatureViewModel model)
         {
-            // todo save state changes
-            return RedirectToAction("Index", "Feature");
+            // todo сохранить в базу новую фичу в спринте
+            var sprint = await SprintService.GetSprintById(model.SprintId);
+            sprint.Features.Add(await FeatureService.GetFeature(model.FeatureId));
+            await SprintService.UpdateSprint(sprint);
+            return RedirectToAction("Index", "Sprint");
         }
     }
 }

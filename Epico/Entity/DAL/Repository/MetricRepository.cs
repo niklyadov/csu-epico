@@ -21,6 +21,11 @@ namespace Epico.Entity.DAL.Repository
         
         public async Task<Metric> GetNsmMetric()
         {
+            if (!await _dbContext.Set<Metric>().AnyAsync())
+            {
+                return null;
+            }
+        
             return await _dbContext.Set<Metric>()
                 .Where(x => x.ParentMetricId != null || !x.ParentMetricId.HasValue )
                 .Include(x => x.Children)
