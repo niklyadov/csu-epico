@@ -19,8 +19,12 @@ namespace Epico.Services
         }
 
         public async Task<Product> GetProduct()
-            => (await _productRepository.GetAll()).First();
-        
+        {
+            var list = await _productRepository.GetAll();
+
+            return !list.Any() ? null : list.First();
+        }
+
         public async Task<Product> AddProduct(string name, string vision, string mission, string productFormula, string ownerUserId)
         {
             return await _productRepository.Add(new Product

@@ -6,7 +6,7 @@
 
 <section class="section">
     <h2 class="subtitle">
-        Здесь должно быть описание нашего продукта. А ещё, когда жмакаешь на ссылки с низу, тебя телепортирует в хардмод Террарии.
+        @Model.Name
     </h2>
     <p><img src="~/img/Ter.png"></p>
 </section>
@@ -14,18 +14,18 @@
 
 <div class="tabs">
     <div id="content-1">
-        Содержимое 1...
+        @Model.Vision
     </div>
     <div id="content-2">
-        Содержимое 2...
+        @Model.Mission
     </div>
     <div id="content-3">
-        Содержимое 3...
+        @Model.ProductFormula
     </div>
 
     <div class="tabs__links">
         <a href="#content-1">Видение</a>
         <a href="#content-2">Миссия</a>
-        <a href="#content-3">Стратегия</a>
+        <a href="#content-3">Формула</a>
     </div>
 </div>
