@@ -34,7 +34,7 @@ namespace Epico.Services
             return await _productRepository.Delete(projectId);
         }
 
-        public bool NotHasProject()
+        public bool NotHasProduct()
         {
             return _productRepository.GetAll().Result?.Count == 0;
         }

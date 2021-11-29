@@ -14,7 +14,7 @@ namespace Epico.Controllers
         {
             if (AccountService.CurrentUserId() != null)
             {
-                return RedirectToAction("Index", "Project");
+                return RedirectToAction("Index", "Product");
             }
 
             return View(new LoginViewModel());
@@ -24,7 +24,7 @@ namespace Epico.Controllers
         {
             if (AccountService.CurrentUserId() != null)
             {
-                return RedirectToAction("Index", "Project");
+                return RedirectToAction("Index", "Product");
             }
             
             return View();
@@ -35,7 +35,7 @@ namespace Epico.Controllers
         {
             if (ModelState.IsValid && await AccountService.Login(model.Username, model.Password))
             {
-                return RedirectToAction("Index", "Project");
+                return RedirectToAction("Index", "Product");
             }
 
             return BadRequest();
@@ -46,7 +46,7 @@ namespace Epico.Controllers
         {
             if (ModelState.IsValid && await AccountService.Register(model.Username, model.Password))
             {
-                return RedirectToAction("New", "Project");
+                return RedirectToAction("New", "Product");
             }
             
             return BadRequest();

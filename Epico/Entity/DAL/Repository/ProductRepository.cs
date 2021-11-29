@@ -15,12 +15,12 @@ namespace Epico.Entity.DAL.Repository
 
         public new async Task<List<Product>> GetAll()
         {
-            return await _dbContext.Projects.ToListAsync();
+            return await _dbContext.Products.ToListAsync();
         }
 
         public new async Task<Product> GetById(int projectId)
         {
-            return await _dbContext.Projects
+            return await _dbContext.Products
                 .Include(p => p.Sprints)
                     .ThenInclude(s => s.Features)
                 .Include(p => p.Sprints)
@@ -32,16 +32,16 @@ namespace Epico.Entity.DAL.Repository
                 .SingleAsync(x => x.ID == projectId);
         }
         
-        public async Task<List<Product>> GetUserProjects(string ownerUserId)
+        public async Task<List<Product>> GetUserProducts(string ownerUserId)
         {
-            return await _dbContext.Projects
+            return await _dbContext.Products
                 .Where(p => p.OwnerUserId == ownerUserId)
                 .ToListAsync();
         }
         
         public async Task<int?> GetUserProductId(string ownerUserId)
         {
-            var project = await _dbContext.Projects
+            var project = await _dbContext.Products
                 .Where(p => p.OwnerUserId == ownerUserId)
                 .SingleAsync();
 
@@ -53,7 +53,7 @@ namespace Epico.Entity.DAL.Repository
 
         public async Task<Product> AddMetricToProductWithId(int projectId, Metric metric)
         {
-            var project = await _dbContext.Projects
+            var project = await _dbContext.Products
                 .Where(p => p.ID == projectId)
                 .SingleAsync();
             
@@ -66,7 +66,7 @@ namespace Epico.Entity.DAL.Repository
         
         public async Task<Product> AddSprintToProductWithId(int projectId, Sprint sprint)
         {
-            var project = await _dbContext.Projects
+            var project = await _dbContext.Products
                 .Where(p => p.ID == projectId)
                 .SingleAsync();
             project.Sprints ??= new List<Sprint>();
@@ -81,7 +81,7 @@ namespace Epico.Entity.DAL.Repository
         
         public async Task<Product> AddRoadmapToProductWithId(int projectId)
         {
-            var project = await _dbContext.Projects
+            var project = await _dbContext.Products
                 .Where(p => p.ID == projectId)
                 .SingleAsync();
             //project.Roadmaps ??= new List<Roadmap>();

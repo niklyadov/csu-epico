@@ -21,17 +21,17 @@ namespace Epico.Controllers
             if (!userProjectId.HasValue)
                 return RedirectToAction("New");
 
-            return RedirectToAction("View", "Project", new { id = userProjectId });
+            return RedirectToAction("Show", "Product");
             //return View(await ProjectService.GetProjectById(userProjectId.Value));
         }
-        [Route("[controller]/{id:int}")]
-        public async Task<IActionResult> View(int id)
+
+        public async Task<IActionResult> Show()
         {
-            var userProjectId = await ProductService.UserProductId(AccountService.CurrentUserId());
-            if (!userProjectId.HasValue)
+            var userProductId = await ProductService.UserProductId(AccountService.CurrentUserId());
+            if (!userProductId.HasValue)
                 return NotFound("This user does not have a project!");
             
-            var project = await ProductService.GetProductById(userProjectId.Value);
+            var proudct = await ProductService.GetProductById(userProductId.Value);
             var sprints = await SprintService.GetSprintList();
             var features = await FeatureService.GetFeaturesList();
             var metrics = await MetricService.GetMetricList();
@@ -40,12 +40,12 @@ namespace Epico.Controllers
 
             return View(new ProductViewModel
             {
-                ProductId = project.ID,
-                Name = project.Name,
-                Mission = project.Mission,
-                Vision = project.Vision,
-                OwnerUserId = project.OwnerUserId,
-                ProductFormula = project.ProductFormula,
+                ProductId = proudct.ID,
+                Name = proudct.Name,
+                Mission = proudct.Mission,
+                Vision = proudct.Vision,
+                OwnerUserId = proudct.OwnerUserId,
+                ProductFormula = proudct.ProductFormula,
                 Tasks = tasks,
                 Features = features,
                 Sprints = sprints,
@@ -57,7 +57,7 @@ namespace Epico.Controllers
         [HttpGet]
         public IActionResult New()
         {
-            if (!ProductService.NotHasProject())
+            if (!ProductService.NotHasProduct())
             {
                 return RedirectToAction("New");
             }
@@ -74,7 +74,7 @@ namespace Epico.Controllers
 
                 if (result != null)
                 {
-                    return RedirectToAction("View", "Project", new {id = result.ID});
+                    return RedirectToAction("Index", "Product");
                 }
             }
             return Ok("Hello");

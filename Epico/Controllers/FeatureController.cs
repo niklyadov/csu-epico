@@ -55,6 +55,7 @@ namespace Epico.Controllers
                     Hypothesis = model.Hypothesis,
                     Tasks = tasks,
                     Metric = metrics,
+                    Roadmap = model.Roadmap,
                     State = FeatureState.NotStarted
                 });
             }

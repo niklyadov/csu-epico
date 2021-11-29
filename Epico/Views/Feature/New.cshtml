@@ -1,5 +1,5 @@
-﻿@model NewFeatureViewModel
-
+﻿@using Epico.Entity;
+@model NewFeatureViewModel
 @{
     ViewBag.Title = "Добавление фичи";
 }
@@ -64,6 +64,25 @@
                 }
             </div>
             <span asp-validation-for="Metrics"></span>
+        </div>
+
+        <div class="field">
+            <label class="label" asp-for="Roadmap">Выбор типа роадмапа</label>
+            <div class="control">
+                <label class="radio">
+                    <input type="radio" value="@RoadmapType.Now" checked name="Roadmap" />
+                    Now
+                </label>
+                <label class="radio">
+                    <input type="radio" value="@RoadmapType.Then" name="Roadmap" />
+                    Then
+                </label>
+                <label class="radio">
+                    <input type="radio" value="@RoadmapType.After" name="Roadmap" />
+                    After
+                </label>
+            </div>
+            <span asp-validation-for="Roadmap"></span>
         </div>
 
         <div class="has-text-centered">

@@ -45,7 +45,7 @@
             <!--Боковая панель навигации-->
         <div class="column is-narrow left-nav">
             <div class="has-text-left">
-                <a class="button is-fullwidth left-nav_link" asp-controller="Project" asp-action="Index" onload="setActive(this)" style="justify-content: flex-start">
+                <a class="button is-fullwidth left-nav_link" asp-controller="Product" asp-action="Index" onload="setActive(this)" style="justify-content: flex-start">
                     <img src="~/img/product.svg" alt="Product" /> Product
                 </a>
             </div>
@@ -55,8 +55,8 @@
                 </a>
             </div>
             <div class="has-text-left">
-                <a class="button is-fullwidth left-nav_link" asp-controller="RoadMap" asp-action="Index" onload="setActive(this)" style="justify-content: flex-start">
-                    <img src="~/img/roadmap.svg" alt="RoadMap" /> RoadMap
+                <a class="button is-fullwidth left-nav_link" asp-controller="Task" asp-action="Index" onload="setActive(this)" style="justify-content: flex-start">
+                    <img src="~/img/task.svg" alt="Tasks" /> Tasks
                 </a>
             </div>
             <div class="has-text-left">
@@ -70,18 +70,18 @@
                 </a>
             </div>
             <div class="has-text-left">
-                <a class="button is-fullwidth left-nav_link" asp-controller="Team" asp-action="Index" onload="setActive(this)" style="justify-content: flex-start">
-                    <img src="~/img/team.svg" alt="Team" /> Team
-                </a>
-            </div>
-            <div class="has-text-left">
-                <a class="button is-fullwidth left-nav_link" asp-controller="Task" asp-action="Index" onload="setActive(this)" style="justify-content: flex-start">
-                    <img src="~/img/task.svg" alt="Tasks" /> Tasks
+                <a class="button is-fullwidth left-nav_link" asp-controller="RoadMap" asp-action="Index" onload="setActive(this)" style="justify-content: flex-start">
+                    <img src="~/img/roadmap.svg" alt="RoadMap" /> RoadMap
                 </a>
             </div>
             <div class="has-text-left">
                 <a class="button is-fullwidth left-nav_link" asp-controller="Sprint" asp-action="Index" onload="setActive(this)" style="justify-content: flex-start">
                     <img src="~/img/sprint.svg" alt="Sprints" /> Sprints
+                </a>
+            </div>
+            <div class="has-text-left">
+                <a class="button is-fullwidth left-nav_link" asp-controller="Team" asp-action="Index" onload="setActive(this)" style="justify-content: flex-start">
+                    <img src="~/img/team.svg" alt="Team" /> Team
                 </a>
             </div>
         </div>
