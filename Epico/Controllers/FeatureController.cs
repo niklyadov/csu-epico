@@ -45,7 +45,7 @@ namespace Epico.Controllers
             {
                 return RedirectToAction("Index", "Feature", new { taskError = taskError, metricError = metricError });
             }
-            var tasks = await TaskService.GetTaskListByIds(model.Tasks);
+            var tasks = await TaskService.GetByIds(model.Tasks);
             // todo переделать на одну метрику
             var metrics = await MetricService.GetMetricListByIds(model.Metrics);
 
