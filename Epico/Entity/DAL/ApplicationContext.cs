@@ -20,7 +20,7 @@ namespace Epico.Entity.DAL
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
+
             modelBuilder.Entity<Task>()
                 .HasMany(t => t.Team)
                 .WithMany(u => u.Tasks);

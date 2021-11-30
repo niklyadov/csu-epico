@@ -21,7 +21,7 @@ namespace Epico.Controllers
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            var tasks = await TaskService.GetTaskList();
+            var tasks = await TaskService.GetAll();
             return View(new TaskViewModel
             {
                 Error = error,
@@ -69,22 +69,21 @@ namespace Epico.Controllers
             if (!ModelState.IsValid) return View(await GetEditTaskViewModel(model.TaskId));
 
             var team = await UserService.GetUsersListByIds(model.Users);
-            await TaskService.UpdateTask(new Entity.Task
-            {
-                ID = model.TaskId,
-                Name = model.Name,
-                Description = model.Description, 
-                Team = team,
-                DeadLine = model.DeadLine,
-                State = model.State
-            });
+            var task = await TaskService.GetById(model.TaskId);
+            task.Name = model.Name;
+            task.Description = model.Description;
+            task.Team = team;
+            task.DeadLine = model.DeadLine;
+            task.State = model.State;
+            
+            await TaskService.Update(task);
 
             return RedirectToAction("Index", "Task");
         }
 
         private async Task<EditTaskViewModel> GetEditTaskViewModel(int taskId)
         {
-            var task = await TaskService.GetTaskById(taskId);
+            var task = await TaskService.GetById(taskId);
             return new EditTaskViewModel
             {
                 TaskId = task.ID,
@@ -104,7 +103,7 @@ namespace Epico.Controllers
 
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
 
-            await TaskService.DeleteTask(taskId);
+            await TaskService.Delete(taskId);
             return RedirectToAction("Index", "Task");
         }
 
@@ -113,7 +112,7 @@ namespace Epico.Controllers
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            var task = await TaskService.GetTaskById(model.TaskId);
+            var task = await TaskService.GetById(model.TaskId);
             return View(new EditStateTaskViewModel
             {
                 TaskId = task.ID,

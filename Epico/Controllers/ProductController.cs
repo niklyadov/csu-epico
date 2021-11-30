@@ -37,7 +37,7 @@ namespace Epico.Controllers
             var sprints = await SprintService.GetSprintList();
             var features = await FeatureService.GetFeaturesList();
             var metrics = await MetricService.GetMetricList();
-            var tasks = await TaskService.GetTaskList();
+            var tasks = await TaskService.GetAll();
             var users = await UserService.GetUsersList();
 
             return View(new ProductViewModel
