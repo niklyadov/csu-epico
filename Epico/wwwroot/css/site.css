@@ -1,29 +1,32 @@
 ﻿.nav-top {
   background: #ff4040;
   height: 38px;
-  align-items: start !important;
+  align-items: center; /*start !important;*/
 }
 
 .nav-top .logo p {
   color: #fff;
 }
 
-/*
-.main-wrapper {
-  margin-top:0;
+.logo{
+    padding: 0 0 0 5px;
 }
-*/
 
 .left-nav {
-  background: #f0faff;
-  color: #fff;
-  width: 200px;
-  min-height: 800px;
-  padding: 20px 0 0 0;
+    background: #ffffff;
+    color: #fff;
+    width: 220px;
+    min-height: 800px;
+    padding: 20px 0 0 0;
+}
+
+.vertical-line {
+    background: #cccccc;
+    width: 1px;
 }
 
 .left-nav a.active {
-  font-weight: bold;
+    font-weight: bold;
 }
 
 .left-nav a.active img {
@@ -36,4 +39,37 @@
 
 .left-nav_link {
     justify-content: flex-start;
+    border: 0px;
+    border-color: #ffffff;
+    border-block-color: #ffffff;
+
+}
+
+/*Чините*/
+.left-nav_link :focus:not(:active) {
+    outline: none !important;
+    box-shadow: 0 0 0 0 #fff !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+.left-nav_link :active {
+    box-shadow: 0 0 0 0 #fff !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+.left-nav_link :hover{
+    box-shadow: 0 0 0 0 #fff !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+:focus-visible {
+    outline: 0 !important;
+    outline-offset: 0 !important;
+}
+
+.body-section {
+    margin-top: 0px;
 }

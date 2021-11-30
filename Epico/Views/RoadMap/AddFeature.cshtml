@@ -17,12 +17,4 @@
         <p>@feature.Name</p>
     </form>
     }
-    
-    <!--Тестовые формы-->
-    <form class="box button" onclick="this.submit();" asp-action="AddFeature" asp-controller="RoadMap">
-        <input type="hidden" asp-for="FeatureId" value="111" />
-        <input type="hidden" asp-for="Roadmap" />
-        <span asp-validation-for="FeatureId"></span>
-        <p>Test feature 1</p>
-    </form>
 </div>

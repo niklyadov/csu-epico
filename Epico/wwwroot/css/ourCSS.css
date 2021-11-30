@@ -18,7 +18,7 @@ a, a:hover, a:visited, a:focus {
     order: 0;
     white-space: nowrap;
     background-color: #fff;
-    border: 1px solid #e3f2fd;
+    /*border: 1px solid #e3f2fd;*/
     box-shadow: 0 2px 4px 0 #e3f2fd;
 }
 

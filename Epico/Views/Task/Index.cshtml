@@ -9,8 +9,9 @@
     <!--Раскоментить когда релизную версию выкатывать будем-->
     @foreach (var task in Model.Tasks)
     {
-        <div class="box">
+        <div class="box" style="word-break: break-all">
             <p>@task.Name [@task.State]</p>
+            <p>@task.Description</p>
             <form method="get" asp-action="EditState" asp-controller="Task">
                 <input type="hidden" asp-for="TaskId" value="@task.ID"/>
                 <button >Change status</button>
@@ -25,16 +26,6 @@
             </form>
         </div>
     }
-
-    <!--Тестовые данные-->
-    <h2>Test data</h2>
-    <div class="box" style="word-break: break-all">
-        <p>Test task 1woiyqroiyowhfwogfhweioghwoeighwogbnwoghwoiyqroiyowhfwogfhweioghwoeighwogbnwoghwoiyqroiyowhfwogfhweioghwoeighwogbnwoghwoiyqroiyowhfwogfhweioghwoeighwogbnwoghwoiyqroiyowhfwogfhweioghwoeighwogbnwoghwoiyqroiyowhfwogfhweioghwoeighwogbnwoghwoiyqroiyowhfwogfhweioghwoeighwogbnwoghwoiyqroiyowhfwogfhweioghwoeighwogbnwoghwoiyqroiyowhfwogfhweioghwoeighwogbnwoghwoiyqroiyowhfwogfhweioghwoeighwogbnwoghwoiyqroiyowhfwogfhweioghwoeighwogbnwoghwoiyqroiyowhfwogfhweioghwoeighwogbnwoghwoiyqroiyowhfwogfhweioghwoeighwogbnwoghwoiyqroiyowhfwogfhweioghwoeighwogbnwoghwoiyqroiyowhfwogfhweioghwoeighwogbnwogh</p>
-    </div>
-    <div class="box">
-        <p>Test task 2</p>
-    </div>
-    <!--Конец тестовых данных-->
 
     <form method="get" onclick="this.submit()" asp-action="New" asp-controller="Task">
         <div class="is-flex" style="justify-content: center;">

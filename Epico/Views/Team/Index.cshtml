@@ -4,12 +4,13 @@
 }
 
 <div class="column box" style="background: #ededed; margin: 10px;">
-
+    <h2>Команды для задач</h2>
+    <br />
     <!--Раскоментить когда релизную версию выкатывать будем-->
     @foreach (var task in Model.Tasks)
     {
         <span><strong>@task.Name</strong></span>
-        <div class="box">
+        <div class="box" style="max-width: 50%">
             @foreach (var user in task.Team)
             {
                 <p>@user.UserName [@user.Position]</p>
@@ -25,52 +26,4 @@
             </form>
         </div>
     }
-
-
-    <!--тестовые задачи с командами-->
-    <h2>Test data</h2>
-    <span><strong>Test task 1</strong></span>
-    <div class="box">
-        <p>People 1</p>
-        <!--Кнопка для добавления Юзера в команду-->
-        <form method="get" onclick="this.submit()" asp-action="AddUser" asp-controller="Team">
-            <div class="is-flex" style="justify-content: center;">
-                <!--костыль чтоб курсор менялся-->
-                <a>
-                    <input type="hidden" asp-for="TaskId" value="222" />
-                    <img src="~/img/plus.svg" />
-                </a>
-            </div>
-        </form>
-    </div>
-    <span><strong>Test task 2</strong></span>
-    <div class="box">
-        <p>People 5</p>
-        <p>People 6</p>
-        <!--Кнопка для добавления Юзера в команду-->
-        <form method="get" onclick="this.submit()" asp-action="AddUser" asp-controller="Team">
-            <div class="is-flex" style="justify-content: center;">
-                <!--костыль чтоб курсор менялся-->
-                <a>
-                    <input type="hidden" asp-for="TaskId" value="333" />
-                    <img src="~/img/plus.svg" />
-                </a>
-            </div>
-        </form>
-    </div>
-    <span><strong>Test task 3</strong></span>
-    <div class="box">
-        <p>People 9</p>
-        <p>People 10</p>
-        <form method="get" onclick="this.submit()" asp-action="AddUser" asp-controller="Team">
-            <div class="is-flex" style="justify-content: center;">
-                <!--костыль чтоб курсор менялся-->
-                <a>
-                    <input type="hidden" asp-for="TaskId" value="444" />
-                    <img src="~/img/plus.svg" />
-                </a>
-            </div>
-        </form>
-    </div>
-    <!--Конец тестовых данных-->
 </div>
