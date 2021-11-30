@@ -8,8 +8,16 @@
   color: #fff;
 }
 
+.nav-top .display-username p {
+  color: #fff;
+}
+
 .logo{
     padding: 0 0 0 5px;
+}
+
+.display-username {
+    padding: 0 5px 0 0;
 }
 
 .left-nav {

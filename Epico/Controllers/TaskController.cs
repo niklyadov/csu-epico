@@ -17,13 +17,14 @@ namespace Epico.Controllers
         {
             
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromQuery] bool error)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
             var tasks = await TaskService.GetTaskList();
             return View(new TaskViewModel
             {
+                Error = error,
                 ProductId = Product.ID,
                 Tasks = tasks
             });
@@ -52,6 +53,10 @@ namespace Epico.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (model.Users == null)
+                {
+                    return RedirectToAction("Index", "Task", new { error = true });
+                }
                 var team = await UserService.GetUsersListByIds(model.Users);
                 await TaskService.AddTask(model.Name, model.Description, team, model.DeadLine);
             }

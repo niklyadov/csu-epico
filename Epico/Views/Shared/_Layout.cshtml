@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity;
+@using Epico.Entity;
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -14,18 +19,18 @@
 <body>
     <script>
         window.onload = () => {
-            
+
             Array.from(document.getElementsByClassName('left-nav_link')).forEach((target) => {
                 setActive(target);
             });
-            
+
             function setActive(target) {
-               let linkHref = target.getAttribute('href').toLowerCase();
-               let pathName = window.location.pathname.toLowerCase();
-               console.log([linkHref, pathName])
-               if (pathName.startsWith(linkHref)) {
+                let linkHref = target.getAttribute('href').toLowerCase();
+                let pathName = window.location.pathname.toLowerCase();
+                console.log([linkHref, pathName])
+                if (pathName.startsWith(linkHref)) {
                     target.classList.add('active');
-               }
+                }
             }
         }
     </script>
@@ -33,58 +38,69 @@
         <nav class="level nav-top">
             <div class="level-left">
                 <div class="level-item logo">
-                    <img src="~/img/epico.svg"/>
+                    <img src="~/img/epico.svg" />
                     <p class="subtitle is-12">Epico Product Management</p>
                 </div>
+            </div>
+            <div class="level-right">
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <div class="level-item display-username">
+                        <p class="subtitle is-12">@UserManager.GetUserName(User)</p>
+                    </div>
+                    <div class="level-item display-username">
+                        <a class="button" asp-action="Logout" asp-controller="Account">Выйти</a>
+                    </div>
+                }
             </div>
         </nav>
     </header>
     <div class="columns body-section">
-        @if (User is {Identity: {IsAuthenticated: true } })
+        @if (User is { Identity: { IsAuthenticated: true } })
         {
             <!--Боковая панель навигации-->
-        <div class="column is-narrow left-nav">
-            <div class="has-text-left">
-                <a class="button is-fullwidth left-nav_link" asp-controller="Product" asp-action="Index" onload="setActive(this)" >
-                    <img src="~/img/product.svg" alt="Product" /> Product
-                </a>
+            <div class="column is-narrow left-nav">
+                <div class="has-text-left">
+                    <a class="button is-fullwidth left-nav_link" asp-controller="Product" asp-action="Index" onload="setActive(this)">
+                        <img src="~/img/product.svg" alt="Product" /> Product
+                    </a>
+                </div>
+                <div class="has-text-left">
+                    <a class="button is-fullwidth left-nav_link" asp-controller="Metric" asp-action="Index" onload="setActive(this)">
+                        <img src="~/img/nsm&hom.svg" alt="NSM & HOM" /> NSM & HOM
+                    </a>
+                </div>
+                <div class="has-text-left">
+                    <a class="button is-fullwidth left-nav_link" asp-controller="Task" asp-action="Index" onload="setActive(this)">
+                        <img src="~/img/task.svg" alt="Tasks" /> Tasks
+                    </a>
+                </div>
+                <div class="has-text-left">
+                    <a class="button is-fullwidth left-nav_link" asp-controller="Feature" asp-action="Index" onload="setActive(this)">
+                        <img src="~/img/features.svg" alt="Features" /> Features
+                    </a>
+                </div>
+                <div class="has-text-left">
+                    <a class="button is-fullwidth left-nav_link" asp-controller="Hypotheses" asp-action="Index" onload="setActive(this)">
+                        <img src="~/img/hypotheses.svg" alt="Hypotheses" /> Hypotheses
+                    </a>
+                </div>
+                <div class="has-text-left">
+                    <a class="button is-fullwidth left-nav_link" asp-controller="RoadMap" asp-action="Index" onload="setActive(this)">
+                        <img src="~/img/roadmap.svg" alt="RoadMap" /> RoadMap
+                    </a>
+                </div>
+                <div class="has-text-left">
+                    <a class="button is-fullwidth left-nav_link" asp-controller="Sprint" asp-action="Index" onload="setActive(this)">
+                        <img src="~/img/sprint.svg" alt="Sprints" /> Sprints
+                    </a>
+                </div>
+                <div class="has-text-left">
+                    <a class="button is-fullwidth left-nav_link" asp-controller="Team" asp-action="Index" onload="setActive(this)">
+                        <img src="~/img/team.svg" alt="Team" /> Team
+                    </a>
+                </div>
             </div>
-            <div class="has-text-left">
-                <a class="button is-fullwidth left-nav_link" asp-controller="Metric" asp-action="Index" onload="setActive(this)" >
-                    <img src="~/img/nsm&hom.svg" alt="NSM & HOM" /> NSM & HOM
-                </a>
-            </div>
-            <div class="has-text-left">
-                <a class="button is-fullwidth left-nav_link" asp-controller="Task" asp-action="Index" onload="setActive(this)" >
-                    <img src="~/img/task.svg" alt="Tasks" /> Tasks
-                </a>
-            </div>
-            <div class="has-text-left">
-                <a class="button is-fullwidth left-nav_link" asp-controller="Feature" asp-action="Index" onload="setActive(this)" >
-                    <img src="~/img/features.svg" alt="Features" /> Features
-                </a>
-            </div>
-            <div class="has-text-left">
-                <a class="button is-fullwidth left-nav_link" asp-controller="Hypotheses" asp-action="Index" onload="setActive(this)">
-                    <img src="~/img/hypotheses.svg" alt="Hypotheses" /> Hypotheses
-                </a>
-            </div>
-            <div class="has-text-left">
-                <a class="button is-fullwidth left-nav_link" asp-controller="RoadMap" asp-action="Index" onload="setActive(this)" >
-                    <img src="~/img/roadmap.svg" alt="RoadMap" /> RoadMap
-                </a>
-            </div>
-            <div class="has-text-left">
-                <a class="button is-fullwidth left-nav_link" asp-controller="Sprint" asp-action="Index" onload="setActive(this)" >
-                    <img src="~/img/sprint.svg" alt="Sprints" /> Sprints
-                </a>
-            </div>
-            <div class="has-text-left">
-                <a class="button is-fullwidth left-nav_link" asp-controller="Team" asp-action="Index" onload="setActive(this)" >
-                    <img src="~/img/team.svg" alt="Team" /> Team
-                </a>
-            </div>
-        </div>
         }
         <div class="vertical-line"></div>
         <!--Тело-->
@@ -105,5 +121,5 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
-    </body>
+</body>
 </html>
