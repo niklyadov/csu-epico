@@ -6,6 +6,12 @@
 <div class="column box gray-container">
     <h2 class="bold">Команды для задач</h2>
     <br />
+
+    @if (Model.SprintError) 
+    {
+        <span class="error-message">*Нельзя создать спринт без указания фичи</span>
+        <br />
+    }
     <!--Раскоментить когда релизную версию выкатывать будем-->
     @foreach (var sprint in Model.Sprints)
     {

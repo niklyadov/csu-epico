@@ -13,5 +13,6 @@ namespace Epico.Models
         public int ProductId { get; set; }
         public List<Sprint> Sprints { get; set; }
             = new List<Sprint>();
+        public bool SprintError { get; set; }
     }
 }

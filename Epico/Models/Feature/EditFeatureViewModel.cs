@@ -1,17 +1,18 @@
 ﻿using Epico.Entity;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace Epico.Models
 {
     public class EditFeatureViewModel
     {
         public int ID { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
         public string Description { get; set; }
+        [Required]
         public string Hypothesis { get; set; }
         [BindProperty] public List<int> Metrics { get; set; }
         [BindProperty] public List<int> Tasks { get; set; }

@@ -6,8 +6,11 @@ namespace Epico.Models
     {
         [Required]
         public string Name { get; set; }
+        [Required]
         public string Vision { get; set; }
+        [Required]
         public string Mission { get; set; }
+        [Required]
         public string ProductFormula { get; set; }
     }
 }

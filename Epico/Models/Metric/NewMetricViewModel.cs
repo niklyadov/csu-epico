@@ -8,6 +8,7 @@ namespace Epico.Models
     {
         [Required]
         public string Name { get; set; }
+        [Required]
         public string Description { get; set; }
         public int? ParentMetricId { get; set; }
         public int ProductId { get; set; }

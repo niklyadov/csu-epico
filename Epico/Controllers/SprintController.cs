@@ -17,7 +17,7 @@ namespace Epico.Controllers
         {
         }
         
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromQuery] bool sprintError)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
@@ -25,6 +25,7 @@ namespace Epico.Controllers
             var sprints = await SprintService.GetSprintList();
             return View(new SprintViewModel
             {
+                SprintError = sprintError,
                 ProductId = Product.ID,
                 Sprints = sprints
             });
@@ -53,6 +54,10 @@ namespace Epico.Controllers
         public async Task<IActionResult> New(NewSprintViewModel model)
         {
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
+            if (model.Features==null|| model.Features.Count == 0)
+            {
+                return RedirectToAction("Index", "Sprint", new { sprintError = true });
+            }
             var features = await FeatureService.GetFeaturesListByIds(model.Features);
 
             await ProductService.AddSprint(model.ProductId, new Sprint

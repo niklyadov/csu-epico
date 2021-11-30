@@ -1,6 +1,5 @@
-﻿using System;
+﻿using Epico.Entity;
 using System.Collections.Generic;
-using Epico.Entity;
 
 namespace Epico.Models
 {
