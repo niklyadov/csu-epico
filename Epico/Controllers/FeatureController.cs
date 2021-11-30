@@ -17,7 +17,7 @@ namespace Epico.Controllers
         public async Task<IActionResult> Index([FromQuery] bool taskError, [FromQuery] bool metricError)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
-            
+
             return View(new FeatureViewModel
             {
                 TaskError = taskError,
@@ -37,30 +37,29 @@ namespace Epico.Controllers
         [HttpPost]
         public async Task<IActionResult> New(NewFeatureViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                bool taskError = model.Tasks.Count == 0;
-                bool metricError = model.Metrics.Count == 0;
-                if (taskError || metricError)
-                {
-                    return RedirectToAction("Index", "Feature", new { taskError = taskError, metricError = metricError });
-                }
-                var tasks = await TaskService.GetTaskListByIds(model.Tasks);
-                // todo переделать на одну метрику
-                var metrics =  await MetricService.GetMetricListByIds(model.Metrics);
+            if (!ModelState.IsValid) return View(await GetNewFeatureViewModel());
 
-                await FeatureService.AddFeature(new Feature
-                {
-                    Name = model.Name,
-                    Description = model.Description,
-                    Hypothesis = model.Hypothesis,
-                    Tasks = tasks,
-                    Metric = metrics,
-                    Roadmap = model.Roadmap,
-                    State = FeatureState.NotStarted
-                });
+            bool taskError = model.Tasks.Count == 0;
+            bool metricError = model.Metrics.Count == 0;
+            if (taskError || metricError)
+            {
+                return RedirectToAction("Index", "Feature", new { taskError = taskError, metricError = metricError });
             }
-            return View(await GetNewFeatureViewModel());
+            var tasks = await TaskService.GetTaskListByIds(model.Tasks);
+            // todo переделать на одну метрику
+            var metrics = await MetricService.GetMetricListByIds(model.Metrics);
+
+            await FeatureService.AddFeature(new Feature
+            {
+                Name = model.Name,
+                Description = model.Description,
+                Hypothesis = model.Hypothesis,
+                Tasks = tasks,
+                Metric = metrics,
+                Roadmap = model.Roadmap,
+                State = FeatureState.NotStarted
+            });
+            return RedirectToAction("Index", "Feature");
         }
 
         private async Task<NewFeatureViewModel> GetNewFeatureViewModel()
@@ -95,7 +94,7 @@ namespace Epico.Controllers
 
                 PosibleTasks = await TaskService.GetTaskList(),
                 PosibleMetrics = await MetricService.GetMetricList()
-            }); 
+            });
         }
 
         [HttpPost]
@@ -125,7 +124,7 @@ namespace Epico.Controllers
             if (!HasProduct) return RedirectToAction("New", "Product");
 
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
-            
+
             await FeatureService.DeleteFeature(featureId);
             return RedirectToAction("Index", "Feature");
         }
