@@ -11,5 +11,7 @@ namespace Epico.Models
         public int FeatureId { get; set; }
         public int ProductId { get; set; }
         public List<Feature> Features { get; set; }
+        public bool TaskError { get; set; }
+        public bool MetricError { get; set; }
     }
 }

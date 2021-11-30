@@ -14,12 +14,14 @@ namespace Epico.Controllers
         public FeatureController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromQuery] bool taskError, [FromQuery] bool metricError)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
             
             return View(new FeatureViewModel
             {
+                TaskError = taskError,
+                MetricError = metricError,
                 ProductId = Product.ID,
                 Features = await FeatureService.GetFeaturesList()
             });
@@ -47,6 +49,12 @@ namespace Epico.Controllers
         {
             if (ModelState.IsValid)
             {
+                bool taskError = model.Tasks.Count == 0;
+                bool metricError = model.Metrics.Count == 0;
+                if (taskError || metricError)
+                {
+                    return RedirectToAction("Index", "Feature", new { taskError = taskError, metricError = metricError });
+                }
                 var tasks = await TaskService.GetTaskListByIds(model.Tasks);
                 // todo переделать на одну метрику
                 var metrics =  await MetricService.GetMetricListByIds(model.Metrics);

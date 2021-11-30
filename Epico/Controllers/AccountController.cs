@@ -30,7 +30,7 @@ namespace Epico.Controllers
                 return RedirectToAction("Index", "Product");
             }
 
-            return BadRequest();
+            return RedirectToAction("Login");
         }
         
         [HttpGet]
