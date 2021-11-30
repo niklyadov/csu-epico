@@ -4,11 +4,11 @@ namespace Epico.Views
 {
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "*Обязательно поле")]
         [Display(Name = "Имя пользователя")]
         public string Username { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "*Обязательно поле")]
         [DataType(DataType.Password)]
         [Display(Name = "Пароль")]
         public string Password { get; set; }
