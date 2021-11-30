@@ -22,7 +22,6 @@ namespace Epico.Controllers
             {
                 TaskError = taskError,
                 MetricError = metricError,
-                ProductId = Product.ID,
                 Features = await FeatureService.GetFeaturesList()
             });
         }
@@ -32,7 +31,7 @@ namespace Epico.Controllers
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            return View(GetNewFeatureViewModel());
+            return View(await GetNewFeatureViewModel());
         }
 
         [HttpPost]
@@ -61,7 +60,7 @@ namespace Epico.Controllers
                     State = FeatureState.NotStarted
                 });
             }
-            return View(GetNewFeatureViewModel());
+            return View(await GetNewFeatureViewModel());
         }
 
         private async Task<NewFeatureViewModel> GetNewFeatureViewModel()
@@ -72,21 +71,20 @@ namespace Epico.Controllers
 
             return new NewFeatureViewModel
             {
-                ProductId = Product.ID,
                 PosibleTasks = possibleTasks,
                 PosibleMetrics = possibleMetrics
             };
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit([FromQuery] int productId, [FromQuery] int featureId)
+        public async Task<IActionResult> Edit([FromQuery] int featureId)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
             var feature = await FeatureService.GetFeature(featureId);
             return View(new EditFeatureViewModel
             {
-                ID = feature.ID,
+                FeatureId = feature.ID,
                 Name = feature.Name,
                 Description = feature.Description,
                 Hypothesis = feature.Hypothesis,
@@ -95,7 +93,6 @@ namespace Epico.Controllers
                 Roadmap = feature.Roadmap.Value,
                 State = feature.State,
 
-                ProductId = productId,
                 PosibleTasks = await TaskService.GetTaskList(),
                 PosibleMetrics = await MetricService.GetMetricList()
             }); 
@@ -104,14 +101,14 @@ namespace Epico.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(EditFeatureViewModel model)
         {
-            if (!ModelState.IsValid) return View(new { productId = Product.ID, featureId = model.ID });
+            if (!ModelState.IsValid) return View(new { featureId = model.FeatureId });
 
             var tasks = await TaskService.GetTaskListByIds(model.Tasks);
             var metrics = await MetricService.GetMetricListByIds(model.Metrics);
 
             await FeatureService.UpdateFeature(new Feature
             {
-                ID = model.ID,
+                ID = model.FeatureId,
                 Name = model.Name,
                 Description = model.Description,
                 Hypothesis = model.Hypothesis,

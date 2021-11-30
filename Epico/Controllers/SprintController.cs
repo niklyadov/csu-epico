@@ -26,7 +26,6 @@ namespace Epico.Controllers
             return View(new SprintViewModel
             {
                 SprintError = sprintError,
-                ProductId = Product.ID,
                 Sprints = sprints
             });
         }
@@ -65,7 +64,7 @@ namespace Epico.Controllers
             }
             var features = await FeatureService.GetFeaturesListByIds(model.Features);
 
-            await ProductService.AddSprint(model.ProductId, new Sprint
+            await ProductService.AddSprint(Product.ID, new Sprint
             {
                 Features = features,
                 Name = model.Name
@@ -81,7 +80,6 @@ namespace Epico.Controllers
             
             return new NewSprintViewModel
             {
-                ProductId = Product.ID,
                 PosibleFeatures = possibleFeatures
             };
         }
@@ -117,7 +115,6 @@ namespace Epico.Controllers
                 SprintId = sprint.ID,
                 Name = sprint.Name,
                 Features = sprint.Features.Select(x => x.ID).ToList(),
-                ProductId = 1, // todo take from DB
                 PosibleFeatures = await FeatureService.GetFeaturesList()
             };
         }

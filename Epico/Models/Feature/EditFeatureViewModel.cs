@@ -7,7 +7,7 @@ namespace Epico.Models
 {
     public class EditFeatureViewModel
     {
-        public int ID { get; set; }
+        public int FeatureId { get; set; }
         [Required(ErrorMessage = "*Обязательное поле")]
         public string Name { get; set; }
         [Required(ErrorMessage = "*Обязательное поле")]
@@ -27,7 +27,6 @@ namespace Epico.Models
         [BindProperty] 
         public RoadmapType Roadmap { get; set; }
 
-        public int ProductId { get; set; }
         public List<Entity.Task> PosibleTasks { get; set; }
         public List<Metric> PosibleMetrics { get; set; }
     }

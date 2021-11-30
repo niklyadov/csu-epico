@@ -6,14 +6,13 @@ namespace Epico.Models
 {
     public class EditMetricViewModel
     {
-        public int ID { get; set; }
+        public int MetricId { get; set; }
         [Required(ErrorMessage = "*Обязательное поле")]
         public string Name { get; set; }
         [Required(ErrorMessage = "*Обязательное поле")]
         public string Description { get; set; }
         public int? ParentMetricId { get; set; }
 
-        public int ProductId { get; set; }
         public List<Metric> PosibleParentMetrics { get; set; }
     }
 }

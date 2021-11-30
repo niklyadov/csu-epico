@@ -26,7 +26,6 @@ namespace Epico.Controllers
             return View(new MetricViewModel
             {
                 Error = error,
-                ProductId = Product.ID,
                 Metric = metric
             });
         }
@@ -77,7 +76,7 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit([FromQuery] int productId, [FromQuery] int metricId)
+        public async Task<IActionResult> Edit([FromQuery] int metricId)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
@@ -87,9 +86,9 @@ namespace Epico.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(EditMetricViewModel model)
         {
-            if (!ModelState.IsValid) return View(await GetEditMetricViewModel(model.ID));
+            if (!ModelState.IsValid) return View(await GetEditMetricViewModel(model.MetricId));
 
-            var metric = await MetricService.GetMetricById(model.ID);
+            var metric = await MetricService.GetMetricById(model.MetricId);
 
             metric.Name = model.Name;
             metric.Description = model.Description;
@@ -120,11 +119,10 @@ namespace Epico.Controllers
             var possibleParentMetrics = await MetricService.GetMetricList();
             return new EditMetricViewModel
             {
-                ID = metric.ID,
+                MetricId = metric.ID,
                 Name = metric.Name,
                 Description = metric.Description,
                 ParentMetricId = metric.ParentMetricId,
-                ProductId = Product.ID,
                 PosibleParentMetrics = possibleParentMetrics
             };
         }

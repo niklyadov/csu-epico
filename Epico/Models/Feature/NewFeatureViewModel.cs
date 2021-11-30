@@ -23,7 +23,6 @@ namespace Epico.Models
         [BindProperty] 
         public List<int> Metrics { get; set; } = new List<int>();
 
-        public int ProductId { get; set; }
         public List<Entity.Task> PosibleTasks { get; set; }
         public List<Metric> PosibleMetrics { get; set; }
     }

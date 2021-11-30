@@ -25,7 +25,6 @@ namespace Epico.Controllers
             return View(new TaskViewModel
             {
                 Error = error,
-                ProductId = Product.ID,
                 Tasks = tasks
             });
         }
@@ -37,7 +36,6 @@ namespace Epico.Controllers
 
             return View(new NewTaskViewModel 
             {
-                ProductId = Product.ID,
                 PosibleUsers = await UserService.GetUsersList()
             });
         }
@@ -68,12 +66,12 @@ namespace Epico.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(EditTaskViewModel model)
         {
-            if (!ModelState.IsValid) return View(await GetEditTaskViewModel(model.ID));
+            if (!ModelState.IsValid) return View(await GetEditTaskViewModel(model.TaskId));
 
             var team = await UserService.GetUsersListByIds(model.Users);
             await TaskService.UpdateTask(new Entity.Task
             {
-                ID = model.ID,
+                ID = model.TaskId,
                 Name = model.Name,
                 Description = model.Description, 
                 Team = team,
@@ -89,13 +87,12 @@ namespace Epico.Controllers
             var task = await TaskService.GetTaskById(taskId);
             return new EditTaskViewModel
             {
-                ID = task.ID,
+                TaskId = task.ID,
                 Name = task.Name,
                 Description = task.Description,
                 DeadLine = task.DeadLine,
                 State = task.State,
                 Users = task.Team.Select(x => x.Id).ToList(),
-                ProductId = 1, // todo take from DB
                 PosibleUsers = await UserService.GetUsersList()
             };
         }

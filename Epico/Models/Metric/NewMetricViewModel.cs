@@ -11,7 +11,6 @@ namespace Epico.Models
         [Required(ErrorMessage ="*Обязательное поле")]
         public string Description { get; set; }
         public int? ParentMetricId { get; set; }
-        public int ProductId { get; set; }
         public List<Metric> PosibleParentMetrics { get; set; }
     }
 }
