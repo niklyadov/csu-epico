@@ -49,7 +49,15 @@ namespace Epico.Controllers
         public async Task<IActionResult> AddUser(AddUserToTeamViewModel model)
         {
             var task = await TaskService.GetById(model.TaskId);
-            task.Team = await UserService.GetUsersListByIds(model.UserIds);
+
+            foreach (var user in await UserService.GetUsersListByIds(model.UserIds))
+            {
+                if (!task.Team.Any(x => x.Id == user.Id))
+                {
+                    task.Team.Add(user);
+                }
+            }
+            
             await TaskService.Save(task);
             
             return RedirectToAction("Index", "Team");
