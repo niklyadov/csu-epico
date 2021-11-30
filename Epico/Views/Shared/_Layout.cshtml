@@ -43,12 +43,15 @@
                 </div>
             </div>
             <div class="level-right">
-                <div class="level-item display-username">
-                    <p class="subtitle is-12">@UserManager.GetUserName(User)</p>
-                </div>
-                <div class="level-item display-username">
-                    <button asp-action="Logout" asp-controller="Account">Выйти</button>
-                </div>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <div class="level-item display-username">
+                        <p class="subtitle is-12">@UserManager.GetUserName(User)</p>
+                    </div>
+                    <div class="level-item display-username">
+                        <a class="button" asp-action="Logout" asp-controller="Account">Выйти</a>
+                    </div>
+                }
             </div>
         </nav>
     </header>
