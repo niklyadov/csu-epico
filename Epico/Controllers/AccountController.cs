@@ -32,17 +32,24 @@ namespace Epico.Controllers
 
             return BadRequest();
         }
-
-
+        
         [HttpGet]
-        public IActionResult Registration()
+        public async Task<ActionResult> Logout()
+        {
+            await AccountService.Logout();
+
+            return RedirectToAction("Login");
+        }
+        
+        [HttpPost]
+        public async Task<ActionResult> Login(LoginViewModel model)
         {
             if (AccountService.CurrentUserId() != null)
             {
                 return RedirectToAction("Index", "Product");
             }
-            
-            return View();
+
+            return RedirectToAction("Login");
         }
         
         
@@ -54,7 +61,7 @@ namespace Epico.Controllers
                 return RedirectToAction("New", "Product");
             }
             
-            return BadRequest();
+            return RedirectToAction("Registration");
         }
     }
 }

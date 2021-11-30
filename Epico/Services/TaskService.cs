@@ -56,6 +56,9 @@ namespace Epico.Services
         
         public async Task<List<Task>> GetTaskListByIds(List<int> ids)
         {
+            if (ids == null) 
+                return new List<Task>();
+            
             return await _taskRepository.GetByIds(ids);
         }
     }

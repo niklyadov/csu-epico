@@ -51,6 +51,9 @@ namespace Epico.Services
         
         public async Task<List<Metric>> GetMetricListByIds(List<int> ids)
         {
+            if (ids == null) 
+                return new List<Metric>();
+
             return await _metricRepository.GetByIds(ids);
         }
         
