@@ -38,7 +38,7 @@ namespace Epico.Controllers
                 return RedirectToAction("Index", "Product");
             }
 
-            return BadRequest();
+            return RedirectToAction("Login");
         }
         
         [HttpPost]
@@ -49,7 +49,15 @@ namespace Epico.Controllers
                 return RedirectToAction("New", "Product");
             }
             
-            return BadRequest();
+            return RedirectToAction("Registration");
+        }
+        
+        [HttpPost]
+        public async Task<ActionResult> Logout()
+        {
+            await AccountService.Logout();
+
+            return RedirectToAction("Login");
         }
     }
 }
