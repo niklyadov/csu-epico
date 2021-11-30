@@ -9,7 +9,7 @@ namespace Epico.Models
     {
         public int ProductId { get; set; }
         public List<Entity.Task> Tasks { get; set; }
-        
+        public bool Error { get; set; }
         public int TaskId { get; set; }
     }
 }
