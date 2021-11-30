@@ -10,6 +10,8 @@ namespace Epico.Controllers
         public AccountController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
         }
+
+        [HttpGet]
         public ActionResult Login()
         {
             if (AccountService.CurrentUserId() != null)
@@ -20,16 +22,6 @@ namespace Epico.Controllers
             return View(new LoginViewModel());
         }
 
-        public IActionResult Registration()
-        {
-            if (AccountService.CurrentUserId() != null)
-            {
-                return RedirectToAction("Index", "Product");
-            }
-            
-            return View();
-        }
-        
         [HttpPost]
         public async Task<ActionResult> Login(LoginViewModel model)
         {
@@ -40,6 +32,19 @@ namespace Epico.Controllers
 
             return BadRequest();
         }
+
+
+        [HttpGet]
+        public IActionResult Registration()
+        {
+            if (AccountService.CurrentUserId() != null)
+            {
+                return RedirectToAction("Index", "Product");
+            }
+            
+            return View();
+        }
+        
         
         [HttpPost]
         public async Task<ActionResult> Registration(RegistrationViewModel model)
