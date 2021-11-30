@@ -1,4 +1,5 @@
-﻿@model EditFeatureViewModel
+﻿@using Epico.Entity
+@model EditFeatureViewModel
 @{
     ViewBag.Title = "Изменение фичи";
 }
@@ -6,9 +7,11 @@
     <h2>Изменение фичи</h2>
 </div>
 <div class="box">
-    <form method="post" asp-controller="Feature" asp-action="New">
+    <form method="post" asp-action="Edit" asp-controller="Feature">
         <input type="hidden" asp-for="ProductId" />
         <div asp-validation-summary="ModelOnly"></div>
+
+        <!--Название [input]-->
         <div class="field">
             <label class="label" asp-for="Name">Название</label>
             <div class="control">
@@ -17,6 +20,7 @@
             </div>
         </div>
 
+        <!--Описание [input]-->
         <div class="field">
             <label class="label" asp-for="Description">Описание</label>
             <div class="control">
@@ -25,6 +29,7 @@
             </div>
         </div>
 
+        <!--Гипотеза [input]-->
         <div class="field">
             <label class="label" asp-for="Hypothesis">Гипотеза</label>
             <div class="control">
@@ -33,6 +38,7 @@
             </div>
         </div>
 
+        <!--Выбор задач [checkbox]-->
         <div class="field">
             <label class="label" asp-for="Tasks">Выбор задач</label>
             <div class="control">
@@ -48,6 +54,7 @@
             <span asp-validation-for="Tasks"></span>
         </div>
 
+        <!--Выбор метрик [checkbox]-->
         <div class="field">
             <label class="label" asp-for="Metrics">Выбор метрик</label>
             <div class="control">
@@ -63,16 +70,44 @@
             <span asp-validation-for="Metrics"></span>
         </div>
 
+        <!--Выбор статуса [radio]-->
         <div class="field">
-            <label class="label" asp-for="State">Состояние фичи</label>
+            <label class="label" asp-for="State">Статус</label>
             <div class="control">
-                @foreach (var state in Model.StateTypes)
-                {
-                    <label class="radio">
-                        <input type="radio" name="state" @Html.Raw(Model.State.Equals(state) ? "checked" : "")>
-                        @state.ToString()
-                    </label>
-                }
+                <label class="radio">
+                    <input type="radio" value="@FeatureState.NotStarted" @Html.Raw(Model.State == FeatureState.NotStarted ? "checked" : "") name="State" />
+                    NotStarted
+                </label>
+                <label class="radio">
+                    <input type="radio" value="@FeatureState.InProgress" @Html.Raw(Model.State == FeatureState.InProgress ? "checked" : "") name="State" />
+                    InProgress
+                </label>
+                <label class="radio">
+                    <input type="radio" value="@FeatureState.Closed" @Html.Raw(Model.State == FeatureState.Closed ? "checked" : "") name="State" />
+                    Closed
+                </label>
+                <br />
+            </div>
+            <span asp-validation-for="State"></span>
+        </div>
+
+        <!--Выбор роадмапа [radio]-->
+        <div class="field">
+            <label class="label" asp-for="State">Роадмап</label>
+            <div class="control">
+                <label class="radio">
+                    <input type="radio" value="@RoadmapType.Now" @Html.Raw(Model.Roadmap == RoadmapType.Now ? "checked" : "") name="Roadmap" />
+                    Now
+                </label>
+                <label class="radio">
+                    <input type="radio" value="@RoadmapType.Then" @Html.Raw(Model.Roadmap == RoadmapType.Then ? "checked" : "") name="Roadmap" />
+                    Then
+                </label>
+                <label class="radio">
+                    <input type="radio" value="@RoadmapType.After" @Html.Raw(Model.Roadmap == RoadmapType.After ? "checked" : "") name="Roadmap" />
+                    After
+                </label>
+                <br />
             </div>
             <span asp-validation-for="State"></span>
         </div>

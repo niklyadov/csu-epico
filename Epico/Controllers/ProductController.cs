@@ -59,10 +59,9 @@ namespace Epico.Controllers
         [HttpGet]
         public IActionResult New()
         {
-            if (!ProductService.NotHasProduct())
-            {
-                return RedirectToAction("New");
-            }
+            if (HasProduct) 
+                return RedirectToAction("Show", "Product");
+
             return View();
         }
 
