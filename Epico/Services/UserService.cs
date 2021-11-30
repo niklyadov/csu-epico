@@ -36,6 +36,9 @@ namespace Epico.Services
         
         public async Task<List<User>> GetUsersListByIds(List<string> ids)
         {
+            if (ids == null) 
+                return new List<User>();
+            
             return await _repository.GetByIds(ids);
         }
     }

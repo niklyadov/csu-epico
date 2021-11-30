@@ -51,6 +51,9 @@ namespace Epico.Services
         
         public async Task<List<Feature>> GetFeaturesListByIds(List<int> ids)
         {
+            if (ids == null) 
+                return new List<Feature>();
+            
             return await _featureRepository.GetByIds(ids);
         }
 
