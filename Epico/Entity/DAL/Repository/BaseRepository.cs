@@ -44,6 +44,11 @@ namespace Epico.Entity.DAL.Repository
             await _dbContext.SaveChangesAsync();
             return entity;
         }
+        
+        public async Task<int> Save(TEntity entity)
+        {
+            return await _dbContext.SaveChangesAsync();
+        }
 
         public async Task<TEntity> Delete(int id)
         {

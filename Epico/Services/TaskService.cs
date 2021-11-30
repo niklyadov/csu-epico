@@ -3,63 +3,27 @@ using Epico.Entity.DAL.Repository;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Epico.Entity.DAL;
 using Task = Epico.Entity.Task;
 
 namespace Epico.Services
 {
-    public class TaskService
+    public class TaskService : BaseService<Task, ApplicationContext>
     {
         private readonly TaskRepository _taskRepository;
-        public TaskService(TaskRepository taskRepository)
+        public TaskService(TaskRepository taskRepository) : base(taskRepository)
         {
             _taskRepository = taskRepository;
         }
-        public async Task<Entity.Task> AddTask(string name, string description, List<User> team, DateTime deadLine)
-        {
-            try
+
+        public async Task<Task> AddTask(string name, string description, List<User> team, DateTime deadLine)
+            => await _taskRepository.Add(new Task
             {
-                return await _taskRepository.Add(new Entity.Task
-                {
-                    Name = name,
-                    Description = description,
-                    DeadLine = deadLine,
-                    State = TaskState.NotStarted,
-                    Team = team
-                });
-            } catch (Exception exception)
-            {
-                // логирование :D
-            }
-
-            return null;
-        }
-        
-        public async Task<Task> GetTaskById(int id)
-        {
-            return await _taskRepository.GetById(id);
-        }
-
-        public async Task<Entity.Task> UpdateTask(Task task)
-        {
-            return await _taskRepository.Update(task);
-        }
-
-        public async Task<Entity.Task> DeleteTask(int id)
-        {
-            return await _taskRepository.Delete(id);
-        }
-
-        public async Task<List<Task>> GetTaskList()
-        {
-            return await _taskRepository.GetAll();
-        }
-        
-        public async Task<List<Task>> GetTaskListByIds(List<int> ids)
-        {
-            if (ids == null) 
-                return new List<Task>();
-            
-            return await _taskRepository.GetByIds(ids);
-        }
+                Name = name,
+                Description = description,
+                DeadLine = deadLine,
+                State = TaskState.NotStarted,
+                Team = team
+            });
     }
 }

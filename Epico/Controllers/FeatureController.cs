@@ -33,7 +33,7 @@ namespace Epico.Controllers
             if (!HasProduct) return RedirectToAction("New", "Product");
 
             var possibleMetrics = await MetricService.GetMetricList();
-            var allTasks = await TaskService.GetTaskList();
+            var allTasks = await TaskService.GetAll();
             var possibleTasks = allTasks.Where(x => x.State != TaskState.Closed).ToList();
 
             return View(new NewFeatureViewModel
@@ -55,7 +55,7 @@ namespace Epico.Controllers
                 {
                     return RedirectToAction("Index", "Feature", new { taskError = taskError, metricError = metricError });
                 }
-                var tasks = await TaskService.GetTaskListByIds(model.Tasks);
+                var tasks = await TaskService.GetByIds(model.Tasks);
                 // todo переделать на одну метрику
                 var metrics =  await MetricService.GetMetricListByIds(model.Metrics);
 
@@ -91,7 +91,7 @@ namespace Epico.Controllers
                 State = feature.State,
 
                 ProductId = projectId,
-                PosibleTasks = await TaskService.GetTaskList(),
+                PosibleTasks = await TaskService.GetAll(),
                 PosibleMetrics = await MetricService.GetMetricList()
             }); 
         }
@@ -101,7 +101,7 @@ namespace Epico.Controllers
         {
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
 
-            var tasks = await TaskService.GetTaskListByIds(model.Tasks);
+            var tasks = await TaskService.GetByIds(model.Tasks);
             var metrics = await MetricService.GetMetricListByIds(model.Metrics);
 
             await FeatureService.UpdateFeature(new Feature

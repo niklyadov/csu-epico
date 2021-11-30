@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Epico.Entity;
 using Epico.Models;
 
 namespace Epico.Controllers
@@ -17,7 +18,7 @@ namespace Epico.Controllers
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            var tasks = await TaskService.GetTaskList();
+            var tasks = await TaskService.GetAll();
             return View(new TeamViewModel 
             {
                 Tasks = tasks
@@ -29,7 +30,7 @@ namespace Epico.Controllers
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            var task = await TaskService.GetTaskById(model.TaskId);
+            var task = await TaskService.GetById(model.TaskId);
             if (task == null)
             {
                 return BadRequest("Сначала нужно создать хотя бы одну задачу!");
@@ -47,10 +48,9 @@ namespace Epico.Controllers
         [HttpPost]
         public async Task<IActionResult> AddUser(AddUserToTeamViewModel model)
         {
-            var task = await TaskService.GetTaskById(model.TaskId);
-            var users = await UserService.GetUsersListByIds(model.UserIds);
-            task.Team = users;
-            await TaskService.UpdateTask(task);
+            var task = await TaskService.GetById(model.TaskId);
+            task.Team = await UserService.GetUsersListByIds(model.UserIds);
+            await TaskService.Save(task);
             
             return RedirectToAction("Index", "Team");
         }

@@ -21,7 +21,7 @@ namespace Epico.Controllers
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            var tasks = await TaskService.GetTaskList();
+            var tasks = await TaskService.GetAll();
             return View(new TaskViewModel
             {
                 Error = error,
@@ -68,7 +68,7 @@ namespace Epico.Controllers
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            var task = await TaskService.GetTaskById(model.TaskId);
+            var task = await TaskService.GetById(model.TaskId);
             return View(new EditTaskViewModel
             {
                 ID = task.ID,
@@ -77,7 +77,7 @@ namespace Epico.Controllers
                 DeadLine = task.DeadLine,
                 State = task.State,
                 Users = task.Team.Select(x => x.Id).ToList(),
-                ProductId = 1, // todo take from DB
+                ProductId = Product.ID,
                 PosibleUsers = await UserService.GetUsersList()
             });
         }
@@ -88,15 +88,15 @@ namespace Epico.Controllers
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
 
             var team = await UserService.GetUsersListByIds(model.Users);
-            await TaskService.UpdateTask(new Entity.Task
-            {
-                ID = model.ID,
-                Name = model.Name,
-                Description = model.Description, 
-                Team = team,
-                DeadLine = model.DeadLine,
-                State = model.State
-            });
+            var task = await TaskService.GetById(model.ID);
+
+            task.Name = model.Name;
+            task.Description = model.Description;
+            task.Team = team;
+            task.DeadLine = model.DeadLine;
+            task.State = model.State;
+                
+            await TaskService.Update(task);
 
             return RedirectToAction("Index", "Task");
         }
@@ -107,7 +107,7 @@ namespace Epico.Controllers
 
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
 
-            await TaskService.DeleteTask(taskId);
+            await TaskService.Delete(taskId);
             return RedirectToAction("Index", "Task");
         }
 
@@ -116,7 +116,7 @@ namespace Epico.Controllers
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            var task = await TaskService.GetTaskById(model.TaskId);
+            var task = await TaskService.GetById(model.TaskId);
             return View(new EditStateTaskViewModel
             {
                 TaskId = task.ID,
