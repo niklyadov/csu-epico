@@ -21,7 +21,7 @@ namespace Epico.Controllers
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            var tasks = await TaskService.GetByIds();
+            var tasks = await TaskService.GetAll();
             return View(new TaskViewModel
             {
                 Error = error,
