@@ -7,11 +7,10 @@ namespace Epico.Models
 {
     public class NewSprintViewModel
     {
-        [Required]
+        [Required(ErrorMessage ="*Обязательное поле")]
         public string Name { get; set; }
         [BindProperty] public List<int> Features { get; set; }
 
-        public int ProductId { get; set; }
         public List<Feature> PosibleFeatures { get; set; }
     }
 }

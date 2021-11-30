@@ -21,11 +21,10 @@ namespace Epico.Controllers
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            var tasks = await TaskService.GetAll();
+            var tasks = await TaskService.GetByIds();
             return View(new TaskViewModel
             {
                 Error = error,
-                ProductId = Product.ID,
                 Tasks = tasks
             });
         }
@@ -35,15 +34,8 @@ namespace Epico.Controllers
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            var product = await ProductService.GetProduct();
-            if (product == null)
-            {
-                return RedirectToAction("New", "Product");
-            }
-            
             return View(new NewTaskViewModel 
             {
-                ProductId = product.ID,
                 PosibleUsers = await UserService.GetUsersList()
             });
         }
@@ -60,7 +52,7 @@ namespace Epico.Controllers
                 var team = await UserService.GetUsersListByIds(model.Users);
                 await TaskService.AddTask(model.Name, model.Description, team, model.DeadLine);
             }
-            return RedirectToAction("Index", "Task");
+            return View();
         }
 
         [HttpGet]
@@ -68,38 +60,43 @@ namespace Epico.Controllers
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            var task = await TaskService.GetById(model.TaskId);
-            return View(new EditTaskViewModel
-            {
-                ID = task.ID,
-                Name = task.Name,
-                Description = task.Description,
-                DeadLine = task.DeadLine,
-                State = task.State,
-                Users = task.Team.Select(x => x.Id).ToList(),
-                ProductId = Product.ID,
-                PosibleUsers = await UserService.GetUsersList()
-            });
+            return View(await GetEditTaskViewModel(model.TaskId));
         }
         
         [HttpPost]
         public async Task<IActionResult> Edit(EditTaskViewModel model)
         {
-            if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
+            if (!ModelState.IsValid) return View(await GetEditTaskViewModel(model.TaskId));
 
             var team = await UserService.GetUsersListByIds(model.Users);
-            var task = await TaskService.GetById(model.ID);
-
-            task.Name = model.Name;
-            task.Description = model.Description;
-            task.Team = team;
-            task.DeadLine = model.DeadLine;
-            task.State = model.State;
-                
-            await TaskService.Update(task);
+            await TaskService.Update(new Entity.Task
+            {
+                ID = model.TaskId,
+                Name = model.Name,
+                Description = model.Description, 
+                Team = team,
+                DeadLine = model.DeadLine,
+                State = model.State
+            });
 
             return RedirectToAction("Index", "Task");
         }
+
+        private async Task<EditTaskViewModel> GetEditTaskViewModel(int taskId)
+        {
+            var task = await TaskService.GetById(taskId);
+            return new EditTaskViewModel
+            {
+                TaskId = task.ID,
+                Name = task.Name,
+                Description = task.Description,
+                DeadLine = task.DeadLine,
+                State = task.State,
+                Users = task.Team.Select(x => x.Id).ToList(),
+                PosibleUsers = await UserService.GetUsersList()
+            };
+        }
+
         [HttpGet]
         public async Task<IActionResult> Delete([FromQuery] int taskId)
         {

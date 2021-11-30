@@ -78,15 +78,16 @@ namespace Epico.Controllers
                     return RedirectToAction("Index", "Product");
                 }
             }
-            return Ok("Hello");
+            return View();
         }
 
         public async Task<IActionResult> Delete(int projectId)
         {
-            if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
+            if (!ModelState.IsValid) 
+                return BadRequest("ModelState is not Valid");
             
             await ProductService.DeleteProduct(projectId);
-            return Ok("Hello");
+            return RedirectToAction("New");
         }
     }
 }

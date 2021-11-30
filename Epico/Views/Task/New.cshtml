@@ -7,19 +7,18 @@
 </div>
 <div class="box">
     <form method="post" asp-controller="Task" asp-action="New">
-        <input type="hidden" asp-for="ProductId" />
         <div class="field">
             <label class="label" asp-for="Name">Название задачи</label>
             <div class="control">
                 <input class="input" asp-for="Name" />
-                <span asp-validation-for="Name"></span>
+                <span asp-validation-for="Name" class="error-message"></span>
             </div>
         </div>
         <div class="field">
             <label class="label" asp-for="Description">Описание</label>
             <div class="control">
                 <input class="input" asp-for="Description" />
-                <span asp-validation-for="Description"></span>
+                <span asp-validation-for="Description" class="error-message"></span>
             </div>
         </div>
         <br />
@@ -34,7 +33,7 @@
                     </label>
                     <br />
                 }
-                <span asp-validation-for="Users"></span>
+                <span asp-validation-for="Users" class="error-message"></span>
             </div>
         </div>
         <br />
@@ -42,7 +41,7 @@
             <label class="label" asp-for="DeadLine">Дедлайн</label>
             <div class="control">
                 <input type="datetime-local" asp-for="DeadLine" />
-                <span asp-validation-for="DeadLine"></span>
+                <span asp-validation-for="DeadLine" class="error-message"></span>
             </div>
         </div>
         <div class="has-text-centered">

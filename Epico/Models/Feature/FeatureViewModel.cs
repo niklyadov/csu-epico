@@ -6,7 +6,6 @@ namespace Epico.Models
     public class FeatureViewModel
     {
         public int FeatureId { get; set; }
-        public int ProductId { get; set; }
         public List<Feature> Features { get; set; }
         public bool TaskError { get; set; }
         public bool MetricError { get; set; }

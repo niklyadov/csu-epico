@@ -8,16 +8,15 @@ namespace Epico.Models
 {
     public class NewTaskViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "*Обязательное поле")]
         public string Name { get; set; }
-        [Required]
+        [Required(ErrorMessage = "*Обязательное поле")]
         public string Description { get; set; }
-        [Required]
+        [Required(ErrorMessage = "*Обязательное поле")]
         public DateTime DeadLine { get; set; }
         [BindProperty]
         public List<string> Users { get; set; }
 
-        public int ProductId { get; set; }
         public List<User> PosibleUsers { get; set; }
     }
 }

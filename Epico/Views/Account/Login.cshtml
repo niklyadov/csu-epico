@@ -14,7 +14,7 @@
             <div class="control">
                 <!--Username-->
                 <input class="input" asp-for="Username" type="text" placeholder="Username">
-                <span asp-validation-for="Username"></span>
+                <span asp-validation-for="Username" class="error-message"></span>
             </div>
         </div>
 
@@ -23,7 +23,7 @@
             <div class="control">
                 <!--Password-->
                 <input class="input" asp-for="Password" type="password" placeholder="********">
-                <span asp-validation-for="Password"></span>
+                <span asp-validation-for="Password" class="error-message"></span>
             </div>
         </div>
         <div class="has-text-centered">

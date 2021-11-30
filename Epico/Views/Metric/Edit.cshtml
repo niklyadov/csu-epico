@@ -8,21 +8,21 @@
     <h2>Изменение метрики</h2>
 </div>
 <div>
-    <form method="post" asp-controller="Metric" asp-action="New">
-        <input type="hidden" asp-for="ProductId" />
+    <form method="post" asp-controller="Metric" asp-action="Edit">
+        <input type="hidden" asp-for="MetricId" />
         <div asp-validation-summary="ModelOnly"></div>
         <div class="field">
             <label class="label" asp-for="Name">Название</label>
             <div class="control">
                 <input class="input" asp-for="Name" value="@Model.Name" />
-                <span asp-validation-for="Name"></span>
+                <span asp-validation-for="Name" class="error-message"></span>
             </div>
         </div>
         <div class="field">
             <label class="label" asp-for="Description">Описание</label>
             <div class="control">
                 <input class="input" asp-for="Description" value="@Model.Description" />
-                <span asp-validation-for="Description"></span>
+                <span asp-validation-for="Description" class="error-message"></span>
             </div>
         </div>
         @if (Model.PosibleParentMetrics?.Count != 0)
@@ -44,7 +44,7 @@
                         }
                     }
                     </select>
-                    <span asp-validation-for="ParentMetricId"></span>
+                    <span asp-validation-for="ParentMetricId" class="error-message"></span>
                 </div>
             </div>
         }

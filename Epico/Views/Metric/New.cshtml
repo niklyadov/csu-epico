@@ -9,20 +9,19 @@
 </div>
 <div>
     <form method="post" asp-controller="Metric" asp-action="New">
-        <input type="hidden" asp-for="ProductId" />
         <div asp-validation-summary="ModelOnly"></div>
         <div class="field">
             <label class="label" asp-for="Name">Название</label>
             <div class="control">
                 <input class="input" asp-for="Name" />
-                <span asp-validation-for="Name"></span>
+                <span asp-validation-for="Name" class="error-message"></span>
             </div>
         </div>
         <div class="field">
             <label class="label" asp-for="Description">Описание</label>
             <div class="control">
                 <input class="input" asp-for="Description" />
-                <span asp-validation-for="Description"></span>
+                <span asp-validation-for="Description" class="error-message"></span>
             </div>
         </div>
         @if (Model.PosibleParentMetrics?.Count != 0)
@@ -37,7 +36,7 @@
                             <option value="@parent.ID">@parent.Name</option>
                         }
                     </select>
-                    <span asp-validation-for="ParentMetricId"></span>
+                    <span asp-validation-for="ParentMetricId" class="error-message"></span>
                 </div>
             </div>
         }

@@ -1,8 +1,5 @@
 ﻿using Epico.Entity;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Epico.Models
 {
@@ -10,7 +7,6 @@ namespace Epico.Models
     {
         public int SprintId { get; set; }
 
-        public int ProductId { get; set; }
         public List<Sprint> Sprints { get; set; }
             = new List<Sprint>();
         public bool SprintError { get; set; }
