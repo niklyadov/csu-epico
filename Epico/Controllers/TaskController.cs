@@ -36,7 +36,7 @@ namespace Epico.Controllers
 
             return View(new NewTaskViewModel 
             {
-                PosibleUsers = await UserService.GetUsersList()
+                PossibleUsers = await UserService.GetUsersList()
             });
         }
 
@@ -52,7 +52,11 @@ namespace Epico.Controllers
                 var team = await UserService.GetUsersListByIds(model.Users);
                 await TaskService.AddTask(model.Name, model.Description, team, model.DeadLine);
             }
-            return View();
+            
+            return View(new NewTaskViewModel 
+            {
+                PossibleUsers = await UserService.GetUsersList()
+            });
         }
 
         [HttpGet]

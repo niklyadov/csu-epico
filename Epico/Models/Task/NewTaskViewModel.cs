@@ -17,7 +17,8 @@ namespace Epico.Models
         [BindProperty]
         public List<string> Users { get; set; }
 
-        public List<User> PosibleUsers { get; set; }
+        public List<User> PossibleUsers { get; set; }
+            = new List<User>();
     }
 }
  
