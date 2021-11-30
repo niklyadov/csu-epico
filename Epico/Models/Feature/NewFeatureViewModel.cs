@@ -7,11 +7,11 @@ namespace Epico.Models
 {
     public class NewFeatureViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "*Обязательное поле")]
         public string Name { get; set; }
-        [Required]
+        [Required(ErrorMessage = "*Обязательное поле")]
         public string Description { get; set; }
-        [Required]
+        [Required(ErrorMessage = "*Обязательное поле")]
         public string Hypothesis { get; set; }
         [BindProperty] public RoadmapType Roadmap { get; set; }
         [BindProperty] public List<int> Tasks { get; set; } = new List<int>();
