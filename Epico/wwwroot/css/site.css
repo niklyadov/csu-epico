@@ -1,7 +1,7 @@
 ﻿.nav-top {
   background: #ff4040;
   height: 38px;
-  align-items: center; /*start !important;*/
+  align-items: center;
 }
 
 .nav-top .logo p {
