@@ -8,7 +8,7 @@ namespace Epico.Models
     public class EditSprintViewModel
     {
         public int SprintId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "*Обязательное поле")]
         public string Name { get; set; }
         [BindProperty]
         public List<int> Features { get; set; }

@@ -16,7 +16,7 @@
             <label class="label" asp-for="Name">Название</label>
             <div class="control">
                 <input class="form-control input" asp-for="Name" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <span asp-validation-for="Name" class="error-message"></span>
             </div>
         </div>
 
@@ -24,7 +24,7 @@
             <label class="label" asp-for="Description">Описание</label>
             <div class="control">
                 <input class="input" asp-for="Description" />
-                <span asp-validation-for="Description"></span>
+                <span asp-validation-for="Description" class="error-message"></span>
             </div>
         </div>
 
@@ -32,7 +32,7 @@
             <label class="label" asp-for="Hypothesis">Гипотеза</label>
             <div class="control">
                 <input class="input" asp-for="Hypothesis" />
-                <span asp-validation-for="Hypothesis"></span>
+                <span asp-validation-for="Hypothesis" class="error-message"></span>
             </div>
         </div>
 
@@ -48,7 +48,7 @@
                     <br />
                 }
             </div>
-            <span asp-validation-for="Tasks"></span>
+            <span asp-validation-for="Tasks" class="error-message"></span>
         </div>
 
         <div class="field">
@@ -63,7 +63,7 @@
                     <br />
                 }
             </div>
-            <span asp-validation-for="Metrics"></span>
+            <span asp-validation-for="Metrics" class="error-message"></span>
         </div>
 
         <div class="field">
@@ -82,7 +82,7 @@
                     After
                 </label>
             </div>
-            <span asp-validation-for="Roadmap"></span>
+            <span asp-validation-for="Roadmap" class="error-message"></span>
         </div>
 
         <div class="has-text-centered">

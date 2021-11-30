@@ -16,7 +16,7 @@
             <label class="label" asp-for="Name">Название</label>
             <div class="control">
                 <input class="input" asp-for="Name" value="@Model.Name" />
-                <span asp-validation-for="Name"></span>
+                <span asp-validation-for="Name" class="error-message"></span>
             </div>
         </div>
 
@@ -25,7 +25,7 @@
             <label class="label" asp-for="Description">Описание</label>
             <div class="control">
                 <input class="input" asp-for="Description" value="@Model.Description" />
-                <span asp-validation-for="Description"></span>
+                <span asp-validation-for="Description" class="error-message"></span>
             </div>
         </div>
 
@@ -34,7 +34,7 @@
             <label class="label" asp-for="Hypothesis">Гипотеза</label>
             <div class="control">
                 <input class="input" asp-for="Hypothesis" value="@Model.Hypothesis" />
-                <span asp-validation-for="Hypothesis"></span>
+                <span asp-validation-for="Hypothesis" class="error-message"></span>
             </div>
         </div>
 
@@ -51,7 +51,7 @@
                     <br />
                 }
             </div>
-            <span asp-validation-for="Tasks"></span>
+            <span asp-validation-for="Tasks" class="error-message"></span>
         </div>
 
         <!--Выбор метрик [checkbox]-->
@@ -67,7 +67,7 @@
                     <br />
                 }
             </div>
-            <span asp-validation-for="Metrics"></span>
+            <span asp-validation-for="Metrics" class="error-message"></span>
         </div>
 
         <!--Выбор статуса [radio]-->
@@ -88,7 +88,7 @@
                 </label>
                 <br />
             </div>
-            <span asp-validation-for="State"></span>
+            <span asp-validation-for="State" class="error-message"></span>
         </div>
 
         <!--Выбор роадмапа [radio]-->
@@ -109,7 +109,7 @@
                 </label>
                 <br />
             </div>
-            <span asp-validation-for="State"></span>
+            <span asp-validation-for="State" class="error-message"></span>
         </div>
 
         <div class="has-text-centered">

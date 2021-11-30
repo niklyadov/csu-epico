@@ -35,15 +35,9 @@ namespace Epico.Controllers
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            var product = await ProductService.GetProduct();
-            if (product == null)
-            {
-                return RedirectToAction("New", "Product");
-            }
-            
             return View(new NewTaskViewModel 
             {
-                ProductId = product.ID,
+                ProductId = Product.ID,
                 PosibleUsers = await UserService.GetUsersList()
             });
         }
@@ -60,7 +54,7 @@ namespace Epico.Controllers
                 var team = await UserService.GetUsersListByIds(model.Users);
                 await TaskService.AddTask(model.Name, model.Description, team, model.DeadLine);
             }
-            return RedirectToAction("Index", "Task");
+            return View();
         }
 
         [HttpGet]
@@ -68,24 +62,13 @@ namespace Epico.Controllers
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            var task = await TaskService.GetTaskById(model.TaskId);
-            return View(new EditTaskViewModel
-            {
-                ID = task.ID,
-                Name = task.Name,
-                Description = task.Description,
-                DeadLine = task.DeadLine,
-                State = task.State,
-                Users = task.Team.Select(x => x.Id).ToList(),
-                ProductId = 1, // todo take from DB
-                PosibleUsers = await UserService.GetUsersList()
-            });
+            return View(await GetEditTaskViewModel(model.TaskId));
         }
         
         [HttpPost]
         public async Task<IActionResult> Edit(EditTaskViewModel model)
         {
-            if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
+            if (!ModelState.IsValid) return View(await GetEditTaskViewModel(model.ID));
 
             var team = await UserService.GetUsersListByIds(model.Users);
             await TaskService.UpdateTask(new Entity.Task
@@ -100,6 +83,23 @@ namespace Epico.Controllers
 
             return RedirectToAction("Index", "Task");
         }
+
+        private async Task<EditTaskViewModel> GetEditTaskViewModel(int taskId)
+        {
+            var task = await TaskService.GetTaskById(taskId);
+            return new EditTaskViewModel
+            {
+                ID = task.ID,
+                Name = task.Name,
+                Description = task.Description,
+                DeadLine = task.DeadLine,
+                State = task.State,
+                Users = task.Team.Select(x => x.Id).ToList(),
+                ProductId = 1, // todo take from DB
+                PosibleUsers = await UserService.GetUsersList()
+            };
+        }
+
         [HttpGet]
         public async Task<IActionResult> Delete([FromQuery] int taskId)
         {

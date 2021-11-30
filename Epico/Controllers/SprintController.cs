@@ -32,28 +32,33 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> New(SprintViewModel model)
+        public async Task<IActionResult> New()
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            var allFeatures = await FeatureService.GetFeaturesList();
-            var possibleFeatures = allFeatures.Where(x => x.State != FeatureState.Closed)
-                                             .ToList();
+            var model = await GetNewSprintViewModel();
             // Нельзя создать спринт если в проекте нет ни одной фичи
-            if (possibleFeatures?.Count == 0)
+            // todo добавить сообщение
+            if (model.PosibleFeatures == null || model.PosibleFeatures.Count == 0) 
                 return RedirectToAction("Index", "Sprint");
 
-            return View(new NewSprintViewModel
-            {
-                ProductId = model.ProductId,
-                PosibleFeatures = possibleFeatures
-            });
+            return View(model);
         }
 
         [HttpPost]
         public async Task<IActionResult> New(NewSprintViewModel model)
         {
-            if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
+            if (!ModelState.IsValid) 
+            {
+                var remodel = await GetNewSprintViewModel();
+                // Нельзя создать спринт если в проекте нет ни одной фичи
+                // todo добавить сообщение
+                if (remodel.PosibleFeatures == null || remodel.PosibleFeatures.Count == 0)
+                    return RedirectToAction("Index", "Sprint");
+
+                return View(remodel);
+            }
+
             if (model.Features==null|| model.Features.Count == 0)
             {
                 return RedirectToAction("Index", "Sprint", new { sprintError = true });
@@ -68,26 +73,31 @@ namespace Epico.Controllers
             return RedirectToAction("Index", "Sprint");
         }
 
+        public async Task<NewSprintViewModel> GetNewSprintViewModel()
+        {
+            var allFeatures = await FeatureService.GetFeaturesList();
+            var possibleFeatures = allFeatures.Where(x => x.State != FeatureState.Closed)
+                                             .ToList();
+            
+            return new NewSprintViewModel
+            {
+                ProductId = Product.ID,
+                PosibleFeatures = possibleFeatures
+            };
+        }
+
         [HttpGet]
         public async Task<IActionResult> Edit(SprintViewModel model)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
-
-            var sprint = await SprintService.GetSprintById(model.SprintId);
-            return View(new EditSprintViewModel
-            {
-                SprintId = sprint.ID,
-                Name = sprint.Name,
-                Features = sprint.Features.Select(x => x.ID).ToList(),
-                ProductId = 1, // todo take from DB
-                PosibleFeatures = await FeatureService.GetFeaturesList()
-            });
+            return View(await GetEditSprintViewModel(model.SprintId));
         }
 
         [HttpPost]
         public async Task<IActionResult> Edit(EditSprintViewModel model)
         {
-            if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
+            if (!ModelState.IsValid) return View(await GetEditSprintViewModel(model.SprintId));
+
             // todo fix adding features
             var features = await FeatureService.GetFeaturesListByIds(model.Features);
             await SprintService.UpdateSprint(new Sprint
@@ -97,6 +107,19 @@ namespace Epico.Controllers
                 Features = features
             });
             return RedirectToAction("Index", "Sprint");
+        }
+
+        private async Task<EditSprintViewModel> GetEditSprintViewModel(int sprintId)
+        {
+            var sprint = await SprintService.GetSprintById(sprintId);
+            return new EditSprintViewModel
+            {
+                SprintId = sprint.ID,
+                Name = sprint.Name,
+                Features = sprint.Features.Select(x => x.ID).ToList(),
+                ProductId = 1, // todo take from DB
+                PosibleFeatures = await FeatureService.GetFeaturesList()
+            };
         }
 
         public async Task<IActionResult> Delete([FromQuery] int sprintId)

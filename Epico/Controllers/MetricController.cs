@@ -32,21 +32,17 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> New(MetricViewModel model)
+        public async Task<IActionResult> New()
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            return View(new NewMetricViewModel
-            {
-                ProductId = model.ProductId,
-                PosibleParentMetrics = await MetricService.GetMetricList()
-            });
+            return View(await GetNewMetricViewModel());
         }
 
         [HttpPost]
         public async Task<IActionResult> New(NewMetricViewModel model)
         {
-            if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
+            if (!ModelState.IsValid) return View(await GetNewMetricViewModel());
             
             var metric = new Metric
             {
@@ -72,28 +68,26 @@ namespace Epico.Controllers
             return RedirectToAction("Index", "Metric");
         }
 
+        private async Task<NewMetricViewModel> GetNewMetricViewModel()
+        {
+            return new NewMetricViewModel 
+            { 
+                PosibleParentMetrics = await MetricService.GetMetricList() 
+            };
+        }
+
         [HttpGet]
-        public async Task<IActionResult> Edit([FromQuery] int projectId, [FromQuery] int metricId)
+        public async Task<IActionResult> Edit([FromQuery] int productId, [FromQuery] int metricId)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            var metric = await MetricService.GetMetricById(metricId);
-            var possibleParentMetrics = await MetricService.GetMetricList();
-            return View(new EditMetricViewModel
-            {
-                ID = metric.ID,
-                Name = metric.Name,
-                Description = metric.Description,
-                ParentMetricId = metric.ParentMetricId,
-                ProductId = projectId,
-                PosibleParentMetrics = possibleParentMetrics
-            });
+            return View(await GetEditMetricViewModel(metricId));
         }
 
         [HttpPost]
         public async Task<IActionResult> Edit(EditMetricViewModel model)
         {
-            if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
+            if (!ModelState.IsValid) return View(await GetEditMetricViewModel(model.ID));
 
             var metric = await MetricService.GetMetricById(model.ID);
 
@@ -120,6 +114,21 @@ namespace Epico.Controllers
             return RedirectToAction("Index", "Metric");
         }
 
+        private async Task<EditMetricViewModel> GetEditMetricViewModel(int metricId)
+        {
+            var metric = await MetricService.GetMetricById(metricId);
+            var possibleParentMetrics = await MetricService.GetMetricList();
+            return new EditMetricViewModel
+            {
+                ID = metric.ID,
+                Name = metric.Name,
+                Description = metric.Description,
+                ParentMetricId = metric.ParentMetricId,
+                ProductId = Product.ID,
+                PosibleParentMetrics = possibleParentMetrics
+            };
+        }
+
         [HttpGet]
         public async Task<IActionResult> Delete([FromQuery] int metricId)
         {
@@ -128,7 +137,7 @@ namespace Epico.Controllers
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
 
             await MetricService.DeleteMetric(metricId);
-            return Ok("Метрика удалена");
+            return RedirectToAction("Index", "Metric");
         }
     }
 }
