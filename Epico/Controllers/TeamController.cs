@@ -15,6 +15,12 @@ namespace Epico.Controllers
 
         public async Task<IActionResult> Index()
         {
+            var product = await ProductService.GetProduct();
+            if (product == null)
+            {
+                return RedirectToAction("New", "Product");
+            }
+
             var tasks = await TaskService.GetTaskList();
             return View(new TeamViewModel 
             {

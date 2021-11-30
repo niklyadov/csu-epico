@@ -15,6 +15,11 @@ namespace Epico.Controllers
 
         public async Task<IActionResult> Index()
         {
+            var product = await ProductService.GetProduct();
+            if (product == null)
+            {
+                return RedirectToAction("New", "Product");
+            }
             var features = await FeatureService.GetFeaturesList();
             return View(new RoadMapViewModel
             {
