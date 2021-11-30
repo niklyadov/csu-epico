@@ -15,7 +15,7 @@
         }
         <!--Кнопка для добавления фичи в Now-->
         <form method="get" onclick="this.submit()" asp-action="AddFeature" asp-controller="RoadMap">
-            <div class="is-flex" style="justify-content: center;">
+            <div class="is-flex plus-button">
                 <!--костыль чтоб курсор менялся-->
                 <a>
                     <input type="hidden" asp-for="Roadmap" value="0" />
@@ -35,7 +35,7 @@
         }
         <!--Кнопка для добавления фичи в Then-->
         <form method="get" onclick="this.submit()" asp-action="AddFeature" asp-controller="RoadMap">
-            <div class="is-flex" style="justify-content: center;">
+            <div class="is-flex plus-button">
                 <!--костыль чтоб курсор менялся-->
                 <a>
                     <input type="hidden" asp-for="Roadmap" value="1" />
@@ -55,7 +55,7 @@
         }
         <!--Кнопка для добавления фичи в After-->
         <form method="get" onclick="this.submit()" asp-action="AddFeature" asp-controller="RoadMap">
-            <div class="is-flex" style="justify-content: center;">
+            <div class="is-flex plus-button">
                 <!--костыль чтоб курсор менялся-->
                 <a>
                     <input type="hidden" asp-for="Roadmap" value="2" />

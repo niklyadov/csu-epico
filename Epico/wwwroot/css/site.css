@@ -42,8 +42,15 @@
     border: 0px;
     border-color: #ffffff;
     border-block-color: #ffffff;
-
+    border-radius: 0;
 }
+.left-nav_link:hover {
+    background-color: #e6e6e6
+}
+.left-nav_link:active {
+    background-color: #cccccc
+}
+
 a.button.is-fullwidth.left-nav_link:focus:not(:active) {
     box-shadow: 0 0 0 0 #fff;
 }
@@ -55,4 +62,8 @@ a.button.is-fullwidth.left-nav_link:focus:not(:active) {
 
 .body-section {
     margin-top: 0px;
+}
+
+.plus-button {
+    justify-content: center;
 }

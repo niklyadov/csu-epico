@@ -16,7 +16,7 @@
                 <p>@user.UserName [@user.Position]</p>
             }
             <form method="get" onclick="this.submit()" asp-action="AddUser" asp-controller="Team">
-                <div class="is-flex" style="justify-content: center;">
+                <div class="is-flex plus-button">
                     <!--костыль чтоб курсор менялся-->
                     <a>
                         <input type="hidden" asp-for="TaskId" value="@task.ID" />
