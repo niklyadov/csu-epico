@@ -49,12 +49,11 @@ namespace Epico.Entity.DAL.Repository
         {
             var entity = await _dbContext.Set<TEntity>().FindAsync(id);
 
-            if (entity != null)
-            {
-                _dbContext.Set<TEntity>().Remove(entity);
-                await _dbContext.SaveChangesAsync();
-            }
-
+            _dbContext.Set<TEntity>().Remove(entity);
+            _dbContext.Entry(entity).State = EntityState.Deleted;
+            
+            await _dbContext.SaveChangesAsync();
+            
             return entity;
         }
     }
