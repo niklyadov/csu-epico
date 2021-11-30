@@ -30,6 +30,14 @@ namespace Epico.Controllers
             return View();
         }
         
+        [HttpGet]
+        public async Task<ActionResult> Logout()
+        {
+            await AccountService.Logout();
+
+            return RedirectToAction("Login");
+        }
+        
         [HttpPost]
         public async Task<ActionResult> Login(LoginViewModel model)
         {
@@ -50,14 +58,6 @@ namespace Epico.Controllers
             }
             
             return RedirectToAction("Registration");
-        }
-        
-        [HttpPost]
-        public async Task<ActionResult> Logout()
-        {
-            await AccountService.Logout();
-
-            return RedirectToAction("Login");
         }
     }
 }
