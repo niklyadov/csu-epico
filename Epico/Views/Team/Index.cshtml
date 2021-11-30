@@ -11,10 +11,18 @@
     {
         <span class="bold">@task.Name</span>
         <div class="box word-break" style="max-width: 50%">
-            @foreach (var user in task.Team)
+            @if (task.Team.Count == 0)
             {
-                <p>@user.UserName [@user.Position]</p>
+                <span class="bold">Здесь пока никого нет *звуки сверчков*</span>
             }
+            else
+            {
+                @foreach (var user in task.Team)
+                {
+                    <p>@user.UserName [@user.Position]</p>
+                }
+            }
+
             <form method="get" onclick="this.submit()" asp-action="AddUser" asp-controller="Team">
                 <div class="is-flex center-element">
                     <input type="hidden" asp-for="TaskId" value="@task.ID" />
