@@ -84,7 +84,7 @@ namespace Epico.Controllers
             var feature = await FeatureService.GetFeature(featureId);
             return View(new EditFeatureViewModel
             {
-                ID = feature.ID,
+                FeatureId = feature.ID,
                 Name = feature.Name,
                 Description = feature.Description,
                 Hypothesis = feature.Hypothesis,
@@ -101,7 +101,7 @@ namespace Epico.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(EditFeatureViewModel model)
         {
-            if (!ModelState.IsValid) return View(new { featureId = model.FeatureId });
+            if (!ModelState.IsValid) return View(new EditFeatureViewModel { FeatureId = model.FeatureId });
 
             var tasks = await TaskService.GetByIds(model.Tasks);
             var metrics = await MetricService.GetMetricListByIds(model.Metrics);
