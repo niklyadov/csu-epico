@@ -6,7 +6,7 @@
 
 <div class="columns">
     <div class="column box" style="background: #ededed; margin: 10px;">
-        <span><strong>Now</strong></span>
+        <span class="bold">Now</span>
         @foreach(var feature in Model.Features.Where(x => x.Roadmap == RoadmapType.Now))
         {
             <div class="box">
@@ -15,18 +15,15 @@
         }
         <!--Кнопка для добавления фичи в Now-->
         <form method="get" onclick="this.submit()" asp-action="AddFeature" asp-controller="RoadMap">
-            <div class="is-flex plus-button">
-                <!--костыль чтоб курсор менялся-->
-                <a>
-                    <input type="hidden" asp-for="Roadmap" value="0" />
-                    <span asp-validation-for="Roadmap"></span>
-                    <img src="~/img/plus.svg" />
-                </a>
+            <div class="is-flex center-element">
+                <input type="hidden" asp-for="Roadmap" value="0" />
+                <span asp-validation-for="Roadmap"></span>
+                <img class="plus-button" src="~/img/plus.svg" />
             </div>
         </form>
     </div>
     <div class="column box" style="background: #ededed; margin: 10px;">
-        <span><strong>Then</strong></span>
+        <span class="bold">Then</span>
         @foreach (var feature in Model.Features.Where(x => x.Roadmap == RoadmapType.Then))
         {
             <div class="box">
@@ -35,18 +32,15 @@
         }
         <!--Кнопка для добавления фичи в Then-->
         <form method="get" onclick="this.submit()" asp-action="AddFeature" asp-controller="RoadMap">
-            <div class="is-flex plus-button">
-                <!--костыль чтоб курсор менялся-->
-                <a>
-                    <input type="hidden" asp-for="Roadmap" value="1" />
-                    <span asp-validation-for="Roadmap"></span>
-                    <img src="~/img/plus.svg" />
-                </a>
+            <div class="is-flex center-element">
+                <input type="hidden" asp-for="Roadmap" value="1" />
+                <span asp-validation-for="Roadmap"></span>
+                <img class="plus-button" src="~/img/plus.svg" />
             </div>
         </form>
     </div>
     <div class="column box" style="background: #ededed; margin: 10px;">
-        <span><strong>After</strong></span>
+        <span class="bold">After</span>
         @foreach (var feature in Model.Features.Where(x => x.Roadmap == RoadmapType.After))
         {
             <div class="box">
@@ -55,13 +49,10 @@
         }
         <!--Кнопка для добавления фичи в After-->
         <form method="get" onclick="this.submit()" asp-action="AddFeature" asp-controller="RoadMap">
-            <div class="is-flex plus-button">
-                <!--костыль чтоб курсор менялся-->
-                <a>
-                    <input type="hidden" asp-for="Roadmap" value="2" />
-                    <span asp-validation-for="Roadmap"></span>
-                    <img src="~/img/plus.svg" />
-                </a>
+            <div class="is-flex center-element">
+                <input type="hidden" asp-for="Roadmap" value="2" />
+                <span asp-validation-for="Roadmap"></span>
+                <img class="plus-button" src="~/img/plus.svg" />
             </div>
         </form>
     </div>

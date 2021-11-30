@@ -4,24 +4,21 @@
 }
 
 <div class="column box" style="background: #ededed; margin: 10px;">
-    <h2>Команды для задач</h2>
+    <h2 class="bold">Команды для задач</h2>
     <br />
     <!--Раскоментить когда релизную версию выкатывать будем-->
     @foreach (var task in Model.Tasks)
     {
-        <span><strong>@task.Name</strong></span>
+        <span class="bold">@task.Name</span>
         <div class="box" style="max-width: 50%">
             @foreach (var user in task.Team)
             {
                 <p>@user.UserName [@user.Position]</p>
             }
             <form method="get" onclick="this.submit()" asp-action="AddUser" asp-controller="Team">
-                <div class="is-flex plus-button">
-                    <!--костыль чтоб курсор менялся-->
-                    <a>
-                        <input type="hidden" asp-for="TaskId" value="@task.ID" />
-                        <img src="~/img/plus.svg" />
-                    </a>
+                <div class="is-flex center-element">
+                    <input type="hidden" asp-for="TaskId" value="@task.ID" />
+                    <img class="plus-button" src="~/img/plus.svg" />
                 </div>
             </form>
         </div>

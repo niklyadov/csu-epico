@@ -15,11 +15,8 @@
         <form method="get" onclick="this.submit()" asp-action="New" asp-controller="Metric">
             <!--style="justify-content: center;-->
             <div class="is-flex">
-                <!--костыль чтоб курсор менялся-->
-                <a>
-                    <input type="hidden" asp-for="ProductId" />
-                    <img src="~/img/plus.svg" />
-                </a>
+                <input type="hidden" asp-for="ProductId" />
+                <img class="metric-plus-button" src="~/img/plus.svg" />
             </div>
         </form>
     </div>

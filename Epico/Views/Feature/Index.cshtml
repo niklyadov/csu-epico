@@ -5,35 +5,34 @@
 }
 
 <div class="column box" style="background: #ededed; margin: 10px;">
-    <span><strong>Features</strong></span>
-    
-    @foreach(var feature in Model.Features)
+    <h2 class="bold">Команды для задач</h2>
+    <br />
+
+    @foreach (var feature in Model.Features)
     {
         <div class="box">
             <p>@feature.Name [@feature.State.ToString()]</p>
+            <p>@feature.Description</p>
             <form method="get" asp-action="EditState" asp-controller="Feature">
-                <input type="hidden" asp-for="FeatureId" value="@feature.ID"/>
-                <button >Change status</button>
+                <input type="hidden" asp-for="FeatureId" value="@feature.ID" />
+                <button>Change status</button>
             </form>
             <form method="get" asp-action="Edit" asp-controller="Feature">
-                <input type="hidden" asp-for="FeatureId" value="@feature.ID"/>
-                <button >Change feature</button>
+                <input type="hidden" asp-for="FeatureId" value="@feature.ID" />
+                <button>Change feature</button>
             </form>
             <form method="get" asp-action="Delete" asp-controller="Feature">
-                <input type="hidden" asp-for="FeatureId" value="@feature.ID"/>
-                <button >Delete feature</button>
+                <input type="hidden" asp-for="FeatureId" value="@feature.ID" />
+                <button>Delete feature</button>
             </form>
         </div>
     }
 
-<form method="get" onclick="this.submit()" asp-action="New" asp-controller="Feature">
-    <div class="is-flex plus-button">
-        <!--костыль чтоб курсор менялся-->
-        <a>
+    <form method="get" onclick="this.submit()" asp-action="New" asp-controller="Feature">
+        <div class="is-flex center-element">
             <input type="hidden" asp-for="ProductId" />
             <span asp-validation-for="ProductId"></span>
-            <img src="~/img/plus.svg" />
-        </a>
-    </div>
-</form>
+            <img class="plus-button" src="~/img/plus.svg" />
+        </div>
+    </form>
 </div>

@@ -1,39 +1,37 @@
-@model TaskViewModel
+Ôªø@model TaskViewModel
 @{
     ViewBag.Title = "Tasks";
 }
 
 <div class="column box" style="background: #ededed; margin: 10px;">
-    <span><strong>Tasks</strong></span>
+    <h2 class="bold">–ö–æ–º–∞–Ω–¥—ã –¥–ª—è –∑–∞–¥–∞—á</h2>
+    <br />
 
-    <!--–‡ÒÍÓÏÂÌÚËÚ¸ ÍÓ„‰‡ ÂÎËÁÌÛ˛ ‚ÂÒË˛ ‚˚Í‡Ú˚‚‡Ú¸ ·Û‰ÂÏ-->
+    <!--–†–∞—Å–∫–æ–º–µ–Ω—Ç–∏—Ç—å –∫–æ–≥–¥–∞ —Ä–µ–ª–∏–∑–Ω—É—é –≤–µ—Ä—Å–∏—é –≤—ã–∫–∞—Ç—ã–≤–∞—Ç—å –±—É–¥–µ–º-->
     @foreach (var task in Model.Tasks)
     {
         <div class="box" style="word-break: break-all">
             <p>@task.Name [@task.State]</p>
             <p>@task.Description</p>
             <form method="get" asp-action="EditState" asp-controller="Task">
-                <input type="hidden" asp-for="TaskId" value="@task.ID"/>
-                <button >Change status</button>
+                <input type="hidden" asp-for="TaskId" value="@task.ID" />
+                <button>Change status</button>
             </form>
             <form method="get" asp-action="Edit" asp-controller="Task">
-                <input type="hidden" asp-for="TaskId" value="@task.ID"/>
-                <button >Change task</button>
+                <input type="hidden" asp-for="TaskId" value="@task.ID" />
+                <button>Change task</button>
             </form>
             <form method="get" asp-action="Delete" asp-controller="Task">
-                <input type="hidden" asp-for="TaskId" value="@task.ID"/>
-                <button >Delete task</button>
+                <input type="hidden" asp-for="TaskId" value="@task.ID" />
+                <button>Delete task</button>
             </form>
         </div>
     }
 
     <form method="get" onclick="this.submit()" asp-action="New" asp-controller="Task">
-        <div class="is-flex plus-button">
-            <!--ÍÓÒÚ˚Î¸ ˜ÚÓ· ÍÛÒÓ ÏÂÌˇÎÒˇ-->
-            <a>
-                <input type="hidden" asp-for="ProductId" />
-                <img src="~/img/plus.svg" />
-            </a>
+        <div class="is-flex center-element">
+            <input type="hidden" asp-for="ProductId" />
+            <img class="plus-button" src="~/img/plus.svg" />
         </div>
     </form>
 </div>

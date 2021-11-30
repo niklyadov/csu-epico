@@ -64,6 +64,24 @@ a.button.is-fullwidth.left-nav_link:focus:not(:active) {
     margin-top: 0px;
 }
 
-.plus-button {
+.center-element {
     justify-content: center;
+}
+
+.metric-plus-button {
+    cursor: pointer;
+}
+
+.plus-button {
+    cursor: pointer;
+}
+.metric-plus-button:hover, .plus-button:hover {
+    filter: invert(13%) sepia(73%) saturate(7487%) hue-rotate(357deg) brightness(89%) contrast(127%);
+}
+.metric-plus-button:active, .plus-button:active {
+    filter: invert(20%) sepia(87%) saturate(3829%) hue-rotate(15deg) brightness(64%) contrast(145%);
+}
+
+.bold {
+    font-weight: bold;
 }

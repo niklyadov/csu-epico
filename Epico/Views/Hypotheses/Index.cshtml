@@ -5,7 +5,7 @@
 }
 
 <div class="column box" style="background: #ededed; margin: 10px;">
-    <span><strong>Hypotheses</strong></span>
+    <span class="bold">Hypotheses</span>
 
     @foreach (var feature in Model.Features)
     {
@@ -15,9 +15,9 @@
     }
 
     <!-- Кнопка добавления новой фичи и по совместительству гипотезы-->
-    <div class="is-flex" style="justify-content: center;">
+    <div class="is-flex center-element">
         <a class="image is-24x24" asp-action="New" asp-controller="Feature">
-            <img src="~/img/plus.svg" />
+            <img class="plus-button" src="~/img/plus.svg" />
         </a>
     </div>
 </div>
