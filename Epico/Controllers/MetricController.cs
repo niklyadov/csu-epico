@@ -13,7 +13,7 @@ namespace Epico.Controllers
         public MetricController(IServiceProvider serviceProvider) :base(serviceProvider)
         {
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromQuery] bool error)
         {
             var product = await ProductService.GetProduct();
             if (product == null)
@@ -29,6 +29,7 @@ namespace Epico.Controllers
             
             return View(new MetricViewModel
             {
+                Error = error,
                 ProductId = product.ID,
                 Metric = metric
             });
@@ -59,7 +60,7 @@ namespace Epico.Controllers
             {
                 if (!model.ParentMetricId.HasValue) // Ошибка
                 {
-                    return BadRequest("ParentMetricId is not set");
+                    return RedirectToAction("Index", "Metric", new { error = true });
                 }
                     
                 metric.ParentMetricId = model.ParentMetricId.Value;

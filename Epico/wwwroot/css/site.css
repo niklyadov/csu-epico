@@ -98,3 +98,7 @@ a.button.is-fullwidth.left-nav_link:focus:not(:active) {
 .word-break {
     word-break: break-all;
 }
+
+.error-message{
+    color: #ff0000;
+}
