@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Epico.Entity
 {
-    public class User : IdentityUser<int>
+    public class UserRole : IdentityRole<int>
     {
         // todo тут поля юзера можно добавить
         public string Position { get; set; }

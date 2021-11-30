@@ -10,6 +10,6 @@ namespace Epico.Models
         public int TaskId { get; set; }
         public List<User> PosibleUsers { get; set; }
 
-        [BindProperty] public List<string> UserIds { get; set; }
+        [BindProperty] public List<int> UserIds { get; set; }
     }
 }

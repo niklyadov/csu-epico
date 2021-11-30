@@ -11,7 +11,7 @@ namespace Epico.Entity
         public string Description { get; set; }
         public TaskState State { get; set; }
         public DateTime DeadLine { get; set; }
-        public List<User> Team { get; set; }
+        public virtual ICollection<User> Team { get; set; }
             = new List<User>();
     }
 }

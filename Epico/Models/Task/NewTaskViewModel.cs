@@ -15,7 +15,7 @@ namespace Epico.Models
         [Required(ErrorMessage = "*Обязательное поле")]
         public DateTime DeadLine { get; set; }
         [BindProperty]
-        public List<string> Users { get; set; }
+        public List<int> Users { get; set; }
 
         public List<User> PossibleUsers { get; set; }
             = new List<User>();

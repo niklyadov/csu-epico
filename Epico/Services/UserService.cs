@@ -34,7 +34,7 @@ namespace Epico.Services
             return await _repository.Delete(id);
         }
         
-        public async Task<List<User>> GetUsersListByIds(List<string> ids)
+        public async Task<List<User>> GetUsersListByIds(List<int> ids)
         {
             if (ids == null) 
                 return new List<User>();

@@ -23,7 +23,7 @@ namespace Epico.Entity.DAL.Repository
             return await _dbContext.Set<User>().FindAsync(id);
         }
         
-        public async Task<List<User>> GetByIds(List<string> ids)
+        public async Task<List<User>> GetByIds(List<int> ids)
         {
             return await _dbContext.Set<User>()
                 .Where(l => ids.Contains(l.Id)).ToListAsync();
