@@ -40,19 +40,19 @@ namespace Epico.Controllers
 
             return RedirectToAction("Login");
         }
-        
-        [HttpPost]
-        public async Task<ActionResult> Login(LoginViewModel model)
+
+        [HttpGet]
+        public IActionResult Registration()
         {
             if (AccountService.CurrentUserId() != null)
             {
                 return RedirectToAction("Index", "Product");
             }
 
-            return RedirectToAction("Login");
+            return View();
         }
-        
-        
+
+
         [HttpPost]
         public async Task<ActionResult> Registration(RegistrationViewModel model)
         {
