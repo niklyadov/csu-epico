@@ -5,7 +5,7 @@
 }
 
 <div class="columns">
-    <div class="column box" style="background: #ededed; margin: 10px;">
+    <div class="column box gray-container">
         <span class="bold">Now</span>
         @foreach(var feature in Model.Features.Where(x => x.Roadmap == RoadmapType.Now))
         {
@@ -22,7 +22,7 @@
             </div>
         </form>
     </div>
-    <div class="column box" style="background: #ededed; margin: 10px;">
+    <div class="column box gray-container">
         <span class="bold">Then</span>
         @foreach (var feature in Model.Features.Where(x => x.Roadmap == RoadmapType.Then))
         {
@@ -39,11 +39,11 @@
             </div>
         </form>
     </div>
-    <div class="column box" style="background: #ededed; margin: 10px;">
+    <div class="column box gray-container">
         <span class="bold">After</span>
         @foreach (var feature in Model.Features.Where(x => x.Roadmap == RoadmapType.After))
         {
-            <div class="box">
+            <div class="box word-break">
                 <p>@feature.Name</p>
             </div>
         }

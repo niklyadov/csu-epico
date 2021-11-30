@@ -3,14 +3,14 @@
     ViewBag.Title = "Tasks";
 }
 
-<div class="column box" style="background: #ededed; margin: 10px;">
+<div class="column box gray-container" >
     <h2 class="bold">Команды для задач</h2>
     <br />
 
     <!--Раскоментить когда релизную версию выкатывать будем-->
     @foreach (var task in Model.Tasks)
     {
-        <div class="box" style="word-break: break-all">
+        <div class="box word-break">
             <p>@task.Name [@task.State]</p>
             <p>@task.Description</p>
             <form method="get" asp-action="EditState" asp-controller="Task">

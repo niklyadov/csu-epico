@@ -4,13 +4,13 @@
     ViewBag.Title = "Features";
 }
 
-<div class="column box" style="background: #ededed; margin: 10px;">
+<div class="column box gray-container">
     <h2 class="bold">Команды для задач</h2>
     <br />
 
     @foreach (var feature in Model.Features)
     {
-        <div class="box">
+        <div class="box word-break">
             <p>@feature.Name [@feature.State.ToString()]</p>
             <p>@feature.Description</p>
             <form method="get" asp-action="EditState" asp-controller="Feature">

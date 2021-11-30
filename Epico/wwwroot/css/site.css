@@ -85,3 +85,16 @@ a.button.is-fullwidth.left-nav_link:focus:not(:active) {
 .bold {
     font-weight: bold;
 }
+.logun-registretion-window {
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.gray-container {
+    background: #ededed;
+    margin: 10px;
+}
+
+.word-break {
+    word-break: break-all;
+}

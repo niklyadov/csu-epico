@@ -2,10 +2,10 @@
 @{
     ViewBag.Title = "Изменение фичи";
 }
-<div class="content is-medium ">
+<div class="content is-medium">
     <h2>Изменение фичи</h2>
 </div>
-<div class="box" style="margin:0 auto;">
+<div class="box">
     <form method="post" asp-controller="Feature" asp-action="New">
         <input type="hidden" asp-for="ProductId" />
         <div asp-validation-summary="ModelOnly"></div>

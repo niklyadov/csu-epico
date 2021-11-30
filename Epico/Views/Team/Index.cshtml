@@ -3,14 +3,14 @@
     ViewBag.Title = "Teams";
 }
 
-<div class="column box" style="background: #ededed; margin: 10px;">
+<div class="column box gray-container">
     <h2 class="bold">Команды для задач</h2>
     <br />
     <!--Раскоментить когда релизную версию выкатывать будем-->
     @foreach (var task in Model.Tasks)
     {
         <span class="bold">@task.Name</span>
-        <div class="box" style="max-width: 50%">
+        <div class="box word-break" style="max-width: 50%">
             @foreach (var user in task.Team)
             {
                 <p>@user.UserName [@user.Position]</p>

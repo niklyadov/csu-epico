@@ -3,7 +3,7 @@
     ViewBag.Title = "Sprints";
 }
 
-<div class="column box" style="background: #ededed; margin: 10px;">
+<div class="column box gray-container">
     <h2 class="bold">Команды для задач</h2>
     <br />
     <!--Раскоментить когда релизную версию выкатывать будем-->
@@ -11,29 +11,28 @@
     {
         <!-- todo Добавить даты сроков спринта после названия -->
         <span class="bold">@sprint.Name <!--@* (@sprint.Start — @sprint.End *@)--> </span>
-        <div class="box">
-
+        <div class="box word-break">
         @foreach (var feature in sprint.Features)
         {
             <p>@feature.Name</p>
         }
-<form method="get" onclick="this.submit()" asp-action="AddFeature" asp-controller="Sprint">
-    <div class="is-flex center-element">
-        <input type="hidden" asp-for="SprintId" value="@sprint.ID" />
-        <img class="plus-button" src="~/img/plus.svg" />
-    </div>
-</form>
+            <form method="get" onclick="this.submit()" asp-action="AddFeature" asp-controller="Sprint">
+                <div class="is-flex center-element">
+                    <input type="hidden" asp-for="SprintId" value="@sprint.ID" />
+                    <img class="plus-button" src="~/img/plus.svg" />
+                </div>
+            </form>
 
-<form method="get" asp-action="Edit" asp-controller="Sprint">
-    <input type="hidden" asp-for="SprintId" value="@sprint.ID" />
-    <button>Change Sprint</button>
-</form>
-<form method="get" asp-action="Delete" asp-controller="Sprint">
-    <input type="hidden" asp-for="SprintId" value="@sprint.ID" />
-    <button>Delete Sprint</button>
-</form>
-</div>
-}
+            <form method="get" asp-action="Edit" asp-controller="Sprint">
+                <input type="hidden" asp-for="SprintId" value="@sprint.ID" />
+                <button>Change Sprint</button>
+            </form>
+            <form method="get" asp-action="Delete" asp-controller="Sprint">
+                <input type="hidden" asp-for="SprintId" value="@sprint.ID" />
+                <button>Delete Sprint</button>
+            </form>
+        </div>
+    }
 
     <!-- Кнопка добавления нового спринта-->
     <form method="get" onclick="this.submit()" asp-action="New" asp-controller="Sprint">
