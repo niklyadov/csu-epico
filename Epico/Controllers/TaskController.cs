@@ -69,15 +69,14 @@ namespace Epico.Controllers
             if (!ModelState.IsValid) return View(await GetEditTaskViewModel(model.TaskId));
 
             var team = await UserService.GetUsersListByIds(model.Users);
-            await TaskService.Update(new Entity.Task
-            {
-                ID = model.TaskId,
-                Name = model.Name,
-                Description = model.Description, 
-                Team = team,
-                DeadLine = model.DeadLine,
-                State = model.State
-            });
+            var task = await TaskService.GetById(model.TaskId);
+            task.Name = model.Name;
+            task.Description = model.Description;
+            task.Team = team;
+            task.DeadLine = model.DeadLine;
+            task.State = model.State;
+            
+            await TaskService.Update(task);
 
             return RedirectToAction("Index", "Task");
         }
