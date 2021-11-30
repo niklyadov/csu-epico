@@ -1,4 +1,6 @@
 using System;
+using System.Threading.Tasks;
+using Epico.Entity;
 using Epico.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,5 +27,8 @@ namespace Epico.Controllers
             TaskService = serviceProvider.GetService(typeof(TaskService)) as TaskService;
             UserService = serviceProvider.GetService(typeof(UserService)) as UserService;
         }
+
+        protected Product Product => ProductService.GetProduct().Result;
+        protected bool HasProduct => Product != null;
     }
 }

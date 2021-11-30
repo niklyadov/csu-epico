@@ -17,21 +17,23 @@ namespace Epico.Controllers
         [Route("[controller]")]
         public async Task<IActionResult> Index()
         {
-            var userProjectId = await ProductService.UserProductId(AccountService.CurrentUserId());
-            if (!userProjectId.HasValue)
-                return RedirectToAction("New");
+            if (!HasProduct) return RedirectToAction("New", "Product");
+            //var userProjectId = await ProductService.UserProductId(AccountService.CurrentUserId());
+            //if (!userProjectId.HasValue)
+            //    return RedirectToAction("New");
 
             return RedirectToAction("Show", "Product");
-            //return View(await ProjectService.GetProjectById(userProjectId.Value));
         }
 
         public async Task<IActionResult> Show()
         {
-            var userProductId = await ProductService.UserProductId(AccountService.CurrentUserId());
-            if (!userProductId.HasValue)
-                return NotFound("This user does not have a project!");
+            if (!HasProduct) return RedirectToAction("New", "Product");
+            //var userProductId = await ProductService.UserProductId(AccountService.CurrentUserId());
+            //if (!userProductId.HasValue)
+            //    return NotFound("This user does not have a project!");
             
-            var proudct = await ProductService.GetProductById(userProductId.Value);
+            //var product = await ProductService.GetProductById(userProductId.Value);
+            var product = Product;
             var sprints = await SprintService.GetSprintList();
             var features = await FeatureService.GetFeaturesList();
             var metrics = await MetricService.GetMetricList();
@@ -40,12 +42,12 @@ namespace Epico.Controllers
 
             return View(new ProductViewModel
             {
-                ProductId = proudct.ID,
-                Name = proudct.Name,
-                Mission = proudct.Mission,
-                Vision = proudct.Vision,
-                OwnerUserId = proudct.OwnerUserId,
-                ProductFormula = proudct.ProductFormula,
+                ProductId = product.ID,
+                Name = product.Name,
+                Mission = product.Mission,
+                Vision = product.Vision,
+                OwnerUserId = product.OwnerUserId,
+                ProductFormula = product.ProductFormula,
                 Tasks = tasks,
                 Features = features,
                 Sprints = sprints,

@@ -19,16 +19,12 @@ namespace Epico.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var product = await ProductService.GetProduct();
-            if (product == null)
-            {
-                return RedirectToAction("New", "Product");
-            }
-            
+            if (!HasProduct) return RedirectToAction("New", "Product");
+
             var tasks = await TaskService.GetTaskList();
             return View(new TaskViewModel
             {
-                ProductId = product.ID,
+                ProductId = Product.ID,
                 Tasks = tasks
             });
         }
@@ -36,6 +32,8 @@ namespace Epico.Controllers
         [HttpGet]
         public async Task<IActionResult> New()
         {
+            if (!HasProduct) return RedirectToAction("New", "Product");
+
             var product = await ProductService.GetProduct();
             if (product == null)
             {
@@ -63,8 +61,9 @@ namespace Epico.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(TaskViewModel model)
         {
-            var task = await TaskService.GetTaskById(model.TaskId);
+            if (!HasProduct) return RedirectToAction("New", "Product");
 
+            var task = await TaskService.GetTaskById(model.TaskId);
             return View(new EditTaskViewModel
             {
                 ID = task.ID,
@@ -99,6 +98,8 @@ namespace Epico.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete([FromQuery] int taskId)
         {
+            if (!HasProduct) return RedirectToAction("New", "Product");
+
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
 
             await TaskService.DeleteTask(taskId);
@@ -108,6 +109,8 @@ namespace Epico.Controllers
         [HttpGet]
         public async Task<IActionResult> EditState(TaskViewModel model)
         {
+            if (!HasProduct) return RedirectToAction("New", "Product");
+
             var task = await TaskService.GetTaskById(model.TaskId);
             return View(new EditStateTaskViewModel
             {

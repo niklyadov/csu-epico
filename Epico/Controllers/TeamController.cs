@@ -15,11 +15,7 @@ namespace Epico.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var product = await ProductService.GetProduct();
-            if (product == null)
-            {
-                return RedirectToAction("New", "Product");
-            }
+            if (!HasProduct) return RedirectToAction("New", "Product");
 
             var tasks = await TaskService.GetTaskList();
             return View(new TeamViewModel 
@@ -31,6 +27,8 @@ namespace Epico.Controllers
         [HttpGet]
         public async Task<IActionResult> AddUser(TeamViewModel model)
         {
+            if (!HasProduct) return RedirectToAction("New", "Product");
+
             var task = await TaskService.GetTaskById(model.TaskId);
             if (task == null)
             {

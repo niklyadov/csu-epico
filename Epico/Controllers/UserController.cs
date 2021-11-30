@@ -17,12 +17,14 @@ namespace Epico.Controllers
         }
         public IActionResult Index()
         {
+            if (!HasProduct) return RedirectToAction("New", "Product");
             return View();
         }
 
         [HttpGet]
         public IActionResult New()
         {
+            if (!HasProduct) return RedirectToAction("New", "Product");
             return View();
         }
         
@@ -35,8 +37,10 @@ namespace Epico.Controllers
             return Ok("Сотрудник добавлен");
         }
 
+        [HttpGet]
         public async Task<IActionResult> Delete(string userId)
         {
+            if (!HasProduct) return RedirectToAction("New", "Product");
             await UserService.DeleteUser(userId);
             return Ok("Сотрудник удалён");
         }

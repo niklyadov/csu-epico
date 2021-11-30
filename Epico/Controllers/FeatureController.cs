@@ -16,15 +16,11 @@ namespace Epico.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var product = await ProductService.GetProduct();
-            if (product == null)
-            {
-                return RedirectToAction("New", "Product");
-            }
+            if (!HasProduct) return RedirectToAction("New", "Product");
             
             return View(new FeatureViewModel
             {
-                ProductId = product.ID,
+                ProductId = Product.ID,
                 Features = await FeatureService.GetFeaturesList()
             });
         }
@@ -32,6 +28,8 @@ namespace Epico.Controllers
         [HttpGet]
         public async Task<IActionResult> New(FeatureViewModel model)
         {
+            if (!HasProduct) return RedirectToAction("New", "Product");
+
             var possibleMetrics = await MetricService.GetMetricList();
             var allTasks = await TaskService.GetTaskList();
             var possibleTasks = allTasks.Where(x => x.State != TaskState.Closed).ToList();
@@ -70,8 +68,9 @@ namespace Epico.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit([FromQuery] int projectId, [FromQuery] int featureId)
         {
+            if (!HasProduct) return RedirectToAction("New", "Product");
+
             var feature = await FeatureService.GetFeature(featureId);
-            
             return View(new EditFeatureViewModel
             {
                 ID = feature.ID,
@@ -113,6 +112,8 @@ namespace Epico.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete([FromQuery] int featureId)
         {
+            if (!HasProduct) return RedirectToAction("New", "Product");
+
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
             
             await FeatureService.DeleteFeature(featureId);
@@ -122,6 +123,8 @@ namespace Epico.Controllers
         [HttpGet]
         public async Task<IActionResult> EditState(FeatureViewModel model)
         {
+            if (!HasProduct) return RedirectToAction("New", "Product");
+
             var feature = await FeatureService.GetFeatureById(model.FeatureId);
             return View(new EditStateFeatureViewModel
             {

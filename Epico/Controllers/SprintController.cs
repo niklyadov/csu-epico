@@ -19,17 +19,13 @@ namespace Epico.Controllers
         
         public async Task<IActionResult> Index()
         {
-            var product = await ProductService.GetProduct();
-            if (product == null)
-            {
-                return RedirectToAction("New", "Product");
-            }
+            if (!HasProduct) return RedirectToAction("New", "Product");
 
             // todo sprints[i].Features пустой список
             var sprints = await SprintService.GetSprintList();
             return View(new SprintViewModel
             {
-                ProductId = product.ID,
+                ProductId = Product.ID,
                 Sprints = sprints
             });
         }
@@ -37,6 +33,8 @@ namespace Epico.Controllers
         [HttpGet]
         public async Task<IActionResult> New(SprintViewModel model)
         {
+            if (!HasProduct) return RedirectToAction("New", "Product");
+
             var allFeatures = await FeatureService.GetFeaturesList();
             var possibleFeatures = allFeatures.Where(x => x.State != FeatureState.Closed)
                                              .ToList();
@@ -68,8 +66,9 @@ namespace Epico.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(SprintViewModel model)
         {
-            var sprint = await SprintService.GetSprintById(model.SprintId);
+            if (!HasProduct) return RedirectToAction("New", "Product");
 
+            var sprint = await SprintService.GetSprintById(model.SprintId);
             return View(new EditSprintViewModel
             {
                 SprintId = sprint.ID,
@@ -97,6 +96,8 @@ namespace Epico.Controllers
 
         public async Task<IActionResult> Delete([FromQuery] int sprintId)
         {
+            if (!HasProduct) return RedirectToAction("New", "Product");
+
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
             // todo fix delete from DB
             await SprintService.DeleteSprint(sprintId);
@@ -106,6 +107,8 @@ namespace Epico.Controllers
         [HttpGet]
         public async Task<IActionResult> AddFeature(SprintViewModel model)
         {
+            if (!HasProduct) return RedirectToAction("New", "Product");
+
             var sprint = await SprintService.GetSprintById(model.SprintId);
             var features = await FeatureService.GetFeaturesList();
             return View(new AddFeatureToSprintViewModel
