@@ -1,4 +1,4 @@
-﻿using Epico.Models;
+using Epico.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;

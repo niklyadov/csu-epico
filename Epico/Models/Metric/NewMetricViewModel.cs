@@ -1,4 +1,4 @@
-﻿using Epico.Entity;
+using Epico.Entity;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
