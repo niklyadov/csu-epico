@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using Epico.Entity;
 
 namespace Epico.Controllers
 {
@@ -30,15 +31,18 @@ namespace Epico.Controllers
         {
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
             
-            var user = await UserService.AddUser(model.FirstName, model.LastName); 
+            var user = await UserService.Add(new User
+            {
+                UserName = model.FirstName
+            }); 
             return Ok("Сотрудник добавлен");
         }
 
         [HttpGet]
-        public async Task<IActionResult> Delete(string userId)
+        public async Task<IActionResult> Delete(int userId)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
-            await UserService.DeleteUser(userId);
+            await UserService.Delete(userId);
             return Ok("Сотрудник удалён");
         }
     }

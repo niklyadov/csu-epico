@@ -20,7 +20,7 @@ namespace Epico.Controllers
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            var features = await FeatureService.GetFeaturesList();
+            var features = await FeatureService.GetAll();
             return View(new RoadMapViewModel
             {
                 Features = features
@@ -32,7 +32,7 @@ namespace Epico.Controllers
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            var features = await FeatureService.GetFeaturesList();
+            var features = await FeatureService.GetAll();
             return View(new AddRoadmapViewModel
             {
                 Roadmap = (Entity.RoadmapType)model.Roadmap,
@@ -42,7 +42,7 @@ namespace Epico.Controllers
         [HttpPost]
         public async Task<IActionResult> AddFeature(AddRoadmapViewModel model)
         {
-            var feature = await FeatureService.GetFeature(model.FeatureId);
+            var feature = await FeatureService.GetById(model.FeatureId);
 
             if (feature == null)
             {

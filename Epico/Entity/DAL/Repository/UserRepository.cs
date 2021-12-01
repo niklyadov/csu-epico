@@ -43,7 +43,7 @@ namespace Epico.Entity.DAL.Repository
             return entity;
         }
 
-        public async Task<User> Delete(string id)
+        public async Task<User> Delete(int id)
         {
             var entity = await _dbContext.Set<User>().FindAsync(id);
 
@@ -54,6 +54,11 @@ namespace Epico.Entity.DAL.Repository
             }
 
             return entity;
+        }
+        
+        public async Task<int> Save(User entity)
+        {
+            return await _dbContext.SaveChangesAsync();
         }
     }
 }

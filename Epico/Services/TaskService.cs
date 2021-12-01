@@ -3,15 +3,14 @@ using Epico.Entity.DAL.Repository;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Epico.Entity.DAL;
 using Task = Epico.Entity.Task;
 
 namespace Epico.Services
 {
-    public class TaskService : BaseService<Task, ApplicationContext>
+    public class TaskService : IDBservice<Task>
     {
         private readonly TaskRepository _taskRepository;
-        public TaskService(TaskRepository taskRepository) : base(taskRepository)
+        public TaskService(TaskRepository taskRepository)
         {
             _taskRepository = taskRepository;
         }
@@ -26,22 +25,40 @@ namespace Epico.Services
                 Team = team
             });
 
-        public new async Task<Task> GetById(int id)
+
+        public async Task<Task> GetById(int id)
         {
             return await _taskRepository.GetById(id);
         }
 
-        public new async Task<List<Task>> GetByIds(List<int> ids)
+        public async Task<List<Task>> GetByIds(List<int> ids)
         {
-            if (ids == null)
-                return new List<Task>();
-
             return await _taskRepository.GetByIds(ids);
         }
 
-        public new async Task<List<Task>> GetAll()
+        public async Task<List<Task>> GetAll()
         {
             return await _taskRepository.GetAll();
+        }
+
+        public async Task<int> Save(Task entity)
+        {
+            return await _taskRepository.Save(entity);
+        }
+
+        public async Task<Task> Delete(int taskId)
+        {
+            return await _taskRepository.Delete(taskId);
+        }
+
+        public async Task<Task> Add(Task entity)
+        {
+            return await _taskRepository.Add(entity);
+        }
+
+        public async Task<Task> Update(Task entity)
+        {
+            return await _taskRepository.Update(entity);
         }
     }
 }

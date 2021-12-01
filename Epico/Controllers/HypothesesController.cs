@@ -21,7 +21,7 @@ namespace Epico.Controllers
 
             return View(new FeatureViewModel
             {
-                Features = await FeatureService.GetFeaturesList()
+                Features = await FeatureService.GetAll()
             });
         }
     }

@@ -48,7 +48,7 @@ namespace Epico.Controllers
                 Name = model.Name,
                 Description = model.Description
             };
-            var possibleParentMetrics = await MetricService.GetMetricList();
+            var possibleParentMetrics = await MetricService.GetAll();
             if (possibleParentMetrics?.Count != 0)
             {
                 if (!model.ParentMetricId.HasValue) // Ошибка
@@ -58,12 +58,12 @@ namespace Epico.Controllers
                     
                 metric.ParentMetricId = model.ParentMetricId.Value;
 
-                var parentMetricNew = await MetricService.GetMetricById(model.ParentMetricId.Value);
+                var parentMetricNew = await MetricService.GetById(model.ParentMetricId.Value);
                 parentMetricNew.Children.Add(metric);
                 await MetricService.Update(parentMetricNew);
                 return RedirectToAction("Index", "Metric");
             }
-            await MetricService.AddMetric(metric);
+            await MetricService.Add(metric);
             return RedirectToAction("Index", "Metric");
         }
 
@@ -71,7 +71,7 @@ namespace Epico.Controllers
         {
             return new NewMetricViewModel 
             { 
-                PosibleParentMetrics = await MetricService.GetMetricList() 
+                PosibleParentMetrics = await MetricService.GetAll() 
             };
         }
 
@@ -88,7 +88,7 @@ namespace Epico.Controllers
         {
             if (!ModelState.IsValid) return View(await GetEditMetricViewModel(model.MetricId));
 
-            var metric = await MetricService.GetMetricById(model.MetricId);
+            var metric = await MetricService.GetById(model.MetricId);
 
             metric.Name = model.Name;
             metric.Description = model.Description;
@@ -96,14 +96,14 @@ namespace Epico.Controllers
 
             if (metric.ParentMetricId.HasValue) // удаляем старого child из родителя
             {
-                var parentMetricOld = await MetricService.GetMetricById(metric.ParentMetricId.Value);
+                var parentMetricOld = await MetricService.GetById(metric.ParentMetricId.Value);
                     parentMetricOld.Children.Remove(metric);
                 await MetricService.Update(parentMetricOld);
             }
 
             if (model.ParentMetricId.HasValue) // добавляем новый child из родителя
             {
-                var parentMetricNew = await MetricService.GetMetricById(model.ParentMetricId.Value);
+                var parentMetricNew = await MetricService.GetById(model.ParentMetricId.Value);
                     parentMetricNew.Children.Add(metric);
                 await MetricService.Update(parentMetricNew);
             }
@@ -115,8 +115,8 @@ namespace Epico.Controllers
 
         private async Task<EditMetricViewModel> GetEditMetricViewModel(int metricId)
         {
-            var metric = await MetricService.GetMetricById(metricId);
-            var possibleParentMetrics = await MetricService.GetMetricList();
+            var metric = await MetricService.GetById(metricId);
+            var possibleParentMetrics = await MetricService.GetAll();
             return new EditMetricViewModel
             {
                 MetricId = metric.ID,

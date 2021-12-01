@@ -2,7 +2,9 @@ using Epico.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Epico.Entity;
 
 namespace Epico.Controllers
 {
@@ -33,11 +35,11 @@ namespace Epico.Controllers
             
             //var product = await ProductService.GetProductById(userProductId.Value);
             var product = Product;
-            var sprints = await SprintService.GetSprintList();
-            var features = await FeatureService.GetFeaturesList();
-            var metrics = await MetricService.GetMetricList();
+            var sprints = await SprintService.GetAll();
+            var features = await FeatureService.GetAll();
+            var metrics = await MetricService.GetAll();
             var tasks = await TaskService.GetAll();
-            var users = await UserService.GetUsersList();
+            var users = await UserService.GetAll();
 
             return View(new ProductViewModel
             {
@@ -69,8 +71,15 @@ namespace Epico.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await ProductService.AddProduct(model.Name,
-                    model.Vision, model.Mission, model.ProductFormula, AccountService.CurrentUserId());
+                var result = await ProductService.Add(new Product
+                {
+                    Name = model.Name,
+                    Vision = model.Vision,
+                    Mission = model.Mission,
+                    ProductFormula = model.ProductFormula,
+                    OwnerUserId = AccountService.CurrentUserId(),
+                    Sprints = new List<Sprint>()
+                });
 
                 if (result != null)
                 {
@@ -85,7 +94,7 @@ namespace Epico.Controllers
             if (!ModelState.IsValid) 
                 return BadRequest("ModelState is not Valid");
             
-            await ProductService.DeleteProduct(projectId);
+            await ProductService.Delete(projectId);
             return RedirectToAction("New");
         }
     }

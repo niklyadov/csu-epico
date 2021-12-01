@@ -1,21 +1,17 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Epico.Entity;
 using Epico.Entity.DAL.Repository;
-using Task = Epico.Entity.Task;
 
 namespace Epico.Services
 {
-    public class ProductService
+    public class ProductService : IDBservice<Product>
     {
         private readonly ProductRepository _productRepository;
-        private readonly MetricRepository _metricRepository;
         public ProductService(ProductRepository productRepository, MetricRepository metricRepository)
         {
             _productRepository = productRepository;
-            _metricRepository = metricRepository;
         }
 
         public async Task<Product> GetProduct()
@@ -24,47 +20,40 @@ namespace Epico.Services
 
             return !list.Any() ? null : list.First();
         }
-
-        public async Task<Product> AddProduct(string name, string vision, string mission, string productFormula, string ownerUserId)
-        {
-            return await _productRepository.Add(new Product
-            {
-                Name = name,
-                Vision = vision,
-                Mission = mission,
-                ProductFormula = productFormula,
-                OwnerUserId = ownerUserId,
-                Sprints = new List<Sprint>()
-            }) ;
-        }
-
-        public async Task<Product> DeleteProduct(int projectId)
-        {
-            return await _productRepository.Delete(projectId);
-        }
-
-        public bool NotHasProduct()
-        {
-            return _productRepository.GetAll().Result?.Count == 0;
-        }
-
-        public async Task<Product> GetProductById(int id)
+        
+        public async Task<Product> GetById(int id)
         {
             return await _productRepository.GetById(id);
         }
 
-        public async Task<int?> UserProductId(string ownerUserId)
+        public async Task<List<Product>> GetByIds(List<int> ids)
         {
-            try
-            {
-                return await _productRepository.GetUserProductId(ownerUserId);
-            }
-            catch (Exception ex)
-            {
-                
-            }
+            return await _productRepository.GetByIds(ids);
+        }
 
-            return null;
+        public async Task<List<Product>> GetAll()
+        {
+            return await _productRepository.GetAll();
+        }
+
+        public async Task<int> Save(Product entity)
+        {
+            return await _productRepository.Save(entity);
+        }
+
+        public async Task<Product> Delete(int entityId)
+        {
+            return await _productRepository.Delete(entityId);
+        }
+
+        public async Task<Product> Add(Product entity)
+        {
+            return await _productRepository.Add(entity);
+        }
+
+        public async Task<Product> Update(Product entity)
+        {
+            return await _productRepository.Update(entity);
         }
         
         public async Task<Product> AddMetric(int projectId, Metric metric)
@@ -81,5 +70,6 @@ namespace Epico.Services
         {
             return await _productRepository.AddRoadmapToProductWithId(projectId);
         }
+
     }
 }
