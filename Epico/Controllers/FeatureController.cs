@@ -3,6 +3,7 @@ using Epico.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,14 +15,13 @@ namespace Epico.Controllers
         public FeatureController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
         }
-        public async Task<IActionResult> Index([FromQuery] bool taskError, [FromQuery] bool metricError)
+        public async Task<IActionResult> Index([FromQuery] bool metricError)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
             var features = await FeatureService.GetAll();
             return View(new FeatureViewModel
             {
-                TaskError = taskError,
                 MetricError = metricError,
                 Features = features
             });
@@ -40,22 +40,18 @@ namespace Epico.Controllers
         {
             if (!ModelState.IsValid) return View(await GetNewFeatureViewModel());
 
-            bool taskError = model.Tasks.Count == 0;
-            bool metricError = model.MetricId == 0;
-            if (taskError || metricError)
-            {
-                return RedirectToAction("Index", "Feature", new { taskError = taskError, metricError = metricError });
-            }
-            var tasks = await TaskService.GetByIds(model.Tasks);
-            // todo переделать на одну метрику
+            if (model.MetricId == 0) return RedirectToAction("Index", "Feature", new { metricError = true });
+
             var metric = await MetricService.GetById(model.MetricId);
+            var users = await UserService.GetByIds(model.UserIds);
 
             await FeatureService.Add(new Feature
             {
                 Name = model.Name,
                 Description = model.Description,
                 Hypothesis = model.Hypothesis,
-                Tasks = tasks,
+                Tasks = new List<Entity.Task>(),
+                Users = users,
                 Metric = metric,
                 Roadmap = model.Roadmap,
                 State = FeatureState.Delivery
@@ -66,12 +62,10 @@ namespace Epico.Controllers
         private async Task<NewFeatureViewModel> GetNewFeatureViewModel()
         {
             var possibleMetrics = await MetricService.GetAll();
-            var allTasks = await TaskService.GetAll();
-            var possibleTasks = allTasks.Where(x => x.State != TaskState.Closed).ToList();
-
+            var posibleUsers = await UserService.GetAll();
             return new NewFeatureViewModel
             {
-                PosibleTasks = possibleTasks,
+                PosibleUsers = posibleUsers,
                 PosibleMetrics = possibleMetrics
             };
         }

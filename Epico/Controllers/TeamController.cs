@@ -28,42 +28,42 @@ namespace Epico.Controllers
             });
         }
 
-        [HttpGet]
-        public async Task<IActionResult> AddUser(TeamViewModel model)
-        {
-            if (!HasProduct) return RedirectToAction("New", "Product");
+        //[HttpGet]
+        //public async Task<IActionResult> AddUser(TeamViewModel model)
+        //{
+        //    if (!HasProduct) return RedirectToAction("New", "Product");
 
-            var task = await TaskService.GetById(model.TaskId);
-            if (task == null)
-            {
-                return BadRequest("Сначала нужно создать хотя бы одну задачу!");
-            }
+        //    var task = await TaskService.GetById(model.TaskId);
+        //    if (task == null)
+        //    {
+        //        return BadRequest("Сначала нужно создать хотя бы одну задачу!");
+        //    }
             
-            var users = await UserService.GetAll();
-            return View(new AddUserToTeamViewModel 
-            {
-                TaskId = task.ID,
-                TaskName = task.Name,
-                PosibleUsers = users.Where(x => !task.Team.Contains(x)).ToList()
-            });
-        }
+        //    var users = await UserService.GetAll();
+        //    return View(new AddUserToTeamViewModel 
+        //    {
+        //        TaskId = task.ID,
+        //        TaskName = task.Name,
+        //        PosibleUsers = users.Where(x => !task.ResponsibleUser.Contains(x)).ToList()
+        //    });
+        //}
 
-        [HttpPost]
-        public async Task<IActionResult> AddUser(AddUserToTeamViewModel model)
-        {
-            var task = await TaskService.GetById(model.TaskId);
+        //[HttpPost]
+        //public async Task<IActionResult> AddUser(AddUserToTeamViewModel model)
+        //{
+        //    var task = await TaskService.GetById(model.TaskId);
 
-            foreach (var user in await UserService.GetByIds(model.UserIds))
-            {
-                if (!task.Team.Any(x => x.Id == user.Id))
-                {
-                    task.Team.Add(user);
-                }
-            }
+        //    foreach (var user in await UserService.GetByIds(model.UserIds))
+        //    {
+        //        if (!task.ResponsibleUser.Any(x => x.Id == user.Id))
+        //        {
+        //            task.ResponsibleUser.Add(user);
+        //        }
+        //    }
             
-            await TaskService.Save(task);
+        //    await TaskService.Save(task);
             
-            return RedirectToAction("Index", "Team");
-        }
+        //    return RedirectToAction("Index", "Team");
+        //}
     }
 }

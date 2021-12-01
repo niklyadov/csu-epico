@@ -17,6 +17,7 @@ namespace Epico.Entity.DAL.Repository
         {
             return await _dbContext.Set<Feature>()
                 .Where(x => x.ID == id)
+                .Include(x => x.Users)
                 .Include(x => x.Tasks)
                 .Include(x => x.Metric)
                 .FirstAsync();
@@ -26,6 +27,7 @@ namespace Epico.Entity.DAL.Repository
         {
             return await _dbContext.Set<Feature>()
                 .Where(l => ids.Contains(l.ID))
+                .Include(x => x.Users)
                 .Include(x => x.Tasks)
                 .Include(x => x.Metric)
                 .ToListAsync();
@@ -34,6 +36,7 @@ namespace Epico.Entity.DAL.Repository
         public new async Task<List<Feature>> GetAll()
         {
             return await _dbContext.Set<Feature>()
+                .Include(x => x.Users)
                 .Include(x => x.Tasks)
                 .Include(x => x.Metric)
                 .ToListAsync();

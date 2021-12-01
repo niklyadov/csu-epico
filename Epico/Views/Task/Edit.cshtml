@@ -1,4 +1,3 @@
-@using Epico.Entity;
 @model EditTaskViewModel
 @{
     ViewBag.Title = "Измнение задачи";
@@ -32,17 +31,17 @@
         </div>
         <br />
         <div class="field">
-            <label class="label" asp-for="Users">Команда для задачи</label>
+            <label class="label" asp-for="UserId">Команда для задачи</label>
             <div class="control">
                 @foreach (var user in Model.PosibleUsers)
                 {
-                    <label class="checkbox">
-                        <input type="checkbox" value="@user.Id" name="Users" @Html.Raw(Model.Users.Contains(user.Id) ? "checked" : "") />
+                    <label class="radio">
+                        <input type="radio" value="@user.Id" name="UserId" checked=@Model.UserId.Equals(user.Id) />
                         @user.UserName [@user.Position]
                     </label>
                     <br />
                 }
-                @*<span asp-validation-for="Users" class="error-message"></span>*@
+                <span asp-validation-for="UserId" class="error-message"></span>
             </div>
         </div>
         <!-- todo Если дедлайн у спринтов, то скорее всего у задач их нет-->

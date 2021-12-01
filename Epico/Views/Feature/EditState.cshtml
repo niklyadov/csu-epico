@@ -11,17 +11,17 @@
             <label class="label" asp-for="State">Статус</label>
             <div class="control">
                 <label class="radio">
-                    <input type="radio" value="@FeatureState.Discovery" @Html.Raw(Model.Feature.State == FeatureState.Discovery ? "checked" : "") name="State" />
+                    <input type="radio" value="@FeatureState.Discovery" checked=@Model.Feature.State.Equals(FeatureState.Discovery) name="State" />
                     Discovery
                 </label>
                 <br />
                 <label class="radio">
-                    <input type="radio" value="@FeatureState.Development" @Html.Raw(Model.Feature.State == FeatureState.Development ? "checked" : "") name="State" />
+                    <input type="radio" value="@FeatureState.Development" checked=@Model.Feature.State.Equals(FeatureState.Development) name="State" />
                     Development
                 </label>
                 <br />
                 <label class="radio">
-                    <input type="radio" value="@FeatureState.Delivery" @Html.Raw(Model.Feature.State == FeatureState.Delivery ? "checked" : "") name="State" />
+                    <input type="radio" value="@FeatureState.Delivery" checked=@Model.Feature.State.Equals(FeatureState.Delivery) name="State" />
                     Delivery
                 </label>
                 <br />

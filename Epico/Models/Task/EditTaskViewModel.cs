@@ -17,9 +17,8 @@ namespace Epico.Models
         public DateTime DeadLine { get; set; }
         public int State { get; set; }
         [BindProperty]
-        public List<int> Users { get; set; }
+        public int UserId { get; set; }
 
         public List<User> PosibleUsers { get; set; }
-        public IEnumerable<TaskState> StateTypes { get; set; } = Enum.GetValues<TaskState>().Cast<TaskState>();
     }
 }

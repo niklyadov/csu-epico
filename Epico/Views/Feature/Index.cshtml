@@ -20,17 +20,44 @@
     @foreach (var feature in Model.Features)
     {
         <div class="box word-break">
+            <!--Информация о фиче-->
             <p>@feature.Name [@feature.State.ToString()]</p>
             <p>@feature.Description</p>
             <p class="bold">Привязанная метрика:</p>
             <p>@feature.Metric.Name</p>
 
-            <p class="bold">Список задач:</p>
-            @foreach (var task in feature.Tasks)
-            {
-                <p>@task.Name</p>
-            }
-
+            <!--Список задач-->
+            <div>
+                <div class="container-text-button">
+                    <span class="bold">Список задач:</span>
+                    <form method="get" onclick="this.submit()" asp-action="NewById" asp-controller="Task">
+                        <div class="is-flex container-text-button_button">
+                            <input type="hidden" asp-for="FeatureId" value="@feature.ID" name="featureId" />
+                            <img class="plus-button" src="~/img/plus.svg" />
+                        </div>
+                    </form>
+                </div>
+                <div>
+                @if (feature.Tasks.Count == 0)
+                {
+                    <p>Здаесь пока нет задач.</p>
+                }
+                @foreach (var task in feature.Tasks)
+                {
+                    <p>@task.Name</p>
+                }
+                </div>
+            </div>
+            <!--Список юзеров в команде фичи-->
+            <div>
+                <p class="bold">Продуктовая команда фичи:</p>
+                @foreach (var user in feature.Users)
+                {
+                    <p>@user.UserName [@user.Position]</p>
+                }
+            </div>
+            
+            <!--Кнопки для взаимодействия с фичей-->
             <form method="get" asp-action="EditState" asp-controller="Feature">
                 <input type="hidden" asp-for="FeatureId" value="@feature.ID" />
                 <button class="button is-primary is-small" style="margin-bottom: 0.5%">Change status</button>

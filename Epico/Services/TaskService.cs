@@ -15,17 +15,6 @@ namespace Epico.Services
             _taskRepository = taskRepository;
         }
 
-        public async Task<Task> AddTask(string name, string description, List<User> team, DateTime deadLine)
-            => await _taskRepository.Add(new Task
-            {
-                Name = name,
-                Description = description,
-                DeadLine = deadLine,
-                State = TaskState.NotStarted,
-                Team = team
-            });
-
-
         public async Task<Task> GetById(int id)
         {
             return await _taskRepository.GetById(id);

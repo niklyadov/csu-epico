@@ -1,12 +1,14 @@
-@model NewTaskViewModel
+﻿@model NewTaskByIdViewModel
 @{
-    ViewBag.Title = "Добавление задачи";
+    ViewBag.Title = "Добавление задачи в фичу";
 }
+
 <div class="content is-medium">
-    <h2>Добавление новой задачи</h2>
+    <h2>Добавление новой задачи в фичу</h2>
 </div>
 <div class="box">
-    <form method="post" asp-controller="Task" asp-action="New">
+    <form method="post" asp-controller="Task" asp-action="NewById">
+        <input type="hidden" asp-for="@Model.FeatureId" />
         <div class="field">
             <label class="label" asp-for="Name">Название задачи</label>
             <div class="control">
@@ -23,15 +25,15 @@
         </div>
         <br />
         <div class="field">
-            <label class="label" asp-for="UserId">Команда для задачи</label>
+            <label class="label" asp-for="UserId">Ответственный для задачи:</label>
             <div class="control">
                 @foreach (var user in Model.PossibleUsers)
                 {
                     <label class="radio">
-                        <input type="radio" value="@user.Id" name="UserId"/>
+                        <input type="radio" value="@user.Id" name="UserId" />
                         @user.UserName [@user.Position]
                     </label>
-                    <br/>
+                    <br />
                 }
                 <span asp-validation-for="UserId" class="error-message"></span>
             </div>

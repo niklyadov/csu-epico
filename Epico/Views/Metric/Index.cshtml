@@ -5,20 +5,35 @@
 }
 
 <div class="content">
-    <h2>North Star Metric</h2>
-    <p>@Model.Metric.Name</p>
-    <p>@Model.Metric.Description</p>
+    <h2>North Star Metric:</h2>
+    <table>
+        <tbody>
+            <tr>
+                <th style="max-width: 40px"></th>
+                <th></th>
+            </tr>
+            <tr>
+                <td>Название:</td>
+                <td>@Model.Metric.Name</td>
+            </tr>
+            <tr>
+                <td>Описание:</td>
+                <td>@Model.Metric.Description</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 <br />
 <div class="content">
     <div>
-        <h2>Hierarchy of Metrics</h2>
-        <form method="get" onclick="this.submit()" asp-action="New" asp-controller="Metric">
-            <!--style="justify-content: center;-->
-            <div class="is-flex">
-                <img class="metric-plus-button" src="~/img/plus.svg" />
-            </div>
-        </form>
+        <div>
+            <span class="bold" style="font-size: large">Hierarchy of Metrics </span>
+            <form method="get" onclick="this.submit()" asp-action="New" asp-controller="Metric">
+                <div class="is-flex">
+                    <img class="metric-plus-button" src="~/img/plus.svg" />
+                </div>
+            </form>
+        </div>
         @if (Model.Error)
         {
         <span class="error-message">*Для создания метрики обязательно нужно указывать родительскую метрику</span>

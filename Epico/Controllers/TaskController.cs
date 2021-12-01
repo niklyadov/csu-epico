@@ -49,14 +49,78 @@ namespace Epico.Controllers
                 });
             }
 
-            if (model.Users == null)
+            if (model.UserId == 0)
             {
                 return RedirectToAction("Index", "Task", new { error = true });
             }
-            var team = await UserService.GetByIds(model.Users);
-            await TaskService.AddTask(model.Name, model.Description, team, model.DeadLine);
+            var responsibleUser = await UserService.GetById(model.UserId);
+            await TaskService.Add(new Entity.Task
+            {
+                Name = model.Name,
+                Description = model.Description,
+                DeadLine = model.DeadLine,
+                ResponsibleUser = responsibleUser
+            });
             return RedirectToAction("Index", "Task");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> NewById([FromQuery] int featureId)
+        {
+            if (!HasProduct) return RedirectToAction("New", "Product");
+            var feature = await FeatureService.GetById(featureId);
+            return View(new NewTaskByIdViewModel
+            {
+                FeatureId = featureId,
+                PossibleUsers = (await UserService.GetAll())
+                                .Where(user => feature.Users.Contains(user))
+                                .ToList()
+            });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> NewById(NewTaskByIdViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(new NewTaskByIdViewModel
+                {
+                    FeatureId = model.FeatureId,
+                    PossibleUsers = await UserService.GetAll()
+                });
+            }
+
+            if (model.UserId == 0)
+            {
+                return RedirectToAction("Index", "Feature", new { taskCreateError = true });
+            }
+
+            var feature = await FeatureService.GetById(model.FeatureId);
+            if (!feature.Users.Select(x => x.Id).Contains(model.UserId))
+            {
+                return BadRequest("Юзер не доступен т.к. не содержится в команде фичи. Вы чайник.");
+            }
+
+            var responsibleUser = await UserService.GetById(model.UserId);
+            var task = await TaskService.Add(new Entity.Task
+            {
+                Name = model.Name,
+                Description = model.Description,
+                DeadLine = model.DeadLine,
+                ResponsibleUser = responsibleUser
+            });
+            feature.Tasks.Add(task);
+            await FeatureService.Update(feature);
+            return RedirectToAction("Index", "Feature");
+        }
+
+
+
+
+
+
+
+
 
         [HttpGet]
         public async Task<IActionResult> Edit(TaskViewModel model)
@@ -71,11 +135,11 @@ namespace Epico.Controllers
         {
             if (!ModelState.IsValid) return View(await GetEditTaskViewModel(model.TaskId));
 
-            var team = await UserService.GetByIds(model.Users);
+            var responsibleUser = await UserService.GetById(model.UserId);
             var task = await TaskService.GetById(model.TaskId);
             task.Name = model.Name;
             task.Description = model.Description;
-            task.Team = team;
+            task.ResponsibleUser = responsibleUser;
             task.DeadLine = model.DeadLine;
             task.State = (TaskState)model.State;
             
@@ -94,7 +158,7 @@ namespace Epico.Controllers
                 Description = task.Description,
                 DeadLine = task.DeadLine,
                 State = (int)task.State,
-                Users = task.Team.Select(x => x.Id).ToList(),
+                UserId = task.ResponsibleUser.Id,
                 PosibleUsers = await UserService.GetAll()
             };
         }

@@ -96,15 +96,15 @@
             <label class="label" asp-for="State">Роадмап</label>
             <div class="control">
                 <label class="radio">
-                    <input type="radio" value="@RoadmapType.Now" @Html.Raw(Model.Roadmap == RoadmapType.Now ? "checked" : "") name="Roadmap" />
+                    <input type="radio" value="@RoadmapType.Now" checked=@Model.Roadmap.Equals(RoadmapType.Now) name="Roadmap" />
                     Now
                 </label>
                 <label class="radio">
-                    <input type="radio" value="@RoadmapType.Then" @Html.Raw(Model.Roadmap == RoadmapType.Then ? "checked" : "") name="Roadmap" />
+                    <input type="radio" value="@RoadmapType.Then" checked=@Model.Roadmap.Equals(RoadmapType.Then) name="Roadmap" />
                     Then
                 </label>
                 <label class="radio">
-                    <input type="radio" value="@RoadmapType.After" @Html.Raw(Model.Roadmap == RoadmapType.After ? "checked" : "") name="Roadmap" />
+                    <input type="radio" value="@RoadmapType.After" checked=@Model.Roadmap.Equals(RoadmapType.After) name="Roadmap" />
                     After
                 </label>
                 <br />

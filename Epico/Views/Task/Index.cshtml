@@ -17,13 +17,10 @@
         <div class="box word-break">
             <p>@task.Name [@task.State]</p>
             <p>@task.Description</p>
-            <p class="bold">Команда задачи:</p>
-            <ul>
-            @foreach (var user in task.Team)
-            {
-                <li>@user.UserName [@user.Position]</li>
-            }
-            </ul>
+            <div>
+                <span class="bold">Ответственный за задачу: </span>
+                <span>@task.ResponsibleUser.UserName [@task.ResponsibleUser.Position]</span>
+            </div>
             <form method="get" asp-action="EditState" asp-controller="Task">
                 <input type="hidden" asp-for="TaskId" value="@task.ID" />
                 <button class="button is-primary is-small" style="margin-bottom: 0.5%">Change status</button>

@@ -1,12 +1,14 @@
-using Epico.Entity;
+﻿using Epico.Entity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Epico.Models
 {
-    public class NewTaskViewModel
+    public class NewTaskByIdViewModel
     {
         [Required(ErrorMessage = "*Обязательное поле")]
         public string Name { get; set; }
@@ -21,6 +23,8 @@ namespace Epico.Models
 
         public List<User> PossibleUsers { get; set; }
             = new List<User>();
+
+        //hidden
+        public int FeatureId { get; set; }
     }
 }
- 

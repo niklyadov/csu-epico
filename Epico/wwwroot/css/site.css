@@ -110,3 +110,11 @@ a.button.is-fullwidth.left-nav_link:focus:not(:active) {
 .error-message{
     color: #ff0000;
 }
+
+.container-text-button {
+    align-items: center;
+    display: flex;
+}
+.container-text-button_button{
+    padding: 0 0 0 8px;
+}
