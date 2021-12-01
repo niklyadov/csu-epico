@@ -30,7 +30,7 @@ namespace Epico.Controllers
                 return RedirectToAction("Index", "Product");
             }
 
-            return RedirectToAction("Login");
+            return View();
         }
         
         [HttpGet]
@@ -44,11 +44,6 @@ namespace Epico.Controllers
         [HttpGet]
         public IActionResult Registration()
         {
-            //if (AccountService.CurrentUserId() != null)
-            //{
-            //    return RedirectToAction("Index", "Product");
-            //}
-
             return View();
         }
 
@@ -65,7 +60,7 @@ namespace Epico.Controllers
                 return RedirectToAction("New", "Product");
             }
             
-            return RedirectToAction("Registration");
+            return View();
         }
     }
 }
