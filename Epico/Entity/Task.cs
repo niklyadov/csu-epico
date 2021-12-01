@@ -14,6 +14,8 @@ namespace Epico.Entity
 
         public List<Feature> Features { get; set; }
             = new List<Feature>();
+
+        // todo убрать команду, добавить одного ответственного
         public List<User> Team { get; set; }
             = new List<User>();
     }

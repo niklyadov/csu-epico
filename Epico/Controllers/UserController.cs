@@ -39,11 +39,12 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Delete(int userId)
+        public async Task<IActionResult> Delete([FromQuery] int userId)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
+
             await UserService.Delete(userId);
-            return Ok("Сотрудник удалён");
+            return RedirectToAction("Index", "Team");
         }
     }
 }

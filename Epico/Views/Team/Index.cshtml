@@ -1,42 +1,7 @@
 @model TeamViewModel
 @{
-    //ViewBag.Title = "Teams";
     ViewBag.Title = "Users";
 }
-
-@*
-
-    <div class="column box gray-container">
-        <h2 class="bold">Команды для задач</h2>
-        <br />
-        <!--Раскоментить когда релизную версию выкатывать будем-->
-        @foreach (var task in Model.Tasks)
-        {
-            <span class="bold">@task.Name</span>
-            <div class="box word-break" style="max-width: 50%">
-                @if (task.Team.Count == 0)
-                {
-                    <span class="bold">Здесь пока никого нет *звуки сверчков*</span>
-                }
-                else
-                {
-                    @foreach (var user in task.Team)
-                    {
-                        <p>@user.UserName [@user.Position]</p>
-                    }
-                }
-
-                <form method="get" onclick="this.submit()" asp-action="AddUser" asp-controller="Team">
-                    <div class="is-flex center-element">
-                        <input type="hidden" asp-for="TaskId" value="@task.ID" />
-                        <img class="plus-button" src="~/img/plus.svg" />
-                    </div>
-                </form>
-            </div>
-        }
-    </div>
-*@
-
 
 <div class="column box gray-container">
     <h2 class="bold">Список всех юзеров</h2>
@@ -48,6 +13,8 @@
                 <th>UserName</th>
                 <th width="10px"></th>
                 <th>Position</th>
+                <th width="10px"></th>
+                <th></th>
             </tr>
         @foreach (var user in Model.Users)
         {
@@ -55,6 +22,15 @@
                 <td>@user.UserName</td>
                 <td></td>
                 <td>[@user.Position]</td>
+                <td></td>
+                <td>
+                    <form method="get" onclick="this.submit()" asp-action="Delete" asp-controller="User">
+                        <div class="is-flex center-element">
+                            <input type="hidden" value="@user.Id" name="userId" />
+                            <img class="delete-button" src="~/img/trash.svg" />
+                        </div>
+                    </form>
+                </td>
             </tr>
         }
         </tbody>

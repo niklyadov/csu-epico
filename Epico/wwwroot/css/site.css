@@ -80,13 +80,13 @@ a.button.is-fullwidth.left-nav_link:focus:not(:active) {
     cursor: pointer;
 }
 
-.plus-button {
+.plus-button, .delete-button {
     cursor: pointer;
 }
-.metric-plus-button:hover, .plus-button:hover {
+.metric-plus-button:hover, .plus-button:hover, .delete-button:hover {
     filter: invert(13%) sepia(73%) saturate(7487%) hue-rotate(357deg) brightness(89%) contrast(127%);
 }
-.metric-plus-button:active, .plus-button:active {
+.metric-plus-button:active, .plus-button:active, .delete-button:active {
     filter: invert(20%) sepia(87%) saturate(3829%) hue-rotate(15deg) brightness(64%) contrast(145%);
 }
 
