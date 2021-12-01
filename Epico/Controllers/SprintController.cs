@@ -75,7 +75,7 @@ namespace Epico.Controllers
         public async Task<NewSprintViewModel> GetNewSprintViewModel()
         {
             var allFeatures = await FeatureService.GetAll();
-            var possibleFeatures = allFeatures.Where(x => x.State != FeatureState.Closed)
+            var possibleFeatures = allFeatures.Where(x => x.State != FeatureState.Delivery)
                                              .ToList();
             
             return new NewSprintViewModel

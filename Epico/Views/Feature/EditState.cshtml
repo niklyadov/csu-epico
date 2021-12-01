@@ -11,18 +11,18 @@
             <label class="label" asp-for="State">Статус</label>
             <div class="control">
                 <label class="radio">
-                    <input type="radio" value="@FeatureState.NotStarted" @Html.Raw(Model.Feature.State == FeatureState.NotStarted ? "checked" : "") name="State" />
-                    NotStarted
+                    <input type="radio" value="@FeatureState.Discovery" @Html.Raw(Model.Feature.State == FeatureState.Discovery ? "checked" : "") name="State" />
+                    Discovery
                 </label>
                 <br />
                 <label class="radio">
-                    <input type="radio" value="@FeatureState.InProgress" @Html.Raw(Model.Feature.State == FeatureState.InProgress ? "checked" : "") name="State" />
-                    InProgress
+                    <input type="radio" value="@FeatureState.Development" @Html.Raw(Model.Feature.State == FeatureState.Development ? "checked" : "") name="State" />
+                    Development
                 </label>
                 <br />
                 <label class="radio">
-                    <input type="radio" value="@FeatureState.Closed" @Html.Raw(Model.Feature.State == FeatureState.Closed ? "checked" : "") name="State" />
-                    Closed
+                    <input type="radio" value="@FeatureState.Delivery" @Html.Raw(Model.Feature.State == FeatureState.Delivery ? "checked" : "") name="State" />
+                    Delivery
                 </label>
                 <br />
             </div>

@@ -2,8 +2,8 @@ namespace Epico.Entity
 {
     public enum FeatureState
     {
-        NotStarted,
-        InProgress,
-        Closed
+        Discovery,
+        Development,
+        Delivery
     }
 }
