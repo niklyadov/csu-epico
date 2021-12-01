@@ -77,11 +77,11 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit([FromQuery] int projectId, [FromQuery] int featureId)
+        public async Task<IActionResult> Edit([FromQuery] int featureId)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            var feature = await FeatureService.GetFeature(featureId);
+            var feature = await FeatureService.GetById(featureId);
             return View(new EditFeatureViewModel
             {
                 FeatureId = feature.ID,

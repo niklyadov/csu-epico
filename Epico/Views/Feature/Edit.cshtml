@@ -61,7 +61,7 @@
                 @foreach (var metric in Model.PosibleMetrics)
                 {
                     <label class="radio">
-                        <input type="radio" value="@metric.ID" name="Metrics" checked=@Model.Tasks.Contains(metric.ID) />
+                        <input type="radio" value="@metric.ID" name="MetricId" checked=@Model.MetricId.Equals(metric.ID) />
                         @metric.Name
                     </label>
                     <br />
@@ -75,15 +75,15 @@
             <label class="label" asp-for="State">Статус</label>
             <div class="control">
                 <label class="radio">
-                    <input type="radio" value="@FeatureState.NotStarted" @Html.Raw(Model.State == FeatureState.NotStarted ? "checked" : "") name="State" />
+                    <input type="radio" value="@FeatureState.NotStarted" checked=@Model.State.Equals(FeatureState.NotStarted) name="State" />
                     NotStarted
                 </label>
                 <label class="radio">
-                    <input type="radio" value="@FeatureState.InProgress" @Html.Raw(Model.State == FeatureState.InProgress ? "checked" : "") name="State" />
+                    <input type="radio" value="@FeatureState.InProgress" checked=@Model.State.Equals(FeatureState.InProgress)  name="State" />
                     InProgress
                 </label>
                 <label class="radio">
-                    <input type="radio" value="@FeatureState.Closed" @Html.Raw(Model.State == FeatureState.Closed ? "checked" : "") name="State" />
+                    <input type="radio" value="@FeatureState.Closed" checked=@Model.State.Equals(FeatureState.Closed)  name="State" />
                     Closed
                 </label>
                 <br />
