@@ -1,4 +1,4 @@
-﻿using Epico.Entity;
+using Epico.Entity;
 using Epico.Entity.DAL.Repository;
 using System.Collections.Generic;
 using System.Threading.Tasks;

@@ -4,13 +4,13 @@ namespace Epico.Models
 {
     public class NewProductViewModel
     {
-        [Required(ErrorMessage = "*Обязательное поле")]
+        [Required(ErrorMessage = "*РћР±СЏР·Р°С‚РµР»СЊРЅРѕРµ РїРѕР»Рµ")]
         public string Name { get; set; }
-        [Required(ErrorMessage = "*Обязательное поле")]
+        [Required(ErrorMessage = "*РћР±СЏР·Р°С‚РµР»СЊРЅРѕРµ РїРѕР»Рµ")]
         public string Vision { get; set; }
-        [Required(ErrorMessage = "*Обязательное поле")]
+        [Required(ErrorMessage = "*РћР±СЏР·Р°С‚РµР»СЊРЅРѕРµ РїРѕР»Рµ")]
         public string Mission { get; set; }
-        [Required(ErrorMessage = "*Обязательное поле")]
+        [Required(ErrorMessage = "*РћР±СЏР·Р°С‚РµР»СЊРЅРѕРµ РїРѕР»Рµ")]
         public string ProductFormula { get; set; }
     }
 }

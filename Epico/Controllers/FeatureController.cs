@@ -1,4 +1,4 @@
-﻿using Epico.Entity;
+using Epico.Entity;
 using Epico.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -77,7 +77,7 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit([FromQuery] int projectId, [FromQuery] int featureId)
+        public async Task<IActionResult> Edit([FromQuery] int featureId)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 

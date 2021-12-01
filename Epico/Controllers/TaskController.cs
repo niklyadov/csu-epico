@@ -1,4 +1,4 @@
-﻿using Epico.Entity;
+using Epico.Entity;
 using Epico.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

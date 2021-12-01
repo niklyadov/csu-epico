@@ -1,4 +1,4 @@
-﻿using Epico.Entity;
+using Epico.Entity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Epico.Models

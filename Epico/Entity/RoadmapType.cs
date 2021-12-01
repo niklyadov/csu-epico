@@ -1,4 +1,4 @@
-﻿namespace Epico.Entity
+namespace Epico.Entity
 {
     public enum RoadmapType
     {

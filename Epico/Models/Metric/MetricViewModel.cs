@@ -1,4 +1,4 @@
-﻿using Epico.Entity;
+using Epico.Entity;
 
 namespace Epico.Models
 {

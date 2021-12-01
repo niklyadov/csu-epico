@@ -1,4 +1,4 @@
-﻿namespace Epico.Models
+namespace Epico.Models
 {
     public class NewUserViewModel
     {
