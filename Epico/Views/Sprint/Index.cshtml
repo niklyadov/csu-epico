@@ -31,11 +31,11 @@
 
             <form method="get" asp-action="Edit" asp-controller="Sprint">
                 <input type="hidden" asp-for="SprintId" value="@sprint.ID" />
-                <button>Change Sprint</button>
+                <button class="button is-primary is-small" style="margin-bottom: 0.5%">Change Sprint</button>
             </form>
             <form method="get" asp-action="Delete" asp-controller="Sprint">
                 <input type="hidden" asp-for="SprintId" value="@sprint.ID" />
-                <button>Delete Sprint</button>
+                <button class="button is-primary is-small" style="margin-bottom: 0.5%">Delete Sprint</button>
             </form>
         </div>
     }
