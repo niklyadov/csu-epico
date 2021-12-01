@@ -37,14 +37,32 @@ namespace Epico.Services
         //    return null;
         //}
 
-        public async Task<Sprint> UpdateSprint(Sprint sprint)
+        public async Task<Sprint> Update(Sprint sprint)
         {
             return await _sprintRepository.Update(sprint);
         }
 
-        public async Task<Sprint> DeleteSprint(int id)
+        public async Task<Sprint> Delete(int id)
         {
             return await _sprintRepository.Delete(id);
+        }
+
+        public async Task<Sprint> GetById(int id)
+        {
+            return await _sprintRepository.GetById(id);
+        }
+
+        public async Task<List<Sprint>> GetByIds(List<int> ids)
+        {
+            if (ids == null)
+                return new List<Sprint>();
+
+            return await _sprintRepository.GetByIds(ids);
+        }
+
+        public async Task<List<Sprint>> GetAll()
+        {
+            return await _sprintRepository.GetAll();
         }
     }
 }

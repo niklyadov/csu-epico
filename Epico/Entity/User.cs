@@ -7,6 +7,6 @@ namespace Epico.Entity
     {
         // todo тут поля юзера можно добавить
         public string Position { get; set; }
-        public virtual ICollection<Task> Tasks { get; set; }
+        public virtual List<Task> Tasks { get; set; }
     }
 }

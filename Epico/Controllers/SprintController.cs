@@ -22,7 +22,7 @@ namespace Epico.Controllers
             if (!HasProduct) return RedirectToAction("New", "Product");
 
             // todo sprints[i].Features пустой список
-            var sprints = await SprintService.GetSprintList();
+            var sprints = await SprintService.GetAll();
             return View(new SprintViewModel
             {
                 SprintError = sprintError,
@@ -100,14 +100,13 @@ namespace Epico.Controllers
 
             // todo fix adding features
             var features = await FeatureService.GetFeaturesListByIds(model.Features);
-            await SprintService.UpdateSprint(new Sprint
-            {
-                ID = model.SprintId, 
-                Name = model.Name,
-                Features = features,
-                StartDate = model.StartDate,
-                EndDate = model.EndDate
-            });
+            var sprint = await SprintService.GetById(model.SprintId);
+            sprint.Name = model.Name;
+            sprint.Features = features;
+            sprint.StartDate = model.StartDate;
+            sprint.EndDate = model.EndDate;
+
+            await SprintService.Update(sprint);
             return RedirectToAction("Index", "Sprint");
         }
 
@@ -131,7 +130,7 @@ namespace Epico.Controllers
 
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
             // todo fix delete from DB
-            await SprintService.DeleteSprint(sprintId);
+            await SprintService.Delete(sprintId);
             return RedirectToAction("Index", "Sprint");
         }
 
@@ -154,7 +153,7 @@ namespace Epico.Controllers
         public async Task<IActionResult> AddFeature(AddFeatureToSprintViewModel model)
         {
             var features = await FeatureService.GetFeaturesListByIds(model.FeatureIds);
-            var sprint = await SprintService.GetSprintById(model.SprintId);
+            var sprint = await SprintService.GetById(model.SprintId);
 
             if (features == null)
             {
@@ -162,8 +161,7 @@ namespace Epico.Controllers
             }
 
             sprint.Features.AddRange(features);
-            
-            await SprintService.UpdateSprint(sprint);
+            await SprintService.Update(sprint);
 
             return RedirectToAction("Index", "Sprint");
         }

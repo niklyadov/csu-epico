@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,20 +13,27 @@ namespace Epico.Entity.DAL.Repository
             _dbContext = dbContext;
         }
 
-        //public async Task<Sprint> AddFeature(int sprintId, Feature feature)
-        //{
-        //    var sprint = await GetById(sprintId);
+        public new async Task<Sprint> GetById(int id)
+        {
+            return await _dbContext.Set<Sprint>()
+                .Where(x => x.ID == id)
+                .Include(x => x.Features)
+                .FirstAsync();
+        }
 
-        //    if (sprint == null) return null;
-            
-        //    sprint.Features ??= new List<Feature>();
-        //    sprint.Features.Add(feature);
-                
-        //    _dbContext.Entry(sprint).State = EntityState.Modified;
-                
-        //    await _dbContext.SaveChangesAsync();
+        public new async Task<List<Sprint>> GetByIds(List<int> ids)
+        {
+            return await _dbContext.Set<Sprint>()
+                .Where(l => ids.Contains(l.ID))
+                .Include(x => x.Features)
+                .ToListAsync();
+        }
 
-        //    return sprint;
-        //}
+        public new async Task<List<Sprint>> GetAll()
+        {
+            return await _dbContext.Set<Sprint>()
+                .Include(x => x.Features)
+                .ToListAsync();
+        }
     }
 }

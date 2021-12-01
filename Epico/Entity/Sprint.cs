@@ -8,10 +8,11 @@ namespace Epico.Entity
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public List<Feature> Features { get; set; }
-            = new List<Feature>();
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+
+        public List<Feature> Features { get; set; }
+            = new List<Feature>();
 
     }
 }

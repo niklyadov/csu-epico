@@ -9,11 +9,15 @@ namespace Epico.Entity
         public string Name { get; set; }
         public string Description { get; set; }
         public string Hypothesis { get; set; }
+        public FeatureState State { get; set; }
+        public RoadmapType? Roadmap { get; set; }
+
+        public List<Sprint> Sprints { get; set; }
+            = new List<Sprint>();
+
         public List<Metric> Metric { get; set; }
             = new List<Metric>();
         public List<Entity.Task> Tasks { get; set; } 
             = new List<Entity.Task>();
-        public FeatureState State { get; set; }
-        public RoadmapType? Roadmap { get; set; }
     }
 }
