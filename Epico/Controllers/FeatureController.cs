@@ -58,7 +58,7 @@ namespace Epico.Controllers
                 Tasks = tasks,
                 Metric = metric,
                 Roadmap = model.Roadmap,
-                State = FeatureState.NotStarted
+                State = FeatureState.Delivery
             });
             return RedirectToAction("Index", "Feature");
         }
