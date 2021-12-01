@@ -1,34 +1,67 @@
 ﻿@model TeamViewModel
 @{
-    ViewBag.Title = "Teams";
+    //ViewBag.Title = "Teams";
+    ViewBag.Title = "Users";
 }
 
+@*
+
+    <div class="column box gray-container">
+        <h2 class="bold">Команды для задач</h2>
+        <br />
+        <!--Раскоментить когда релизную версию выкатывать будем-->
+        @foreach (var task in Model.Tasks)
+        {
+            <span class="bold">@task.Name</span>
+            <div class="box word-break" style="max-width: 50%">
+                @if (task.Team.Count == 0)
+                {
+                    <span class="bold">Здесь пока никого нет *звуки сверчков*</span>
+                }
+                else
+                {
+                    @foreach (var user in task.Team)
+                    {
+                        <p>@user.UserName [@user.Position]</p>
+                    }
+                }
+
+                <form method="get" onclick="this.submit()" asp-action="AddUser" asp-controller="Team">
+                    <div class="is-flex center-element">
+                        <input type="hidden" asp-for="TaskId" value="@task.ID" />
+                        <img class="plus-button" src="~/img/plus.svg" />
+                    </div>
+                </form>
+            </div>
+        }
+    </div>
+*@
+
+
 <div class="column box gray-container">
-    <h2 class="bold">Команды для задач</h2>
+    <h2 class="bold">Список всех юзеров</h2>
     <br />
     <!--Раскоментить когда релизную версию выкатывать будем-->
-    @foreach (var task in Model.Tasks)
-    {
-        <span class="bold">@task.Name</span>
-        <div class="box word-break" style="max-width: 50%">
-            @if (task.Team.Count == 0)
-            {
-                <span class="bold">Здесь пока никого нет *звуки сверчков*</span>
-            }
-            else
-            {
-                @foreach (var user in task.Team)
-                {
-                    <p>@user.UserName [@user.Position]</p>
-                }
-            }
-
-            <form method="get" onclick="this.submit()" asp-action="AddUser" asp-controller="Team">
-                <div class="is-flex center-element">
-                    <input type="hidden" asp-for="TaskId" value="@task.ID" />
-                    <img class="plus-button" src="~/img/plus.svg" />
-                </div>
-            </form>
+    <table>
+        <tbody>
+            <tr>
+                <th>UserName</th>
+                <th width="10px"></th>
+                <th>Position</th>
+            </tr>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td>@user.UserName</td>
+                <td></td>
+                <td>[@user.Position]</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <form method="get" onclick="this.submit()" asp-action="Registration" asp-controller="Account">
+        <div class="is-flex center-element">
+            <img class="plus-button" src="~/img/plus.svg" />
         </div>
-    }
+    </form>
 </div>

@@ -43,20 +43,21 @@ namespace Epico.Controllers
         [HttpPost]
         public async Task<IActionResult> New(NewTaskViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                if (model.Users == null)
+                return View(new NewTaskViewModel
                 {
-                    return RedirectToAction("Index", "Task", new { error = true });
-                }
-                var team = await UserService.GetUsersListByIds(model.Users);
-                await TaskService.AddTask(model.Name, model.Description, team, model.DeadLine);
+                    PossibleUsers = await UserService.GetUsersList()
+                });
             }
-            
-            return View(new NewTaskViewModel 
+
+            if (model.Users == null)
             {
-                PossibleUsers = await UserService.GetUsersList()
-            });
+                return RedirectToAction("Index", "Task", new { error = true });
+            }
+            var team = await UserService.GetUsersListByIds(model.Users);
+            await TaskService.AddTask(model.Name, model.Description, team, model.DeadLine);
+            return RedirectToAction("Index", "Task");
         }
 
         [HttpGet]

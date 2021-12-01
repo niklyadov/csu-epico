@@ -1,4 +1,5 @@
 using Epico.Entity.DAL;
+using System;
 using System.Collections.Generic;
 
 namespace Epico.Entity
@@ -9,5 +10,8 @@ namespace Epico.Entity
         public string Name { get; set; }
         public List<Feature> Features { get; set; }
             = new List<Feature>();
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+
     }
 }

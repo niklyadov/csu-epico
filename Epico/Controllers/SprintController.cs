@@ -66,8 +66,10 @@ namespace Epico.Controllers
 
             await ProductService.AddSprint(Product.ID, new Sprint
             {
+                Name = model.Name,
                 Features = features,
-                Name = model.Name
+                StartDate = model.StartDate,
+                EndDate = model.EndDate
             });
             return RedirectToAction("Index", "Sprint");
         }
@@ -102,7 +104,9 @@ namespace Epico.Controllers
             {
                 ID = model.SprintId, 
                 Name = model.Name,
-                Features = features
+                Features = features,
+                StartDate = model.StartDate,
+                EndDate = model.EndDate
             });
             return RedirectToAction("Index", "Sprint");
         }
@@ -115,7 +119,9 @@ namespace Epico.Controllers
                 SprintId = sprint.ID,
                 Name = sprint.Name,
                 Features = sprint.Features.Select(x => x.ID).ToList(),
-                PosibleFeatures = await FeatureService.GetFeaturesList()
+                PosibleFeatures = await FeatureService.GetFeaturesList(),
+                StartDate = sprint.StartDate,
+                EndDate = sprint.EndDate
             };
         }
 

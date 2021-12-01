@@ -4,7 +4,7 @@
 }
 
 <div class="column box gray-container">
-    <h2 class="bold">Спринты</h2>
+    <h2 class="bold">Список всех спринтов</h2>
     <br />
 
     @if (Model.SprintError) 
@@ -16,7 +16,7 @@
     @foreach (var sprint in Model.Sprints)
     {
         <!-- todo Добавить даты сроков спринта после названия -->
-        <span class="bold">@sprint.Name <!--@* (@sprint.Start — @sprint.End *@)--> </span>
+        <span class="bold">@sprint.Name (@sprint.StartDate --- @sprint.EndDate)</span>
         <div class="box word-break">
         @foreach (var feature in sprint.Features)
         {

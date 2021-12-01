@@ -18,10 +18,12 @@ namespace Epico.Controllers
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            var tasks = await TaskService.GetAll();
+            //var tasks = await TaskService.GetAll();
+            var users = await UserService.GetUsersList();
             return View(new TeamViewModel 
             {
-                Tasks = tasks
+                //Tasks = tasks,
+                Users = users
             });
         }
 

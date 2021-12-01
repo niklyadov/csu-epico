@@ -12,8 +12,10 @@ namespace Epico.Models
         public string Name { get; set; }
         [Required(ErrorMessage = "*Обязательное поле")]
         public string Description { get; set; }
+
         [Required(ErrorMessage = "*Обязательное поле")]
-        public DateTime DeadLine { get; set; }
+        public DateTime DeadLine { get; set; } = DateTime.Now;
+
         [BindProperty]
         public List<int> Users { get; set; }
 

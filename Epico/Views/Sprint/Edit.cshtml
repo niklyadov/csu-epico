@@ -13,7 +13,8 @@
         <div asp-validation-summary="ModelOnly"></div>
         <div class="field">
             <label class="label" asp-for="Name">Название Спринта</label>
-            <div class="control">                <input class="input" asp-for="Name" value="@Model.Name" />
+            <div class="control">
+                <input class="input" asp-for="Name" value="@Model.Name" />
                 <span asp-validation-for="Name" class="error-message"></span>
             </div>
         </div>
@@ -29,6 +30,22 @@
                 <br />
             }
             <span asp-validation-for="Features" class="error-message"></span>
+        </div>
+        <br />
+        <div class="field">
+            <label class="label" asp-for="StartDate">Дата начала спринта</label>
+            <div class="control">
+                <input type="datetime-local" asp-for="StartDate" value="@Model.StartDate" />
+                <span asp-validation-for="StartDate" class="error-message"></span>
+            </div>
+        </div>
+        <br />
+        <div class="field">
+            <label class="label" asp-for="EndDate">Дата окончания спринта</label>
+            <div class="control">
+                <input type="datetime-local" asp-for="EndDate" value="@Model.StartDate" />
+                <span asp-validation-for="EndDate" class="error-message"></span>
+            </div>
         </div>
         <div class="has-text-centered">
             <button class="button is-primary">Сохранить</button>

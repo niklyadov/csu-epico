@@ -44,10 +44,10 @@ namespace Epico.Controllers
         [HttpGet]
         public IActionResult Registration()
         {
-            if (AccountService.CurrentUserId() != null)
-            {
-                return RedirectToAction("Index", "Product");
-            }
+            //if (AccountService.CurrentUserId() != null)
+            //{
+            //    return RedirectToAction("Index", "Product");
+            //}
 
             return View();
         }
@@ -58,6 +58,10 @@ namespace Epico.Controllers
         {
             if (ModelState.IsValid && await AccountService.Register(model.Username, model.Position, model.Password))
             {
+                if (AccountService.CurrentUserId() != null)
+                {
+                    return RedirectToAction("Index", "Team");
+                }
                 return RedirectToAction("New", "Product");
             }
             
