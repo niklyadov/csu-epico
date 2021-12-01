@@ -1,45 +1,51 @@
 ﻿using Epico.Entity;
 using Epico.Entity.DAL.Repository;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Task = Epico.Entity.Task;
 
 namespace Epico.Services
 {
-    public class UserService
+    public class UserService : IDBservice<User>
     {
         private readonly UserRepository _repository;
         public UserService(UserRepository repository)
         {
             _repository = repository;
         }
-        public async Task<User> AddUser(string firstName, string lastName)
+
+        public async Task<User> GetById(int id)
         {
-            return await _repository.Add(new User
-            {
-                UserName = string.Join(' ', firstName, lastName)
-            });
+            return await _repository.GetById(id);
         }
 
-        public async Task<List<User>> GetUsersList()
+        public async Task<List<User>> GetByIds(List<int> ids)
         {
-            // todo прикрутить пагинацию
+            return await _repository.GetByIds(ids);
+        }
+
+        public async Task<List<User>> GetAll()
+        {
             return await _repository.GetAll();
         }
 
-        public async Task<User> DeleteUser(string id)
+        public async Task<int> Save(User entity)
         {
-            return await _repository.Delete(id);
+            return await _repository.Save(entity);
         }
-        
-        public async Task<List<User>> GetUsersListByIds(List<int> ids)
+
+        public async Task<User> Delete(int entityId)
         {
-            if (ids == null) 
-                return new List<User>();
-            
-            return await _repository.GetByIds(ids);
+            return await _repository.Delete(entityId);
+        }
+
+        public async Task<User> Add(User entity)
+        {
+            return await _repository.Add(entity);
+        }
+
+        public async Task<User> Update(User entity)
+        {
+            return await _repository.Update(entity);
         }
     }
 }

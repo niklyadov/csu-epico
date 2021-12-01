@@ -20,7 +20,7 @@ namespace Epico.Controllers
             if (!HasProduct) return RedirectToAction("New", "Product");
 
             //var tasks = await TaskService.GetAll();
-            var users = await UserService.GetUsersList();
+            var users = await UserService.GetAll();
             return View(new TeamViewModel 
             {
                 //Tasks = tasks,
@@ -39,7 +39,7 @@ namespace Epico.Controllers
                 return BadRequest("Сначала нужно создать хотя бы одну задачу!");
             }
             
-            var users = await UserService.GetUsersList();
+            var users = await UserService.GetAll();
             return View(new AddUserToTeamViewModel 
             {
                 TaskId = task.ID,
@@ -53,7 +53,7 @@ namespace Epico.Controllers
         {
             var task = await TaskService.GetById(model.TaskId);
 
-            foreach (var user in await UserService.GetUsersListByIds(model.UserIds))
+            foreach (var user in await UserService.GetByIds(model.UserIds))
             {
                 if (!task.Team.Any(x => x.Id == user.Id))
                 {

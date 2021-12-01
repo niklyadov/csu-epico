@@ -60,7 +60,7 @@ namespace Epico.Controllers
             {
                 return RedirectToAction("Index", "Sprint", new { sprintError = true });
             }
-            var features = await FeatureService.GetFeaturesListByIds(model.Features);
+            var features = await FeatureService.GetByIds(model.Features);
 
             await ProductService.AddSprint(Product.ID, new Sprint
             {
@@ -74,7 +74,7 @@ namespace Epico.Controllers
 
         public async Task<NewSprintViewModel> GetNewSprintViewModel()
         {
-            var allFeatures = await FeatureService.GetFeaturesList();
+            var allFeatures = await FeatureService.GetAll();
             var possibleFeatures = allFeatures.Where(x => x.State != FeatureState.Closed)
                                              .ToList();
             
@@ -97,7 +97,7 @@ namespace Epico.Controllers
             if (!ModelState.IsValid) return View(await GetEditSprintViewModel(model.SprintId));
 
             // todo fix adding features
-            var features = await FeatureService.GetFeaturesListByIds(model.Features);
+            var features = await FeatureService.GetByIds(model.Features);
             var sprint = await SprintService.GetById(model.SprintId);
             sprint.Name = model.Name;
             sprint.Features = features;
@@ -110,13 +110,13 @@ namespace Epico.Controllers
 
         private async Task<EditSprintViewModel> GetEditSprintViewModel(int sprintId)
         {
-            var sprint = await SprintService.GetSprintById(sprintId);
+            var sprint = await SprintService.GetById(sprintId);
             return new EditSprintViewModel
             {
                 SprintId = sprint.ID,
                 Name = sprint.Name,
                 Features = sprint.Features.Select(x => x.ID).ToList(),
-                PosibleFeatures = await FeatureService.GetFeaturesList(),
+                PosibleFeatures = await FeatureService.GetAll(),
                 StartDate = sprint.StartDate,
                 EndDate = sprint.EndDate
             };
@@ -137,8 +137,8 @@ namespace Epico.Controllers
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            var sprint = await SprintService.GetSprintById(model.SprintId);
-            var features = await FeatureService.GetFeaturesList();
+            var sprint = await SprintService.GetById(model.SprintId);
+            var features = await FeatureService.GetAll();
             return View(new AddFeatureToSprintViewModel
             {
                 SprintName = sprint.Name,
@@ -150,7 +150,7 @@ namespace Epico.Controllers
         [HttpPost]
         public async Task<IActionResult> AddFeature(AddFeatureToSprintViewModel model)
         {
-            var features = await FeatureService.GetFeaturesListByIds(model.FeatureIds);
+            var features = await FeatureService.GetByIds(model.FeatureIds);
             var sprint = await SprintService.GetById(model.SprintId);
 
             if (features == null)

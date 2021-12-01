@@ -34,7 +34,7 @@ namespace Epico.Controllers
 
             return View(new NewTaskViewModel 
             {
-                PossibleUsers = await UserService.GetUsersList()
+                PossibleUsers = await UserService.GetAll()
             });
         }
 
@@ -45,7 +45,7 @@ namespace Epico.Controllers
             {
                 return View(new NewTaskViewModel
                 {
-                    PossibleUsers = await UserService.GetUsersList()
+                    PossibleUsers = await UserService.GetAll()
                 });
             }
 
@@ -53,7 +53,7 @@ namespace Epico.Controllers
             {
                 return RedirectToAction("Index", "Task", new { error = true });
             }
-            var team = await UserService.GetUsersListByIds(model.Users);
+            var team = await UserService.GetByIds(model.Users);
             await TaskService.AddTask(model.Name, model.Description, team, model.DeadLine);
             return RedirectToAction("Index", "Task");
         }
@@ -71,7 +71,7 @@ namespace Epico.Controllers
         {
             if (!ModelState.IsValid) return View(await GetEditTaskViewModel(model.TaskId));
 
-            var team = await UserService.GetUsersListByIds(model.Users);
+            var team = await UserService.GetByIds(model.Users);
             var task = await TaskService.GetById(model.TaskId);
             task.Name = model.Name;
             task.Description = model.Description;
@@ -95,7 +95,7 @@ namespace Epico.Controllers
                 DeadLine = task.DeadLine,
                 State = (int)task.State,
                 Users = task.Team.Select(x => x.Id).ToList(),
-                PosibleUsers = await UserService.GetUsersList()
+                PosibleUsers = await UserService.GetAll()
             };
         }
 
