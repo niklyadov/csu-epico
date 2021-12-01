@@ -4,6 +4,7 @@ namespace Epico.Views
 {
     public class RegistrationViewModel
     {
+        [RegularExpression("([a-zA-Z)", ErrorMessage = "Для имени пользователя можно истользовать только английские символы.")]
         [Required(ErrorMessage = "*Обязательно поле")]
         [Display(Name = "Имя пользователя")]
         public string Username { get; set; }
