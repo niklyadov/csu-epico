@@ -26,15 +26,15 @@
             </ul>
             <form method="get" asp-action="EditState" asp-controller="Task">
                 <input type="hidden" asp-for="TaskId" value="@task.ID" />
-                <button>Change status</button>
+                <button class="button is-primary is-small" style="margin-bottom: 0.5%">Change status</button>
             </form>
             <form method="get" asp-action="Edit" asp-controller="Task">
                 <input type="hidden" asp-for="TaskId" value="@task.ID" />
-                <button>Change task</button>
+                <button class="button is-primary is-small" style="margin-bottom: 0.5%">Change task</button>
             </form>
             <form method="get" asp-action="Delete" asp-controller="Task">
                 <input type="hidden" asp-for="TaskId" value="@task.ID" />
-                <button>Delete task</button>
+                <button class="button is-primary is-small" style="margin-bottom: 0.5%">Delete task</button>
             </form>
         </div>
     }

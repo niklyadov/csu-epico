@@ -4,29 +4,32 @@
     ViewBag.Title = "Изменение статуса фичи";
 }
 
-<form method="post" asp-action="EditState" asp-controller="Feature">
-    <input type="hidden" asp-for="FeatureId" />
-    <div class="field">
-        <label class="label" asp-for="State">Статус</label>
-        <div class="control">
-            <label class="radio">
-                <input type="radio" value="@FeatureState.NotStarted" @Html.Raw(Model.Feature.State == FeatureState.NotStarted ? "checked" : "") name="State" />
-                NotStarted
-            </label>
-            <br />
-            <label class="radio">
-                <input type="radio" value="@FeatureState.InProgress" @Html.Raw(Model.Feature.State == FeatureState.InProgress ? "checked" : "") name="State" />
-                InProgress
-            </label>
-            <br />
-            <label class="radio">
-                <input type="radio" value="@FeatureState.Closed" @Html.Raw(Model.Feature.State == FeatureState.Closed ? "checked" : "") name="State" />
-                Closed
-            </label>
-            <br />
+<div class="tile is-2 is-vertical box" style="box-shadow: 60px 16px gray;" border: 5px;">
+    <form method="post" asp-action="EditState" asp-controller="Feature">
+        <input type="hidden" asp-for="FeatureId" />
+        <div class="field">
+            <label class="label" asp-for="State">Статус</label>
+            <div class="control">
+                <label class="radio">
+                    <input type="radio" value="@FeatureState.NotStarted" @Html.Raw(Model.Feature.State == FeatureState.NotStarted ? "checked" : "") name="State" />
+                    NotStarted
+                </label>
+                <br />
+                <label class="radio">
+                    <input type="radio" value="@FeatureState.InProgress" @Html.Raw(Model.Feature.State == FeatureState.InProgress ? "checked" : "") name="State" />
+                    InProgress
+                </label>
+                <br />
+                <label class="radio">
+                    <input type="radio" value="@FeatureState.Closed" @Html.Raw(Model.Feature.State == FeatureState.Closed ? "checked" : "") name="State" />
+                    Closed
+                </label>
+                <br />
+            </div>
+            <span asp-validation-for="State"></span>
         </div>
-        <span asp-validation-for="State"></span>
-    </div>
 
-    <button type="submit">Сохранить</button>
-</form>
+
+        <button class="button is-primary" type="submit">Сохранить</button>
+    </form>
+</div>
