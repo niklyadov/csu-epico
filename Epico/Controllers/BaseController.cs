@@ -1,9 +1,7 @@
 using System;
-using System.Threading.Tasks;
 using Epico.Entity;
 using Epico.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ViewEngines;
 
 namespace Epico.Controllers
 {

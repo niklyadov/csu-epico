@@ -1,3 +1,4 @@
+using System;
 using Epico.Entity;
 using Epico.Entity.DAL;
 using Epico.Entity.DAL.Repository;
@@ -60,6 +61,11 @@ namespace Epico
             }).AddEntityFrameworkStores<ApplicationContext>();
 
             services.AddScoped<AccountService>();
+            
+            services.Configure<SecurityStampValidatorOptions>(options =>
+            {
+                options.ValidationInterval = TimeSpan.Zero;   
+            });
             
             #endregion
             
