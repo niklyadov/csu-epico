@@ -128,7 +128,12 @@ namespace Epico.Controllers
         [HttpPost]
         public async Task<IActionResult> EditState(EditStateTaskViewModel model)
         {
-            // todo save state changes
+            var task = await TaskService.GetById(model.TaskId);
+
+            task.State = model.State;
+            
+            await TaskService.Update(task);
+            
             return RedirectToAction("Index", "Task");
         }
     }
