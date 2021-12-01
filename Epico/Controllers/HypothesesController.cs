@@ -5,9 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Epico.Models;
 using Epico.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Epico.Controllers
 {
+    [Authorize]
     public class HypothesesController : BaseController
     {
         public HypothesesController(IServiceProvider serviceProvider) : base(serviceProvider)

@@ -1,13 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Epico.Entity;
 using Epico.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Epico.Controllers
 {
+    
+    [Authorize]
     public class TeamController : BaseController
     {
         public TeamController(IServiceProvider serviceProvider) : base(serviceProvider)
