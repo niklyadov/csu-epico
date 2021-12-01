@@ -14,9 +14,8 @@ namespace Epico.Models
         public string Name { get; set; }
         [Required(ErrorMessage = "*Обязательное поле")]
         public string Description { get; set; }
-        [Required(ErrorMessage = "*Обязательное поле")]
         public DateTime DeadLine { get; set; }
-        public TaskState State { get; set; }
+        public int State { get; set; }
         [BindProperty]
         public List<int> Users { get; set; }
 

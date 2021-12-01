@@ -79,7 +79,7 @@ namespace Epico.Controllers
             task.Description = model.Description;
             task.Team = team;
             task.DeadLine = model.DeadLine;
-            task.State = model.State;
+            task.State = (TaskState)model.State;
             
             await TaskService.Update(task);
 
@@ -95,7 +95,7 @@ namespace Epico.Controllers
                 Name = task.Name,
                 Description = task.Description,
                 DeadLine = task.DeadLine,
-                State = task.State,
+                State = (int)task.State,
                 Users = task.Team.Select(x => x.Id).ToList(),
                 PosibleUsers = await UserService.GetUsersList()
             };

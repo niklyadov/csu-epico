@@ -25,5 +25,23 @@ namespace Epico.Services
                 State = TaskState.NotStarted,
                 Team = team
             });
+
+        public new async Task<Task> GetById(int id)
+        {
+            return await _taskRepository.GetById(id);
+        }
+
+        public new async Task<List<Task>> GetByIds(List<int> ids)
+        {
+            if (ids == null)
+                return new List<Task>();
+
+            return await _taskRepository.GetByIds(ids);
+        }
+
+        public new async Task<List<Task>> GetAll()
+        {
+            return await _taskRepository.GetAll();
+        }
     }
 }
