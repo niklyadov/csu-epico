@@ -22,6 +22,15 @@
         <div class="box word-break">
             <p>@feature.Name [@feature.State.ToString()]</p>
             <p>@feature.Description</p>
+            <p class="bold">Привязанная метрика:</p>
+            <p>@feature.Metric.Name</p>
+
+            <p class="bold">Список задач:</p>
+            @foreach (var task in feature.Tasks)
+            {
+                <p>@task.Name</p>
+            }
+
             <form method="get" asp-action="EditState" asp-controller="Feature">
                 <input type="hidden" asp-for="FeatureId" value="@feature.ID" />
                 <button class="button is-primary is-small" style="margin-bottom: 0.5%">Change status</button>

@@ -21,7 +21,7 @@ namespace Epico.Models
         public List<int> Tasks { get; set; } = new List<int>();
         [Required(ErrorMessage = "*Обязательно")] 
         [BindProperty] 
-        public List<int> Metrics { get; set; } = new List<int>();
+        public int MetricId { get; set; }
 
         public List<Entity.Task> PosibleTasks { get; set; }
         public List<Metric> PosibleMetrics { get; set; }

@@ -51,18 +51,18 @@
         </div>
 
         <div class="field">
-            <label class="label" asp-for="Metrics">Выбор метрик</label>
+            <label class="label" asp-for="MetricId">Выбор метрик</label>
             <div class="control">
                 @foreach (var metric in Model.PosibleMetrics)
                 {
                     <label class="radio">
-                        <input type="radio" value="@metric.ID" name="Metrics" />
+                        <input type="radio" value="@metric.ID" name="MetricId" />
                         @metric.Name
                     </label>
                     <br />
                 }
             </div>
-            <span asp-validation-for="Metrics" class="error-message"></span>
+            <span asp-validation-for="MetricId" class="error-message"></span>
         </div>
 
         <div class="field">

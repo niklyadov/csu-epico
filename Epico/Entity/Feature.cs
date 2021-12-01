@@ -15,8 +15,8 @@ namespace Epico.Entity
         public List<Sprint> Sprints { get; set; }
             = new List<Sprint>();
 
-        public List<Metric> Metric { get; set; }
-            = new List<Metric>();
+        public int? MetricId { get; set; }
+        public Metric Metric { get; set; }
         public List<Entity.Task> Tasks { get; set; } 
             = new List<Entity.Task>();
     }

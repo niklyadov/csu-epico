@@ -29,6 +29,14 @@ namespace Epico.Entity.DAL
             modelBuilder.Entity<Sprint>()
                 .HasMany(s => s.Features)
                 .WithMany(f => f.Sprints);
+
+            modelBuilder.Entity<Feature>()
+                .HasOne(f => f.Metric)
+                .WithMany(m => m.Features);
+
+            modelBuilder.Entity<Feature>()
+                .HasMany(f => f.Tasks)
+                .WithMany(t => t.Features);
         }
     }
 }

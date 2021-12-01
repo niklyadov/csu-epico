@@ -72,6 +72,11 @@
                     </a>
                 </div>
                 <div class="has-text-left">
+                    <a class="button is-fullwidth left-nav_link" asp-controller="Team" asp-action="Index" onload="setActive(this)">
+                        <img src="~/img/team.svg" alt="Team" /> Team
+                    </a>
+                </div>
+                <div class="has-text-left">
                     <a class="button is-fullwidth left-nav_link" asp-controller="Task" asp-action="Index" onload="setActive(this)">
                         <img src="~/img/task.svg" alt="Tasks" /> Tasks
                     </a>
@@ -94,11 +99,6 @@
                 <div class="has-text-left">
                     <a class="button is-fullwidth left-nav_link" asp-controller="Sprint" asp-action="Index" onload="setActive(this)">
                         <img src="~/img/sprint.svg" alt="Sprints" /> Sprints
-                    </a>
-                </div>
-                <div class="has-text-left">
-                    <a class="button is-fullwidth left-nav_link" asp-controller="Team" asp-action="Index" onload="setActive(this)">
-                        <img src="~/img/team.svg" alt="Team" /> Team
                     </a>
                 </div>
             </div>

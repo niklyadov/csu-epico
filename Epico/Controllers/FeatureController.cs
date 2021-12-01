@@ -18,11 +18,12 @@ namespace Epico.Controllers
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
+            var features = await FeatureService.GetAll();
             return View(new FeatureViewModel
             {
                 TaskError = taskError,
                 MetricError = metricError,
-                Features = await FeatureService.GetFeaturesList()
+                Features = features
             });
         }
 
@@ -40,22 +41,22 @@ namespace Epico.Controllers
             if (!ModelState.IsValid) return View(await GetNewFeatureViewModel());
 
             bool taskError = model.Tasks.Count == 0;
-            bool metricError = model.Metrics.Count == 0;
+            bool metricError = model.MetricId == 0;
             if (taskError || metricError)
             {
                 return RedirectToAction("Index", "Feature", new { taskError = taskError, metricError = metricError });
             }
             var tasks = await TaskService.GetByIds(model.Tasks);
             // todo переделать на одну метрику
-            var metrics = await MetricService.GetMetricListByIds(model.Metrics);
+            var metric = await MetricService.GetById(model.MetricId);
 
-            await FeatureService.AddFeature(new Feature
+            await FeatureService.Add(new Feature
             {
                 Name = model.Name,
                 Description = model.Description,
                 Hypothesis = model.Hypothesis,
                 Tasks = tasks,
-                Metric = metrics,
+                Metric = metric,
                 Roadmap = model.Roadmap,
                 State = FeatureState.NotStarted
             });
@@ -87,7 +88,7 @@ namespace Epico.Controllers
                 Name = feature.Name,
                 Description = feature.Description,
                 Hypothesis = feature.Hypothesis,
-                Metrics = feature.Metric.Select(x => x.ID).ToList(),
+                MetricId = feature.Metric.ID,
                 Tasks = feature.Tasks.Select(x => x.ID).ToList(),
                 Roadmap = feature.Roadmap.Value,
                 State = feature.State,
@@ -103,18 +104,17 @@ namespace Epico.Controllers
             if (!ModelState.IsValid) return View(new EditFeatureViewModel { FeatureId = model.FeatureId });
 
             var tasks = await TaskService.GetByIds(model.Tasks);
-            var metrics = await MetricService.GetMetricListByIds(model.Metrics);
+            var metrics = await MetricService.GetById(model.MetricId);
+            var feature = await FeatureService.GetById(model.FeatureId);
+            feature.Name = model.Name;
+            feature.Description = model.Description;
+            feature.Hypothesis = model.Hypothesis;
+            feature.Metric = metrics;
+            feature.Tasks = tasks;
+            feature.State = model.State;
+            feature.Roadmap = model.Roadmap;
 
-            await FeatureService.UpdateFeature(new Feature
-            {
-                ID = model.FeatureId,
-                Name = model.Name,
-                Description = model.Description,
-                Hypothesis = model.Hypothesis,
-                Metric = metrics,
-                Tasks = tasks,
-                State = model.State
-            });
+            await FeatureService.Update(feature);
             return RedirectToAction("Index", "Feature");
         }
 
@@ -125,7 +125,7 @@ namespace Epico.Controllers
 
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
 
-            await FeatureService.DeleteFeature(featureId);
+            await FeatureService.Delete(featureId);
             return RedirectToAction("Index", "Feature");
         }
 
@@ -147,8 +147,8 @@ namespace Epico.Controllers
         {
             var feature = await FeatureService.GetFeatureById(model.FeatureId);
             feature.State = model.State;
-            await FeatureService.UpdateFeature(feature);
-            return RedirectToAction("Index", "Sprint");
+            await FeatureService.Update(feature);
+            return RedirectToAction("Index", "Feature");
         }
     }
 }

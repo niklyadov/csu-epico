@@ -47,7 +47,7 @@ namespace Epico.Controllers
             }
 
             feature.Roadmap = model.Roadmap;
-            await FeatureService.UpdateFeature(feature);
+            await FeatureService.Update(feature);
 
             return RedirectToAction("Index");
         }

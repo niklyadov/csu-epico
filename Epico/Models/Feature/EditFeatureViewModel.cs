@@ -16,7 +16,7 @@ namespace Epico.Models
         public string Hypothesis { get; set; }
         [Required(ErrorMessage = "*Обязательно")]
         [BindProperty] 
-        public List<int> Metrics { get; set; }
+        public int MetricId { get; set; }
         [Required(ErrorMessage = "*Обязательно")]
         [BindProperty] 
         public List<int> Tasks { get; set; }

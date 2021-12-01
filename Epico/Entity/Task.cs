@@ -11,6 +11,9 @@ namespace Epico.Entity
         public string Description { get; set; }
         public TaskState State { get; set; }
         public DateTime DeadLine { get; set; }
+
+        public List<Feature> Features { get; set; }
+            = new List<Feature>();
         public List<User> Team { get; set; }
             = new List<User>();
     }

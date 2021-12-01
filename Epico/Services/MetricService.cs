@@ -29,19 +29,11 @@ namespace Epico.Services
             return metric;
         }
 
-        public async Task<Metric> UpdateMetric(Metric metric)
-        {
-            return await _metricRepository.Update(metric);
-        }
-
-        public async Task<Metric> DeleteMetric(int id)
-        {
-            return await _metricRepository.Delete(id);
-        }
+       
 
         public async Task<Metric> GetMetricById(int id)
         {
-            return await _metricRepository.GetMetricById(id);
+            return await _metricRepository.GetById(id);
         }
         
         public async Task<Metric> GetNsmMetric()
@@ -58,6 +50,42 @@ namespace Epico.Services
         }
         
         public async Task<List<Metric>> GetMetricList()
+        {
+            return await _metricRepository.GetAll();
+        }
+
+
+
+
+        public async Task<Metric> Update(Metric metric)
+        {
+            return await _metricRepository.Update(metric);
+        }
+
+        public async Task<Metric> Delete(int id)
+        {
+            return await _metricRepository.Delete(id);
+        }
+
+        public async Task<Metric> Add(Metric metric)
+        {
+            return await _metricRepository.Add(metric);
+        }
+
+        public async Task<Metric> GetById(int id)
+        {
+            return await _metricRepository.GetById(id);
+        }
+
+        public async Task<List<Metric>> GetByIds(List<int> ids)
+        {
+            if (ids == null)
+                return new List<Metric>();
+
+            return await _metricRepository.GetByIds(ids);
+        }
+
+        public async Task<List<Metric>> GetAll()
         {
             return await _metricRepository.GetAll();
         }

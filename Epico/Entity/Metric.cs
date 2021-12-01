@@ -11,7 +11,9 @@ namespace Epico.Entity
         public bool IsNSM { get { return ParentMetricId == null; } }
         public string Name { get; set; }
         public string Description { get; set; }
-        
+
+        public List<Feature> Features { get; set; }
+            = new List<Feature>();
         public List<Metric> Children { get; set; } 
             = new List<Metric>();
     }

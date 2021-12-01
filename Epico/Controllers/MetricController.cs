@@ -60,7 +60,7 @@ namespace Epico.Controllers
 
                 var parentMetricNew = await MetricService.GetMetricById(model.ParentMetricId.Value);
                 parentMetricNew.Children.Add(metric);
-                await MetricService.UpdateMetric(parentMetricNew);
+                await MetricService.Update(parentMetricNew);
                 return RedirectToAction("Index", "Metric");
             }
             await MetricService.AddMetric(metric);
@@ -98,17 +98,17 @@ namespace Epico.Controllers
             {
                 var parentMetricOld = await MetricService.GetMetricById(metric.ParentMetricId.Value);
                     parentMetricOld.Children.Remove(metric);
-                await MetricService.UpdateMetric(parentMetricOld);
+                await MetricService.Update(parentMetricOld);
             }
 
             if (model.ParentMetricId.HasValue) // добавляем новый child из родителя
             {
                 var parentMetricNew = await MetricService.GetMetricById(model.ParentMetricId.Value);
                     parentMetricNew.Children.Add(metric);
-                await MetricService.UpdateMetric(parentMetricNew);
+                await MetricService.Update(parentMetricNew);
             }
 
-            await MetricService.UpdateMetric(metric);
+            await MetricService.Update(metric);
             
             return RedirectToAction("Index", "Metric");
         }
@@ -134,7 +134,7 @@ namespace Epico.Controllers
 
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
 
-            await MetricService.DeleteMetric(metricId);
+            await MetricService.Delete(metricId);
             return RedirectToAction("Index", "Metric");
         }
     }
