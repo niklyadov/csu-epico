@@ -40,7 +40,6 @@ a, a:hover, a:visited, a:focus {
     background-color: #bbdefb;
     cursor: default;
 }
-
 .tabs > div:not(.tabs__links) {
     display: none;
     order: 1;
@@ -50,5 +49,8 @@ a, a:hover, a:visited, a:focus {
     display: block;
 }
 
+button.is-primary {
+    background-color: #ff4040 !important;
+}
 
 
