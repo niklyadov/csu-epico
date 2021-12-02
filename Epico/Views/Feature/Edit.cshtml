@@ -29,6 +29,8 @@
             </div>
         </div>
 
+            
+        @*
         <!--Гипотеза [input]-->
         <div class="field">
             <label class="label" asp-for="Hypothesis">Гипотеза</label>
@@ -37,26 +39,27 @@
                 <span asp-validation-for="Hypothesis" class="error-message"></span>
             </div>
         </div>
+        *@
 
-        <!--Выбор задач [checkbox]-->
+        <!--Выбор команды [checkbox]-->
         <div class="field">
-            <label class="label" asp-for="Tasks">Выбор задач</label>
+            <label class="label" asp-for="UserIds">Выбор команды</label>
             <div class="control">
-                @foreach (var task in Model.PosibleTasks)
+                @foreach (var user in Model.PosibleUsers)
                 {
                     <label class="checkbox">
-                        <input type="checkbox" value="@task.ID" name="Tasks" checked=@Model.Tasks.Contains(task.ID) />
-                        @task.Name
+                        <input type="checkbox" value="@user.Id" name="UserIds" checked=@Model.UserIds.Contains(user.Id)/>
+                        @user.UserName [@user.Position]
                     </label>
                     <br />
                 }
             </div>
-            <span asp-validation-for="Tasks" class="error-message"></span>
+            <span asp-validation-for="UserIds" class="error-message"></span>
         </div>
 
         <!--Выбор метрик [checkbox]-->
         <div class="field">
-            <label class="label" asp-for="MetricId">Выбор метрик</label>
+            <label class="label" asp-for="MetricId">Выбор метрики</label>
             <div class="control">
                 @foreach (var metric in Model.PosibleMetrics)
                 {

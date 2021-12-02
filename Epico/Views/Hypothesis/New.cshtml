@@ -1,15 +1,15 @@
-@using Epico.Entity;
-@model NewFeatureViewModel
+﻿@using Epico.Entity;
+@model NewHypothesisViewModel
 @{
-    ViewBag.Title = "Добавление фичи";
+    ViewBag.Title = "Добавление гипотезы";
 }
 
-    <!--has-text-centered-->
+<!--has-text-centered-->
 <div class="content is-medium ">
-    <h2>Добавление новой фичи</h2>
+    <h2>Добавление новой гипотезы</h2>
 </div>
 <div class="box">
-    <form method="post" asp-controller="Feature" asp-action="New">
+    <form method="post" asp-action="New" asp-controller="Hypothesis">
         <div asp-validation-summary="ModelOnly"></div>
         <div class="field">
             <label class="label" asp-for="Name">Название</label>
@@ -27,18 +27,6 @@
             </div>
         </div>
 
-            
-        @*
-        <div class="field">
-            <label class="label" asp-for="Hypothesis">Гипотеза</label>
-            <div class="control">
-                <input class="input" asp-for="Hypothesis" />
-                <span asp-validation-for="Hypothesis" class="error-message"></span>
-            </div>
-        </div>
-        *@
-            
-        
         <div class="field">
             <label class="label" asp-for="UserIds">Выбор команды</label>
             <div class="control">
@@ -53,7 +41,7 @@
             </div>
             <span asp-validation-for="UserIds" class="error-message"></span>
         </div>
-        
+
 
         <div class="field">
             <label class="label" asp-for="MetricId">Выбор метрики</label>
@@ -73,25 +61,6 @@
                 }
             </div>
             <span asp-validation-for="MetricId" class="error-message"></span>
-        </div>
-
-        <div class="field">
-            <label class="label" asp-for="Roadmap">Выбор типа роадмапа</label>
-            <div class="control">
-                <label class="radio">
-                    <input type="radio" value="@RoadmapType.Now" checked name="Roadmap" />
-                    Now
-                </label>
-                <label class="radio">
-                    <input type="radio" value="@RoadmapType.Then" name="Roadmap" />
-                    Then
-                </label>
-                <label class="radio">
-                    <input type="radio" value="@RoadmapType.After" name="Roadmap" />
-                    After
-                </label>
-            </div>
-            <span asp-validation-for="Roadmap" class="error-message"></span>
         </div>
 
         <div class="has-text-centered">

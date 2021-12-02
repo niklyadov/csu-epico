@@ -19,7 +19,7 @@ namespace Epico.Controllers
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            var features = await FeatureService.GetAll();
+            var features = await FeatureService.GetAllFeatures();
             return View(new FeatureViewModel
             {
                 MetricError = metricError,
@@ -49,12 +49,13 @@ namespace Epico.Controllers
             {
                 Name = model.Name,
                 Description = model.Description,
-                Hypothesis = model.Hypothesis,
+                //Hypothesis = model.Hypothesis,
                 Tasks = new List<Entity.Task>(),
                 Users = users,
                 Metric = metric,
                 Roadmap = model.Roadmap,
-                State = FeatureState.Delivery
+                State = FeatureState.Discovery,
+                IsFeature = true
             });
             return RedirectToAction("Index", "Feature");
         }
@@ -71,45 +72,50 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit([FromQuery] int featureId)
+        public IActionResult Edit([FromQuery] int featureId)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            var feature = await FeatureService.GetById(featureId);
-            return View(new EditFeatureViewModel
-            {
-                FeatureId = feature.ID,
-                Name = feature.Name,
-                Description = feature.Description,
-                Hypothesis = feature.Hypothesis,
-                MetricId = feature.Metric.ID,
-                Tasks = feature.Tasks.Select(x => x.ID).ToList(),
-                Roadmap = feature.Roadmap.Value,
-                State = feature.State,
-
-                PosibleTasks = await TaskService.GetAll(),
-                PosibleMetrics = await MetricService.GetAll()
-            });
+            return View(GetEditFeatureViewModel(featureId));
         }
 
         [HttpPost]
         public async Task<IActionResult> Edit(EditFeatureViewModel model)
         {
-            if (!ModelState.IsValid) return View(new EditFeatureViewModel { FeatureId = model.FeatureId });
+            if (!ModelState.IsValid) return View(GetEditFeatureViewModel(model.FeatureId));
 
-            var tasks = await TaskService.GetByIds(model.Tasks);
+            var users = await UserService.GetByIds(model.UserIds);
             var metrics = await MetricService.GetById(model.MetricId);
             var feature = await FeatureService.GetById(model.FeatureId);
             feature.Name = model.Name;
             feature.Description = model.Description;
             feature.Hypothesis = model.Hypothesis;
             feature.Metric = metrics;
-            feature.Tasks = tasks;
+            feature.Users = users;
             feature.State = model.State;
             feature.Roadmap = model.Roadmap;
 
             await FeatureService.Update(feature);
             return RedirectToAction("Index", "Feature");
+        }
+
+        private EditFeatureViewModel GetEditFeatureViewModel(int featureId)
+        {
+            var feature = FeatureService.GetById(featureId).Result;
+            return new EditFeatureViewModel
+            {
+                FeatureId = feature.ID,
+                Name = feature.Name,
+                Description = feature.Description,
+                Hypothesis = feature.Hypothesis,
+                MetricId = feature.Metric.ID,
+                UserIds = feature.Users.Select(x => x.Id).ToList(),
+                Roadmap = feature.Roadmap.Value,
+                State = feature.State,
+
+                PosibleUsers = UserService.GetAll().Result,
+                PosibleMetrics = MetricService.GetAll().Result
+            };
         }
 
         [HttpGet]

@@ -2,6 +2,7 @@ using Epico.Entity;
 using Epico.Entity.DAL.Repository;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Epico.Services
 {
@@ -30,6 +31,20 @@ namespace Epico.Services
         public async Task<List<Feature>> GetAll()
         {
             return await _featureRepository.GetAll();
+        }
+
+        public async Task<List<Feature>> GetAllFeatures()
+        {
+            return (await _featureRepository.GetAll())
+                .Where(x => x.IsFeature.Equals(true))
+                .ToList();
+        }
+
+        public async Task<List<Feature>> GetAllHypotheses()
+        {
+            return (await _featureRepository.GetAll())
+                .Where(x => x.IsFeature.Equals(false))
+                .ToList();
         }
 
         public async Task<int> Save(Feature entity)

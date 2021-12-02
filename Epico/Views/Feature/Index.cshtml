@@ -30,7 +30,7 @@
             <div>
                 <div class="container-text-button">
                     <span class="bold">Список задач:</span>
-                    <form method="get" onclick="this.submit()" asp-action="NewById" asp-controller="Task">
+                    <form method="get" onclick="this.submit()" asp-action="NewByIdF" asp-controller="Task">
                         <div class="is-flex container-text-button_button">
                             <input type="hidden" asp-for="FeatureId" value="@feature.ID" name="featureId" />
                             <img class="plus-button" src="~/img/plus.svg" />
@@ -42,9 +42,12 @@
                 {
                     <p>Здаесь пока нет задач.</p>
                 }
-                @foreach (var task in feature.Tasks)
-                {
-                    <p>@task.Name</p>
+                else 
+                { 
+                    @foreach (var task in feature.Tasks)
+                    {
+                        <p>@task.Name</p>
+                    }
                 }
                 </div>
             </div>

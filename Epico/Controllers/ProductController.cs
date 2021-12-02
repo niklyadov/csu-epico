@@ -29,18 +29,8 @@ namespace Epico.Controllers
         public async Task<IActionResult> Show()
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
-            //var userProductId = await ProductService.UserProductId(AccountService.CurrentUserId());
-            //if (!userProductId.HasValue)
-            //    return NotFound("This user does not have a project!");
-            
-            //var product = await ProductService.GetProductById(userProductId.Value);
-            var product = Product;
-            var sprints = await SprintService.GetAll();
-            var features = await FeatureService.GetAll();
-            var metrics = await MetricService.GetAll();
-            var tasks = await TaskService.GetAll();
-            var users = await UserService.GetAll();
 
+            var product = Product;
             return View(new ProductViewModel
             {
                 ProductId = product.ID,
@@ -48,12 +38,7 @@ namespace Epico.Controllers
                 Mission = product.Mission,
                 Vision = product.Vision,
                 OwnerUserId = product.OwnerUserId,
-                ProductFormula = product.ProductFormula,
-                Tasks = tasks,
-                Features = features,
-                Sprints = sprints,
-                Metrics = metrics,
-                Users = users
+                ProductFormula = product.ProductFormula
             });
         }
 
@@ -89,12 +74,12 @@ namespace Epico.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Delete(int projectId)
+        public async Task<IActionResult> Delete([FromQuery] int productId)
         {
             if (!ModelState.IsValid) 
                 return BadRequest("ModelState is not Valid");
             
-            await ProductService.Delete(projectId);
+            await ProductService.Delete(productId);
             return RedirectToAction("New");
         }
     }

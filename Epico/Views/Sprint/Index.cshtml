@@ -18,9 +18,9 @@
         <!-- todo Добавить даты сроков спринта после названия -->
         <span class="bold">@sprint.Name (@sprint.StartDate --- @sprint.EndDate)</span>
         <div class="box word-break">
-        @foreach (var feature in sprint.Features)
+        @foreach (var feature in sprint.Features.OrderBy(x => x.IsFeature))
         {
-            <p>@feature.Name</p>
+            <p>@feature.Name [@(feature.IsFeature ? "Фича" : "Гипотеза")]</p>
         }
             <form method="get" onclick="this.submit()" asp-action="AddFeature" asp-controller="Sprint">
                 <div class="is-flex center-element">

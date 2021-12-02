@@ -11,6 +11,8 @@ namespace Epico.Entity
         public string Hypothesis { get; set; }
         public FeatureState State { get; set; }
         public RoadmapType? Roadmap { get; set; }
+        public bool IsFeature { get; set; }
+
 
         public List<Sprint> Sprints { get; set; }
             = new List<Sprint>();

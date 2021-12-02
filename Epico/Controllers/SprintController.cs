@@ -116,7 +116,9 @@ namespace Epico.Controllers
                 SprintId = sprint.ID,
                 Name = sprint.Name,
                 Features = sprint.Features.Select(x => x.ID).ToList(),
-                PosibleFeatures = await FeatureService.GetAll(),
+                PosibleFeatures = (await FeatureService.GetAllFeatures())
+                                  .OrderBy(x => x.IsFeature)
+                                  .ToList(),
                 StartDate = sprint.StartDate,
                 EndDate = sprint.EndDate
             };
@@ -138,7 +140,7 @@ namespace Epico.Controllers
             if (!HasProduct) return RedirectToAction("New", "Product");
 
             var sprint = await SprintService.GetById(model.SprintId);
-            var features = await FeatureService.GetAll();
+            var features = await FeatureService.GetAllFeatures();
             return View(new AddFeatureToSprintViewModel
             {
                 SprintName = sprint.Name,

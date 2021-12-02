@@ -1,11 +1,14 @@
-using Epico.Entity;
+﻿using Epico.Entity;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Epico.Models
 {
-    public class NewFeatureViewModel
+    public class NewHypothesisViewModel
     {
         [Required(ErrorMessage = "*Обязательное поле")]
         public string Name { get; set; }
@@ -13,19 +16,12 @@ namespace Epico.Models
         [Required(ErrorMessage = "*Обязательное поле")]
         public string Description { get; set; }
 
-        //[Required(ErrorMessage = "*Обязательное поле")]
-        //public string Hypothesis { get; set; }
-
         [Required(ErrorMessage = "*Обязательно")]
-        [BindProperty] 
-        public RoadmapType Roadmap { get; set; }
-
-        [Required(ErrorMessage = "*Обязательно")]
-        [BindProperty] 
+        [BindProperty]
         public List<int> UserIds { get; set; } = new List<int>();
 
-        [Required(ErrorMessage = "*Обязательно")] 
-        [BindProperty] 
+        [Required(ErrorMessage = "*Обязательно")]
+        [BindProperty]
         public int MetricId { get; set; }
 
         public List<User> PosibleUsers { get; set; }
