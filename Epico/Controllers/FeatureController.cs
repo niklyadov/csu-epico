@@ -150,5 +150,59 @@ namespace Epico.Controllers
             await FeatureService.Update(feature);
             return RedirectToAction("Index", "Feature");
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> NewTask([FromQuery] int featureId)
+        {
+            if (!HasProduct) return RedirectToAction("New", "Product");
+            var feature = await FeatureService.GetById(featureId);
+            return View(new NewTaskByIdViewModel
+            {
+                FeatureId = featureId,
+                PossibleUsers = (await UserService.GetAll())
+                                .Where(user => feature.Users.Contains(user))
+                                .ToList()
+            });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> NewTask(NewTaskByIdViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                var refeature = await FeatureService.GetById(model.FeatureId);
+                return View(new NewTaskByIdViewModel
+                {
+                    FeatureId = model.FeatureId,
+                    PossibleUsers = (await UserService.GetAll())
+                                .Where(user => refeature.Users.Contains(user))
+                                .ToList()
+                });
+            }
+
+            if (model.UserId == 0)
+            {
+                return RedirectToAction("Index", "Feature", new { taskCreateError = true });
+            }
+
+            var feature = await FeatureService.GetById(model.FeatureId);
+            if (!feature.Users.Select(x => x.Id).Contains(model.UserId))
+            {
+                return BadRequest("Юзер не доступен т.к. не содержится в команде фичи. Вы чайник.");
+            }
+
+            var responsibleUser = await UserService.GetById(model.UserId);
+            var task = await TaskService.Add(new Entity.Task
+            {
+                Name = model.Name,
+                Description = model.Description,
+                DeadLine = model.DeadLine,
+                ResponsibleUser = responsibleUser
+            });
+            feature.Tasks.Add(task);
+            await FeatureService.Update(feature);
+            return RedirectToAction("Index", "Feature");
+        }
     }
 }

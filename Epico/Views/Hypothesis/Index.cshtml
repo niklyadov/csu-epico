@@ -20,7 +20,7 @@
         <div>
             <div class="container-text-button">
                 <span class="bold">Список задач:</span>
-                <form method="get" onclick="this.submit()" asp-action="NewByIdH" asp-controller="Task">
+                <form method="get" onclick="this.submit()" asp-action="NewTask" asp-controller="Hypothesis">
                     <div class="is-flex container-text-button_button">
                         <input type="hidden" asp-for="HypothisisId" value="@hypothisis.ID" name="hypothisisId" />
                         <img class="plus-button" src="~/img/plus.svg" />

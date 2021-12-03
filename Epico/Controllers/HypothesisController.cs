@@ -114,5 +114,59 @@ namespace Epico.Controllers
                 PosibleMetrics = MetricService.GetAll().Result
             };
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> NewTask([FromQuery] int hypothisisId)
+        {
+            if (!HasProduct) return RedirectToAction("New", "Product");
+            var hypothisis = await FeatureService.GetById(hypothisisId);
+            return View(new NewTaskByIdViewModel
+            {
+                FeatureId = hypothisisId,
+                PossibleUsers = (await UserService.GetAll())
+                                .Where(user => hypothisis.Users.Contains(user))
+                                .ToList()
+            });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> NewTask(NewTaskByIdViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                var rehypothisis = await FeatureService.GetById(model.FeatureId);
+                return View(new NewTaskByIdViewModel
+                {
+                    FeatureId = model.FeatureId,
+                    PossibleUsers = (await UserService.GetAll())
+                                .Where(user => rehypothisis.Users.Contains(user))
+                                .ToList()
+                });
+            }
+
+            if (model.UserId == 0)
+            {
+                return RedirectToAction("Index", "Feature", new { taskCreateError = true });
+            }
+
+            var hypothisis = await FeatureService.GetById(model.FeatureId);
+            if (!hypothisis.Users.Select(x => x.Id).Contains(model.UserId))
+            {
+                return BadRequest("Юзер не доступен т.к. не содержится в команде гипотезы. Вы чайник.");
+            }
+
+            var responsibleUser = await UserService.GetById(model.UserId);
+            var task = await TaskService.Add(new Entity.Task
+            {
+                Name = model.Name,
+                Description = model.Description,
+                DeadLine = model.DeadLine,
+                ResponsibleUser = responsibleUser
+            });
+            hypothisis.Tasks.Add(task);
+            await FeatureService.Update(hypothisis);
+            return RedirectToAction("Index", "Feature");
+        }
     }
 }

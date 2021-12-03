@@ -30,7 +30,7 @@
             <div>
                 <div class="container-text-button">
                     <span class="bold">Список задач:</span>
-                    <form method="get" onclick="this.submit()" asp-action="NewByIdF" asp-controller="Task">
+                    <form method="get" onclick="this.submit()" asp-action="NewTask" asp-controller="Feature">
                         <div class="is-flex container-text-button_button">
                             <input type="hidden" asp-for="FeatureId" value="@feature.ID" name="featureId" />
                             <img class="plus-button" src="~/img/plus.svg" />
