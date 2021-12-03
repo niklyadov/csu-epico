@@ -28,7 +28,7 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> New(FeatureViewModel model)
+        public async Task<IActionResult> New()
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
@@ -130,11 +130,11 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> EditState(int featureId)
+        public async Task<IActionResult> EditState(int id)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            var feature = await FeatureService.GetById(featureId);
+            var feature = await FeatureService.GetById(id);
             return View(new EditStateFeatureViewModel
             {
                 Feature = feature,

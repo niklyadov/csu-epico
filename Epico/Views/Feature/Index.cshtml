@@ -39,7 +39,7 @@
                             <a class="is-24-height"
                                asp-controller="Feature"
                                asp-action="EditState"
-                               asp-route-featureId="@feature.ID">
+                               asp-route-id="@feature.ID">
                                 <img class="status-button" src="~/img/status.svg" />
                             </a>
                         </div>
@@ -67,34 +67,48 @@
                             }
                             else
                             {
-                                @foreach (var task in feature.Tasks)
-                                {
-                                    <div class="container-text-button">
-                                        <span>@task.Name [@task.State]</span>
-                                        <div class="is-flex container-text-button_button">
-                                            <a class="is-24-height"
-                                               asp-controller="Feature"
-                                               asp-action="EditTask"
-                                               asp-route-id="@feature.ID"
-                                               asp-route-taskId="@task.ID">
-                                                <img class="edit-button" src="~/img/edit.svg" />
-                                            </a>
-                                        </div>
-                                        <div class="is-flex container-text-button_button">
-                                            <a class="is-24-height"
-                                               asp-controller="Feature"
-                                               asp-action="DeleteTask"
-                                               asp-route-id="@feature.ID"
-                                               asp-route-taskId="@task.ID">
-                                                <img class="delete-button" src="~/img/trash.svg" />
-                                            </a>
-                                        </div>
-                                        @if (!task.HasResponsibleUser) 
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <th></th>
+                                            <th width="100px"></th>
+                                            <th width="25px"></th>
+                                            <th width="25px"></th>
+                                        </tr>
+
+                                        @foreach (var task in feature.Tasks)
                                         {
-                                            <span class="error-message"> *Ответственный не назначен</span>
+                                            @if (!task.HasResponsibleUser)
+                                            {
+                                                <tr>
+                                                    <td class="error-message"> *Ответственный не назначен</td>
+                                                </tr>
+                                            }
+                                            <tr>
+                                                <td>@task.Name</td>
+                                                <td>[@task.State]</td>
+                                                <td>
+                                                    <a class="is-24-height"
+                                                       asp-controller="Feature"
+                                                       asp-action="EditTask"
+                                                       asp-route-id="@feature.ID"
+                                                       asp-route-taskId="@task.ID">
+                                                        <img class="edit-button" src="~/img/edit.svg" />
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a class="is-24-height"
+                                                       asp-controller="Feature"
+                                                       asp-action="DeleteTask"
+                                                       asp-route-id="@feature.ID"
+                                                       asp-route-taskId="@task.ID">
+                                                        <img class="delete-button" src="~/img/trash.svg" />
+                                                    </a>
+                                                </td>
+                                            </tr>
                                         }
-                                    </div>
-                                }
+                                    </tbody>
+                                </table>
                             }
                         </div>
                     </div>
