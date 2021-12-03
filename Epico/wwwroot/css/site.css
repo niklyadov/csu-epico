@@ -125,5 +125,13 @@ a.button.is-fullwidth.left-nav_link:focus:not(:active) {
 }
 
 .is-24-height{
-    max-height: 24px !important;
+    max-height: 24px;
+}
+
+.is-32-height {
+    max-height: 32px;
+}
+
+.logout-button {
+    font-size: 0.95vw;
 }

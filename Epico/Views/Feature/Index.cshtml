@@ -5,8 +5,16 @@
 }
 
 <div class="column box gray-container">
-    <h2 class="bold">Список всех фич</h2>
-    <br />
+    <div class="container-text-button">
+        <span class="bold">Список всех фич </span>
+        <div class="container-text-button_button">
+            <a class="is-32-height"
+               asp-controller="Feature"
+               asp-action="New">
+                <img class="plus-button" src="~/img/plus-square.svg" />
+            </a>
+        </div>
+    </div>
     @if (Model.TaskError)
     {
         <span class="error-message">*Нельзя создать фичу без указания задач</span>
@@ -23,12 +31,12 @@
             <div class="columns">
                 <div class="column is-four-fifths">
                     <!--Информация о фиче-->
-                    <p>@feature.Name</p>
-                    <p>@feature.Description</p>
+                    <p><span class="bold">Название: </span>@feature.Name</p>
+                    <p><span class="bold">Описание: </span>@feature.Description</p>
                     <div class="container-text-button">
-                        <span>Статус фичи: [@feature.State.ToString()]</span>
+                        <span><span class="bold">Статус фичи:</span> [@feature.State]</span>
                         <div class="container-text-button_button">
-                            <a class="is-24-height" 
+                            <a class="is-24-height"
                                asp-controller="Feature"
                                asp-action="EditState"
                                asp-route-featureId="@feature.ID">
@@ -51,14 +59,6 @@
                                     <img class="plus-button" src="~/img/plus.svg" />
                                 </a>
                             </div>
-
-
-                            @*<form method="get" onclick="this.submit()" asp-action="NewTask" asp-controller="Feature">
-                                <div class="is-flex container-text-button_button">
-                                    <input type="hidden" asp-for="FeatureId" value="@feature.ID" name="featureId" />
-                                    <img class="plus-button" src="~/img/plus.svg" />
-                                </div>
-                            </form>*@
                         </div>
                         <div>
                             @if (feature.Tasks.Count == 0)
@@ -72,19 +72,19 @@
                                     <div class="container-text-button">
                                         <span>@task.Name [@task.State]</span>
                                         <div class="is-flex container-text-button_button">
-                                            <a class="is-24-height" 
-                                               asp-controller="Feature" 
-                                               asp-action="EditTask" 
-                                               asp-route-featureId="@feature.ID" 
+                                            <a class="is-24-height"
+                                               asp-controller="Feature"
+                                               asp-action="EditTask"
+                                               asp-route-featureId="@feature.ID"
                                                asp-route-taskId="@task.ID">
                                                 <img class="edit-button" src="~/img/edit.svg" />
                                             </a>
                                         </div>
                                         <div class="is-flex container-text-button_button">
-                                            <a class="is-24-height" 
-                                               asp-controller="Feature" 
-                                               asp-action="DeleteTask" 
-                                               asp-route-featureId="@feature.ID" 
+                                            <a class="is-24-height"
+                                               asp-controller="Feature"
+                                               asp-action="DeleteTask"
+                                               asp-route-featureId="@feature.ID"
                                                asp-route-taskId="@task.ID">
                                                 <img class="delete-button" src="~/img/trash.svg" />
                                             </a>
@@ -113,21 +113,8 @@
                        asp-controller="Feature"
                        asp-action="Delete"
                        asp-route-id="@feature.ID">Delete feature</a>
-                    @*<form method="get" asp-action="Edit" asp-controller="Feature">
-                        <input type="hidden" asp-for="FeatureId" value="@feature.ID" />
-                        <button class="button is-primary is-small" style="margin-bottom: 0.5%">Change feature</button>
-                    </form>
-                    <form method="get" asp-action="Delete" asp-controller="Feature">
-                        <input type="hidden" asp-for="FeatureId" value="@feature.ID" />
-                        <button class="button is-primary is-small" style="margin-bottom: 0.5%">Delete feature</button>
-                    </form>*@
                 </div>
             </div>
         </div>
     }
-    <form method="get" onclick="this.submit()" asp-action="New" asp-controller="Feature">
-        <div class="is-flex center-element">
-            <img class="plus-button" src="~/img/plus-square.svg" />
-        </div>
-    </form>
 </div>

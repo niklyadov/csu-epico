@@ -65,11 +65,11 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(int taskId)
+        public async Task<IActionResult> Edit(int id)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            return View(await GetEditTaskViewModel(taskId));
+            return View(await GetEditTaskViewModel(id));
         }
 
         [HttpPost]
@@ -106,22 +106,20 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Delete([FromQuery] int taskId)
+        public async Task<IActionResult> Delete(int id)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
-
-            await TaskService.Delete(taskId);
+            await TaskService.Delete(id);
             return RedirectToAction("Index", "Task");
         }
 
         [HttpGet]
-        public async Task<IActionResult> EditState(TaskViewModel model)
+        public async Task<IActionResult> EditState(int id)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            var task = await TaskService.GetById(model.TaskId);
+            var task = await TaskService.GetById(id);
             return View(new EditStateTaskViewModel
             {
                 TaskId = task.ID,
@@ -132,12 +130,18 @@ namespace Epico.Controllers
         [HttpPost]
         public async Task<IActionResult> EditState(EditStateTaskViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                var retask = await TaskService.GetById(model.TaskId);
+                return View(new EditStateTaskViewModel
+                {
+                    TaskId = retask.ID,
+                    Task = retask
+                });
+            }
             var task = await TaskService.GetById(model.TaskId);
-
             task.State = model.State;
-            
             await TaskService.Update(task);
-            
             return RedirectToAction("Index", "Task");
         }
     }

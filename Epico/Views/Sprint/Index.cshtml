@@ -4,15 +4,21 @@
 }
 
 <div class="column box gray-container">
-    <h2 class="bold">Список всех спринтов</h2>
-    <br />
-
+    <div class="container-text-button">
+        <span class="bold">Список всех спринтов </span>
+        <div class="container-text-button_button" >
+            <a class="is-32-height"
+               asp-controller="Sprint"
+               asp-action="New">
+                <img class="plus-button" src="~/img/plus-square.svg" />
+            </a>
+        </div>
+    </div>
     @if (Model.SprintError)
     {
         <span class="error-message">*Нельзя создать спринт без указания фичи</span>
         <br />
     }
-    <!--Раскоментить когда релизную версию выкатывать будем-->
     @foreach (var sprint in Model.Sprints)
     {
         <div class="box word-break">
@@ -66,42 +72,6 @@
                             }
                         </tbody>
                     </table>
-                        
-                    
-                    @*
-                    @foreach (var feature in sprint.Features.OrderBy(x => x.IsFeature))
-                    {
-                        <div class="container-text-button">
-                            @if (feature.IsFeature)
-                            {
-                                <span>Фича: @feature.Name [@feature.State]</span>
-                            }
-                            else 
-                            { 
-                                <span>Гипотеза: @feature.Name</span>
-                            }
-                            <div class="is-flex container-text-button_button">
-                                <a class="is-24-height" asp-controller="Feature" asp-action="Edit" asp-route-id="@feature.ID" >
-                                    <img class="edit-button" src="~/img/edit.svg" />
-                                </a>
-                            </div>
-                            <div class="is-flex container-text-button_button">
-                                <a class="is-24-height" asp-controller="Sprint" asp-action="DeleteFeature" asp-route-sprintId="@sprint.ID" asp-route-featureId="@feature.ID" >
-                                    <img class="delete-button" src="~/img/trash.svg" />
-                                </a>
-                            </div>
-                        </div>
-                    }
-                    *@
-
-                    @*<form method="get" onclick="this.submit()" asp-action="AddFeature" asp-controller="Sprint">
-                        <div class="is-flex center-element">
-                            <input type="hidden" asp-for="SprintId" value="@sprint.ID" />
-                            <img class="plus-button" src="~/img/plus.svg" />
-                        </div>
-                    </form>*@
-
-
                 </div>
                 <div class="column">
                     <a class="button is-red is-fullwidth" style="margin-bottom: 0.5%"
@@ -112,22 +82,8 @@
                        asp-controller="Sprint"
                        asp-action="Delete"
                        asp-route-id="@sprint.ID">Delete Sprint</a>
-                    @*<form method="get">
-                        <input type="hidden" asp-for="SprintId" value="" />
-                        <button class="button is-primary is-small" style="margin-bottom: 0.5%"></button>
-                    </form>
-                    <form method="get" asp-action="Delete" asp-controller="Sprint">
-                        <input type="hidden" asp-for="SprintId" value="@sprint.ID" />
-                        <button class="button is-primary is-small" style="margin-bottom: 0.5%">Delete Sprint</button>
-                    </form>*@
                 </div>
             </div>
         </div>
     }
-    <!-- Кнопка добавления нового спринта-->
-    <form method="get" onclick="this.submit()" asp-action="New" asp-controller="Sprint">
-        <div class="is-flex center-element">
-            <img class="plus-button" src="~/img/plus-square.svg" />
-        </div>
-    </form>
 </div>

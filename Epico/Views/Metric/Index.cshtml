@@ -1,4 +1,3 @@
-@using Epico.Entity
 @model MetricViewModel
 @{
     ViewBag.Title = "Metrics";
@@ -11,20 +10,20 @@
 </div>
 <br />
 <div class="content">
-    <div>
-        <div>
-            <span class="bold" style="font-size: large">Hierarchy of Metrics </span>
-            <form method="get" onclick="this.submit()" asp-action="New" asp-controller="Metric">
-                <div class="is-flex">
-                    <img class="metric-plus-button" src="~/img/plus.svg" />
-                </div>
-            </form>
+    <div class="container-text-button">
+        <span class="bold" style="font-size: large">Hierarchy of Metrics </span>
+        <div class="container-text-button_button">
+            <a class="is-32-height"
+                asp-controller="Metric"
+                asp-action="New">
+                <img class="metric-plus-button" src="~/img/plus-square.svg" />
+            </a>
         </div>
-        @if (Model.Error)
-        {
-        <span class="error-message">*Для создания метрики обязательно нужно указывать родительскую метрику</span>
-        }
     </div>
+    @if (Model.Error)
+    {
+    <span class="error-message">*Для создания метрики обязательно нужно указывать родительскую метрику</span>
+    }
 
     @await Html.PartialAsync("MetricWalk", Model.Metric)
 </div>
