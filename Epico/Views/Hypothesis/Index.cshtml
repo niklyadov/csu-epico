@@ -7,14 +7,14 @@
 <div class="column box gray-container">
     <h2 class="bold">Список всех гипотез</h2>
     <br />
-    @foreach (var hypothisis in Model.Hypothisis)
+    @foreach (var hypothesis in Model.Hypothesis)
     {
     <div class="box word-break">
         <!--Информация о фиче-->
-        <p>@hypothisis.Name</p>
-        <p>@hypothisis.Description</p>
+        <p>@hypothesis.Name</p>
+        <p>@hypothesis.Description</p>
         <p class="bold">Привязанная метрика:</p>
-        <p>@hypothisis.Metric.Name</p>
+        <p>@hypothesis.Metric.Name</p>
 
         <!--Список задач-->
         <div>
@@ -22,21 +22,28 @@
                 <span class="bold">Список задач:</span>
                 <form method="get" onclick="this.submit()" asp-action="NewTask" asp-controller="Hypothesis">
                     <div class="is-flex container-text-button_button">
-                        <input type="hidden" asp-for="HypothisisId" value="@hypothisis.ID" name="hypothisisId" />
+                        <input type="hidden" asp-for="HypothesisId" value="@hypothesis.ID" name="hypothesisId" />
                         <img class="plus-button" src="~/img/plus.svg" />
                     </div>
                 </form>
             </div>
             <div>
-                @if (hypothisis.Tasks.Count == 0)
+                @if (hypothesis.Tasks.Count == 0)
                 {
                     <p>Здаесь пока нет задач.</p>
                 } 
                 else 
                 { 
-                    @foreach (var task in hypothisis.Tasks)
+                    @foreach (var task in hypothesis.Tasks)
                     {
-                        <p>@task.Name</p>
+                        <div class="container-text-button">
+                            <span>@task.Name</span>
+                            <div class="is-flex container-text-button_button">
+                                <a asp-controller="Hypothesis" asp-action="DeleteTask" asp-route-hypothesisId="@hypothesis.ID" asp-route-taskId="@task.ID" >
+                                    <img class="delete-button" src="~/img/trash.svg" />
+                                </a>
+                            </div>
+                        </div>
                     }
                 }
             </div>
@@ -45,20 +52,20 @@
         <!--Список юзеров в команде фичи-->
         <div>
             <p class="bold">Продуктовая команда гипотезы:</p>
-            @foreach (var user in hypothisis.Users)
+            @foreach (var user in hypothesis.Users)
             {
                 <p>@user.UserName [@user.Position]</p>
             }
         </div>
 
         <!--Кнопки для взаимодействия с фичей-->
-        <form method="get" asp-action="Edit" asp-controller="Hypothisis">
-            <input type="hidden" asp-for="HypothisisId" value="@hypothisis.ID" />
-            <button class="button is-primary is-small" style="margin-bottom: 0.5%">Change hypothisis</button>
+        <form method="get" asp-action="Edit" asp-controller="Hypothesis">
+            <input type="hidden" asp-for="HypothesisId" value="@hypothesis.ID" />
+            <button class="button is-primary is-small" style="margin-bottom: 0.5%">Change hypothesis</button>
         </form>
-        <form method="get" asp-action="Delete" asp-controller="Hypothisis">
-            <input type="hidden" asp-for="HypothisisId" value="@hypothisis.ID" />
-            <button class="button is-primary is-small" style="margin-bottom: 0.5%">Delete hypothisis</button>
+        <form method="get" asp-action="Delete" asp-controller="Hypothesis">
+            <input type="hidden" asp-for="HypothesisId" value="@hypothesis.ID" />
+            <button class="button is-primary is-small" style="margin-bottom: 0.5%">Delete hypothesis</button>
         </form>
     </div>
     }
@@ -66,7 +73,7 @@
     <!-- Кнопка добавления новой фичи и по совместительству гипотезы-->
     <div class="is-flex center-element">
         <a class="image is-24x24" asp-action="New" asp-controller="Hypothesis">
-            <img class="plus-button" src="~/img/plus.svg" />
+            <img class="plus-button" src="~/img/plus-square.svg" />
         </a>
     </div>
 </div>

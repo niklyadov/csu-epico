@@ -1,0 +1,88 @@
+﻿@model EditTaskViewModel
+@{
+    ViewBag.Title = "Измнение задачи";
+}
+
+<div class="content is-medium">
+    <h2>Изменение задачи</h2>
+</div>
+<div class="box">
+    <form method="post" asp-controller="Feature" asp-action="EditTask">
+        <input type="hidden" asp-for="TaskId" />
+        <input type="hidden" asp-for="FeatureId" />
+        <div class="field">
+            <label class="label" asp-for="Name">Название задачи</label>
+            <div class="control">
+                <input class="input" asp-for="Name" value="@Model.Name" />
+                @*
+                    <span asp-validation-for="Name" class="error-message"></span>
+
+                *@
+            </div>
+        </div>
+        <div class="field">
+            <label class="label" asp-for="Description">Описание задачи</label>
+            <div class="control">
+                <input class="input" asp-for="Description" value="@Model.Description" />
+                @*
+                    <span asp-validation-for="Description" class="error-message"></span>
+
+                *@
+            </div>
+        </div>
+        <br />
+        <div class="field">
+            <label class="label" asp-for="UserId">Ответственный для задачи:</label>
+            <div class="control">
+                @foreach (var user in Model.PosibleUsers)
+                {
+                    <label class="radio">
+                        <input type="radio" value="@user.Id" name="UserId" checked=@Model.UserId.Equals(user.Id) />
+                        @user.UserName [@user.Position]
+                    </label>
+                    <br />
+                }
+                <span asp-validation-for="UserId" class="error-message"></span>
+            </div>
+        </div>
+        <!-- todo Если дедлайн у спринтов, то скорее всего у задач их нет-->
+        @*
+
+            <br />
+            <div class="field">
+                <label class="label" asp-for="DeadLine">Дедлайн</label>
+                <div class="control">
+                    <input type="datetime-local" asp-for="DeadLine" value="@Model.DeadLine" />
+                    <span asp-validation-for="DeadLine" class="error-message"></span>
+                </div>
+            </div>
+        *@
+
+        <div class="field">
+            <label class="label" asp-for="State">Состояние задачи</label>
+            <div class="control">
+                <label class="radio">
+                    <input type="radio" name="state" value="0" checked=@Model.State.Equals(0)>
+                    NotStarted
+                </label>
+            </div>
+            <div class="control">
+                <label class="radio">
+                    <input type="radio" name="state" value="1" checked=@Model.State.Equals(1)>
+                    InProgress
+                </label>
+            </div>
+            <div class="control">
+                <label class="radio">
+                    <input type="radio" name="state" value="2" checked=@Model.State.Equals(2)>
+                    Closed
+                </label>
+            </div>
+            @*<span asp-validation-for="State"></span>*@
+        </div>
+
+        <div class="has-text-centered">
+            <button class="button is-primary">Сохранить</button>
+        </div>
+    </form>
+</div>

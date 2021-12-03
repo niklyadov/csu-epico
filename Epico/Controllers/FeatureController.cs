@@ -72,11 +72,11 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit([FromQuery] int featureId)
+        public IActionResult Edit(int id)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            return View(GetEditFeatureViewModel(featureId));
+            return View(GetEditFeatureViewModel(id));
         }
 
         [HttpPost]
@@ -96,7 +96,7 @@ namespace Epico.Controllers
             feature.Roadmap = model.Roadmap;
 
             await FeatureService.Update(feature);
-            return RedirectToAction("Index", "Feature");
+            return RedirectToAction("Index");
         }
 
         private EditFeatureViewModel GetEditFeatureViewModel(int featureId)
@@ -119,22 +119,22 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Delete([FromQuery] int featureId)
+        public async Task<IActionResult> Delete(int id)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
 
-            await FeatureService.Delete(featureId);
+            await FeatureService.Delete(id);
             return RedirectToAction("Index", "Feature");
         }
 
         [HttpGet]
-        public async Task<IActionResult> EditState(FeatureViewModel model)
+        public async Task<IActionResult> EditState(int featureId)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            var feature = await FeatureService.GetById(model.FeatureId);
+            var feature = await FeatureService.GetById(featureId);
             return View(new EditStateFeatureViewModel
             {
                 Feature = feature,
@@ -148,18 +148,18 @@ namespace Epico.Controllers
             var feature = await FeatureService.GetById(model.FeatureId);
             feature.State = model.State;
             await FeatureService.Update(feature);
-            return RedirectToAction("Index", "Feature");
+            return RedirectToAction("Index");
         }
 
 
         [HttpGet]
-        public async Task<IActionResult> NewTask([FromQuery] int featureId)
+        public async Task<IActionResult> NewTask(int id)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
-            var feature = await FeatureService.GetById(featureId);
+            var feature = await FeatureService.GetById(id);
             return View(new NewTaskByIdViewModel
             {
-                FeatureId = featureId,
+                FeatureId = feature.ID,
                 PossibleUsers = (await UserService.GetAll())
                                 .Where(user => feature.Users.Contains(user))
                                 .ToList()
@@ -202,7 +202,70 @@ namespace Epico.Controllers
             });
             feature.Tasks.Add(task);
             await FeatureService.Update(feature);
-            return RedirectToAction("Index", "Feature");
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteTask(int featureId, int taskId)
+        {
+            var task = await TaskService.GetById(taskId);
+            if (task == null)
+                return BadRequest("Задача не найдена.");
+
+            var feature = await FeatureService.GetById(featureId);
+            if (!feature.Tasks.Contains(task))
+                return BadRequest("Фича не содержит эту задачу.");
+
+            feature.Tasks.Remove(task);
+            await FeatureService.Update(feature);
+            await TaskService.Delete(task.ID);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditTask(int featureId, int taskId)
+        {
+            if (!HasProduct) return RedirectToAction("New", "Product");
+
+            return View(await GetEditTaskViewModel(featureId, taskId));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditTask(EditTaskViewModel model)
+        {
+            if (!ModelState.IsValid) return View(await GetEditTaskViewModel(model.FeatureId, model.TaskId));
+
+            var responsibleUser = await UserService.GetById(model.UserId);
+            var task = await TaskService.GetById(model.TaskId);
+            task.Name = model.Name;
+            task.Description = model.Description;
+            task.ResponsibleUser = responsibleUser;
+            task.DeadLine = model.DeadLine;
+            task.State = (TaskState)model.State;
+
+            await TaskService.Update(task);
+
+            return RedirectToAction("Index");
+        }
+
+        private async Task<EditTaskViewModel> GetEditTaskViewModel(int featureId, int taskId)
+        {
+            var task = await TaskService.GetById(taskId);
+            var feature = await FeatureService.GetById(featureId);
+            var posibleUsers = (await UserService.GetAll())
+                               .Where(user => feature.Users.Contains(user))
+                               .ToList();
+            return new EditTaskViewModel
+            {
+                TaskId = task.ID,
+                FeatureId = feature.ID,
+                Name = task.Name,
+                Description = task.Description,
+                DeadLine = task.DeadLine,
+                State = (int)task.State,
+                UserId = task.ResponsibleUser.Id,
+                PosibleUsers = posibleUsers
+            };
         }
     }
 }

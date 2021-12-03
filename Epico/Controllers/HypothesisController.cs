@@ -24,7 +24,7 @@ namespace Epico.Controllers
             var features = await FeatureService.GetAllHypotheses();
             return View(new HypothesisViewModel
             {
-                Hypothisis = features
+                Hypothesis = features
             });
         }
 
@@ -73,11 +73,11 @@ namespace Epico.Controllers
 
 
         [HttpGet]
-        public IActionResult Edit([FromQuery] int hypothisisId)
+        public IActionResult Edit([FromQuery] int hypothesisId)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            return View(GetEditHypothesisViewModel(hypothisisId));
+            return View(GetEditHypothesisViewModel(hypothesisId));
         }
 
         [HttpPost]
@@ -117,15 +117,15 @@ namespace Epico.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> NewTask([FromQuery] int hypothisisId)
+        public async Task<IActionResult> NewTask([FromQuery] int hypothesisId)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
-            var hypothisis = await FeatureService.GetById(hypothisisId);
+            var hypothesis = await FeatureService.GetById(hypothesisId);
             return View(new NewTaskByIdViewModel
             {
-                FeatureId = hypothisisId,
+                FeatureId = hypothesisId,
                 PossibleUsers = (await UserService.GetAll())
-                                .Where(user => hypothisis.Users.Contains(user))
+                                .Where(user => hypothesis.Users.Contains(user))
                                 .ToList()
             });
         }
@@ -135,12 +135,12 @@ namespace Epico.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var rehypothisis = await FeatureService.GetById(model.FeatureId);
+                var rehypothesis = await FeatureService.GetById(model.FeatureId);
                 return View(new NewTaskByIdViewModel
                 {
                     FeatureId = model.FeatureId,
                     PossibleUsers = (await UserService.GetAll())
-                                .Where(user => rehypothisis.Users.Contains(user))
+                                .Where(user => rehypothesis.Users.Contains(user))
                                 .ToList()
                 });
             }
@@ -150,8 +150,8 @@ namespace Epico.Controllers
                 return RedirectToAction("Index", "Feature", new { taskCreateError = true });
             }
 
-            var hypothisis = await FeatureService.GetById(model.FeatureId);
-            if (!hypothisis.Users.Select(x => x.Id).Contains(model.UserId))
+            var hypothesis = await FeatureService.GetById(model.FeatureId);
+            if (!hypothesis.Users.Select(x => x.Id).Contains(model.UserId))
             {
                 return BadRequest("Юзер не доступен т.к. не содержится в команде гипотезы. Вы чайник.");
             }
@@ -164,9 +164,26 @@ namespace Epico.Controllers
                 DeadLine = model.DeadLine,
                 ResponsibleUser = responsibleUser
             });
-            hypothisis.Tasks.Add(task);
-            await FeatureService.Update(hypothisis);
-            return RedirectToAction("Index", "Feature");
+            hypothesis.Tasks.Add(task);
+            await FeatureService.Update(hypothesis);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteTask(int hypothesisId, int taskId)
+        {
+            var task = await TaskService.GetById(taskId);
+            if (task == null)
+                return BadRequest("Задача не найдена.");
+
+            var hypothesis = await FeatureService.GetById(hypothesisId);
+            if (!hypothesis.Tasks.Contains(task))
+                return BadRequest("Гипотеза не содержит эту задачу.");
+
+            hypothesis.Tasks.Remove(task);
+            await FeatureService.Update(hypothesis);
+            await TaskService.Delete(task.ID);
+            return RedirectToAction("Index");
         }
     }
 }

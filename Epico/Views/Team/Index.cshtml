@@ -11,9 +11,9 @@
         <tbody>
             <tr>
                 <th>UserName</th>
-                <th width="10px"></th>
+                <th style="width:10px"></th>
                 <th>Position</th>
-                <th width="10px"></th>
+                <th style="width:10px"></th>
                 <th></th>
             </tr>
         @foreach (var user in Model.Users)
@@ -37,7 +37,7 @@
     </table>
     <form method="get" onclick="this.submit()" asp-action="Registration" asp-controller="Account">
         <div class="is-flex center-element">
-            <img class="plus-button" src="~/img/plus.svg" />
+            <img class="plus-button" src="~/img/plus-square.svg" />
         </div>
     </form>
 </div>

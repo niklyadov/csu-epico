@@ -1,13 +1,13 @@
 ﻿@model NewTaskByIdViewModel
 @{
-    ViewBag.Title = "Добавление задачи в фичу";
+    ViewBag.Title = "Добавление задачи в гипотезу";
 }
 
 <div class="content is-medium">
-    <h2>Добавление новой задачи в фичу</h2>
+    <h2>Добавление новой задачи в гипотезу</h2>
 </div>
 <div class="box">
-    <form method="post" asp-controller="Task" asp-action="NewByIdF">
+    <form method="post" asp-controller="Hypothesis" asp-action="NewTask">
         <input type="hidden" asp-for="@Model.FeatureId" />
         <div class="field">
             <label class="label" asp-for="Name">Название задачи</label>
@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="field">
-            <label class="label" asp-for="Description">Описание</label>
+            <label class="label" asp-for="Description">Описание задачи</label>
             <div class="control">
                 <input class="input" asp-for="Description" />
                 <span asp-validation-for="Description" class="error-message"></span>

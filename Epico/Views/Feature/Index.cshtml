@@ -20,65 +20,114 @@
     @foreach (var feature in Model.Features)
     {
         <div class="box word-break">
-            <!--Информация о фиче-->
-            <p>@feature.Name [@feature.State.ToString()]</p>
-            <p>@feature.Description</p>
-            <p class="bold">Привязанная метрика:</p>
-            <p>@feature.Metric.Name</p>
-
-            <!--Список задач-->
-            <div>
-                <div class="container-text-button">
-                    <span class="bold">Список задач:</span>
-                    <form method="get" onclick="this.submit()" asp-action="NewTask" asp-controller="Feature">
-                        <div class="is-flex container-text-button_button">
-                            <input type="hidden" asp-for="FeatureId" value="@feature.ID" name="featureId" />
-                            <img class="plus-button" src="~/img/plus.svg" />
+            <div class="columns">
+                <div class="column is-four-fifths">
+                    <!--Информация о фиче-->
+                    <p>@feature.Name</p>
+                    <p>@feature.Description</p>
+                    <div class="container-text-button">
+                        <span>Статус фичи: [@feature.State.ToString()]</span>
+                        <div class="container-text-button_button">
+                            <a class="is-24-height" 
+                               asp-controller="Feature"
+                               asp-action="EditState"
+                               asp-route-featureId="@feature.ID">
+                                <img class="status-button" src="~/img/status.svg" />
+                            </a>
                         </div>
+                    </div>
+                    <p class="bold">Привязанная метрика:</p>
+                    <p>@feature.Metric.Name</p>
+
+                    <!--Список задач-->
+                    <div>
+                        <div class="container-text-button">
+                            <span class="bold">Список задач: </span>
+                            <div class="container-text-button_button">
+                                <a class="is-24-height"
+                                   asp-controller="Feature"
+                                   asp-action="NewTask"
+                                   asp-route-id="@feature.ID">
+                                    <img class="plus-button" src="~/img/plus.svg" />
+                                </a>
+                            </div>
+
+
+                            @*<form method="get" onclick="this.submit()" asp-action="NewTask" asp-controller="Feature">
+                                <div class="is-flex container-text-button_button">
+                                    <input type="hidden" asp-for="FeatureId" value="@feature.ID" name="featureId" />
+                                    <img class="plus-button" src="~/img/plus.svg" />
+                                </div>
+                            </form>*@
+                        </div>
+                        <div>
+                            @if (feature.Tasks.Count == 0)
+                            {
+                                <p>Здаесь пока нет задач.</p>
+                            }
+                            else
+                            {
+                                @foreach (var task in feature.Tasks)
+                                {
+                                    <div class="container-text-button">
+                                        <span>@task.Name [@task.State]</span>
+                                        <div class="is-flex container-text-button_button">
+                                            <a class="is-24-height" 
+                                               asp-controller="Feature" 
+                                               asp-action="EditTask" 
+                                               asp-route-featureId="@feature.ID" 
+                                               asp-route-taskId="@task.ID">
+                                                <img class="edit-button" src="~/img/edit.svg" />
+                                            </a>
+                                        </div>
+                                        <div class="is-flex container-text-button_button">
+                                            <a class="is-24-height" 
+                                               asp-controller="Feature" 
+                                               asp-action="DeleteTask" 
+                                               asp-route-featureId="@feature.ID" 
+                                               asp-route-taskId="@task.ID">
+                                                <img class="delete-button" src="~/img/trash.svg" />
+                                            </a>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <!--Список юзеров в команде фичи-->
+                    <div>
+                        <p class="bold">Продуктовая команда фичи: </p>
+                        @foreach (var user in feature.Users)
+                        {
+                            <p>@user.UserName [@user.Position]</p>
+                        }
+                    </div>
+                </div>
+                <div class="column">
+                    <!--Кнопки для взаимодействия с фичей-->
+                    <a class="button is-red is-fullwidth" style="margin-bottom: 0.5%"
+                       asp-controller="Feature"
+                       asp-action="Edit"
+                       asp-route-id="@feature.ID">Change feature</a>
+                    <a class="button is-red is-fullwidth" style="margin-bottom: 0.5%"
+                       asp-controller="Feature"
+                       asp-action="Delete"
+                       asp-route-id="@feature.ID">Delete feature</a>
+                    @*<form method="get" asp-action="Edit" asp-controller="Feature">
+                        <input type="hidden" asp-for="FeatureId" value="@feature.ID" />
+                        <button class="button is-primary is-small" style="margin-bottom: 0.5%">Change feature</button>
                     </form>
-                </div>
-                <div>
-                @if (feature.Tasks.Count == 0)
-                {
-                    <p>Здаесь пока нет задач.</p>
-                }
-                else 
-                { 
-                    @foreach (var task in feature.Tasks)
-                    {
-                        <p>@task.Name</p>
-                    }
-                }
+                    <form method="get" asp-action="Delete" asp-controller="Feature">
+                        <input type="hidden" asp-for="FeatureId" value="@feature.ID" />
+                        <button class="button is-primary is-small" style="margin-bottom: 0.5%">Delete feature</button>
+                    </form>*@
                 </div>
             </div>
-            <!--Список юзеров в команде фичи-->
-            <div>
-                <p class="bold">Продуктовая команда фичи:</p>
-                @foreach (var user in feature.Users)
-                {
-                    <p>@user.UserName [@user.Position]</p>
-                }
-            </div>
-            
-            <!--Кнопки для взаимодействия с фичей-->
-            <form method="get" asp-action="EditState" asp-controller="Feature">
-                <input type="hidden" asp-for="FeatureId" value="@feature.ID" />
-                <button class="button is-primary is-small" style="margin-bottom: 0.5%">Change status</button>
-            </form>
-            <form method="get" asp-action="Edit" asp-controller="Feature">
-                <input type="hidden" asp-for="FeatureId" value="@feature.ID" />
-                <button class="button is-primary is-small" style="margin-bottom: 0.5%">Change feature</button>
-            </form>
-            <form method="get" asp-action="Delete" asp-controller="Feature">
-                <input type="hidden" asp-for="FeatureId" value="@feature.ID" />
-                <button class="button is-primary is-small" style="margin-bottom: 0.5%">Delete feature</button>
-            </form>
         </div>
     }
-
     <form method="get" onclick="this.submit()" asp-action="New" asp-controller="Feature">
         <div class="is-flex center-element">
-            <img class="plus-button" src="~/img/plus.svg" />
+            <img class="plus-button" src="~/img/plus-square.svg" />
         </div>
     </form>
 </div>

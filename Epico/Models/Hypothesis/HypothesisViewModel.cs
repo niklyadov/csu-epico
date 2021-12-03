@@ -8,7 +8,7 @@ namespace Epico.Models
 {
     public class HypothesisViewModel
     {
-        public int HypothisisId { get; set; }
-        public List<Feature> Hypothisis { get; set; }
+        public int HypothesisId { get; set; }
+        public List<Feature> Hypothesis { get; set; }
     }
 }

@@ -65,13 +65,13 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(TaskViewModel model)
+        public async Task<IActionResult> Edit(int taskId)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            return View(await GetEditTaskViewModel(model.TaskId));
+            return View(await GetEditTaskViewModel(taskId));
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> Edit(EditTaskViewModel model)
         {
