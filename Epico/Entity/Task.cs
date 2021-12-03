@@ -15,7 +15,8 @@ namespace Epico.Entity
         public List<Feature> Features { get; set; }
             = new List<Feature>();
 
-        // todo убрать команду, добавить одного ответственного
-        public User ResponsibleUser { get; set; }
+        public int? ResponsibleUserId { get; set; }
+        public User? ResponsibleUser { get; set; }
+        public bool HasResponsibleUser => ResponsibleUserId != null;
     }
 }

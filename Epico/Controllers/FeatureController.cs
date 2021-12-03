@@ -206,13 +206,13 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> DeleteTask(int featureId, int taskId)
+        public async Task<IActionResult> DeleteTask(int id, int taskId)
         {
             var task = await TaskService.GetById(taskId);
             if (task == null)
                 return BadRequest("Задача не найдена.");
 
-            var feature = await FeatureService.GetById(featureId);
+            var feature = await FeatureService.GetById(id);
             if (!feature.Tasks.Contains(task))
                 return BadRequest("Фича не содержит эту задачу.");
 
@@ -223,11 +223,11 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> EditTask(int featureId, int taskId)
+        public async Task<IActionResult> EditTask(int id, int taskId)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            return View(await GetEditTaskViewModel(featureId, taskId));
+            return View(await GetEditTaskViewModel(id, taskId));
         }
 
         [HttpPost]
@@ -263,7 +263,7 @@ namespace Epico.Controllers
                 Description = task.Description,
                 DeadLine = task.DeadLine,
                 State = (int)task.State,
-                UserId = task.ResponsibleUser.Id,
+                UserId = task.ResponsibleUser != null ? task.ResponsibleUser.Id : 0,
                 PosibleUsers = posibleUsers
             };
         }

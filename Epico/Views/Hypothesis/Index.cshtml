@@ -46,39 +46,64 @@
                             }
                             else
                             {
-                                @foreach (var task in hypothesis.Tasks)
-                                {
-                                    <div class="container-text-button">
-                                        <span>@task.Name [@task.State]</span>
-                                        <div class="is-flex container-text-button_button">
-                                            <a class="is-24-height"
-                                               asp-controller="Hypothesis"
-                                               asp-action="EditTask"
-                                               asp-route-hypothesisId="@hypothesis.ID"
-                                               asp-route-taskId="@task.ID">
-                                                <img class="edit-button" src="~/img/edit.svg" />
-                                            </a>
-                                        </div>
-                                        <div class="is-flex container-text-button_button">
-                                            <a class="is-24-height"
-                                               asp-controller="Hypothesis"
-                                               asp-action="DeleteTask"
-                                               asp-route-hypothesisId="@hypothesis.ID"
-                                               asp-route-taskId="@task.ID">
-                                                <img class="delete-button" src="~/img/trash.svg" />
-                                            </a>
-                                        </div>
-                                    </div>
-                                }
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <th></th>
+                                            <th width="100px"></th>
+                                            <th width="25px"></th>
+                                            <th width="25px"></th>
+                                        </tr>
+
+                                        @foreach (var task in hypothesis.Tasks)
+                                        {
+                                            @if (!task.HasResponsibleUser)
+                                            {
+                                                <tr>
+                                                    <td class="error-message"> *Ответственный не назначен</td>
+                                                </tr>
+                                            }
+                                            <tr>
+                                                <td>@task.Name</td>
+                                                <td>[@task.State]</td>
+                                                <td>
+                                                    <a class="is-24-height"
+                                                       asp-controller="Hypothesis"
+                                                       asp-action="EditTask"
+                                                       asp-route-id="@hypothesis.ID"
+                                                       asp-route-taskId="@task.ID">
+                                                        <img class="edit-button" src="~/img/edit.svg" />
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a class="is-24-height"
+                                                       asp-controller="Hypothesis"
+                                                       asp-action="DeleteTask"
+                                                       asp-route-id="@hypothesis.ID"
+                                                       asp-route-taskId="@task.ID">
+                                                        <img class="delete-button" src="~/img/trash.svg" />
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
                             }
                         </div>
                     </div>
                     <!--Список юзеров в команде гипотезы-->
                     <div>
                         <p class="bold">Продуктовая команда гипотезы: </p>
-                        @foreach (var user in hypothesis.Users)
+                        @if (hypothesis.Users.Count == 0) 
                         {
-                            <p>@user.UserName [@user.Position]</p>
+                            <p class="error-message">*Из команды удалены все сотрудники</p>
+                        }
+                        else
+                        {
+                            @foreach (var user in hypothesis.Users)
+                            {
+                                <p>@user.UserName [@user.Position]</p>
+                            }
                         }
                     </div>
                 </div>

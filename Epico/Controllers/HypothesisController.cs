@@ -73,11 +73,11 @@ namespace Epico.Controllers
 
 
         [HttpGet]
-        public IActionResult Edit([FromQuery] int hypothesisId)
+        public IActionResult Edit(int id)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            return View(GetEditHypothesisViewModel(hypothesisId));
+            return View(GetEditHypothesisViewModel(id));
         }
 
         [HttpPost]
@@ -117,13 +117,13 @@ namespace Epico.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> NewTask([FromQuery] int hypothesisId)
+        public async Task<IActionResult> NewTask(int id)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
-            var hypothesis = await FeatureService.GetById(hypothesisId);
+            var hypothesis = await FeatureService.GetById(id);
             return View(new NewTaskByIdViewModel
             {
-                FeatureId = hypothesisId,
+                FeatureId = hypothesis.ID,
                 PossibleUsers = (await UserService.GetAll())
                                 .Where(user => hypothesis.Users.Contains(user))
                                 .ToList()
@@ -184,6 +184,52 @@ namespace Epico.Controllers
             await FeatureService.Update(hypothesis);
             await TaskService.Delete(task.ID);
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditTask(int id, int taskId)
+        {
+            if (!HasProduct) return RedirectToAction("New", "Product");
+
+            return View(await GetEditTaskViewModel(id, taskId));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditTask(EditTaskViewModel model)
+        {
+            if (!ModelState.IsValid) return View(await GetEditTaskViewModel(model.FeatureId, model.TaskId));
+
+            var responsibleUser = await UserService.GetById(model.UserId);
+            var task = await TaskService.GetById(model.TaskId);
+            task.Name = model.Name;
+            task.Description = model.Description;
+            task.ResponsibleUser = responsibleUser;
+            task.DeadLine = model.DeadLine;
+            task.State = (TaskState)model.State;
+
+            await TaskService.Update(task);
+
+            return RedirectToAction("Index");
+        }
+
+        private async Task<EditTaskViewModel> GetEditTaskViewModel(int hypothesisId, int taskId)
+        {
+            var task = await TaskService.GetById(taskId);
+            var hypothesis = await FeatureService.GetById(hypothesisId);
+            var posibleUsers = (await UserService.GetAll())
+                               .Where(user => hypothesis.Users.Contains(user))
+                               .ToList();
+            return new EditTaskViewModel
+            {
+                TaskId = task.ID,
+                FeatureId = hypothesis.ID,
+                Name = task.Name,
+                Description = task.Description,
+                DeadLine = task.DeadLine,
+                State = (int)task.State,
+                UserId = task.ResponsibleUser != null ? task.ResponsibleUser.Id : 0,
+                PosibleUsers = posibleUsers
+            };
         }
     }
 }

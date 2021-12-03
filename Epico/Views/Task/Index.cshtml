@@ -39,7 +39,14 @@
                     </div>
                 </div>
                 <span class="bold">Ответственный за задачу: </span>
-                <span>@task.ResponsibleUser.UserName [@task.ResponsibleUser.Position]</span>
+                @if (task.HasResponsibleUser)
+                {
+                    <span>@task.ResponsibleUser.UserName [@task.ResponsibleUser.Position]</span>
+                }
+                else
+                {
+                    <span class="error-message">*Не назначен</span>
+                }
             </div>
             <div class="column">
                 <!--Кнопки для взаимодействия с задачей-->

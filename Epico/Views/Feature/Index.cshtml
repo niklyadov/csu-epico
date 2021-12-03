@@ -75,7 +75,7 @@
                                             <a class="is-24-height"
                                                asp-controller="Feature"
                                                asp-action="EditTask"
-                                               asp-route-featureId="@feature.ID"
+                                               asp-route-id="@feature.ID"
                                                asp-route-taskId="@task.ID">
                                                 <img class="edit-button" src="~/img/edit.svg" />
                                             </a>
@@ -84,11 +84,15 @@
                                             <a class="is-24-height"
                                                asp-controller="Feature"
                                                asp-action="DeleteTask"
-                                               asp-route-featureId="@feature.ID"
+                                               asp-route-id="@feature.ID"
                                                asp-route-taskId="@task.ID">
                                                 <img class="delete-button" src="~/img/trash.svg" />
                                             </a>
                                         </div>
+                                        @if (!task.HasResponsibleUser) 
+                                        {
+                                            <span class="error-message"> *Ответственный не назначен</span>
+                                        }
                                     </div>
                                 }
                             }
@@ -97,9 +101,16 @@
                     <!--Список юзеров в команде фичи-->
                     <div>
                         <p class="bold">Продуктовая команда фичи: </p>
-                        @foreach (var user in feature.Users)
+                        @if (feature.Users.Count == 0)
                         {
-                            <p>@user.UserName [@user.Position]</p>
+                            <p class="error-message">*Из команды удалены все сотрудники</p>
+                        }
+                        else
+                        {
+                            @foreach (var user in feature.Users)
+                            {
+                                <p>@user.UserName [@user.Position]</p>
+                            }
                         }
                     </div>
                 </div>
