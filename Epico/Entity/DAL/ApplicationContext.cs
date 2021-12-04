@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Epico.Entity.DAL
 {
-    public class ApplicationContext : IdentityDbContext<User, UserRole, int>
+    public class ApplicationContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
         public DbSet<Product> Products { get; private set; }
         public DbSet<Sprint> Sprints { get; private set; }

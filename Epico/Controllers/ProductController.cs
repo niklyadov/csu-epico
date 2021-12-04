@@ -42,6 +42,7 @@ namespace Epico.Controllers
             });
         }
 
+        [Authorize(Roles = "Manager")]
         [HttpGet]
         public IActionResult New()
         {
@@ -51,6 +52,7 @@ namespace Epico.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         public async Task<IActionResult> New(NewProductViewModel model)
         {
@@ -74,6 +76,7 @@ namespace Epico.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Manager")]
         public async Task<IActionResult> Delete([FromQuery] int productId)
         {
             if (!ModelState.IsValid) 

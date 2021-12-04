@@ -135,6 +135,13 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> DeleteFeature()
+        {
+            // todo impl
+            throw new NotImplementedException();
+        }
+
+        [HttpGet]
         public async Task<IActionResult> AddFeature(int id)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
@@ -165,7 +172,5 @@ namespace Epico.Controllers
 
             return RedirectToAction("Index", "Sprint");
         }
-
-
     }
 }

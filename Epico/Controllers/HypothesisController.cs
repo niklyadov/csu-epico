@@ -20,7 +20,7 @@ namespace Epico.Controllers
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            // todo переделать на гипотезы
+            // todo РїРµСЂРµРґРµР»Р°С‚СЊ РЅР° РіРёРїРѕС‚РµР·С‹
             var features = await FeatureService.GetAllHypotheses();
             return View(new HypothesisViewModel
             {
@@ -47,7 +47,7 @@ namespace Epico.Controllers
             var metric = await MetricService.GetById(model.MetricId);
             var users = await UserService.GetByIds(model.UserIds);
 
-            // todo переделать на гипотезы
+            // todo РїРµСЂРµРґРµР»Р°С‚СЊ РЅР° РіРёРїРѕС‚РµР·С‹
             await FeatureService.Add(new Feature
             {
                 Name = model.Name,
@@ -88,13 +88,13 @@ namespace Epico.Controllers
             var users = await UserService.GetByIds(model.UserIds);
             var metrics = await MetricService.GetById(model.MetricId);
             
-            // todo переделать на гипотезы
+            // todo РїРµСЂРµРґРµР»Р°С‚СЊ РЅР° РіРёРїРѕС‚РµР·С‹
             var hypothesis = await FeatureService.GetById(model.HypothesisId);
             hypothesis.Name = model.Name;
             hypothesis.Description = model.Description;
             hypothesis.Metric = metrics;
             hypothesis.Users = users;
-            // todo переделать на гипотезы
+            // todo РїРµСЂРµРґРµР»Р°С‚СЊ РЅР° РіРёРїРѕС‚РµР·С‹
             await FeatureService.Update(hypothesis);
             return RedirectToAction("Index");
         }
@@ -135,12 +135,12 @@ namespace Epico.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var rehypothesis = await FeatureService.GetById(model.FeatureId);
+                var feature = await FeatureService.GetById(model.FeatureId);
                 return View(new NewTaskByIdViewModel
                 {
                     FeatureId = model.FeatureId,
                     PossibleUsers = (await UserService.GetAll())
-                                .Where(user => rehypothesis.Users.Contains(user))
+                                .Where(user => feature.Users.Contains(user))
                                 .ToList()
                 });
             }
@@ -153,7 +153,7 @@ namespace Epico.Controllers
             var hypothesis = await FeatureService.GetById(model.FeatureId);
             if (!hypothesis.Users.Select(x => x.Id).Contains(model.UserId))
             {
-                return BadRequest("Юзер не доступен т.к. не содержится в команде гипотезы. Вы чайник.");
+                return BadRequest("Р®Р·РµСЂ РЅРµ РґРѕСЃС‚СѓРїРµРЅ С‚.Рє. РЅРµ СЃРѕРґРµСЂР¶РёС‚СЃСЏ РІ РєРѕРјР°РЅРґРµ РіРёРїРѕС‚РµР·С‹. Р’С‹ С‡Р°Р№РЅРёРє.");
             }
 
             var responsibleUser = await UserService.GetById(model.UserId);
@@ -174,11 +174,11 @@ namespace Epico.Controllers
         {
             var task = await TaskService.GetById(taskId);
             if (task == null)
-                return BadRequest("Задача не найдена.");
+                return BadRequest("Р—Р°РґР°С‡Р° РЅРµ РЅР°Р№РґРµРЅР°.");
 
             var hypothesis = await FeatureService.GetById(hypothesisId);
             if (!hypothesis.Tasks.Contains(task))
-                return BadRequest("Гипотеза не содержит эту задачу.");
+                return BadRequest("Р“РёРїРѕС‚РµР·Р° РЅРµ СЃРѕРґРµСЂР¶РёС‚ СЌС‚Сѓ Р·Р°РґР°С‡Сѓ.");
 
             hypothesis.Tasks.Remove(task);
             await FeatureService.Update(hypothesis);
