@@ -231,5 +231,16 @@ namespace Epico.Controllers
                 PosibleUsers = posibleUsers
             };
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (!HasProduct) return RedirectToAction("New", "Product");
+
+            if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
+
+            await FeatureService.Delete(id);
+            return RedirectToAction("Index", "Feature");
+        }
     }
 }

@@ -89,7 +89,7 @@ namespace Epico.Controllers
             var feature = await FeatureService.GetById(model.FeatureId);
             feature.Name = model.Name;
             feature.Description = model.Description;
-            feature.Hypothesis = model.Hypothesis;
+            //feature.Hypothesis = model.Hypothesis;
             feature.Metric = metrics;
             feature.Users = users;
             feature.State = model.State;
@@ -107,7 +107,7 @@ namespace Epico.Controllers
                 FeatureId = feature.ID,
                 Name = feature.Name,
                 Description = feature.Description,
-                Hypothesis = feature.Hypothesis,
+               // Hypothesis = feature.Hypothesis,
                 MetricId = feature.Metric.ID,
                 UserIds = feature.Users.Select(x => x.Id).ToList(),
                 Roadmap = feature.Roadmap.Value,
