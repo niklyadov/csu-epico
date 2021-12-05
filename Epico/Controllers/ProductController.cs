@@ -52,8 +52,6 @@ namespace Epico.Controllers
         [HttpPost]
         public async Task<IActionResult> New(NewProductViewModel model)
         {
-            if (!HasProduct) return RedirectToAction("New", "Product");
-
             if (ModelState.IsValid)
             {
                 var result = await ProductService.Add(new Product
