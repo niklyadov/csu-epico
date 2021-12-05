@@ -3,6 +3,23 @@
 <ul style="list-style-type:none;">
     <li>
         @Model.Name
+        @if (User.IsInRole("Manager"))
+        {
+            <a asp-controller="Metric"
+               asp-action="Edit"
+               asp-route-id="@Model.ID">
+                <img class="edit-button" src="~/img/edit.svg" />
+            </a>
+            if (!Model.IsNSM)
+            {
+
+                <a asp-controller="Metric"
+                   asp-action="Delete"
+                   asp-route-id="@Model.ID">
+                    <img class="delete-button" src="~/img/trash.svg" />
+                </a>
+            }
+        }
         <ul style="list-style-type:none;">
             @foreach (var metric in Model.Children)
             {

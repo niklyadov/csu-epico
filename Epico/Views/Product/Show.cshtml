@@ -5,10 +5,20 @@
 }
 
 <section class="section">
-    <h2 class="subtitle">
-        @Model.Name
-    </h2>
-    <p><img src="~/img/Ter.png"></p>
+    <div class="columns">
+        <div class="column is-four-fifths">
+            <h2 class="subtitle">
+                @Model.Name
+            </h2>
+        </div>
+        <div class="column">
+            <a class="button is-red is-fullwidth" style="margin-bottom: 0.5%"
+               asp-controller="Product"
+               asp-action="Edit"
+               asp-route-id="@Model.ProductId">Edit Product</a>
+        </div>
+    </div>
+    @*<p><img src="~/img/Ter.png"></p>*@
 </section>
 
 

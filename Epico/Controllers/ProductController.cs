@@ -16,17 +16,13 @@ namespace Epico.Controllers
         }
 
         [Route("[controller]")]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
-            //var userProjectId = await ProductService.UserProductId(AccountService.CurrentUserId());
-            //if (!userProjectId.HasValue)
-            //    return RedirectToAction("New");
-
             return RedirectToAction("Show", "Product");
         }
 
-        public async Task<IActionResult> Show()
+        public IActionResult Show()
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
@@ -56,6 +52,8 @@ namespace Epico.Controllers
         [HttpPost]
         public async Task<IActionResult> New(NewProductViewModel model)
         {
+            if (!HasProduct) return RedirectToAction("New", "Product");
+
             if (ModelState.IsValid)
             {
                 var result = await ProductService.Add(new Product
@@ -77,13 +75,49 @@ namespace Epico.Controllers
         }
 
         [Authorize(Roles = "Manager")]
-        public async Task<IActionResult> Delete([FromQuery] int productId)
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
         {
+            if (!HasProduct) return RedirectToAction("New", "Product");
+
             if (!ModelState.IsValid) 
                 return BadRequest("ModelState is not Valid");
             
-            await ProductService.Delete(productId);
+            await ProductService.Delete(id);
             return RedirectToAction("New");
+        }
+
+        [Authorize(Roles = "Manager")]
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            if (!HasProduct) return RedirectToAction("New", "Product");
+
+            var product = await ProductService.GetById(id);
+            return View(new NewProductViewModel
+            {
+                Id = product.ID,
+                Name = product.Name,
+                Vision = product.Vision,
+                Mission = product.Mission,
+                ProductFormula = product.ProductFormula
+            });
+        }
+
+        [Authorize(Roles = "Manager")]
+        [HttpPost]
+        public async Task<IActionResult> Edit(NewProductViewModel model)
+        {
+            if (!HasProduct) return RedirectToAction("New", "Product");
+
+            var product = await ProductService.GetById(model.Id);
+            product.Name = model.Name;
+            product.Vision = model.Vision;
+            product.Mission = model.Mission;
+            product.ProductFormula = model.ProductFormula;
+
+            await ProductService.Update(product);
+            return RedirectToAction("Show");
         }
     }
 }

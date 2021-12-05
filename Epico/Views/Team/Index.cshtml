@@ -6,13 +6,16 @@
 <div class="column box gray-container">
     <div class="container-text-button">
         <span class="bold">Список всех юзеров </span>
-        <div class="container-text-button_button">
-            <a class="is-32-height"
-               asp-controller="Account"
-               asp-action="Registration">
-                <img class="plus-button" src="~/img/plus-square.svg" />
-            </a>
-        </div>
+        @if (User.IsInRole("Manager"))
+        {
+            <div class="container-text-button_button">
+                <a class="is-32-height"
+                   asp-controller="Account"
+                   asp-action="Registration">
+                    <img class="plus-button" src="~/img/plus-square.svg" />
+                </a>
+            </div>
+        }
     </div>
     <!--Раскоментить когда релизную версию выкатывать будем-->
     <table>
@@ -31,14 +34,17 @@
                     <td></td>
                     <td>[@user.Position]</td>
                     <td></td>
-                    <td>
-                        <form method="get" onclick="this.submit()" asp-action="Delete" asp-controller="User">
-                            <div class="is-flex center-element">
-                                <input type="hidden" value="@user.Id" name="userId" />
-                                <img class="delete-button" src="~/img/trash.svg" />
-                            </div>
-                        </form>
-                    </td>
+                    @if (User.IsInRole("Manager"))
+                    {
+                        <td>
+                            <form method="get" onclick="this.submit()" asp-action="Delete" asp-controller="User">
+                                <div class="is-flex center-element">
+                                    <input type="hidden" value="@user.Id" name="userId" />
+                                    <img class="delete-button" src="~/img/trash.svg" />
+                                </div>
+                            </form>
+                        </td>
+                    }
                 </tr>
             }
         </tbody>
