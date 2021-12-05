@@ -116,7 +116,7 @@ namespace Epico.Controllers
                 SprintId = sprint.ID,
                 Name = sprint.Name,
                 Features = sprint.Features.Select(x => x.ID).ToList(),
-                PosibleFeatures = (await FeatureService.GetAllFeatures())
+                PosibleFeatures = (await FeatureService.GetAll())
                                   .OrderBy(x => x.IsFeature)
                                   .ToList(),
                 StartDate = sprint.StartDate,
