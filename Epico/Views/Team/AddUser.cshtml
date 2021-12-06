@@ -3,14 +3,14 @@
     ViewBag.Title = "Add user to team";
 }
 
-<div class="column box gray-container">
+<!--div class="column box gray-container">
     <span class="bold">Add to the @Model.TaskName section</span>
 
     <form method="post" asp-action="AddUser" asp-controller="Team">
         <input type="hidden" asp-for="TaskId" />
         <span asp-validation-for="TaskId"></span>
         <div class="field">
-            @foreach (var user in Model.PosibleUsers)
+            @foreach (var user in Model.PossibleUsers)
             {
             <label class="checkbox">
                 <input type="checkbox" value="@user.Id" name="UserIds" />
@@ -24,4 +24,4 @@
             <button class="button is-primary">Добавить</button>
         </div>
     </form> 
-</div>
+</div-->

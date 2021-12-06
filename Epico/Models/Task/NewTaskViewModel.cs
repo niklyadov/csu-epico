@@ -17,7 +17,7 @@ namespace Epico.Models
         public DateTime DeadLine { get; set; } = DateTime.Now;
 
         [BindProperty]
-        public List<int> Users { get; set; }
+        public int UserId { get; set; }
 
         public List<User> PossibleUsers { get; set; }
             = new List<User>();

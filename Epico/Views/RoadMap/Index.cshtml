@@ -14,6 +14,8 @@
             </div>
         }
         <!--Кнопка для добавления фичи в Now-->
+        @if (User.IsInRole("Manager")) 
+        {
         <form method="get" onclick="this.submit()" asp-action="AddFeature" asp-controller="RoadMap">
             <div class="is-flex center-element">
                 <input type="hidden" asp-for="Roadmap" value="0" />
@@ -21,6 +23,7 @@
                 <img class="plus-button" src="~/img/plus.svg" />
             </div>
         </form>
+        }
     </div>
     <div class="column box gray-container">
         <span class="bold">Then</span>
@@ -31,6 +34,8 @@
             </div>
         }
         <!--Кнопка для добавления фичи в Then-->
+        @if (User.IsInRole("Manager"))
+        {
         <form method="get" onclick="this.submit()" asp-action="AddFeature" asp-controller="RoadMap">
             <div class="is-flex center-element">
                 <input type="hidden" asp-for="Roadmap" value="1" />
@@ -38,6 +43,7 @@
                 <img class="plus-button" src="~/img/plus.svg" />
             </div>
         </form>
+        }
     </div>
     <div class="column box gray-container">
         <span class="bold">After</span>
@@ -48,6 +54,8 @@
             </div>
         }
         <!--Кнопка для добавления фичи в After-->
+        @if (User.IsInRole("Manager"))
+        {
         <form method="get" onclick="this.submit()" asp-action="AddFeature" asp-controller="RoadMap">
             <div class="is-flex center-element">
                 <input type="hidden" asp-for="Roadmap" value="2" />
@@ -55,5 +63,6 @@
                 <img class="plus-button" src="~/img/plus.svg" />
             </div>
         </form>
+        }
     </div>
 </div>

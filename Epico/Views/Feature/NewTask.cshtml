@@ -1,0 +1,56 @@
+﻿@model NewTaskByIdViewModel
+@{
+    ViewBag.Title = "Добавление задачи в фичу";
+}
+
+<div class="content is-medium">
+    <h2>Добавление новой задачи в фичу</h2>
+</div>
+<div class="box">
+    <form method="post" asp-controller="Feature" asp-action="NewTask">
+        <input type="hidden" asp-for="@Model.FeatureId" />
+        <div class="field">
+            <label class="label" asp-for="Name">Название задачи</label>
+            <div class="control">
+                <input class="input" asp-for="Name" />
+                <span asp-validation-for="Name" class="error-message"></span>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label" asp-for="Description">Описание задачи</label>
+            <div class="control">
+                <input class="input" asp-for="Description" />
+                <span asp-validation-for="Description" class="error-message"></span>
+            </div>
+        </div>
+        <br />
+        <div class="field">
+            <label class="label" asp-for="UserId">Ответственный для задачи:</label>
+            <div class="control">
+                @foreach (var user in Model.PossibleUsers)
+                {
+                    <label class="radio">
+                        <input type="radio" value="@user.Id" name="UserId" />
+                        @user.UserName [@user.Position]
+                    </label>
+                    <br />
+                }
+                <span asp-validation-for="UserId" class="error-message"></span>
+            </div>
+        </div>
+        <!-- todo Если дедлайн у спринтов, то скорее всего у задач их нет-->
+        <!--
+        <br />
+        <div class="field">
+            <label class="label" asp-for="DeadLine">Дедлайн</label>
+            <div class="control">
+                <input type="datetime-local" asp-for="DeadLine" />
+                <span asp-validation-for="DeadLine" class="error-message"></span>
+            </div>
+        </div>
+        -->
+        <div class="has-text-centered">
+            <button class="button is-primary">Создать</button>
+        </div>
+    </form>
+</div>

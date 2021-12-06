@@ -8,7 +8,7 @@ namespace Epico.Models
     {
         public string TaskName { get; set; }
         public int TaskId { get; set; }
-        public List<User> PosibleUsers { get; set; }
+        public List<User> PossibleUsers { get; set; }
 
         [BindProperty] public List<int> UserIds { get; set; }
     }

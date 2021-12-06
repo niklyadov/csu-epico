@@ -49,33 +49,39 @@ namespace Epico.Controllers
                 });
             }
 
-            if (model.Users == null)
+            if (model.UserId == 0)
             {
                 return RedirectToAction("Index", "Task", new { error = true });
             }
-            var team = await UserService.GetByIds(model.Users);
-            await TaskService.AddTask(model.Name, model.Description, team, model.DeadLine);
+            var responsibleUser = await UserService.GetById(model.UserId);
+            await TaskService.Add(new Entity.Task
+            {
+                Name = model.Name,
+                Description = model.Description,
+                DeadLine = model.DeadLine,
+                ResponsibleUser = responsibleUser
+            });
             return RedirectToAction("Index", "Task");
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(TaskViewModel model)
+        public async Task<IActionResult> Edit(int id)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            return View(await GetEditTaskViewModel(model.TaskId));
+            return View(await GetEditTaskViewModel(id));
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> Edit(EditTaskViewModel model)
         {
             if (!ModelState.IsValid) return View(await GetEditTaskViewModel(model.TaskId));
 
-            var team = await UserService.GetByIds(model.Users);
+            var responsibleUser = await UserService.GetById(model.UserId);
             var task = await TaskService.GetById(model.TaskId);
             task.Name = model.Name;
             task.Description = model.Description;
-            task.Team = team;
+            task.ResponsibleUser = responsibleUser;
             task.DeadLine = model.DeadLine;
             task.State = (TaskState)model.State;
             
@@ -94,28 +100,26 @@ namespace Epico.Controllers
                 Description = task.Description,
                 DeadLine = task.DeadLine,
                 State = (int)task.State,
-                Users = task.Team.Select(x => x.Id).ToList(),
+                UserId = task.ResponsibleUser.Id,
                 PosibleUsers = await UserService.GetAll()
             };
         }
 
         [HttpGet]
-        public async Task<IActionResult> Delete([FromQuery] int taskId)
+        public async Task<IActionResult> Delete(int id)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
-
-            await TaskService.Delete(taskId);
+            await TaskService.Delete(id);
             return RedirectToAction("Index", "Task");
         }
 
         [HttpGet]
-        public async Task<IActionResult> EditState(TaskViewModel model)
+        public async Task<IActionResult> EditState(int id)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            var task = await TaskService.GetById(model.TaskId);
+            var task = await TaskService.GetById(id);
             return View(new EditStateTaskViewModel
             {
                 TaskId = task.ID,
@@ -126,12 +130,18 @@ namespace Epico.Controllers
         [HttpPost]
         public async Task<IActionResult> EditState(EditStateTaskViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                var retask = await TaskService.GetById(model.TaskId);
+                return View(new EditStateTaskViewModel
+                {
+                    TaskId = retask.ID,
+                    Task = retask
+                });
+            }
             var task = await TaskService.GetById(model.TaskId);
-
             task.State = model.State;
-            
             await TaskService.Update(task);
-            
             return RedirectToAction("Index", "Task");
         }
     }

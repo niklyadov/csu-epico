@@ -80,13 +80,13 @@ a.button.is-fullwidth.left-nav_link:focus:not(:active) {
     cursor: pointer;
 }
 
-.plus-button {
+.plus-button, .delete-button, .edit-button, .status-button {
     cursor: pointer;
 }
-.metric-plus-button:hover, .plus-button:hover {
+.metric-plus-button:hover, .plus-button:hover, .delete-button:hover, .edit-button:hover, .status-button:hover {
     filter: invert(13%) sepia(73%) saturate(7487%) hue-rotate(357deg) brightness(89%) contrast(127%);
 }
-.metric-plus-button:active, .plus-button:active {
+.metric-plus-button:active, .plus-button:active, .delete-button:active, .edit-button:active, .status-button:active {
     filter: invert(20%) sepia(87%) saturate(3829%) hue-rotate(15deg) brightness(64%) contrast(145%);
 }
 
@@ -109,4 +109,29 @@ a.button.is-fullwidth.left-nav_link:focus:not(:active) {
 
 .error-message{
     color: #ff0000;
+}
+
+.container-text-button {
+    align-items: center;
+    display: flex;
+}
+.container-text-button_button{
+    padding: 0 0 0 8px;
+}
+
+.is-red {
+    color: #ffffff;
+    background-color: #ff4040 !important;
+}
+
+.is-24-height{
+    max-height: 24px;
+}
+
+.is-32-height {
+    max-height: 32px;
+}
+
+.logout-button {
+    font-size: 0.95vw;
 }

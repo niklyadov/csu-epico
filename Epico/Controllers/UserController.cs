@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using Epico.Entity;
+using System.Linq;
 
 namespace Epico.Controllers
 {
@@ -39,11 +40,21 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Delete(int userId)
+        public async Task<IActionResult> Delete([FromQuery] int userId)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
+
+            var tasks = (await TaskService.GetAll())
+               .Where(task => task.ResponsibleUserId == userId)
+               .ToList();
+            tasks.ForEach(task => task.ResponsibleUser = null);
+
+            // todo сделать UpdateRange
+            foreach (var item in tasks)
+                await TaskService.Update(item);
+
             await UserService.Delete(userId);
-            return Ok("Сотрудник удалён");
+            return RedirectToAction("Index", "Team");
         }
     }
 }

@@ -4,6 +4,7 @@ namespace Epico.Models
 {
     public class NewProductViewModel
     {
+        public int Id { get; set; }
         [Required(ErrorMessage = "*Обязательное поле")]
         public string Name { get; set; }
         [Required(ErrorMessage = "*Обязательное поле")]

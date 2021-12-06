@@ -20,18 +20,19 @@
         </div>
 
         <div class="field">
-            <label class="label" asp-for="Features">Фичи для спринта</label>
+            <label class="label" asp-for="Features">Фичи и гипотезы для спринта</label>
             @foreach (var feature in Model.PosibleFeatures)
             {
                 <label class="checkbox">
-                    <input type="checkbox" value="@feature.ID" name="Features" @Html.Raw(Model.Features.Contains(feature.ID) ? "checked" : "") />
-                    @feature.Name
+                    <input type="checkbox" value="@feature.ID" name="Features" checked=@Model.Features.Contains(feature.ID) />
+                    @feature.Name [@(feature.IsFeature ? "Фича" : "Гипотеза")]
                 </label>
                 <br />
             }
             <span asp-validation-for="Features" class="error-message"></span>
         </div>
         <br />
+
         <div class="field">
             <label class="label" asp-for="StartDate">Дата начала спринта</label>
             <div class="control">

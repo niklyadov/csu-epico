@@ -44,7 +44,7 @@ namespace Epico
             
             #region Authentification
 
-            services.AddIdentity<User, UserRole>(options =>
+            services.AddIdentity<User, IdentityRole<int>>(options =>
             {
                 options.User.RequireUniqueEmail = false;
 

@@ -14,7 +14,9 @@ namespace Epico.Entity
 
         public List<Feature> Features { get; set; }
             = new List<Feature>();
-        public List<User> Team { get; set; }
-            = new List<User>();
+
+        public int? ResponsibleUserId { get; set; }
+        public User? ResponsibleUser { get; set; }
+        public bool HasResponsibleUser => ResponsibleUserId != null;
     }
 }

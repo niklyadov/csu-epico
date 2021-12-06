@@ -3,6 +3,7 @@ using Epico.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Epico.Controllers
@@ -76,11 +77,11 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit([FromQuery] int metricId)
+        public async Task<IActionResult> Edit(int id)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            return View(await GetEditMetricViewModel(metricId));
+            return View(await GetEditMetricViewModel(id));
         }
 
         [HttpPost]
@@ -123,18 +124,27 @@ namespace Epico.Controllers
                 Name = metric.Name,
                 Description = metric.Description,
                 ParentMetricId = metric.ParentMetricId,
-                PosibleParentMetrics = possibleParentMetrics
+                PosibleParentMetrics = possibleParentMetrics,
+                IsNSM = metric.IsNSM
             };
         }
 
         [HttpGet]
-        public async Task<IActionResult> Delete([FromQuery] int metricId)
+        public async Task<IActionResult> Delete(int id)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
-
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
 
-            await MetricService.Delete(metricId);
+            // todo водможно надо будет удалять всё поддерево метрик
+            var featuresAndHypotheses = (await FeatureService.GetAll())
+                .Where(x => x.MetricId == id)
+                .ToList();
+            featuresAndHypotheses.ForEach(x => x.Metric = null);
+            foreach (var item in featuresAndHypotheses)
+            {
+                await FeatureService.Update(item);
+            }
+            await MetricService.Delete(id);
             return RedirectToAction("Index", "Metric");
         }
     }

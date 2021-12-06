@@ -116,7 +116,9 @@ namespace Epico.Controllers
                 SprintId = sprint.ID,
                 Name = sprint.Name,
                 Features = sprint.Features.Select(x => x.ID).ToList(),
-                PosibleFeatures = await FeatureService.GetAll(),
+                PosibleFeatures = (await FeatureService.GetAll())
+                                  .OrderBy(x => x.IsFeature)
+                                  .ToList(),
                 StartDate = sprint.StartDate,
                 EndDate = sprint.EndDate
             };
@@ -133,17 +135,24 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> AddFeature(SprintViewModel model)
+        public async Task<IActionResult> DeleteFeature()
+        {
+            // todo impl
+            throw new NotImplementedException();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddFeature(int id)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            var sprint = await SprintService.GetById(model.SprintId);
-            var features = await FeatureService.GetAll();
+            var sprint = await SprintService.GetById(id);
+            var features = await FeatureService.GetAllFeatures();
             return View(new AddFeatureToSprintViewModel
             {
                 SprintName = sprint.Name,
                 SprintId = sprint.ID,
-                PosibleFeatures = features.Where(x => !sprint.Features.Contains(x)).ToList()
+                PosibleFeatures = features.Where(feature => !sprint.Features.Contains(feature)).ToList()
             });
         }
 

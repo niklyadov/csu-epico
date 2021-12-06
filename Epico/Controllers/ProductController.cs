@@ -16,31 +16,17 @@ namespace Epico.Controllers
         }
 
         [Route("[controller]")]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
-            //var userProjectId = await ProductService.UserProductId(AccountService.CurrentUserId());
-            //if (!userProjectId.HasValue)
-            //    return RedirectToAction("New");
-
             return RedirectToAction("Show", "Product");
         }
 
-        public async Task<IActionResult> Show()
+        public IActionResult Show()
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
-            //var userProductId = await ProductService.UserProductId(AccountService.CurrentUserId());
-            //if (!userProductId.HasValue)
-            //    return NotFound("This user does not have a project!");
-            
-            //var product = await ProductService.GetProductById(userProductId.Value);
-            var product = Product;
-            var sprints = await SprintService.GetAll();
-            var features = await FeatureService.GetAll();
-            var metrics = await MetricService.GetAll();
-            var tasks = await TaskService.GetAll();
-            var users = await UserService.GetAll();
 
+            var product = Product;
             return View(new ProductViewModel
             {
                 ProductId = product.ID,
@@ -48,15 +34,11 @@ namespace Epico.Controllers
                 Mission = product.Mission,
                 Vision = product.Vision,
                 OwnerUserId = product.OwnerUserId,
-                ProductFormula = product.ProductFormula,
-                Tasks = tasks,
-                Features = features,
-                Sprints = sprints,
-                Metrics = metrics,
-                Users = users
+                ProductFormula = product.ProductFormula
             });
         }
 
+        [Authorize(Roles = "Manager")]
         [HttpGet]
         public IActionResult New()
         {
@@ -66,6 +48,7 @@ namespace Epico.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         public async Task<IActionResult> New(NewProductViewModel model)
         {
@@ -89,13 +72,50 @@ namespace Epico.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Delete(int projectId)
+        [Authorize(Roles = "Manager")]
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
         {
+            if (!HasProduct) return RedirectToAction("New", "Product");
+
             if (!ModelState.IsValid) 
                 return BadRequest("ModelState is not Valid");
             
-            await ProductService.Delete(projectId);
+            await ProductService.Delete(id);
             return RedirectToAction("New");
+        }
+
+        [Authorize(Roles = "Manager")]
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            if (!HasProduct) return RedirectToAction("New", "Product");
+
+            var product = await ProductService.GetById(id);
+            return View(new NewProductViewModel
+            {
+                Id = product.ID,
+                Name = product.Name,
+                Vision = product.Vision,
+                Mission = product.Mission,
+                ProductFormula = product.ProductFormula
+            });
+        }
+
+        [Authorize(Roles = "Manager")]
+        [HttpPost]
+        public async Task<IActionResult> Edit(NewProductViewModel model)
+        {
+            if (!HasProduct) return RedirectToAction("New", "Product");
+
+            var product = await ProductService.GetById(model.Id);
+            product.Name = model.Name;
+            product.Vision = model.Vision;
+            product.Mission = model.Mission;
+            product.ProductFormula = model.ProductFormula;
+
+            await ProductService.Update(product);
+            return RedirectToAction("Show");
         }
     }
 }

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Epico.Entity.DAL
 {
-    public class ApplicationContext : IdentityDbContext<User, UserRole, int>
+    public class ApplicationContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
         public DbSet<Product> Products { get; private set; }
         public DbSet<Sprint> Sprints { get; private set; }
@@ -23,7 +23,7 @@ namespace Epico.Entity.DAL
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Task>()
-                .HasMany(t => t.Team)
+                .HasOne(t => t.ResponsibleUser)
                 .WithMany(u => u.Tasks);
 
             modelBuilder.Entity<Sprint>()
@@ -33,6 +33,10 @@ namespace Epico.Entity.DAL
             modelBuilder.Entity<Feature>()
                 .HasOne(f => f.Metric)
                 .WithMany(m => m.Features);
+
+            modelBuilder.Entity<Feature>()
+                .HasMany(f => f.Users)
+                .WithMany(u => u.Features);
 
             modelBuilder.Entity<Feature>()
                 .HasMany(f => f.Tasks)

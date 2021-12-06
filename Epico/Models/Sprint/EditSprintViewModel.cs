@@ -21,5 +21,6 @@ namespace Epico.Models
         public DateTime EndDate { get; set; }
 
         public List<Feature> PosibleFeatures { get; set; }
+
     }
 }

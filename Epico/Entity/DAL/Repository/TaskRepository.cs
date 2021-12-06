@@ -18,7 +18,7 @@ namespace Epico.Entity.DAL.Repository
         {
             return await _dbContext.Set<Task>()
                 .Where(x => x.ID == id)
-                .Include(x => x.Team)
+                .Include(x => x.ResponsibleUser)
                 .FirstAsync();
         }
 
@@ -26,14 +26,14 @@ namespace Epico.Entity.DAL.Repository
         {
             return await _dbContext.Set<Task>()
                 .Where(l => ids.Contains(l.ID))
-                .Include(x => x.Team)
+                .Include(x => x.ResponsibleUser)
                 .ToListAsync();
         }
 
         public new async Task<List<Task>> GetAll()
         {
             return await _dbContext.Set<Task>()
-                .Include(x => x.Team)
+                .Include(x => x.ResponsibleUser)
                 .ToListAsync();
         }
     }

@@ -4,46 +4,108 @@
 }
 
 <div class="column box gray-container">
-    <h2 class="bold">Список всех спринтов</h2>
-    <br />
-
-    @if (Model.SprintError) 
+    <div class="container-text-button">
+        <span class="bold">Список всех спринтов </span>
+        @if (User.IsInRole("Manager"))
+        {
+            <div class="container-text-button_button">
+                <a class="is-32-height"
+                   asp-controller="Sprint"
+                   asp-action="New">
+                    <img class="plus-button" src="~/img/plus-square.svg" />
+                </a>
+            </div>
+        }
+    </div>
+    @if (Model.SprintError)
     {
         <span class="error-message">*Нельзя создать спринт без указания фичи</span>
         <br />
     }
-    <!--Раскоментить когда релизную версию выкатывать будем-->
     @foreach (var sprint in Model.Sprints)
     {
-        <!-- todo Добавить даты сроков спринта после названия -->
-        <span class="bold">@sprint.Name (@sprint.StartDate --- @sprint.EndDate)</span>
         <div class="box word-break">
-        @foreach (var feature in sprint.Features)
-        {
-            <p>@feature.Name</p>
-        }
-            <form method="get" onclick="this.submit()" asp-action="AddFeature" asp-controller="Sprint">
-                <div class="is-flex center-element">
-                    <input type="hidden" asp-for="SprintId" value="@sprint.ID" />
-                    <img class="plus-button" src="~/img/plus.svg" />
-                </div>
-            </form>
+            <div class="columns">
+                <div class="column is-four-fifths">
+                    <p><span class="bold">Название:</span> @sprint.Name</p>
+                    <p><span class="bold">Сроки:</span> (@sprint.StartDate --- @sprint.EndDate)</p>
 
-            <form method="get" asp-action="Edit" asp-controller="Sprint">
-                <input type="hidden" asp-for="SprintId" value="@sprint.ID" />
-                <button class="button is-primary is-small" style="margin-bottom: 0.5%">Change Sprint</button>
-            </form>
-            <form method="get" asp-action="Delete" asp-controller="Sprint">
-                <input type="hidden" asp-for="SprintId" value="@sprint.ID" />
-                <button class="button is-primary is-small" style="margin-bottom: 0.5%">Delete Sprint</button>
-            </form>
+                    <div class="container-text-button">
+                        <span class="bold">Список фич и гипотез: </span>
+                        @if (User.IsInRole("Manager"))
+                        {
+                            <div class="container-text-button_button ">
+                                <a class="is-24-height"
+                                   asp-controller="Sprint"
+                                   asp-action="AddFeature"
+                                   asp-route-id="@sprint.ID">
+                                    <img class="plus-button" src="~/img/plus.svg" />
+                                </a>
+                            </div>
+                        }
+                    </div>
+
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th style="min-width:80px"></th>
+                                <th></th>
+                                <th style="min-width:25px"></th>
+                                <th style="min-width:25px"></th>
+                            </tr>
+                            @foreach (var feature in sprint.Features.OrderBy(x => x.IsFeature))
+                            {
+                                <tr>
+                                    @if (feature.IsFeature)
+                                    {
+                                        <td>Фича:</td>
+                                        <td>@feature.Name [@feature.State]</td>
+                                    }
+                                    else
+                                    {
+                                        <td>Гипотеза:</td>
+                                        <td>@feature.Name</td>
+                                    }
+                                    @if (User.IsInRole("Manager"))
+                                    {
+                                        <td>
+                                            <a class="is-24-height"
+                                               asp-controller="Feature"
+                                               asp-action="Edit"
+                                               asp-route-id="@feature.ID">
+                                                <img class="edit-button" src="~/img/edit.svg" />
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a class="is-24-height"
+                                               asp-controller="Sprint"
+                                               asp-action="DeleteFeature"
+                                               asp-route-sprintId="@sprint.ID"
+                                               asp-route-featureId="@feature.ID">
+                                                <img class="delete-button" src="~/img/trash.svg" />
+                                            </a>
+                                        </td>
+                                    }
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                @if (User.IsInRole("Manager"))
+                {
+                    <div class="column">
+                        <a class="button is-red is-fullwidth" style="margin-bottom: 0.5%"
+                           asp-controller="Sprint"
+                           asp-action="Edit"
+                           asp-route-id="@sprint.ID">Edit Sprint</a>
+                        <a class="button is-red is-fullwidth" style="margin-bottom: 0.5%"
+                           asp-controller="Sprint"
+                           asp-action="Delete"
+                           asp-route-id="@sprint.ID">Delete Sprint</a>
+                    </div>
+                }
+            </div>
         </div>
     }
-
-    <!-- Кнопка добавления нового спринта-->
-    <form method="get" onclick="this.submit()" asp-action="New" asp-controller="Sprint">
-        <div class="is-flex center-element">
-            <img class="plus-button" src="~/img/plus.svg" />
-        </div>
-    </form>
 </div>

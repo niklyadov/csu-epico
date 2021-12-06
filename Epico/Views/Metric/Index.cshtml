@@ -1,29 +1,32 @@
-@using Epico.Entity
 @model MetricViewModel
 @{
     ViewBag.Title = "Metrics";
 }
 
 <div class="content">
-    <h2>North Star Metric</h2>
-    <p>@Model.Metric.Name</p>
-    <p>@Model.Metric.Description</p>
+    <h2>North Star Metric:</h2>
+    <span>Название: @Model.Metric.Name</span><br />
+    <span>Описание: @Model.Metric.Description</span><br />
 </div>
 <br />
 <div class="content">
-    <div>
-        <h2>Hierarchy of Metrics</h2>
-        <form method="get" onclick="this.submit()" asp-action="New" asp-controller="Metric">
-            <!--style="justify-content: center;-->
-            <div class="is-flex">
-                <img class="metric-plus-button" src="~/img/plus.svg" />
-            </div>
-        </form>
-        @if (Model.Error)
+    <div class="container-text-button">
+        <span class="bold" style="font-size: large">Hierarchy of Metrics </span>
+        @if (User.IsInRole("Manager"))
         {
-        <span class="error-message">*Для создания метрики обязательно нужно указывать родительскую метрику</span>
+        <div class="container-text-button_button">
+            <a class="is-32-height"
+               asp-controller="Metric"
+               asp-action="New">
+                <img class="metric-plus-button" src="~/img/plus-square.svg" />
+            </a>
+        </div>
         }
     </div>
+    @if (Model.Error)
+    {
+    <span class="error-message">*Для создания метрики обязательно нужно указывать родительскую метрику</span>
+    }
 
     @await Html.PartialAsync("MetricWalk", Model.Metric)
 </div>

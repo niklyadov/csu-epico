@@ -1,0 +1,70 @@
+﻿@using Epico.Entity;
+@model NewHypothesisViewModel
+@{
+    ViewBag.Title = "Добавление гипотезы";
+}
+
+<!--has-text-centered-->
+<div class="content is-medium ">
+    <h2>Добавление новой гипотезы</h2>
+</div>
+<div class="box">
+    <form method="post" asp-action="New" asp-controller="Hypothesis">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="field">
+            <label class="label" asp-for="Name">Название</label>
+            <div class="control">
+                <input class="form-control input" asp-for="Name" />
+                <span asp-validation-for="Name" class="error-message"></span>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label" asp-for="Description">Описание</label>
+            <div class="control">
+                <input class="input" asp-for="Description" />
+                <span asp-validation-for="Description" class="error-message"></span>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label" asp-for="UserIds">Выбор команды</label>
+            <div class="control">
+                @foreach (var user in Model.PosibleUsers)
+                {
+                    <label class="checkbox">
+                        <input type="checkbox" value="@user.Id" name="UserIds" />
+                        @user.UserName [@user.Position]
+                    </label>
+                    <br />
+                }
+            </div>
+            <span asp-validation-for="UserIds" class="error-message"></span>
+        </div>
+
+
+        <div class="field">
+            <label class="label" asp-for="MetricId">Выбор метрики</label>
+            <div class="control">
+                <label class="radio">
+                    <input type="radio" value="0" name="MetricId" checked />
+                    None
+                </label>
+                <br />
+                @foreach (var metric in Model.PosibleMetrics)
+                {
+                    <label class="radio">
+                        <input type="radio" value="@metric.ID" name="MetricId" />
+                        @metric.Name
+                    </label>
+                    <br />
+                }
+            </div>
+            <span asp-validation-for="MetricId" class="error-message"></span>
+        </div>
+
+        <div class="has-text-centered">
+            <button class="button is-primary">Создать</button>
+        </div>
+    </form>
+</div>

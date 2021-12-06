@@ -25,7 +25,7 @@
                 <span asp-validation-for="Description" class="error-message"></span>
             </div>
         </div>
-        @if (Model.PosibleParentMetrics?.Count != 0)
+        @if (Model.PosibleParentMetrics?.Count != 0 && !Model.IsNSM)
         {
             <div class="field">
                 <label class="label" asp-for="ParentMetricId">Родительская метрика</label>

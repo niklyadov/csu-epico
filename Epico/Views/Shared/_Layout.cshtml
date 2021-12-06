@@ -49,8 +49,10 @@
                     <div class="level-item display-username">
                         <p class="subtitle is-12">@UserManager.GetUserName(User)</p>
                     </div>
-                    <div class="level-item display-username">
-                        <a class="button is-primary is-light is-small" href="/Account/Logout" style="font-size:0.95vw">Выйти</a>
+                    <div class="level-item display-username logout-button">
+                        <a class="button is-danger is-light is-small" 
+                           asp-controller="Account"
+                           asp-action="Logout">Выйти</a>
                     </div>
                 }
             </div>
@@ -62,43 +64,67 @@
             <!--Боковая панель навигации-->
             <div class="column is-narrow left-nav">
                 <div class="has-text-left">
-                    <a class="button is-fullwidth left-nav_link" asp-controller="Product" asp-action="Index" onload="setActive(this)">
-                        <img src="~/img/product.svg" alt="Product" /> Product
+                    <a class="button is-fullwidth left-nav_link" 
+                       asp-controller="Product" 
+                       asp-action="Index" 
+                       onload="setActive(this)">
+                       <img src="~/img/product.svg" alt="Product" /> Product
                     </a>
                 </div>
                 <div class="has-text-left">
-                    <a class="button is-fullwidth left-nav_link" asp-controller="Metric" asp-action="Index" onload="setActive(this)">
-                        <img src="~/img/nsm&hom.svg" alt="NSM & HOM" /> NSM & HOM
+                    <a class="button is-fullwidth left-nav_link" 
+                       asp-controller="Metric" 
+                       asp-action="Index" 
+                       onload="setActive(this)">
+                       <img src="~/img/nsm&hom.svg" alt="NSM & HOM" /> NSM & HOM
                     </a>
                 </div>
                 <div class="has-text-left">
-                    <a class="button is-fullwidth left-nav_link" asp-controller="Team" asp-action="Index" onload="setActive(this)">
-                        <img src="~/img/team.svg" alt="Team" /> Team
+                    <a class="button is-fullwidth left-nav_link"
+                       asp-controller="Team" 
+                       asp-action="Index" 
+                       onload="setActive(this)">
+                       <img src="~/img/team.svg" alt="Team" /> Team
                     </a>
                 </div>
                 <div class="has-text-left">
-                    <a class="button is-fullwidth left-nav_link" asp-controller="Task" asp-action="Index" onload="setActive(this)">
-                        <img src="~/img/task.svg" alt="Tasks" /> Tasks
+                    <a class="button is-fullwidth left-nav_link" 
+                       asp-controller="Task" 
+                       asp-action="Index" 
+                       onload="setActive(this)">
+                       <img src="~/img/task.svg" alt="Tasks" /> Tasks
                     </a>
                 </div>
                 <div class="has-text-left">
-                    <a class="button is-fullwidth left-nav_link" asp-controller="Feature" asp-action="Index" onload="setActive(this)">
-                        <img src="~/img/features.svg" alt="Features" /> Features
+                    <a class="button is-fullwidth left-nav_link" 
+                       asp-controller="Feature" 
+                       asp-action="Index" 
+                       onload="setActive(this)">
+                       <img src="~/img/features.svg" alt="Features" /> Features
                     </a>
                 </div>
                 <div class="has-text-left">
-                    <a class="button is-fullwidth left-nav_link" asp-controller="Hypotheses" asp-action="Index" onload="setActive(this)">
-                        <img src="~/img/hypotheses.svg" alt="Hypotheses" /> Hypotheses
+                    <a class="button is-fullwidth left-nav_link" 
+                       asp-controller="Hypothesis" 
+                       asp-action="Index" 
+                       onload="setActive(this)">
+                       <img src="~/img/hypotheses.svg" alt="Hypotheses" /> Hypotheses
                     </a>
                 </div>
                 <div class="has-text-left">
-                    <a class="button is-fullwidth left-nav_link" asp-controller="RoadMap" asp-action="Index" onload="setActive(this)">
-                        <img src="~/img/roadmap.svg" alt="RoadMap" /> RoadMap
+                    <a class="button is-fullwidth left-nav_link" 
+                       asp-controller="RoadMap" 
+                       asp-action="Index" 
+                       onload="setActive(this)">
+                       <img src="~/img/roadmap.svg" alt="RoadMap" /> RoadMap
                     </a>
                 </div>
                 <div class="has-text-left">
-                    <a class="button is-fullwidth left-nav_link" asp-controller="Sprint" asp-action="Index" onload="setActive(this)">
-                        <img src="~/img/sprint.svg" alt="Sprints" /> Sprints
+                    <a class="button is-fullwidth left-nav_link" 
+                       asp-controller="Sprint" 
+                       asp-action="Index" 
+                       onload="setActive(this)">
+                       <img src="~/img/sprint.svg" alt="Sprints" /> Sprints
                     </a>
                 </div>
             </div>
