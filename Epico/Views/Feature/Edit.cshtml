@@ -29,18 +29,6 @@
             </div>
         </div>
 
-            
-        @*
-        <!--Гипотеза [input]-->
-        <div class="field">
-            <label class="label" asp-for="Hypothesis">Гипотеза</label>
-            <div class="control">
-                <input class="input" asp-for="Hypothesis" value="@Model.Hypothesis" />
-                <span asp-validation-for="Hypothesis" class="error-message"></span>
-            </div>
-        </div>
-        *@
-
         <!--Выбор команды [checkbox]-->
         <div class="field">
             <label class="label" asp-for="UserIds">Выбор команды</label>
@@ -61,6 +49,11 @@
         <div class="field">
             <label class="label" asp-for="MetricId">Выбор метрики</label>
             <div class="control">
+                <label class="radio">
+                    <input type="radio" value="0" name="MetricId" checked=@Model.MetricId.Equals(null) />
+                    None
+                </label>
+                <br />
                 @foreach (var metric in Model.PosibleMetrics)
                 {
                     <label class="radio">

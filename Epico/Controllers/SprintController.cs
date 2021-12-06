@@ -85,10 +85,10 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(SprintViewModel model)
+        public async Task<IActionResult> Edit(int id)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
-            return View(await GetEditSprintViewModel(model.SprintId));
+            return View(await GetEditSprintViewModel(id));
         }
 
         [HttpPost]
@@ -135,10 +135,19 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> DeleteFeature()
+        public async Task<IActionResult> DeleteFeature(int id, int sprintId)
         {
-            // todo impl
-            throw new NotImplementedException();
+            var feature = await FeatureService.GetById(id);
+            if (feature == null)
+                return BadRequest("Фича/Гипотеза не найдена.");
+
+            var sprint = await SprintService.GetById(sprintId);
+            if (!sprint.Features.Contains(feature))
+                return BadRequest("Спринт не содержит эту фичу/гипотезу.");
+
+            sprint.Features.Remove(feature);
+            await SprintService.Update(sprint);
+            return RedirectToAction("Index");
         }
 
         [HttpGet]

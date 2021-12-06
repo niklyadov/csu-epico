@@ -135,7 +135,13 @@ namespace Epico.Controllers
             if (!HasProduct) return RedirectToAction("New", "Product");
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
 
-            // todo водможно надо будет удалять всё поддерево метрик
+            var metric = await MetricService.GetById(id);
+            var parentMetric = await MetricService.GetById(metric.ParentMetricId.Value);
+
+            metric.Children.ForEach(x => x.ParentMetricId = parentMetric.ID);
+            parentMetric.Children.Remove(metric);
+            parentMetric.Children.AddRange(metric.Children);
+
             var featuresAndHypotheses = (await FeatureService.GetAll())
                 .Where(x => x.MetricId == id)
                 .ToList();

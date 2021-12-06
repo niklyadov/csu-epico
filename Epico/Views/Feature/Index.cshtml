@@ -6,15 +6,15 @@
 <div class="column box gray-container">
     <div class="container-text-button">
         <span class="bold">Список всех фич </span>
-       @if (User.IsInRole("Manager"))
+        @if (User.IsInRole("Manager"))
         {
-        <div class="container-text-button_button">
-            <a class="is-32-height"
-               asp-controller="Feature"
-               asp-action="New">
-                <img class="plus-button" src="~/img/plus-square.svg" />
-            </a>
-        </div>
+            <div class="container-text-button_button">
+                <a class="is-32-height"
+                   asp-controller="Feature"
+                   asp-action="New">
+                    <img class="plus-button" src="~/img/plus-square.svg" />
+                </a>
+            </div>
         }
     </div>
     @if (Model.TaskError)
@@ -38,7 +38,7 @@
                     <div class="container-text-button">
                         <span><span class="bold">Статус фичи:</span> [@feature.State]</span>
                         @if (User.IsInRole("Manager"))
-                         {
+                        {
 
                             <div class="container-text-button_button">
                                 <a class="is-24-height"
@@ -48,26 +48,33 @@
                                     <img class="status-button" src="~/img/status.svg" />
                                 </a>
                             </div>
-                         }
+                        }
                     </div>
                     <p class="bold">Привязанная метрика:</p>
-                    <p>@feature.Metric.Name</p>
+                    @if (@feature.Metric != null)
+                    {
+                        <p>@feature.Metric.Name</p>
+                    }
+                    else
+                    {
+                        <p>Метрика не назначена</p>
+                    }
 
                     <!--Список задач-->
                     <div>
                         <div class="container-text-button">
                             <span class="bold">Список задач: </span>
-                           @if (User.IsInRole("Manager")) 
-                           { 
-                            <div class="container-text-button_button">
-                                <a class="is-24-height"
-                                   asp-controller="Feature"
-                                   asp-action="NewTask"
-                                   asp-route-id="@feature.ID">
-                                    <img class="plus-button" src="~/img/plus.svg" />
-                                </a>
-                            </div>
-                           }
+                            @if (User.IsInRole("Manager"))
+                            {
+                                <div class="container-text-button_button">
+                                    <a class="is-24-height"
+                                       asp-controller="Feature"
+                                       asp-action="NewTask"
+                                       asp-route-id="@feature.ID">
+                                        <img class="plus-button" src="~/img/plus.svg" />
+                                    </a>
+                                </div>
+                            }
                         </div>
                         <div>
                             @if (feature.Tasks.Count == 0)
@@ -137,20 +144,20 @@
                         }
                     </div>
                 </div>
-               @if (User.IsInRole("Manager")) 
-               { 
-                <div class="column">
-                    <!--Кнопки для взаимодействия с фичей-->
-                    <a class="button is-red is-fullwidth" style="margin-bottom: 0.5%"
-                       asp-controller="Feature"
-                       asp-action="Edit"
-                       asp-route-id="@feature.ID">Edit feature</a>
-                    <a class="button is-red is-fullwidth" style="margin-bottom: 0.5%"
-                       asp-controller="Feature"
-                       asp-action="Delete"
-                       asp-route-id="@feature.ID">Delete feature</a>
-                </div>
-               }
+                @if (User.IsInRole("Manager"))
+                {
+                    <div class="column">
+                        <!--Кнопки для взаимодействия с фичей-->
+                        <a class="button is-red is-fullwidth" style="margin-bottom: 0.5%"
+                           asp-controller="Feature"
+                           asp-action="Edit"
+                           asp-route-id="@feature.ID">Edit feature</a>
+                        <a class="button is-red is-fullwidth" style="margin-bottom: 0.5%"
+                           asp-controller="Feature"
+                           asp-action="Delete"
+                           asp-route-id="@feature.ID">Delete feature</a>
+                    </div>
+                }
             </div>
         </div>
     }

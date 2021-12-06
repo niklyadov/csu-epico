@@ -85,12 +85,15 @@ namespace Epico.Controllers
             if (!ModelState.IsValid) return View(GetEditFeatureViewModel(model.FeatureId));
 
             var users = await UserService.GetByIds(model.UserIds);
-            var metrics = await MetricService.GetById(model.MetricId);
+
+            Metric metric = null;
+            if (model.MetricId != 0)
+                metric = await MetricService.GetById(model.MetricId);
+
             var feature = await FeatureService.GetById(model.FeatureId);
             feature.Name = model.Name;
             feature.Description = model.Description;
-            //feature.Hypothesis = model.Hypothesis;
-            feature.Metric = metrics;
+            feature.Metric = metric;
             feature.Users = users;
             feature.State = model.State;
             feature.Roadmap = model.Roadmap;
@@ -102,13 +105,13 @@ namespace Epico.Controllers
         private EditFeatureViewModel GetEditFeatureViewModel(int featureId)
         {
             var feature = FeatureService.GetById(featureId).Result;
+            var metricId = feature.Metric != null ? feature.Metric.ID : 0;
             return new EditFeatureViewModel
             {
                 FeatureId = feature.ID,
                 Name = feature.Name,
                 Description = feature.Description,
-               // Hypothesis = feature.Hypothesis,
-                MetricId = feature.Metric.ID,
+                MetricId = metricId,
                 UserIds = feature.Users.Select(x => x.Id).ToList(),
                 Roadmap = feature.Roadmap.Value,
                 State = feature.State,
@@ -123,10 +126,17 @@ namespace Epico.Controllers
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
+            var feature = await FeatureService.GetById(id);
+            var sprints = (await SprintService.GetAll())
+               .Where(sprint => sprint.Features.Contains(feature))
+               .ToList();
+            sprints.ForEach(sprint => sprint.Features.Remove(feature));
+
+            foreach (var item in sprints)
+                await SprintService.Update(item);
 
             await FeatureService.Delete(id);
-            return RedirectToAction("Index", "Feature");
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
