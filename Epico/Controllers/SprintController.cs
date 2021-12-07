@@ -156,7 +156,7 @@ namespace Epico.Controllers
             if (!HasProduct) return RedirectToAction("New", "Product");
 
             var sprint = await SprintService.GetById(id);
-            var features = await FeatureService.GetAllFeatures();
+            var features = await FeatureService.GetAll();
             return View(new AddFeatureToSprintViewModel
             {
                 SprintName = sprint.Name,
