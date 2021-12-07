@@ -173,13 +173,13 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> DeleteTask(int hypothesisId, int taskId)
+        public async Task<IActionResult> DeleteTask(int id, int taskId)
         {
             var task = await TaskService.GetById(taskId);
             if (task == null)
                 return BadRequest("Задача не найдена.");
 
-            var hypothesis = await FeatureService.GetById(hypothesisId);
+            var hypothesis = await FeatureService.GetById(id);
             if (!hypothesis.Tasks.Contains(task))
                 return BadRequest("Гипотеза не содержит эту задачу.");
 
