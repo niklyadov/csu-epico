@@ -92,7 +92,7 @@ namespace Epico.Controllers
 
             var metric = await MetricService.GetById(model.MetricId);
 
-            if (metric.Children.Select(x => x.ID).Contains(model.ParentMetricId.Value) || metric.ID == model.MetricId)
+            if (metric.Children.Select(x => x.ID).Contains(model.ParentMetricId.Value) || metric.ID == model.ParentMetricId)
             {
                 return RedirectToAction("Index", new { parenterror = true });
             }
