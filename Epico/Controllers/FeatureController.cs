@@ -138,12 +138,8 @@ namespace Epico.Controllers
                .ToList();
             sprints.ForEach(sprint => sprint.Features.Remove(feature));
 
-            foreach (var item in sprints)
-                await SprintService.Update(item);
-
-            foreach (var item in feature.Tasks)
-                TaskService.Delete(item.ID);
-
+            await SprintService.UpdateRange(sprints);
+            await TaskService.DeleteRange(feature.Tasks);
             await FeatureService.Delete(id);
             return RedirectToAction("Index");
         }

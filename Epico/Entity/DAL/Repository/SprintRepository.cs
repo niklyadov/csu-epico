@@ -35,5 +35,15 @@ namespace Epico.Entity.DAL.Repository
                 .Include(x => x.Features)
                 .ToListAsync();
         }
+
+        public async Task<List<Sprint>> UpdateRange(List<Sprint> sprints)
+        {
+            foreach (var sprint in sprints)
+            {
+                _dbContext.Entry(sprint).State = EntityState.Modified;  
+            }
+            await _dbContext.SaveChangesAsync();
+            return sprints;
+        }
     }
 }

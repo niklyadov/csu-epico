@@ -23,6 +23,11 @@ namespace Epico.Services
             return await _sprintRepository.Update(sprint);
         }
 
+        public async Task<List<Sprint>> UpdateRange(List<Sprint> sprints)
+        {
+            return await _sprintRepository.UpdateRange(sprints);
+        }
+
         public async Task<int> Save(Sprint entity)
         {
             return await _sprintRepository.Save(entity);

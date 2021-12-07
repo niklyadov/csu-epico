@@ -36,5 +36,18 @@ namespace Epico.Entity.DAL.Repository
                 .Include(x => x.ResponsibleUser)
                 .ToListAsync();
         }
+
+        public async Task<List<Task>> DeleteRange(List<Task> entites)
+        {
+            foreach (var item in entites)
+            {
+                var entity = await _dbContext.Set<Task>().FindAsync(item.ID);
+                _dbContext.Set<Task>().Remove(entity);
+                _dbContext.Entry(entity).State = EntityState.Deleted;
+            }
+            await _dbContext.SaveChangesAsync();
+
+            return entites;
+        }
     }
 }

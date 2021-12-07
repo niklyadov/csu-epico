@@ -49,5 +49,10 @@ namespace Epico.Services
         {
             return await _taskRepository.Update(entity);
         }
+
+        public async Task<List<Task>> DeleteRange(List<Task> entites)
+        {
+            return await _taskRepository.DeleteRange(entites);
+        }
     }
 }
