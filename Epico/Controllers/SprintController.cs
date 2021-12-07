@@ -15,7 +15,7 @@ namespace Epico.Controllers
         {
         }
         
-        public async Task<IActionResult> Index([FromQuery] bool sprintError)
+        public async Task<IActionResult> Index([FromQuery] bool noneError)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
@@ -23,21 +23,21 @@ namespace Epico.Controllers
             var sprints = await SprintService.GetAll();
             return View(new SprintViewModel
             {
-                SprintError = sprintError,
+                NoneError = noneError,
                 Sprints = sprints
             });
         }
 
         [HttpGet]
-        public async Task<IActionResult> New()
+        public async Task<IActionResult> New([FromQuery] bool none)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
             var model = await GetNewSprintViewModel();
             // Нельзя создать спринт если в проекте нет ни одной фичи
             // todo добавить сообщение
-            if (model.PosibleFeatures == null || model.PosibleFeatures.Count == 0) 
-                return RedirectToAction("Index", "Sprint");
+            if (model.PosibleFeatures == null || model.PosibleFeatures.Count == 0)
+                return RedirectToAction("Index", "Sprint", new { none = true });
 
             return View(model);
         }

@@ -19,7 +19,6 @@ namespace Epico.Models
         [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
 
-
         public List<Feature> PosibleFeatures { get; set; }
     }
 }

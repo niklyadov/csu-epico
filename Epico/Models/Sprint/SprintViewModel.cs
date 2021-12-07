@@ -10,5 +10,6 @@ namespace Epico.Models
         public List<Sprint> Sprints { get; set; }
             = new List<Sprint>();
         public bool SprintError { get; set; }
+        public bool NoneError { get; set; }
     }
 }
