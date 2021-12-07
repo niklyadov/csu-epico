@@ -89,9 +89,14 @@ namespace Epico.Controllers
             Metric metric = null;
             if (model.MetricId != 0)
                 metric = await MetricService.GetById(model.MetricId);
-            
-            // todo переделать на гипотезы
+
             var hypothesis = await FeatureService.GetById(model.HypothesisId);
+            // Отвязка ответственного если его убрали из команды
+            foreach (var item in hypothesis.Tasks)
+                if (!model.UserIds.Contains(item.ResponsibleUserId.Value))
+                    item.ResponsibleUser = null;
+
+            // todo переделать на гипотезы
             hypothesis.Name = model.Name;
             hypothesis.Description = model.Description;
             hypothesis.Metric = metric;

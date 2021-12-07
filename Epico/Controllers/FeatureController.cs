@@ -91,6 +91,12 @@ namespace Epico.Controllers
                 metric = await MetricService.GetById(model.MetricId);
 
             var feature = await FeatureService.GetById(model.FeatureId);
+
+            // ќтв€зка ответственного если его убрали из команды
+            foreach (var item in feature.Tasks)
+                if (!model.UserIds.Contains(item.ResponsibleUserId.Value))
+                    item.ResponsibleUser = null;
+
             feature.Name = model.Name;
             feature.Description = model.Description;
             feature.Metric = metric;

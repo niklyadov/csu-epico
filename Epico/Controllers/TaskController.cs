@@ -93,6 +93,10 @@ namespace Epico.Controllers
         private async Task<EditTaskViewModel> GetEditTaskViewModel(int taskId)
         {
             var task = await TaskService.GetById(taskId);
+
+            var feature = (await FeatureService.GetAll()).Where(feature => feature.Tasks.Contains(task)).First();
+            var posibleUsers = (await UserService.GetAll()).Where(user => feature.Users.Contains(user)).ToList();
+            var responsibleUserId = task.ResponsibleUser != null ? task.ResponsibleUser.Id : 0;
             return new EditTaskViewModel
             {
                 TaskId = task.ID,
@@ -100,8 +104,8 @@ namespace Epico.Controllers
                 Description = task.Description,
                 DeadLine = task.DeadLine,
                 State = (int)task.State,
-                UserId = task.ResponsibleUser.Id,
-                PosibleUsers = await UserService.GetAll()
+                UserId = responsibleUserId,
+                PosibleUsers = posibleUsers
             };
         }
 
