@@ -29,7 +29,7 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> New([FromQuery] bool none)
+        public async Task<IActionResult> New()
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
@@ -37,7 +37,7 @@ namespace Epico.Controllers
             // Нельзя создать спринт если в проекте нет ни одной фичи
             // todo добавить сообщение
             if (model.PosibleFeatures == null || model.PosibleFeatures.Count == 0)
-                return RedirectToAction("Index", "Sprint", new { none = true });
+                return RedirectToAction("Index", "Sprint", new { noneError = true });
 
             return View(model);
         }
