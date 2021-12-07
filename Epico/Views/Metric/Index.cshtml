@@ -29,7 +29,7 @@
     }
     @if (Model.ParentError)
     {
-        <span class="error-message">*Нельзя привязать метрику к её потомкам</span>
+        <span class="error-message">*Нельзя привязать метрику к её потомкам или к самой себе</span>
     }
 
     @await Html.PartialAsync("MetricWalk", Model.Metric)
