@@ -124,13 +124,13 @@ namespace Epico.Controllers
             };
         }
 
-        public async Task<IActionResult> Delete([FromQuery] int sprintId)
+        public async Task<IActionResult> Delete(int id)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
             if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
             // todo fix delete from DB
-            await SprintService.Delete(sprintId);
+            await SprintService.Delete(id);
             return RedirectToAction("Index", "Sprint");
         }
 
