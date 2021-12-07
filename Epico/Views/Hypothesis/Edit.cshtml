@@ -1,11 +1,11 @@
 ﻿@model EditHypothesisViewModel
 @{
-    ViewBag.Title = "Изменение фичи";
+    ViewBag.Title = "Изменение гипотезы";
 }
 <div class="content is-medium">
-    <h2>Изменение фичи</h2>
+    <h2>Изменение гипотезы</h2>
 </div>
-<div class="box">
+<div class="box word-break">
     <form method="post" asp-action="Edit" asp-controller="Hypothesis">
         <input type="hidden" asp-for="HypothesisId" />
         <div asp-validation-summary="ModelOnly"></div>
