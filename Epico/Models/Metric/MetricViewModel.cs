@@ -6,5 +6,6 @@ namespace Epico.Models
     {
         public Metric Metric { get; set; }
         public bool Error { get; set; }
+        public bool ParentError { get; set; }
     }
 }

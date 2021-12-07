@@ -14,18 +14,22 @@
         <span class="bold" style="font-size: large">Hierarchy of Metrics </span>
         @if (User.IsInRole("Manager"))
         {
-        <div class="container-text-button_button">
-            <a class="is-32-height"
-               asp-controller="Metric"
-               asp-action="New">
-                <img class="metric-plus-button" src="~/img/plus-square.svg" />
-            </a>
-        </div>
+            <div class="container-text-button_button">
+                <a class="is-32-height"
+                   asp-controller="Metric"
+                   asp-action="New">
+                    <img class="metric-plus-button" src="~/img/plus-square.svg" />
+                </a>
+            </div>
         }
     </div>
     @if (Model.Error)
     {
-    <span class="error-message">*Для создания метрики обязательно нужно указывать родительскую метрику</span>
+        <span class="error-message">*Для создания метрики обязательно нужно указывать родительскую метрику</span>
+    }
+    @if (Model.ParentError)
+    {
+        <span class="error-message">*Нельзя привязать метрику к её потомкам</span>
     }
 
     @await Html.PartialAsync("MetricWalk", Model.Metric)

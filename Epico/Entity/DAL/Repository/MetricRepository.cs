@@ -39,18 +39,26 @@ namespace Epico.Entity.DAL.Repository
                 .ToListAsync();
         }
 
-        public async Task<Metric> GetNsmMetric()
+        public async Task<Metric> GetMetricTree()
         {
             if (!await _dbContext.Set<Metric>().AnyAsync())
             {
                 return null;
             }
-        
-            return await _dbContext.Set<Metric>()
-                .Where(x => x.ParentMetricId != null || !x.ParentMetricId.HasValue )
-                .Include(x => x.Children)
-                    .ThenInclude(x => x.Children)
-                .FirstAsync();
+            var includeLevel = (await _dbContext.Set<Metric>()
+                                .Where(x => x.ParentMetricId != null)
+                                .ToListAsync())
+                                    .Distinct()
+                                    .Count();
+
+            var metricTree = _dbContext.Set<Metric>()
+                .Where(x => x.ParentMetricId != null || !x.ParentMetricId.HasValue)
+                .Include(x => x.Children);
+
+            for (int i = 0; i < includeLevel; i++)
+                metricTree.ThenInclude(x => x.Children);
+
+            return metricTree.First();
         }
     }
 }

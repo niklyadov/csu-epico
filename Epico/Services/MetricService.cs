@@ -15,7 +15,7 @@ namespace Epico.Services
         
         public async Task<Metric> GetNsmMetric()
         {
-            return await _metricRepository.GetNsmMetric();
+            return await _metricRepository.GetMetricTree();
         }
 
         public async Task<Metric> Update(Metric metric)

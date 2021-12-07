@@ -14,7 +14,7 @@ namespace Epico.Controllers
         public MetricController(IServiceProvider serviceProvider) :base(serviceProvider)
         {
         }
-        public async Task<IActionResult> Index([FromQuery] bool error)
+        public async Task<IActionResult> Index([FromQuery] bool error, [FromQuery] bool parenterror)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
@@ -27,6 +27,7 @@ namespace Epico.Controllers
             return View(new MetricViewModel
             {
                 Error = error,
+                ParentError = parenterror,
                 Metric = metric
             });
         }
@@ -90,6 +91,11 @@ namespace Epico.Controllers
             if (!ModelState.IsValid) return View(await GetEditMetricViewModel(model.MetricId));
 
             var metric = await MetricService.GetById(model.MetricId);
+
+            if (metric.Children.Select(x => x.ID).Contains(model.ParentMetricId.Value))
+            {
+                return RedirectToAction("Index", new { parenterror = true });
+            }
 
             metric.Name = model.Name;
             metric.Description = model.Description;
