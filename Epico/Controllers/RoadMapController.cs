@@ -28,15 +28,15 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> AddFeature(RoadMapViewModel model)
+        public async Task<IActionResult> AddFeature(int id)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
             var features = await FeatureService.GetAllFeatures();
             return View(new AddRoadmapViewModel
             {
-                Roadmap = (Entity.RoadmapType)model.Roadmap,
-                Features = features.Where(x => x.Roadmap != (Entity.RoadmapType)model.Roadmap).ToList()
+                Roadmap = (Entity.RoadmapType)id,
+                Features = features.Where(x => x.Roadmap != (Entity.RoadmapType)id).ToList()
             });
         }
         [HttpPost]
