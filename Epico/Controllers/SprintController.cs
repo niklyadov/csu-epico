@@ -15,7 +15,7 @@ namespace Epico.Controllers
         {
         }
         
-        public async Task<IActionResult> Index([FromQuery] bool noneError)
+        public async Task<IActionResult> Index([FromQuery] bool noneError, [FromQuery] bool sprintError)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
@@ -23,6 +23,7 @@ namespace Epico.Controllers
             var sprints = await SprintService.GetAll();
             return View(new SprintViewModel
             {
+                SprintError = sprintError,
                 NoneError = noneError,
                 Sprints = sprints
             });
@@ -69,7 +70,7 @@ namespace Epico.Controllers
                 StartDate = model.StartDate,
                 EndDate = model.EndDate
             });
-            return RedirectToAction("Index", "Sprint");
+            return RedirectToAction("Index");
         }
 
         public async Task<NewSprintViewModel> GetNewSprintViewModel()
