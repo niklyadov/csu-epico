@@ -95,8 +95,9 @@ namespace Epico.Controllers
 
             // ќтв€зка ответственного если его убрали из команды
             foreach (var item in feature.Tasks)
-                if (!model.UserIds.Contains(item.ResponsibleUserId.Value))
-                    item.ResponsibleUser = null;
+                if(item.ResponsibleUserId.HasValue)
+                    if (!model.UserIds.Contains(item.ResponsibleUserId.Value))
+                        item.ResponsibleUser = null;
 
             feature.Name = model.Name;
             feature.Description = model.Description;

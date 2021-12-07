@@ -93,8 +93,9 @@ namespace Epico.Controllers
             var hypothesis = await FeatureService.GetById(model.HypothesisId);
             // Отвязка ответственного если его убрали из команды
             foreach (var item in hypothesis.Tasks)
-                if (!model.UserIds.Contains(item.ResponsibleUserId.Value))
-                    item.ResponsibleUser = null;
+                if (item.ResponsibleUserId.HasValue)
+                    if (!model.UserIds.Contains(item.ResponsibleUserId.Value))
+                        item.ResponsibleUser = null;
 
             // todo переделать на гипотезы
             hypothesis.Name = model.Name;
