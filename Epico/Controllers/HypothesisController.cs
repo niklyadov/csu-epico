@@ -41,10 +41,10 @@ namespace Epico.Controllers
         {
             if (!ModelState.IsValid) return View(NewHypothesisViewModel());
 
-            if (model.MetricId == 0) 
-                return RedirectToAction("Index", new { metricError = true });
+            Metric metric = null;
+            if (model.MetricId != 0)
+                metric = await MetricService.GetById(model.MetricId);
 
-            var metric = await MetricService.GetById(model.MetricId);
             var users = await UserService.GetByIds(model.UserIds);
 
             // todo переделать на гипотезы
@@ -253,6 +253,9 @@ namespace Epico.Controllers
 
             foreach (var item in sprints)
                 await SprintService.Update(item);
+
+            foreach (var item in hypothesis.Tasks)
+                TaskService.Delete(item.ID);
 
             await FeatureService.Delete(id);
             return RedirectToAction("Index");
