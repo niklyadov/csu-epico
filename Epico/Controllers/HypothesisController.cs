@@ -1,12 +1,12 @@
+using Epico.Entity;
+using Epico.Models;
+using Epico.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Epico.Models;
-using Epico.Services;
-using Microsoft.AspNetCore.Authorization;
-using Epico.Entity;
 
 namespace Epico.Controllers
 {
@@ -20,7 +20,6 @@ namespace Epico.Controllers
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            // todo переделать на гипотезы
             var features = await FeatureService.GetAllHypotheses();
             return View(new HypothesisViewModel
             {

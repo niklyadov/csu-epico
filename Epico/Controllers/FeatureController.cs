@@ -15,14 +15,13 @@ namespace Epico.Controllers
         public FeatureController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
         }
-        public async Task<IActionResult> Index([FromQuery] bool metricError)
+        public async Task<IActionResult> Index()
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
             var features = await FeatureService.GetAllFeatures();
             return View(new FeatureViewModel
             {
-                MetricError = metricError,
                 Features = features
             });
         }
@@ -50,7 +49,6 @@ namespace Epico.Controllers
             {
                 Name = model.Name,
                 Description = model.Description,
-                //Hypothesis = model.Hypothesis,
                 Tasks = new List<Entity.Task>(),
                 Users = users,
                 Metric = metric,
