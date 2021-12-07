@@ -3,6 +3,7 @@ using Epico.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -94,8 +95,12 @@ namespace Epico.Controllers
         {
             var task = await TaskService.GetById(taskId);
 
-            var feature = (await FeatureService.GetAll()).Where(feature => feature.Tasks.Contains(task)).First();
-            var posibleUsers = (await UserService.GetAll()).Where(user => feature.Users.Contains(user)).ToList();
+            var features = (await FeatureService.GetAll()).Where(feature => feature.Tasks.Contains(task)).ToList();
+            var posibleUsers = await UserService.GetAll();
+            if (features.Count != 0)
+            {
+                posibleUsers = posibleUsers.Where(user => features[0].Users.Contains(user)).ToList();
+            }
             var responsibleUserId = task.ResponsibleUser != null ? task.ResponsibleUser.Id : 0;
             return new EditTaskViewModel
             {
