@@ -10,9 +10,8 @@
                asp-route-id="@Model.ID">
                 <img class="edit-button" src="~/img/edit.svg" />
             </a>
-            if (!Model.IsNSM)
+            if (!Model.IsNSM && Model.Children.Count == 0)
             {
-
                 <a asp-controller="Metric"
                    asp-action="Delete"
                    asp-route-id="@Model.ID">

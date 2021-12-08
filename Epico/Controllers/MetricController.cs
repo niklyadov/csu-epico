@@ -14,7 +14,7 @@ namespace Epico.Controllers
         public MetricController(IServiceProvider serviceProvider) :base(serviceProvider)
         {
         }
-        public async Task<IActionResult> Index([FromQuery] bool error, [FromQuery] bool parenterror)
+        public async Task<IActionResult> Index([FromQuery] bool error, [FromQuery] bool parenterror, [FromQuery] bool deleteMetricError)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
@@ -28,6 +28,7 @@ namespace Epico.Controllers
             {
                 Error = error,
                 ParentError = parenterror,
+                DeleteMetricError = deleteMetricError,
                 Metric = metric
             });
         }
@@ -141,25 +142,13 @@ namespace Epico.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
-            if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
 
             var metric = await MetricService.GetById(id);
-            var parentMetric = await MetricService.GetById(metric.ParentMetricId.Value);
+            if (metric.IsNSM) return BadRequest("Нульзя удалить NSM метрику");
+            if (metric.Children.Count > 0) return RedirectToAction("Index", new { deleteMetricError = true });
 
-            metric.Children.ForEach(x => x.ParentMetricId = parentMetric.ID);
-            parentMetric.Children.Remove(metric);
-            parentMetric.Children.AddRange(metric.Children);
-
-            var featuresAndHypotheses = (await FeatureService.GetAll())
-                .Where(x => x.MetricId == id)
-                .ToList();
-            featuresAndHypotheses.ForEach(x => x.Metric = null);
-            foreach (var item in featuresAndHypotheses)
-            {
-                await FeatureService.Update(item);
-            }
             await MetricService.Delete(id);
-            return RedirectToAction("Index", "Metric");
+            return RedirectToAction("Index");
         }
     }
 }

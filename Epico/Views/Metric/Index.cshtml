@@ -31,6 +31,10 @@
     {
         <span class="error-message">*Нельзя привязать метрику к её потомкам или к самой себе</span>
     }
+    @if (Model.DeleteMetricError)
+    {
+        <span class="error-message">*Нельзя удалить метрику, если у неё есть потомки</span>
+    }
 
     @await Html.PartialAsync("MetricWalk", Model.Metric)
 </div>

@@ -18,8 +18,7 @@ a, a:hover, a:visited, a:focus {
     order: 0;
     white-space: nowrap;
     background-color: #fff;
-    /*border: 1px solid #e3f2fd;*/
-    box-shadow: 0 2px 4px 0 #e3f2fd;
+    box-shadow: 0 2px 4px 0 #e6e6e6;
 }
 
 .tabs__links > a {
@@ -27,17 +26,18 @@ a, a:hover, a:visited, a:focus {
     text-decoration: none;
     padding: 6px 10px;
     text-align: center;
-    color: #1976d2;
+    /*color: #1976d2;*/
 }
 
 .tabs__links > a:hover {
-    background-color: rgba(227, 242, 253, 0.3);
+    background-color: #e6e6e6;
 }
 
 .tabs > #content-1:target ~ .tabs__links > a[href="#content-1"],
 .tabs > #content-2:target ~ .tabs__links > a[href="#content-2"],
 .tabs > #content-3:target ~ .tabs__links > a[href="#content-3"] {
-    background-color: #bbdefb;
+    background-color: #ffffff;
+    font-weight: bold;
     cursor: default;
 }
 .tabs > div:not(.tabs__links) {
