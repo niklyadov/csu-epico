@@ -8,11 +8,11 @@ namespace Epico.Services
     public class MetricService : IDBservice<Metric>
     {
         private readonly MetricRepository _metricRepository;
-        public MetricService(MetricRepository repository) 
+        public MetricService(MetricRepository repository)
         {
             _metricRepository = repository;
         }
-        
+
         public async Task<Metric> GetNsmMetric()
         {
             return await _metricRepository.GetMetricTree();

@@ -1,8 +1,8 @@
+using Epico.Entity;
+using Epico.Entity.DAL.Repository;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Epico.Entity;
-using Epico.Entity.DAL.Repository;
 
 namespace Epico.Services
 {
@@ -20,7 +20,7 @@ namespace Epico.Services
 
             return !list.Any() ? null : list.First();
         }
-        
+
         public async Task<Product> GetById(int id)
         {
             return await _productRepository.GetById(id);
@@ -55,17 +55,17 @@ namespace Epico.Services
         {
             return await _productRepository.Update(entity);
         }
-        
+
         public async Task<Product> AddMetric(int projectId, Metric metric)
         {
-            return await _productRepository.AddMetricToProductWithId(projectId , metric);
+            return await _productRepository.AddMetricToProductWithId(projectId, metric);
         }
 
         public async Task<Product> AddSprint(int projectId, Sprint sprint)
         {
             return await _productRepository.AddSprintToProductWithId(projectId, sprint);
         }
-        
+
         public async Task<Product> AddRoadmap(int projectId)
         {
             return await _productRepository.AddRoadmapToProductWithId(projectId);

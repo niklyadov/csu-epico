@@ -6,7 +6,7 @@ namespace Epico.Models
 {
     public class NewMetricViewModel
     {
-        [Required(ErrorMessage ="*Обязательное поле")]
+        [Required(ErrorMessage = "*Обязательное поле")]
         public string Name { get; set; }
         public string Description { get; set; }
         public int? ParentMetricId { get; set; }

@@ -1,7 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace Epico.Entity.DAL.Repository
 {
@@ -14,7 +14,7 @@ namespace Epico.Entity.DAL.Repository
         {
             _dbContext = dbContext;
         }
-        
+
         public async Task<List<TEntity>> GetAll()
         {
             return await _dbContext.Set<TEntity>().ToListAsync();
@@ -24,7 +24,7 @@ namespace Epico.Entity.DAL.Repository
         {
             return await _dbContext.Set<TEntity>().FindAsync(id);
         }
-        
+
         public async Task<List<TEntity>> GetByIds(List<int> ids)
         {
             return await _dbContext.Set<TEntity>()
@@ -44,7 +44,7 @@ namespace Epico.Entity.DAL.Repository
             await _dbContext.SaveChangesAsync();
             return entity;
         }
-        
+
         public async Task<int> Save(TEntity entity)
         {
             return await _dbContext.SaveChangesAsync();
@@ -56,9 +56,9 @@ namespace Epico.Entity.DAL.Repository
 
             _dbContext.Set<TEntity>().Remove(entity);
             _dbContext.Entry(entity).State = EntityState.Deleted;
-            
+
             await _dbContext.SaveChangesAsync();
-            
+
             return entity;
         }
     }

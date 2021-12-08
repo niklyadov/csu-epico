@@ -13,7 +13,7 @@ namespace Epico.Entity
 
         public List<Feature> Features { get; set; }
             = new List<Feature>();
-        public List<Metric> Children { get; set; } 
+        public List<Metric> Children { get; set; }
             = new List<Metric>();
     }
 }

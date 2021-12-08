@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 
 namespace Epico.Models
 {
@@ -12,7 +11,7 @@ namespace Epico.Models
         public int TaskId { get; set; }
         public int FeatureId { get; set; }
 
-        [Required(ErrorMessage ="*Обязательное поле")]
+        [Required(ErrorMessage = "*Обязательное поле")]
         public string Name { get; set; }
 
         public string Description { get; set; }

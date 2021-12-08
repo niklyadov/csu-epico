@@ -16,7 +16,7 @@ namespace Epico.Views
         [DataType(DataType.Password)]
         [Display(Name = "Пароль")]
         public string Password { get; set; }
-        
+
         [Required(ErrorMessage = "*Обязательно поле")]
         [Compare("Password", ErrorMessage = "Пароли не совпадают")]
         [DataType(DataType.Password)]

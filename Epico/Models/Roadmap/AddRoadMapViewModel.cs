@@ -7,7 +7,7 @@ namespace Epico.Models
     {
         public RoadmapType Roadmap { get; set; }
         public List<Feature> Features { get; set; }
-        
+
         public int FeatureId { get; set; }
     }
 }

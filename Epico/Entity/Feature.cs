@@ -22,7 +22,7 @@ namespace Epico.Entity
 
         public int? MetricId { get; set; }
         public Metric Metric { get; set; }
-        public List<Entity.Task> Tasks { get; set; } 
+        public List<Entity.Task> Tasks { get; set; }
             = new List<Entity.Task>();
     }
 }

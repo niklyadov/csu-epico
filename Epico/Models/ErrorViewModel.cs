@@ -1,5 +1,3 @@
-using System;
-
 namespace Epico.Models
 {
     public class ErrorViewModel

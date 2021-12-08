@@ -8,9 +8,9 @@ namespace Epico.Models
 {
     public class NewSprintViewModel
     {
-        [Required(ErrorMessage ="*Обязательное поле")]
+        [Required(ErrorMessage = "*Обязательное поле")]
         public string Name { get; set; }
-        [BindProperty] 
+        [BindProperty]
         public List<int> Features { get; set; }
         [Required(ErrorMessage = "*Обязательное поле")]
         [DataType(DataType.Date)]

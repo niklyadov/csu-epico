@@ -1,6 +1,3 @@
-using Epico.Entity;
-using System.Collections.Generic;
-
 namespace Epico.Models
 {
     public class ProductViewModel

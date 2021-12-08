@@ -1,7 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace Epico.Entity.DAL.Repository
 {
@@ -31,14 +31,14 @@ namespace Epico.Entity.DAL.Repository
                         .ThenInclude(f => f.Metric)
                 .SingleAsync(x => x.ID == projectId);
         }
-        
+
         public async Task<List<Product>> GetUserProducts(string ownerUserId)
         {
             return await _dbContext.Products
                 .Where(p => p.OwnerUserId == ownerUserId)
                 .ToListAsync();
         }
-        
+
         public async Task<int?> GetUserProductId(string ownerUserId)
         {
             var project = await _dbContext.Products
@@ -47,7 +47,7 @@ namespace Epico.Entity.DAL.Repository
 
             if (project == null)
                 return null;
-            
+
             return project.ID;
         }
 
@@ -56,14 +56,14 @@ namespace Epico.Entity.DAL.Repository
             var project = await _dbContext.Products
                 .Where(p => p.ID == projectId)
                 .SingleAsync();
-            
+
             _dbContext.Entry(project).State = EntityState.Modified;
-            
+
             await _dbContext.SaveChangesAsync();
 
             return project;
         }
-        
+
         public async Task<Product> AddSprintToProductWithId(int projectId, Sprint sprint)
         {
             var project = await _dbContext.Products
@@ -71,14 +71,14 @@ namespace Epico.Entity.DAL.Repository
                 .SingleAsync();
             project.Sprints ??= new List<Sprint>();
             project.Sprints.Add(sprint);
-            
+
             _dbContext.Entry(project).State = EntityState.Modified;
-            
+
             await _dbContext.SaveChangesAsync();
 
             return project;
         }
-        
+
         public async Task<Product> AddRoadmapToProductWithId(int projectId)
         {
             var project = await _dbContext.Products
@@ -86,9 +86,9 @@ namespace Epico.Entity.DAL.Repository
                 .SingleAsync();
             //project.Roadmaps ??= new List<Roadmap>();
             //project.Roadmaps.Add(roadmap);
-            
+
             _dbContext.Entry(project).State = EntityState.Modified;
-            
+
             await _dbContext.SaveChangesAsync();
 
             return project;

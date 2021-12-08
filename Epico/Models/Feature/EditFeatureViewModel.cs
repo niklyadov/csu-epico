@@ -15,19 +15,19 @@ namespace Epico.Models
         public string Description { get; set; }
 
         [Required(ErrorMessage = "*Обязательно")]
-        [BindProperty] 
+        [BindProperty]
         public int MetricId { get; set; }
 
         [Required(ErrorMessage = "*Обязательно")]
-        [BindProperty] 
+        [BindProperty]
         public List<int> UserIds { get; set; }
 
         [Required(ErrorMessage = "*Обязательно")]
-        [BindProperty] 
+        [BindProperty]
         public FeatureState State { get; set; }
 
         [Required(ErrorMessage = "*Обязательно")]
-        [BindProperty] 
+        [BindProperty]
         public RoadmapType Roadmap { get; set; }
 
         public List<User> PosibleUsers { get; set; }

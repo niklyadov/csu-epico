@@ -12,7 +12,7 @@ namespace Epico.Services
         {
             _sprintRepository = sprintRepository;
         }
-        
+
         public async Task<Sprint> Add(Sprint entity)
         {
             return await _sprintRepository.Add(entity);

@@ -14,6 +14,8 @@ namespace Epico.Controllers
         {
         }
 
+        #region Login
+
         [HttpGet]
         public IActionResult Login()
         {
@@ -36,6 +38,10 @@ namespace Epico.Controllers
             return View();
         }
 
+        #endregion
+
+        #region Logout
+
         [HttpGet]
         public async Task<IActionResult> Logout()
         {
@@ -44,17 +50,20 @@ namespace Epico.Controllers
             return RedirectToAction("Login");
         }
 
+        #endregion
+
         public IActionResult AccessDenied()
         {
             return View();
         }
+
+        #region Registration
 
         [HttpGet]
         public IActionResult Registration()
         {
             return View();
         }
-
 
         [HttpPost]
         public async Task<IActionResult> Registration(RegistrationViewModel model)
@@ -82,5 +91,7 @@ namespace Epico.Controllers
                     users.Count == 1 ? UserRole.Manager : UserRole.Default); 
             }
         }
+
+        #endregion
     }
 }

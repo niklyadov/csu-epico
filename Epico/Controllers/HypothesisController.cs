@@ -16,6 +16,8 @@ namespace Epico.Controllers
         {
         }
 
+        #region Index
+
         public override async Task<IActionResult> Index()
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
@@ -26,6 +28,10 @@ namespace Epico.Controllers
                 Hypothesis = features
             });
         }
+
+        #endregion
+
+        #region New
 
         [Authorize(Roles = "Manager")]
         [HttpPost]
@@ -47,5 +53,7 @@ namespace Epico.Controllers
             });
             return RedirectToAction("Index");
         }
+
+        #endregion
     }
 }

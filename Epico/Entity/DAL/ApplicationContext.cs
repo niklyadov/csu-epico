@@ -11,13 +11,13 @@ namespace Epico.Entity.DAL
         public DbSet<Feature> Features { get; private set; }
         public DbSet<User> Users { get; private set; }
         public DbSet<Task> Tasks { get; private set; }
-        
+
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
         {
             Database.EnsureCreated();
         }
-        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

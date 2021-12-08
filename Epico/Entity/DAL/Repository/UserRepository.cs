@@ -1,7 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace Epico.Entity.DAL.Repository
 {
@@ -22,7 +22,7 @@ namespace Epico.Entity.DAL.Repository
         {
             return await _dbContext.Set<User>().FindAsync(id);
         }
-        
+
         public async Task<List<User>> GetByIds(List<int> ids)
         {
             return await _dbContext.Set<User>()
@@ -55,7 +55,7 @@ namespace Epico.Entity.DAL.Repository
 
             return entity;
         }
-        
+
         public async Task<int> Save(User entity)
         {
             return await _dbContext.SaveChangesAsync();
