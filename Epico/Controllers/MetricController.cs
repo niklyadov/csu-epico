@@ -91,10 +91,12 @@ namespace Epico.Controllers
             if (!ModelState.IsValid) return View(await GetEditMetricViewModel(model.MetricId));
 
             var metric = await MetricService.GetById(model.MetricId);
-
-            if (metric.Children.Select(x => x.ID).Contains(model.ParentMetricId.Value) || metric.ID == model.ParentMetricId)
+            if (!metric.IsNSM)
             {
-                return RedirectToAction("Index", new { parenterror = true });
+                if (metric.Children.Select(x => x.ID).Contains(model.ParentMetricId.Value) || metric.ID == model.ParentMetricId)
+                {
+                    return RedirectToAction("Index", new { parenterror = true });
+                }
             }
 
             metric.Name = model.Name;
