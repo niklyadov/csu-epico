@@ -24,7 +24,7 @@
     }
     @if (Model.NoneError)
     {
-        <span class="error-message">*Нельзя создать спринт, пока в проекте нет ни одной фичи или гипотезы</span>
+        <span class="error-message">*Нельзя создать спринт, пока в проекте нет ни одной гипотезы или фичи (статус Discovery или Development)</span>
         <br />
     }
     @foreach (var sprint in Model.Sprints)
