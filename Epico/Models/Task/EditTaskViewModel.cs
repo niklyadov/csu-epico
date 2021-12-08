@@ -11,9 +11,10 @@ namespace Epico.Models
     {
         public int TaskId { get; set; }
         public int FeatureId { get; set; }
+
         [Required(ErrorMessage ="*Обязательное поле")]
         public string Name { get; set; }
-        [Required(ErrorMessage = "*Обязательное поле")]
+
         public string Description { get; set; }
         public DateTime DeadLine { get; set; }
         public int State { get; set; }

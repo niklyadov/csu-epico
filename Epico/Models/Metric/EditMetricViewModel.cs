@@ -9,7 +9,6 @@ namespace Epico.Models
         public int MetricId { get; set; }
         [Required(ErrorMessage = "*Обязательное поле")]
         public string Name { get; set; }
-        [Required(ErrorMessage = "*Обязательное поле")]
         public string Description { get; set; }
         public int? ParentMetricId { get; set; }
         public bool IsNSM { get; set; }
