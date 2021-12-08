@@ -137,5 +137,5 @@ a.button.is-fullwidth.left-nav_link:focus:not(:active) {
 }
 
 .white-space-fix{
-    white-space: normal !important
+    white-space: normal;
 }
