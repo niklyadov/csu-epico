@@ -40,20 +40,23 @@ namespace Epico.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Delete([FromQuery] int userId)
+        public async Task<IActionResult> Delete(int id)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
+            var user = await UserService.GetById(id);
+            if (await AccountService.IsManager(user))
+            {
+                return BadRequest("Нельзя удалить менеджера.");
+            }
+
             var tasks = (await TaskService.GetAll())
-               .Where(task => task.ResponsibleUserId == userId)
+               .Where(task => task.ResponsibleUserId == id)
                .ToList();
             tasks.ForEach(task => task.ResponsibleUser = null);
 
-            // todo сделать UpdateRange
-            foreach (var item in tasks)
-                await TaskService.Update(item);
-
-            await UserService.Delete(userId);
+            await TaskService.UpdateRange(tasks);
+            await UserService.Delete(id);
             return RedirectToAction("Index", "Team");
         }
     }

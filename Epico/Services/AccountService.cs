@@ -30,7 +30,7 @@ namespace Epico.Services
             
             _httpContextAccessor = serviceProvider.GetService(typeof(IHttpContextAccessor)) 
                 as IHttpContextAccessor;
-        }        
+        }      
 
         public async Task<bool> Login(string username, string password, bool persistent = true)
         {
@@ -83,6 +83,11 @@ namespace Epico.Services
             }
 
             return (await _userManager.AddToRoleAsync(user, userRoleStr)).Succeeded;
+        }
+
+        public async Task<bool> IsManager(User user)
+        {
+            return (await _userManager.GetRolesAsync(user)).Contains("Manager");
         }
     }
 }

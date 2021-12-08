@@ -49,5 +49,15 @@ namespace Epico.Entity.DAL.Repository
 
             return entites;
         }
+
+        public async Task<List<Task>> UpdateRange(List<Task> tasks)
+        {
+            foreach (var task in tasks)
+            {
+                _dbContext.Entry(task).State = EntityState.Modified;
+            }
+            await _dbContext.SaveChangesAsync();
+            return tasks;
+        }
     }
 }

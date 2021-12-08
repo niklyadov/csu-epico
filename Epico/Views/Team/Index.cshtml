@@ -1,4 +1,6 @@
 @using Microsoft.AspNetCore.Identity;
+@using Epico.Entity;
+@inject UserManager<User> UserManager
 @model TeamViewModel
 @{
     ViewBag.Title = "Users";
@@ -6,7 +8,7 @@
 
 <div class="column box gray-container">
     <div class="container-text-button">
-        <span class="bold">Список всех юзеров </span>
+        <span class="bold">Список всех юзеров: </span>
         @if (User.IsInRole("Manager"))
         {
             <div class="container-text-button_button">
@@ -37,17 +39,29 @@
                     <td></td>
                     @if (User.IsInRole("Manager"))
                     {
-                        <td>
-                            <form method="get" 
-                                  onclick="this.submit()" 
-                                  asp-action="Delete" 
-                                  asp-controller="User">
-                                <div class="is-flex center-element">
-                                    <input type="hidden" value="@user.Id" name="userId" />
+                        if (!(UserManager.GetRolesAsync(user).Result.Contains("Manager")))
+                        {
+
+                            <td>
+                                <a class="is-24-height"
+                                   asp-controller="User"
+                                   asp-action="Delete"
+                                   asp-route-id="@user.Id">
                                     <img class="delete-button" src="~/img/trash.svg" />
-                                </div>
-                            </form>
-                        </td>
+                                </a>
+                                @* 
+                                <form method="get"
+                                      onclick="this.submit()"
+                                      asp-action="Delete"
+                                      asp-controller="User">
+                                    <div class="is-flex center-element">
+                                        <input type="hidden" value="@user.Id" name="userId" />
+                                        <img class="delete-button" src="~/img/trash.svg" />
+                                    </div>
+                                </form>
+                                *@
+                            </td>
+                        }
                     }
                 </tr>
             }
