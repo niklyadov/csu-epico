@@ -135,3 +135,7 @@ a.button.is-fullwidth.left-nav_link:focus:not(:active) {
 .logout-button {
     font-size: 0.95vw;
 }
+
+.white-space-fix{
+    white-space: normal !important
+}
