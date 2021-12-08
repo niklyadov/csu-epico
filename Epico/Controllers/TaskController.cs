@@ -3,7 +3,6 @@ using Epico.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,10 +11,13 @@ namespace Epico.Controllers
     [Authorize]
     public class TaskController : BaseController
     {
-        public TaskController(IServiceProvider serviceProvider):base(serviceProvider)
+        public TaskController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
-            
+
         }
+
+        #region Index
+
         public async Task<IActionResult> Index([FromQuery] bool error)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
@@ -28,17 +30,23 @@ namespace Epico.Controllers
             });
         }
 
+        #endregion
+
+        #region New
+
+        [Authorize(Roles = "Manager")]
         [HttpGet]
         public async Task<IActionResult> New()
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            return View(new NewTaskViewModel 
+            return View(new NewTaskViewModel
             {
                 PossibleUsers = await UserService.GetAll()
             });
         }
 
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         public async Task<IActionResult> New(NewTaskViewModel model)
         {
@@ -65,6 +73,11 @@ namespace Epico.Controllers
             return RedirectToAction("Index", "Task");
         }
 
+        #endregion
+
+        #region Edit
+
+        [Authorize(Roles = "Manager")]
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
@@ -73,6 +86,7 @@ namespace Epico.Controllers
             return View(await GetEditTaskViewModel(id));
         }
 
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         public async Task<IActionResult> Edit(EditTaskViewModel model)
         {
@@ -85,7 +99,7 @@ namespace Epico.Controllers
             task.ResponsibleUser = responsibleUser;
             task.DeadLine = model.DeadLine;
             task.State = (TaskState)model.State;
-            
+
             await TaskService.Update(task);
 
             return RedirectToAction("Index", "Task");
@@ -114,15 +128,11 @@ namespace Epico.Controllers
             };
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Delete(int id)
-        {
-            if (!HasProduct) return RedirectToAction("New", "Product");
+        #endregion
 
-            await TaskService.Delete(id);
-            return RedirectToAction("Index", "Task");
-        }
+        #region EditState
 
+        [Authorize(Roles = "Manager")]
         [HttpGet]
         public async Task<IActionResult> EditState(int id)
         {
@@ -136,6 +146,7 @@ namespace Epico.Controllers
             });
         }
 
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         public async Task<IActionResult> EditState(EditStateTaskViewModel model)
         {
@@ -153,5 +164,21 @@ namespace Epico.Controllers
             await TaskService.Update(task);
             return RedirectToAction("Index", "Task");
         }
+
+        #endregion
+
+        #region Delete
+
+        [Authorize(Roles = "Manager")]
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (!HasProduct) return RedirectToAction("New", "Product");
+
+            await TaskService.Delete(id);
+            return RedirectToAction("Index", "Task");
+        }
+
+        #endregion
     }
 }

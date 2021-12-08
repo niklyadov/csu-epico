@@ -11,10 +11,12 @@ namespace Epico.Controllers
     [Authorize]
     public class SprintController : BaseController
     {
-        public SprintController(IServiceProvider serviceProvider):base(serviceProvider)
+        public SprintController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
         }
-        
+
+        #region Index
+
         public async Task<IActionResult> Index([FromQuery] bool noneError, [FromQuery] bool sprintError)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
@@ -29,6 +31,11 @@ namespace Epico.Controllers
             });
         }
 
+        #endregion
+
+        #region New
+
+        [Authorize(Roles = "Manager")]
         [HttpGet]
         public async Task<IActionResult> New()
         {
@@ -43,10 +50,11 @@ namespace Epico.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         public async Task<IActionResult> New(NewSprintViewModel model)
         {
-            if (!ModelState.IsValid) 
+            if (!ModelState.IsValid)
             {
                 var remodel = await GetNewSprintViewModel();
                 // Нельзя создать спринт если в проекте нет ни одной фичи
@@ -57,7 +65,7 @@ namespace Epico.Controllers
                 return View(remodel);
             }
 
-            if (model.Features==null|| model.Features.Count == 0)
+            if (model.Features == null || model.Features.Count == 0)
             {
                 return RedirectToAction("Index", "Sprint", new { sprintError = true });
             }
@@ -78,13 +86,18 @@ namespace Epico.Controllers
             var allFeatures = await FeatureService.GetAll();
             var possibleFeatures = allFeatures.Where(x => x.State != FeatureState.Delivery)
                                              .ToList();
-            
+
             return new NewSprintViewModel
             {
                 PosibleFeatures = possibleFeatures
             };
         }
 
+        #endregion
+
+        #region Edit
+
+        [Authorize(Roles = "Manager")]
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
@@ -92,6 +105,7 @@ namespace Epico.Controllers
             return View(await GetEditSprintViewModel(id));
         }
 
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         public async Task<IActionResult> Edit(EditSprintViewModel model)
         {
@@ -125,16 +139,61 @@ namespace Epico.Controllers
             };
         }
 
+        #endregion
+
+        #region Delete
+
+        [Authorize(Roles = "Manager")]
+        [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            if (!ModelState.IsValid) return BadRequest("ModelState is not Valid");
-            // todo fix delete from DB
             await SprintService.Delete(id);
             return RedirectToAction("Index", "Sprint");
         }
 
+        #endregion
+
+        #region AddFeature
+
+        [Authorize(Roles = "Manager")]
+        [HttpGet]
+        public async Task<IActionResult> AddFeature(int id)
+        {
+            if (!HasProduct) return RedirectToAction("New", "Product");
+
+            var sprint = await SprintService.GetById(id);
+            var features = await FeatureService.GetAll();
+            return View(new AddFeatureToSprintViewModel
+            {
+                SprintName = sprint.Name,
+                SprintId = sprint.ID,
+                PosibleFeatures = features.Where(feature => !sprint.Features.Contains(feature)).ToList()
+            });
+        }
+
+        [Authorize(Roles = "Manager")]
+        [HttpPost]
+        public async Task<IActionResult> AddFeature(AddFeatureToSprintViewModel model)
+        {
+            var features = await FeatureService.GetByIds(model.FeatureIds);
+            var sprint = await SprintService.GetById(model.SprintId);
+
+            if (features == null)
+                return NotFound("Feature not found");
+
+            sprint.Features.AddRange(features);
+            await SprintService.Update(sprint);
+
+            return RedirectToAction("Index");
+        }
+
+        #endregion
+
+        #region DeleteFeature
+
+        [Authorize(Roles = "Manager")]
         [HttpGet]
         public async Task<IActionResult> DeleteFeature(int id, int sprintId)
         {
@@ -151,36 +210,6 @@ namespace Epico.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
-        public async Task<IActionResult> AddFeature(int id)
-        {
-            if (!HasProduct) return RedirectToAction("New", "Product");
-
-            var sprint = await SprintService.GetById(id);
-            var features = await FeatureService.GetAll();
-            return View(new AddFeatureToSprintViewModel
-            {
-                SprintName = sprint.Name,
-                SprintId = sprint.ID,
-                PosibleFeatures = features.Where(feature => !sprint.Features.Contains(feature)).ToList()
-            });
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> AddFeature(AddFeatureToSprintViewModel model)
-        {
-            var features = await FeatureService.GetByIds(model.FeatureIds);
-            var sprint = await SprintService.GetById(model.SprintId);
-
-            if (features == null)
-            {
-                return NotFound("Feature not found");
-            }
-
-            sprint.Features.AddRange(features);
-            await SprintService.Update(sprint);
-
-            return RedirectToAction("Index", "Sprint");
-        }
+        #endregion
     }
 }

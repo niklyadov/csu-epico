@@ -1,20 +1,22 @@
 using Epico.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 
 
 namespace Epico.Controllers
 {
-    
+
     [Authorize]
     public class RoadMapController : BaseController
     {
         public RoadMapController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
         }
+
+        #region Index
 
         public async Task<IActionResult> Index()
         {
@@ -27,6 +29,11 @@ namespace Epico.Controllers
             });
         }
 
+        #endregion
+
+        #region AddFeature
+
+        [Authorize(Roles = "Manager")]
         [HttpGet]
         public async Task<IActionResult> AddFeature(int id)
         {
@@ -39,6 +46,8 @@ namespace Epico.Controllers
                 Features = features.Where(x => x.Roadmap != (Entity.RoadmapType)id).ToList()
             });
         }
+
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         public async Task<IActionResult> AddFeature(AddRoadmapViewModel model)
         {
@@ -54,5 +63,7 @@ namespace Epico.Controllers
 
             return RedirectToAction("Index");
         }
+
+        #endregion
     }
 }

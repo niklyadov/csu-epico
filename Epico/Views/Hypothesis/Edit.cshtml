@@ -1,4 +1,5 @@
-﻿@model EditHypothesisViewModel
+﻿@using Epico.Entity
+@model EditFeatureViewModel
 @{
     ViewBag.Title = "Изменение гипотезы";
 }
@@ -7,7 +8,7 @@
 </div>
 <div class="box word-break">
     <form method="post" asp-action="Edit" asp-controller="Hypothesis">
-        <input type="hidden" asp-for="HypothesisId" />
+        <input type="hidden" asp-for="FeatureId" />
         <div asp-validation-summary="ModelOnly"></div>
 
         <!--Название [input]-->
@@ -35,7 +36,7 @@
                 @foreach (var user in Model.PosibleUsers)
                 {
                     <label class="checkbox">
-                        <input type="checkbox" value="@user.Id" name="UserIds" checked=@Model.UserIds.Contains(user.Id)/>
+                        <input type="checkbox" value="@user.Id" name="UserIds" checked=@Model.UserIds.Contains(user.Id) />
                         @user.UserName [@user.Position]
                     </label>
                     <br />
@@ -49,7 +50,7 @@
             <label class="label" asp-for="MetricId">Выбор метрики</label>
             <div class="control">
                 <label class="radio">
-                    <input type="radio" value="0" name="MetricId" checked=@Model.MetricId.Equals(null)/>
+                    <input type="radio" value="0" name="MetricId" checked=@Model.MetricId.Equals(null) />
                     None
                 </label>
                 <br />
@@ -65,6 +66,8 @@
             <span asp-validation-for="MetricId" class="error-message"></span>
         </div>
 
+        <input type="hidden" value="@FeatureState.Discovery" name="State" />
+        <input type="hidden" value="@RoadmapType.Now" name="Roadmap" />
         <div class="has-text-centered">
             <button class="button is-primary">Сохранить</button>
         </div>

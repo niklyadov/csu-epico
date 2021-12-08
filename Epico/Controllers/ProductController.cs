@@ -1,10 +1,10 @@
+using Epico.Entity;
 using Epico.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Epico.Entity;
 
 namespace Epico.Controllers
 {
@@ -15,11 +15,12 @@ namespace Epico.Controllers
         {
         }
 
+        #region Index
         [Route("[controller]")]
         public IActionResult Index()
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
-            return RedirectToAction("Show", "Product");
+            return RedirectToAction("Show");
         }
 
         public IActionResult Show()
@@ -37,13 +38,16 @@ namespace Epico.Controllers
                 ProductFormula = product.ProductFormula
             });
         }
+        #endregion
+
+        #region New
 
         [Authorize(Roles = "Manager")]
         [HttpGet]
         public IActionResult New()
         {
-            if (HasProduct) 
-                return RedirectToAction("Show", "Product");
+            if (HasProduct)
+                return RedirectToAction("Show");
 
             return View();
         }
@@ -65,25 +69,14 @@ namespace Epico.Controllers
                 });
 
                 if (result != null)
-                {
-                    return RedirectToAction("Index", "Product");
-                }
+                    return RedirectToAction("Index");
             }
             return View();
         }
 
-        [Authorize(Roles = "Manager")]
-        [HttpGet]
-        public async Task<IActionResult> Delete(int id)
-        {
-            if (!HasProduct) return RedirectToAction("New", "Product");
+        #endregion
 
-            if (!ModelState.IsValid) 
-                return BadRequest("ModelState is not Valid");
-            
-            await ProductService.Delete(id);
-            return RedirectToAction("New");
-        }
+        #region Edit
 
         [Authorize(Roles = "Manager")]
         [HttpGet]
@@ -117,5 +110,21 @@ namespace Epico.Controllers
             await ProductService.Update(product);
             return RedirectToAction("Show");
         }
+
+        #endregion
+
+        #region Delete
+
+        [Authorize(Roles = "Manager")]
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (!HasProduct) return RedirectToAction("New", "Product");
+
+            await ProductService.Delete(id);
+            return RedirectToAction("New");
+        }
+
+        #endregion
     }
 }

@@ -1,5 +1,5 @@
 ﻿@using Epico.Entity;
-@model NewHypothesisViewModel
+@model NewFeatureViewModel
 @{
     ViewBag.Title = "Добавление гипотезы";
 }
@@ -9,7 +9,7 @@
     <h2>Добавление новой гипотезы</h2>
 </div>
 <div class="box">
-    <form method="post" asp-action="New" asp-controller="Hypothesis">
+    <form method="post" asp-controller="Hypothesis" asp-action="New">
         <div asp-validation-summary="ModelOnly"></div>
         <div class="field">
             <label class="label" asp-for="Name">Название</label>
@@ -63,6 +63,8 @@
             <span asp-validation-for="MetricId" class="error-message"></span>
         </div>
 
+        <input type="hidden" value="@RoadmapType.Now" checked name="Roadmap" />
+        <span asp-validation-for="MetricId" class="error-message"></span>
         <div class="has-text-centered">
             <button class="button is-primary">Создать</button>
         </div>

@@ -1,13 +1,13 @@
+using Epico.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Epico.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Epico.Controllers
 {
-    
+
     [Authorize]
     public class TeamController : BaseController
     {
@@ -15,55 +15,41 @@ namespace Epico.Controllers
         {
         }
 
+        #region Index
         public async Task<IActionResult> Index()
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            //var tasks = await TaskService.GetAll();
             var users = await UserService.GetAll();
-            return View(new TeamViewModel 
+            return View(new TeamViewModel
             {
-                //Tasks = tasks,
                 Users = users
             });
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> AddUser(TeamViewModel model)
-        //{
-        //    if (!HasProduct) return RedirectToAction("New", "Product");
+        #endregion
 
-        //    var task = await TaskService.GetById(model.TaskId);
-        //    if (task == null)
-        //    {
-        //        return BadRequest("Ð¡Ð½Ð°Ñ‡Ð°Ð»Ð° Ð½ÑƒÐ¶Ð½Ð¾ ÑÐ¾Ð·Ð´Ð°Ñ‚ÑŒ Ñ…Ð¾Ñ‚Ñ Ð±Ñ‹ Ð¾Ð´Ð½Ñƒ Ð·Ð°Ð´Ð°Ñ‡Ñƒ!");
-        //    }
-            
-        //    var users = await UserService.GetAll();
-        //    return View(new AddUserToTeamViewModel 
-        //    {
-        //        TaskId = task.ID,
-        //        TaskName = task.Name,
-        //        PosibleUsers = users.Where(x => !task.ResponsibleUser.Contains(x)).ToList()
-        //    });
-        //}
+        #region Delete
 
-        //[HttpPost]
-        //public async Task<IActionResult> AddUser(AddUserToTeamViewModel model)
-        //{
-        //    var task = await TaskService.GetById(model.TaskId);
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (!HasProduct) return RedirectToAction("New", "Product");
 
-        //    foreach (var user in await UserService.GetByIds(model.UserIds))
-        //    {
-        //        if (!task.ResponsibleUser.Any(x => x.Id == user.Id))
-        //        {
-        //            task.ResponsibleUser.Add(user);
-        //        }
-        //    }
-            
-        //    await TaskService.Save(task);
-            
-        //    return RedirectToAction("Index", "Team");
-        //}
+            var user = await UserService.GetById(id);
+            if (await AccountService.IsManager(user))
+                return BadRequest("Íåëüçÿ óäàëèòü ìåíåäæåðà.");
+
+            var tasks = (await TaskService.GetAll())
+               .Where(task => task.ResponsibleUserId == id)
+               .ToList();
+            tasks.ForEach(task => task.ResponsibleUser = null);
+
+            await TaskService.UpdateRange(tasks);
+            await UserService.Delete(id);
+            return RedirectToAction("Index", "Team");
+        }
+
+        #endregion
     }
 }

@@ -11,19 +11,20 @@ namespace Epico.Controllers
     [Authorize]
     public class MetricController : BaseController
     {
-        public MetricController(IServiceProvider serviceProvider) :base(serviceProvider)
+        public MetricController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
         }
+
+        #region Index
+
         public async Task<IActionResult> Index([FromQuery] bool error, [FromQuery] bool parenterror, [FromQuery] bool deleteMetricError)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
             var metric = await MetricService.GetNsmMetric();
             if (metric == null)
-            {
                 return RedirectToAction("New");
-            }
-            
+
             return View(new MetricViewModel
             {
                 Error = error,
@@ -33,19 +34,26 @@ namespace Epico.Controllers
             });
         }
 
+        #endregion
+
+        #region New
+
+        [Authorize(Roles = "Manager")]
         [HttpGet]
         public async Task<IActionResult> New()
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
 
-            return View(await GetNewMetricViewModel());
+            return View(await GetNewMetricVM());
         }
 
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         public async Task<IActionResult> New(NewMetricViewModel model)
         {
-            if (!ModelState.IsValid) return View(await GetNewMetricViewModel());
-            
+            if (!ModelState.IsValid)
+                return View(await GetNewMetricVM());
+
             var metric = new Metric
             {
                 Name = model.Name,
@@ -56,28 +64,33 @@ namespace Epico.Controllers
             {
                 if (!model.ParentMetricId.HasValue) // Ошибка
                 {
-                    return RedirectToAction("Index", "Metric", new { error = true });
+                    return RedirectToAction("Index", new { error = true });
                 }
-                    
+
                 metric.ParentMetricId = model.ParentMetricId.Value;
 
                 var parentMetricNew = await MetricService.GetById(model.ParentMetricId.Value);
                 parentMetricNew.Children.Add(metric);
                 await MetricService.Update(parentMetricNew);
-                return RedirectToAction("Index", "Metric");
+                return RedirectToAction("Index");
             }
             await MetricService.Add(metric);
-            return RedirectToAction("Index", "Metric");
+            return RedirectToAction("Index");
         }
 
-        private async Task<NewMetricViewModel> GetNewMetricViewModel()
+        private async Task<NewMetricViewModel> GetNewMetricVM()
         {
-            return new NewMetricViewModel 
-            { 
-                PosibleParentMetrics = await MetricService.GetAll() 
+            return new NewMetricViewModel
+            {
+                PosibleParentMetrics = await MetricService.GetAll()
             };
         }
 
+        #endregion
+
+        #region Edit
+
+        [Authorize(Roles = "Manager")]
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
@@ -86,41 +99,41 @@ namespace Epico.Controllers
             return View(await GetEditMetricViewModel(id));
         }
 
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         public async Task<IActionResult> Edit(EditMetricViewModel model)
         {
-            if (!ModelState.IsValid) return View(await GetEditMetricViewModel(model.MetricId));
+            if (!ModelState.IsValid) 
+                return View(await GetEditMetricViewModel(model.MetricId));
 
             var metric = await MetricService.GetById(model.MetricId);
             if (!metric.IsNSM)
             {
-                if (metric.Children.Select(x => x.ID).Contains(model.ParentMetricId.Value) || metric.ID == model.ParentMetricId)
-                {
+                if (metric.Children.Select(x => x.ID).Contains(model.ParentMetricId.Value) || Equals(metric.ID, model.ParentMetricId))
                     return RedirectToAction("Index", new { parenterror = true });
-                }
             }
 
             metric.Name = model.Name;
             metric.Description = model.Description;
             metric.ParentMetricId = model.ParentMetricId;
 
-            if (metric.ParentMetricId.HasValue) // удаляем старого child из родителя
+            // удаляем старого child из родителя
+            if (metric.ParentMetricId.HasValue) 
             {
                 var parentMetricOld = await MetricService.GetById(metric.ParentMetricId.Value);
-                    parentMetricOld.Children.Remove(metric);
+                parentMetricOld.Children.Remove(metric);
                 await MetricService.Update(parentMetricOld);
             }
-
-            if (model.ParentMetricId.HasValue) // добавляем новый child из родителя
+            // добавляем новый child из родителя
+            if (model.ParentMetricId.HasValue) 
             {
                 var parentMetricNew = await MetricService.GetById(model.ParentMetricId.Value);
-                    parentMetricNew.Children.Add(metric);
+                parentMetricNew.Children.Add(metric);
                 await MetricService.Update(parentMetricNew);
             }
 
             await MetricService.Update(metric);
-            
-            return RedirectToAction("Index", "Metric");
+            return RedirectToAction("Index");
         }
 
         private async Task<EditMetricViewModel> GetEditMetricViewModel(int metricId)
@@ -133,11 +146,15 @@ namespace Epico.Controllers
                 Name = metric.Name,
                 Description = metric.Description,
                 ParentMetricId = metric.ParentMetricId,
-                PosibleParentMetrics = possibleParentMetrics,
-                IsNSM = metric.IsNSM
+                PosibleParentMetrics = possibleParentMetrics
             };
         }
 
+        #endregion
+
+        #region Delete
+
+        [Authorize(Roles = "Manager")]
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
@@ -150,5 +167,7 @@ namespace Epico.Controllers
             await MetricService.Delete(id);
             return RedirectToAction("Index");
         }
+
+        #endregion
     }
 }

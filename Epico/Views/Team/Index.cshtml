@@ -20,7 +20,6 @@
             </div>
         }
     </div>
-    <!--Раскоментить когда релизную версию выкатывать будем-->
     <table>
         <tbody>
             <tr>
@@ -44,22 +43,11 @@
 
                             <td>
                                 <a class="is-24-height"
-                                   asp-controller="User"
+                                   asp-controller="Team"
                                    asp-action="Delete"
                                    asp-route-id="@user.Id">
                                     <img class="delete-button" src="~/img/trash.svg" />
                                 </a>
-                                @* 
-                                <form method="get"
-                                      onclick="this.submit()"
-                                      asp-action="Delete"
-                                      asp-controller="User">
-                                    <div class="is-flex center-element">
-                                        <input type="hidden" value="@user.Id" name="userId" />
-                                        <img class="delete-button" src="~/img/trash.svg" />
-                                    </div>
-                                </form>
-                                *@
                             </td>
                         }
                     }

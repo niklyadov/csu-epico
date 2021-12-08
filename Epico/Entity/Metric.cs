@@ -1,6 +1,5 @@
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using Epico.Entity.DAL;
+using System.Collections.Generic;
 
 namespace Epico.Entity
 {
