@@ -282,5 +282,17 @@ namespace Epico.Controllers
                 PosibleUsers = posibleUsers
             };
         }
+
+        #region Show
+
+        [HttpGet]
+        public async Task<IActionResult> Show(int id)
+        {
+            if (!HasProduct) return RedirectToAction("New", "Product");
+            var feature = await FeatureService.GetById(id);
+            return View(feature);
+        }
+
+        #endregion
     }
 }
