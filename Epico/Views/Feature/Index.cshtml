@@ -150,6 +150,10 @@
                         <!--Кнопки для взаимодействия с фичей-->
                         <a class="button is-red is-fullwidth" style="margin-bottom: 0.5%"
                            asp-controller="Feature"
+                           asp-action="Show"
+                           asp-route-id="@feature.ID">View feature</a>
+                        <a class="button is-red is-fullwidth" style="margin-bottom: 0.5%"
+                           asp-controller="Feature"
                            asp-action="Edit"
                            asp-route-id="@feature.ID">Edit feature</a>
                         <a class="button is-red is-fullwidth" style="margin-bottom: 0.5%"
