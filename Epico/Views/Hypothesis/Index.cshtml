@@ -25,103 +25,107 @@
                 <div class="column is-four-fifths">
                     <!--Информация о гипотезе-->
                     <p><span class="bold">Название: </span>@hypothesis.Name</p>
-                    <p><span class="bold">Описание: </span>@hypothesis.Description</p>
-                    <p class="bold">Привязанная метрика:</p>
-                    @if (hypothesis.Metric != null)
-                    {
-                        <p>@hypothesis.Metric.Name</p>
-                    }
-                    else
-                    {
-                        <p>Метрика не назначена</p>
-                    }
-
-                    <!--Список задач-->
-                    <div>
-                        <div class="container-text-button">
-                            <span class="bold">Список задач: </span>
-                            @if (User.IsInRole("Manager"))
-                            {
-                                <div class="container-text-button_button">
-                                    <a class="is-24-height"
-                                       asp-controller="Hypothesis"
-                                       asp-action="NewTask"
-                                       asp-route-id="@hypothesis.ID">
-                                        <img class="plus-button" src="~/img/plus.svg" />
-                                    </a>
-                                </div>
-                            }
-                        </div>
-                        <div>
-                            @if (hypothesis.Tasks.Count == 0)
-                            {
-                                <p>Здесь пока нет задач.</p>
-                            }
-                            else
-                            {
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <th></th>
-                                            <th width="100px"></th>
-                                            <th width="25px"></th>
-                                            <th width="25px"></th>
-                                        </tr>
-
-                                        @foreach (var task in hypothesis.Tasks)
-                                        {
-                                            @if (!task.HasResponsibleUser)
-                                            {
-                                                <tr>
-                                                    <td class="error-message"> *Ответственный не назначен</td>
-                                                </tr>
-                                            }
-                                            <tr>
-                                                <td>@task.Name</td>
-                                                <td>[@task.State]</td>
-                                                @if (User.IsInRole("Manager"))
-                                                {
-                                                    <td>
-                                                        <a class="is-24-height"
-                                                           asp-controller="Hypothesis"
-                                                           asp-action="EditTask"
-                                                           asp-route-id="@hypothesis.ID"
-                                                           asp-route-taskId="@task.ID">
-                                                            <img class="edit-button" src="~/img/edit.svg" />
-                                                        </a>
-                                                    </td>
-                                                    <td>
-                                                        <a class="is-24-height"
-                                                           asp-controller="Hypothesis"
-                                                           asp-action="DeleteTask"
-                                                           asp-route-id="@hypothesis.ID"
-                                                           asp-route-taskId="@task.ID">
-                                                            <img class="delete-button" src="~/img/trash.svg" />
-                                                        </a>
-                                                    </td>
-                                                }
-                                            </tr>
-                                        }
-                                    </tbody>
-                                </table>
-                            }
-                        </div>
-                    </div>
-                    <!--Список юзеров в команде гипотезы-->
-                    <div>
-                        <p class="bold">Продуктовая команда гипотезы: </p>
-                        @if (hypothesis.Users.Count == 0)
+                    @*
+                        <p><span class="bold">Описание: </span>@hypothesis.Description</p>
+                        <p class="bold">Привязанная метрика:</p>
+                        @if (hypothesis.Metric != null)
                         {
-                            <p class="error-message">*Из команды удалены все сотрудники</p>
+                            <p>@hypothesis.Metric.Name</p>
                         }
                         else
                         {
-                            @foreach (var user in hypothesis.Users)
-                            {
-                                <p>@user.UserName [@user.Position]</p>
-                            }
+                            <p>Метрика не назначена</p>
                         }
-                    </div>
+
+                        <!--Список задач-->
+                        <div>
+                            <div class="container-text-button">
+                                <span class="bold">Список задач: </span>
+                                @if (User.IsInRole("Manager"))
+                                {
+                                    <div class="container-text-button_button">
+                                        <a class="is-24-height"
+                                           asp-controller="Hypothesis"
+                                           asp-action="NewTask"
+                                           asp-route-id="@hypothesis.ID">
+                                            <img class="plus-button" src="~/img/plus.svg" />
+                                        </a>
+                                    </div>
+                                }
+                            </div>
+                            <div>
+                                @if (hypothesis.Tasks.Count == 0)
+                                {
+                                    <p>Здесь пока нет задач.</p>
+                                }
+                                else
+                                {
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <th></th>
+                                                <th width="100px"></th>
+                                                <th width="25px"></th>
+                                                <th width="25px"></th>
+                                            </tr>
+
+                                            @foreach (var task in hypothesis.Tasks)
+                                            {
+                                                @if (!task.HasResponsibleUser)
+                                                {
+                                                    <tr>
+                                                        <td class="error-message"> *Ответственный не назначен</td>
+                                                    </tr>
+                                                }
+                                                <tr>
+                                                    <td>@task.Name</td>
+                                                    <td>[@task.State]</td>
+                                                    @if (User.IsInRole("Manager"))
+                                                    {
+                                                        <td>
+                                                            <a class="is-24-height"
+                                                               asp-controller="Hypothesis"
+                                                               asp-action="EditTask"
+                                                               asp-route-id="@hypothesis.ID"
+                                                               asp-route-taskId="@task.ID">
+                                                                <img class="edit-button" src="~/img/edit.svg" />
+                                                            </a>
+                                                        </td>
+                                                        <td>
+                                                            <a class="is-24-height"
+                                                               asp-controller="Hypothesis"
+                                                               asp-action="DeleteTask"
+                                                               asp-route-id="@hypothesis.ID"
+                                                               asp-route-taskId="@task.ID">
+                                                                <img class="delete-button" src="~/img/trash.svg" />
+                                                            </a>
+                                                        </td>
+                                                    }
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                }
+                            </div>
+                        </div>
+                        <!--Список юзеров в команде гипотезы-->
+                        <div>
+                            <p class="bold">Продуктовая команда гипотезы: </p>
+                            @if (hypothesis.Users.Count == 0)
+                            {
+                                <p class="error-message">*Из команды удалены все сотрудники</p>
+                            }
+                            else
+                            {
+                                @foreach (var user in hypothesis.Users)
+                                {
+                                    <p>@user.UserName [@user.Position]</p>
+                                }
+                            }
+                        </div>
+
+
+                    *@
                 </div>
                 @if (User.IsInRole("Manager"))
                 {
@@ -129,8 +133,16 @@
                         <!--Кнопки для взаимодействия с гипотезой-->
                         <a class="button is-red is-fullwidth" style="margin-bottom: 0.5%"
                            asp-controller="Hypothesis"
+                           asp-action="Show"
+                           asp-route-id="@hypothesis.ID">View hypothesis</a>
+                    </div>
+                    <div class="column">
+                        <a class="button is-red is-fullwidth" style="margin-bottom: 0.5%"
+                           asp-controller="Hypothesis"
                            asp-action="Edit"
                            asp-route-id="@hypothesis.ID">Edit hypothesis</a>
+                    </div>
+                    <div class="column">
                         <a class="button is-red is-fullwidth" style="margin-bottom: 0.5%"
                            asp-controller="Hypothesis"
                            asp-action="Delete"
