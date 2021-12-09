@@ -1,0 +1,20 @@
+﻿@model Epico.Entity.Feature
+@{
+    ViewBag.Title = "Просмотр фичи";
+}
+<div class="content is-medium">
+    <h2>Просмотр фичи</h2>
+</div>
+<div class="box word-break">
+    <textarea>Название: @Model.Name</textarea>
+    <textarea>Описание: @Model.Description</textarea>
+    <textarea>Продуктовая команда фичи: </textarea>
+    <div>
+        @foreach (var user in Model.Users)
+            {
+                <textarea>@user.UserName</textarea>
+            }
+        </div>
+    <textarea>Привязанная метрика: @Model.Metric.Name</textarea>
+    <textarea>Статус фичи: @Model.State</textarea>
+</div>
