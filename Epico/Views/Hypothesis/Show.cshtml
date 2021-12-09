@@ -1,0 +1,28 @@
+﻿@model Epico.Entity.Feature
+@{
+    ViewBag.Title = "Просмотр гипотезы";
+}
+<div class="content is-medium">
+    <h2>Просмотр гипотезы</h2>
+</div>
+<div class="box word-break">
+    <div class="word-break">
+        <span><span class="bold">Название: </span>@Model.Name</span>
+    </div>
+    <div class="word-break">
+        <span><span class="bold">Описание: </span>@Model.Description</span>
+    </div>
+    <div class="word-break">
+        <span class="bold">Продуктовая команда гипотезы: </span>
+    </div>
+    <div class="word-break">
+        @foreach (var user in Model.Users)
+        {
+            <span>@user.UserName [@user.Position]</span><br />
+        }
+    </div>
+    <div class="word-break">
+        <span class="bold">Привязанная метрика:</span><br />
+        <span>@Model.Metric.Name</span>
+    </div>
+</div>
