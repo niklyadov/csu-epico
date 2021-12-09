@@ -52,8 +52,8 @@ namespace Epico.Controllers
                 Tasks = new List<Entity.Task>(),
                 Users = users,
                 Metric = metric,
-                Roadmap = model.Roadmap,
-                State = FeatureState.Discovery,
+                Roadmap = RoadmapType.None,
+                State = FeatureState.None,
                 IsFeature = true
             });
             return RedirectToAction("Index", "Feature");
@@ -102,7 +102,10 @@ namespace Epico.Controllers
             feature.Metric = metric;
             feature.Users = users;
             feature.State = model.State;
-            feature.Roadmap = model.Roadmap;
+            // Убираем фичу из роадмапа, потому что её статус Rejected
+            if (model.State == FeatureState.Rejected)
+                feature.Roadmap = RoadmapType.None;
+            //feature.Roadmap = model.Roadmap;
 
             await FeatureService.Update(feature);
             return RedirectToAction("Index");
@@ -119,7 +122,7 @@ namespace Epico.Controllers
                 Description = feature.Description,
                 MetricId = metricId,
                 UserIds = feature.Users.Select(x => x.Id).ToList(),
-                Roadmap = feature.Roadmap.Value,
+                //Roadmap = feature.Roadmap.Value,
                 State = feature.State,
 
                 PosibleUsers = UserService.GetAll().Result,

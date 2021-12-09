@@ -26,18 +26,6 @@
                 <span asp-validation-for="Description" class="error-message"></span>
             </div>
         </div>
-
-            
-        @*
-        <div class="field">
-            <label class="label" asp-for="Hypothesis">Гипотеза</label>
-            <div class="control">
-                <input class="input" asp-for="Hypothesis" />
-                <span asp-validation-for="Hypothesis" class="error-message"></span>
-            </div>
-        </div>
-        *@
-            
         
         <div class="field">
             <label class="label" asp-for="UserIds">Выбор команды</label>
@@ -74,7 +62,8 @@
             </div>
             <span asp-validation-for="MetricId" class="error-message"></span>
         </div>
-
+            
+        @* 
         <div class="field">
             <label class="label" asp-for="Roadmap">Выбор типа роадмапа</label>
             <div class="control">
@@ -93,6 +82,7 @@
             </div>
             <span asp-validation-for="Roadmap" class="error-message"></span>
         </div>
+        *@
 
         <div class="has-text-centered">
             <button class="button is-primary">Создать</button>

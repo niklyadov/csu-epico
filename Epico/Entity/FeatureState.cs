@@ -4,6 +4,9 @@ namespace Epico.Entity
     {
         Discovery,
         Development,
-        Delivery
+        Delivery,
+        None,
+        Accepted,
+        Rejected
     }
 }

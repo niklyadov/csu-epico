@@ -11,9 +11,10 @@ namespace Epico.Models
         public string Name { get; set; }
 
         public string Description { get; set; }
-        [Required(ErrorMessage = "*Обязательно")]
-        [BindProperty] 
-        public RoadmapType Roadmap { get; set; }
+
+        //[Required(ErrorMessage = "*Обязательно")]
+        //[BindProperty] 
+        //public RoadmapType Roadmap { get; set; }
 
         [Required(ErrorMessage = "*Обязательно")]
         [BindProperty] 

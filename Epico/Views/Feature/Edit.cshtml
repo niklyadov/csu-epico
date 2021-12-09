@@ -71,22 +71,31 @@
             <label class="label" asp-for="State">Статус</label>
             <div class="control">
                 <label class="radio">
+                    <input type="radio" value="@FeatureState.Accepted" checked=@Model.State.Equals(FeatureState.Accepted) name="State" />
+                    Accepted
+                </label>
+                <label class="radio">
                     <input type="radio" value="@FeatureState.Discovery" checked=@Model.State.Equals(FeatureState.Discovery) name="State" />
                     Discovery
                 </label>
                 <label class="radio">
-                    <input type="radio" value="@FeatureState.Development" checked=@Model.State.Equals(FeatureState.Development)  name="State" />
+                    <input type="radio" value="@FeatureState.Development" checked=@Model.State.Equals(FeatureState.Development) name="State" />
                     Development
                 </label>
                 <label class="radio">
-                    <input type="radio" value="@FeatureState.Delivery" checked=@Model.State.Equals(FeatureState.Delivery)  name="State" />
+                    <input type="radio" value="@FeatureState.Delivery" checked=@Model.State.Equals(FeatureState.Delivery) name="State" />
                     Delivery
+                </label>
+                <label class="radio">
+                    <input type="radio" value="@FeatureState.Rejected" checked=@Model.State.Equals(FeatureState.Rejected) name="State" />
+                    Rejected
                 </label>
                 <br />
             </div>
             <span asp-validation-for="State" class="error-message"></span>
         </div>
-
+            
+        @* 
         <!--Выбор роадмапа [radio]-->
         <div class="field">
             <label class="label" asp-for="State">Роадмап</label>
@@ -107,6 +116,7 @@
             </div>
             <span asp-validation-for="State" class="error-message"></span>
         </div>
+        *@
 
         <div class="has-text-centered">
             <button class="button is-primary">Сохранить</button>
