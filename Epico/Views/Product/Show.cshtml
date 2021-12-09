@@ -4,38 +4,39 @@
     ViewBag.Title = "Просмотр продукта";
 }
 
-<section class="section">
-    <div class="columns">
-        <div class="column is-four-fifths">
-            <h2 class="subtitle">
-                @Model.Name
-            </h2>
+<div class="product-section">
+    <section class="section description">
+        <div class="columns">
+            <div class="column is-four-fifths">
+                <h2 class="subtitle product-title">
+                    @Model.Name
+                </h2>
+            </div>
+            <div class="column">
+                <a class="button is-red is-fullwidth" style="margin-bottom: 0.5%"
+                   asp-controller="Product"
+                   asp-action="Edit"
+                   asp-route-id="@Model.ProductId">Edit Product</a>
+            </div>
         </div>
-        <div class="column">
-            <a class="button is-red is-fullwidth" style="margin-bottom: 0.5%"
-               asp-controller="Product"
-               asp-action="Edit"
-               asp-route-id="@Model.ProductId">Edit Product</a>
+    </section>
+
+
+    <div class="tabs white-space-fix">
+        <div id="content-1" class="word-break">
+            @Model.Vision
         </div>
-    </div>
-    @*<p><img src="~/img/Ter.png"></p>*@
-</section>
+        <div id="content-2" class="word-break">
+            @Model.Mission
+        </div>
+        <div id="content-3" class="word-break">
+            @Model.ProductFormula
+        </div>
 
-
-<div class="tabs white-space-fix">
-    <div id="content-1" class="word-break">
-        @Model.Vision
-    </div>
-    <div id="content-2" class="word-break">
-        @Model.Mission
-    </div>
-    <div id="content-3" class="word-break">
-        @Model.ProductFormula
-    </div>
-
-    <div class="tabs__links">
-        <a href="#content-1">Видение</a>
-        <a href="#content-2">Миссия</a>
-        <a href="#content-3">Формула</a>
+        <div class="tabs__links">
+            <a href="#content-1">Видение</a>
+            <a href="#content-2">Миссия</a>
+            <a href="#content-3">Формула</a>
+        </div>
     </div>
 </div>

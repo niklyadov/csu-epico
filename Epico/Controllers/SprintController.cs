@@ -11,10 +11,10 @@ namespace Epico.Controllers
     [Authorize]
     public class SprintController : BaseController
     {
-        public SprintController(IServiceProvider serviceProvider):base(serviceProvider)
+        public SprintController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
         }
-        
+
         public async Task<IActionResult> Index([FromQuery] bool noneError, [FromQuery] bool sprintError)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
@@ -46,7 +46,7 @@ namespace Epico.Controllers
         [HttpPost]
         public async Task<IActionResult> New(NewSprintViewModel model)
         {
-            if (!ModelState.IsValid) 
+            if (!ModelState.IsValid)
             {
                 var remodel = await GetNewSprintViewModel();
                 // Нельзя создать спринт если в проекте нет ни одной фичи
@@ -57,7 +57,7 @@ namespace Epico.Controllers
                 return View(remodel);
             }
 
-            if (model.Features==null|| model.Features.Count == 0)
+            if (model.Features == null || model.Features.Count == 0)
             {
                 return RedirectToAction("Index", "Sprint", new { sprintError = true });
             }
@@ -76,9 +76,9 @@ namespace Epico.Controllers
         public async Task<NewSprintViewModel> GetNewSprintViewModel()
         {
             var allFeatures = await FeatureService.GetAll();
-            var possibleFeatures = allFeatures.Where(x => x.State != FeatureState.Delivery)
+            var possibleFeatures = allFeatures.Where(x => x.State != FeatureState.None && x.State != FeatureState.Rejected)
                                              .ToList();
-            
+
             return new NewSprintViewModel
             {
                 PosibleFeatures = possibleFeatures

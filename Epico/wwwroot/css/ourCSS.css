@@ -18,7 +18,8 @@ a, a:hover, a:visited, a:focus {
     order: 0;
     white-space: nowrap;
     background-color: #fff;
-    box-shadow: 0 2px 4px 0 #e6e6e6;
+    text-decoration: underline;
+    /*box-shadow: 0 2px 4px 0 #e6e6e6;*/
 }
 
 .tabs__links > a {
@@ -26,11 +27,13 @@ a, a:hover, a:visited, a:focus {
     text-decoration: none;
     padding: 6px 10px;
     text-align: center;
-    /*color: #1976d2;*/
+    color: #1e90ff;
+    padding: 6px 10px 6px 0px;
 }
 
 .tabs__links > a:hover {
-    background-color: #e6e6e6;
+    /*background-color: #e6e6e6;*/
+    color: #1e90ff;
 }
 
 .tabs > #content-1:target ~ .tabs__links > a[href="#content-1"],
@@ -39,6 +42,7 @@ a, a:hover, a:visited, a:focus {
     background-color: #ffffff;
     font-weight: bold;
     cursor: default;
+    color: #1e90ff;
 }
 .tabs > div:not(.tabs__links) {
     display: none;
