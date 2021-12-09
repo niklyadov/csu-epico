@@ -20,12 +20,17 @@
     </div>
     @foreach (var hypothesis in Model.Hypothesis)
     {
-        <div class="box word-break">
-            <div class="columns">
+        <div class="box word-break none-padding">
+            <a class="button is-fullwidth is-show-button" 
+               asp-controller="Hypothesis"
+               asp-action="Show"
+               asp-route-id="@hypothesis.ID">@hypothesis.Name</a>
+
+            @*<div class="columns">
                 <div class="column is-four-fifths">
                     <!--Информация о гипотезе-->
-                    <p><span class="bold">Название: </span>@hypothesis.Name</p>
-                    @*
+                    <!--<p><span class="bold">Название: </span>@hypothesis.Name</p>-->
+                   
                         <p><span class="bold">Описание: </span>@hypothesis.Description</p>
                         <p class="bold">Привязанная метрика:</p>
                         @if (hypothesis.Metric != null)
@@ -125,13 +130,12 @@
                         </div>
 
 
-                    *@
                 </div>
                 @if (User.IsInRole("Manager"))
                 {
-                    <div class="column">
+                    <div class="column">-->
                         <!--Кнопки для взаимодействия с гипотезой-->
-                        <a class="button is-red is-fullwidth" style="margin-bottom: 0.5%"
+                        <!--<a class="button is-red is-fullwidth" style="margin-bottom: 0.5%"
                            asp-controller="Hypothesis"
                            asp-action="Show"
                            asp-route-id="@hypothesis.ID">View hypothesis</a>
@@ -145,7 +149,7 @@
                            asp-route-id="@hypothesis.ID">Delete hypothesis</a>
                     </div>
                 }
-            </div>
+            </div>*@
         </div>
     }
 </div>

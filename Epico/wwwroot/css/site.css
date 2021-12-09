@@ -147,6 +147,29 @@ a.button.is-fullwidth.left-nav_link:focus:not(:active) {
     white-space: normal;
 }
 
+.is-show-button {
+    cursor: pointer;
+    border: 0px;
+    border-color: #ffffff;
+    border-block-color: #ffffff;
+    border-radius: 6px;
+    padding: 1.25rem;
+    margin: 0;
+    justify-content: left;
+}
+
+.is-show-button:hover {
+    background-color: #e6e6e6
+}
+
+.is-show-button:active {
+    background-color: #cccccc
+}
+
+a.button.is-fullwidth.is-show-button {
+    box-shadow: 0 0 0 0;
+}
+
 .roadmap-button {
     cursor: pointer;
     border: 0px;
@@ -155,6 +178,7 @@ a.button.is-fullwidth.left-nav_link:focus:not(:active) {
     border-radius: 6px;
     padding: 1.25rem;
     margin: 0;
+    justify-content: left;
 }
 
 .roadmap-button:hover {

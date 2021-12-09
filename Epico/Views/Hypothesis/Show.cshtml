@@ -6,23 +6,41 @@
     <h2>Просмотр гипотезы</h2>
 </div>
 <div class="box word-break">
-    <div class="word-break">
-        <span><span class="bold">Название: </span>@Model.Name</span>
-    </div>
-    <div class="word-break">
-        <span><span class="bold">Описание: </span>@Model.Description</span>
-    </div>
-    <div class="word-break">
-        <span class="bold">Продуктовая команда гипотезы: </span>
-    </div>
-    <div class="word-break">
-        @foreach (var user in Model.Users)
+    <div class="columns">
+        <div class="column is-four-fifths">
+            <div class="word-break">
+                <span><span class="bold">Название: </span>@Model.Name</span>
+            </div>
+            <div class="word-break">
+                <span><span class="bold">Описание: </span>@Model.Description</span>
+            </div>
+            <div class="word-break">
+                <span class="bold">Продуктовая команда гипотезы: </span>
+            </div>
+            <div class="word-break">
+                @foreach (var user in Model.Users)
+                {
+                    <span>@user.UserName [@user.Position]</span><br />
+                }
+            </div>
+            <div class="word-break">
+                <span class="bold">Привязанная метрика:</span><br />
+                <span>@Model.Metric.Name</span>
+            </div>
+        </div>
+        @if (User.IsInRole("Manager"))
         {
-            <span>@user.UserName [@user.Position]</span><br />
+            <div class="column">
+                <!--Кнопки для взаимодействия с гипотезой-->
+                <a class="button is-red is-fullwidth" style="margin-bottom: 0.5%"
+                   asp-controller="Hypothesis"
+                   asp-action="Edit"
+                   asp-route-id="@Model.ID">Edit hypothesis</a>
+                <a class="button is-red is-fullwidth" style="margin-bottom: 0.5%"
+                   asp-controller="Hypothesis"
+                   asp-action="Delete"
+                   asp-route-id="@Model.ID">Delete hypothesis</a>
+            </div>
         }
-    </div>
-    <div class="word-break">
-        <span class="bold">Привязанная метрика:</span><br />
-        <span>@Model.Metric.Name</span>
     </div>
 </div>
