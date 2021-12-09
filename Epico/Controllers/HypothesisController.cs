@@ -256,5 +256,17 @@ namespace Epico.Controllers
             await FeatureService.Delete(id);
             return RedirectToAction("Index");
         }
+
+        #region Show
+
+        [HttpGet]
+        public async Task<IActionResult> Show(int id)
+        {
+            if (!HasProduct) return RedirectToAction("New", "Product");
+            var hypothesis = await FeatureService.GetById(id);
+            return View(hypothesis);
+        }
+
+        #endregion
     }
 }
