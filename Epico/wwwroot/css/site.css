@@ -126,6 +126,55 @@ a.button.is-fullwidth.left-nav_link:focus:not(:active) {
     padding: 0 0 0 8px;
 }
 
+.tabsNew {
+    /*display: flex;*/
+    flex-direction: column;
+}
+
+.tabs__button {
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    order: 0;
+    white-space: nowrap;
+    background-color: #fff;
+    text-decoration: underline;
+    display: inline-block;
+    text-align: center;
+    color: #1e90ff;
+    padding: 6px 10px 6px 0px;
+    border: 0px;
+    font-size: 1rem;
+    cursor: pointer;
+    width: auto;
+}
+
+.tabs__button:hover {
+    /*background-color: #e6e6e6;*/
+    color: #1e90ff;
+}
+
+.tabs__button:active {
+    background-color: #ffffff;
+    font-weight: bold;
+    cursor: default;
+    color: #1e90ff;
+}
+
+.tabs__button:focus:not(:active){
+    background-color: #ffffff;
+    font-weight: bold;
+    cursor: default;
+    color: #1e90ff;
+}
+
+.tabs__button-active {
+    font-weight: bold;
+}
+
+
 .is-red {
     color: #ffffff;
     background-color: #ff4040 !important;

@@ -22,8 +22,8 @@
     </section>
 
 
-    <div class="tabs white-space-fix">
-        <div id="content-1" class="word-break">
+    <!--<div class="tabs white-space-fix">-->
+        @*<div id="content-1" class="word-break">
             @Model.Vision
         </div>
         <div id="content-2" class="word-break">
@@ -31,12 +31,36 @@
         </div>
         <div id="content-3" class="word-break">
             @Model.ProductFormula
-        </div>
+        </div>*@
 
-        <div class="tabs__links">
+        <!--<div class="tabs__links">
             <a href="#content-1">Видение</a>
             <a href="#content-2">Миссия</a>
             <a href="#content-3">Формула</a>
         </div>
+    </div>-->
+
+
+    
+
+    <!-- Tab links -->
+    <div class="tabsNew">
+        <button class="tabs__button" onclick="openInformation(event, 'content-1')">Видение</button>
+        <button class="tabs__button" onclick="openInformation(event, 'content-2')">Миссия</button>
+        <button class="tabs__button" onclick="openInformation(event, 'content-3')">Формула</button>
+    </div>
+
+    <!-- Tab content -->
+    <div id="content-1" class="tabcontent" style="display: none;">
+        <span>@Model.Vision</span>
+    </div>
+
+    <div id="content-2" class="tabcontent" style="display: none;">
+        <span>@Model.Mission</span>
+    </div>
+
+    <div id="content-3" class="tabcontent" style="display: none;">
+        <span>@Model.ProductFormula</span>
     </div>
 </div>
+
