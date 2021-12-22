@@ -25,7 +25,14 @@
             </div>
             <div class="word-break">
                 <span class="bold">Привязанная метрика:</span><br />
-                <span>@Model.Metric.Name</span>
+                @if (Model.Metric != null)
+                {
+                    <span>@Model.Metric.Name</span>
+                }
+                else
+                {
+                    <span>Нет привязанной метрики</span>
+                }
             </div>
         </div>
         @if (User.IsInRole("Manager"))

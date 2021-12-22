@@ -12,18 +12,21 @@
                     @Model.Name
                 </h2>
             </div>
-            <div class="column">
-                <a class="button is-red is-fullwidth" style="margin-bottom: 0.5%"
-                   asp-controller="Product"
-                   asp-action="Edit"
-                   asp-route-id="@Model.ProductId">Edit Product</a>
-            </div>
+            @if (User.IsInRole("Manager"))
+            {
+                <div class="column">
+                    <a class="button is-red is-fullwidth" style="margin-bottom: 0.5%"
+                       asp-controller="Product"
+                       asp-action="Edit"
+                       asp-route-id="@Model.ProductId">Edit Product</a>
+                </div>
+            }
         </div>
     </section>
 
 
     <!--<div class="tabs white-space-fix">-->
-        @*<div id="content-1" class="word-break">
+    @*<div id="content-1" class="word-break">
             @Model.Vision
         </div>
         <div id="content-2" class="word-break">
@@ -33,16 +36,12 @@
             @Model.ProductFormula
         </div>*@
 
-        <!--<div class="tabs__links">
+    <!--<div class="tabs__links">
             <a href="#content-1">Видение</a>
             <a href="#content-2">Миссия</a>
             <a href="#content-3">Формула</a>
         </div>
     </div>-->
-
-
-    
-
     <!-- Tab links -->
     <div class="tabsNew">
         <button class="tabs__button" onclick="openInformation(event, 'content-1')">Видение</button>
