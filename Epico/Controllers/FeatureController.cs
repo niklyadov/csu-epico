@@ -91,7 +91,7 @@ namespace Epico.Controllers
 
             var feature = await FeatureService.GetById(model.FeatureId);
 
-            // Отвязка ответственного если его убрали из команды
+            // РћС‚РІСЏР·РєР° РѕС‚РІРµС‚СЃС‚РІРµРЅРЅРѕРіРѕ РµСЃР»Рё РµРіРѕ СѓР±СЂР°Р»Рё РёР· РєРѕРјР°РЅРґС‹
             foreach (var item in feature.Tasks)
                 if(item.ResponsibleUserId.HasValue)
                     if (!model.UserIds.Contains(item.ResponsibleUserId.Value))
@@ -102,7 +102,7 @@ namespace Epico.Controllers
             feature.Metric = metric;
             feature.Users = users;
             feature.State = model.State;
-            // Убираем фичу из роадмапа, потому что её статус Rejected
+            // РЈР±РёСЂР°РµРј С„РёС‡Сѓ РёР· СЂРѕР°РґРјР°РїР°, РїРѕС‚РѕРјСѓ С‡С‚Рѕ РµС‘ СЃС‚Р°С‚СѓСЃ Rejected
             if (model.State == FeatureState.Rejected)
                 feature.Roadmap = RoadmapType.None;
             //feature.Roadmap = model.Roadmap;
@@ -207,7 +207,7 @@ namespace Epico.Controllers
             var feature = await FeatureService.GetById(model.FeatureId);
             if (!feature.Users.Select(x => x.Id).Contains(model.UserId))
             {
-                return BadRequest("Юзер не доступен т.к. не содержится в команде фичи. Вы чайник.");
+                return BadRequest("Р®Р·РµСЂ РЅРµ РґРѕСЃС‚СѓРїРµРЅ С‚.Рє. РЅРµ СЃРѕРґРµСЂР¶РёС‚СЃСЏ РІ РєРѕРјР°РЅРґРµ С„РёС‡Рё. Р’С‹ С‡Р°Р№РЅРёРє.");
             }
 
             var responsibleUser = await UserService.GetById(model.UserId);
@@ -228,11 +228,11 @@ namespace Epico.Controllers
         {
             var task = await TaskService.GetById(taskId);
             if (task == null)
-                return BadRequest("Задача не найдена.");
+                return BadRequest("Р—Р°РґР°С‡Р° РЅРµ РЅР°Р№РґРµРЅР°.");
 
             var feature = await FeatureService.GetById(id);
             if (!feature.Tasks.Contains(task))
-                return BadRequest("Фича не содержит эту задачу.");
+                return BadRequest("Р¤РёС‡Р° РЅРµ СЃРѕРґРµСЂР¶РёС‚ СЌС‚Сѓ Р·Р°РґР°С‡Сѓ.");
 
             feature.Tasks.Remove(task);
             await FeatureService.Update(feature);
