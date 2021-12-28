@@ -37,8 +37,79 @@
             <div class="word-break">
                 <span><span class="bold">Статус фичи: </span>@Model.State</span>
             </div>
+            <div>
+                <div class="container-text-button">
+                    <span class="bold">Список задач: </span>
+                    @if (User.IsInRole("Manager"))
+                    {
+                        <div class="container-text-button_button">
+                            <a class="is-24-height"
+                               asp-controller="Feature"
+                               asp-action="NewTask"
+                               asp-route-id="@Model.ID">
+                                <img class="plus-button" src="~/img/plus.svg" />
+                            </a>
+                        </div>
+                    }
+                </div>
+                <div>
+                    @if (Model.Tasks.Count == 0)
+                    {
+                        <p>Здесь пока нет задач.</p>
+                    }
+                    else
+                    {
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th></th>
+                                    <th width="100px"></th>
+                                    <th width="25px"></th>
+                                    <th width="25px"></th>
+                                </tr>
 
+                                @foreach (var task in Model.Tasks)
+                                {
+                                    @if (!task.HasResponsibleUser)
+                                    {
+                                        <tr>
+                                            <td class="error-message"> *Ответственный не назначен</td>
+                                        </tr>
+                                    }
+                                    <tr>
+                                        <td>@task.Name</td>
+                                        <td>[@task.State]</td>
+                                        @if (User.IsInRole("Manager"))
+                                        {
+                                            <td>
+                                                <a class="is-24-height"
+                                                   asp-controller="Feature"
+                                                   asp-action="EditTask"
+                                                   asp-route-id="@Model.ID"
+                                                   asp-route-taskId="@task.ID">
+                                                    <img class="edit-button" src="~/img/edit.svg" />
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a class="is-24-height"
+                                                   asp-controller="Feature"
+                                                   asp-action="DeleteTask"
+                                                   asp-route-id="@Model.ID"
+                                                   asp-route-taskId="@task.ID">
+                                                    <img class="delete-button" src="~/img/trash.svg" />
+                                                </a>
+                                            </td>
+                                        }
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
         </div>
+
+        
         @if (User.IsInRole("Manager"))
         {
             <div class="column">
