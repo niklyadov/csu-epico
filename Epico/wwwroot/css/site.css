@@ -163,6 +163,10 @@ a.button.is-fullwidth.left-nav_link:focus:not(:active) {
     color: #1e90ff;
 }
 
+.tabs__button:focus{
+    outline: 0 !important;
+}
+
 .tabs__button:focus:not(:active){
     background-color: #ffffff;
     font-weight: bold;
