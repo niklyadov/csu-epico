@@ -1,13 +1,13 @@
-using Epico.Entity;
+﻿using Epico.Entity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Epico.Models
+namespace Epico.Models.ProductEntity
 {
-    public class EditFeatureViewModel
+    public class EditProductEntityViewModel
     {
-        public int FeatureId { get; set; }
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "*Обязательное поле")]
         public string Name { get; set; }
@@ -21,14 +21,6 @@ namespace Epico.Models
         [Required(ErrorMessage = "*Обязательно")]
         [BindProperty]
         public List<int> UserIds { get; set; }
-
-        [Required(ErrorMessage = "*Обязательно")]
-        [BindProperty]
-        public FeatureState State { get; set; }
-
-        //[Required(ErrorMessage = "*Обязательно")]
-        //[BindProperty] 
-        //public RoadmapType Roadmap { get; set; }
 
         public List<User> PosibleUsers { get; set; }
         public List<Metric> PosibleMetrics { get; set; }

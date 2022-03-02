@@ -1,4 +1,4 @@
-@model HypothesisViewModel
+@model Epico.Models.ProductEntity.Hypothesis.HypothesisViewModel
 
 @{
     ViewBag.Title = "Hypotheses";
@@ -18,7 +18,7 @@
             </div>
         }
     </div>
-    @foreach (var hypothesis in Model.Hypothesis)
+    @foreach (var hypothesis in Model.ElementsList)
     {
         <div class="box word-break none-padding">
             <a class="button is-fullwidth is-show-button" 

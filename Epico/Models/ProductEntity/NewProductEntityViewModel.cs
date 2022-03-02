@@ -3,12 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Epico.Models
+namespace Epico.Models.ProductEntity
 {
-    public class EditHypothesisViewModel
+    public class NewProductEntityViewModel
     {
-        public int HypothesisId { get; set; }
-
         [Required(ErrorMessage = "*Обязательное поле")]
         public string Name { get; set; }
 
@@ -16,11 +14,11 @@ namespace Epico.Models
 
         [Required(ErrorMessage = "*Обязательно")]
         [BindProperty]
-        public int MetricId { get; set; }
+        public List<int> UserIds { get; set; } = new List<int>();
 
         [Required(ErrorMessage = "*Обязательно")]
         [BindProperty]
-        public List<int> UserIds { get; set; }
+        public int MetricId { get; set; }
 
         public List<User> PosibleUsers { get; set; }
         public List<Metric> PosibleMetrics { get; set; }

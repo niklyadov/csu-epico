@@ -1,4 +1,4 @@
-@model FeatureViewModel
+@model Epico.Models.ProductEntity.Feature.FeatureViewModel
 @{
     ViewBag.Title = "Features";
 }
@@ -27,7 +27,7 @@
         <span class="error-message">*Нельзя создать фичу без указания метрики</span>
         <br />
     }
-    @foreach (var feature in Model.Features)
+    @foreach (var feature in Model.ElementsList)
     {
         <div class="box word-break none-padding">
             <!--Информация о фиче-->

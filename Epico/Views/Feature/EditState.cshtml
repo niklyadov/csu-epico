@@ -1,12 +1,12 @@
 @using Epico.Entity;
-@model EditStateFeatureViewModel
+@model Epico.Models.ProductEntity.Feature.EditStateFeatureViewModel
 @{
     ViewBag.Title = "Изменение статуса фичи";
 }
 
 <div class="tile is-2 is-vertical box" style="border: 5px;">
     <form method="post" asp-action="EditState" asp-controller="Feature">
-        <input type="hidden" asp-for="FeatureId" />
+        <input type="hidden" asp-for="Id" />
         <div class="field">
             <label class="label" asp-for="State">Статус</label>
             <div class="control">

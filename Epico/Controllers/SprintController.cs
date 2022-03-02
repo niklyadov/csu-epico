@@ -15,6 +15,8 @@ namespace Epico.Controllers
         {
         }
 
+        #region Index
+
         public async Task<IActionResult> Index([FromQuery] bool noneError, [FromQuery] bool sprintError)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");

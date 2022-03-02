@@ -22,6 +22,6 @@ namespace Epico.Models
             = new List<User>();
 
         //hidden
-        public int FeatureId { get; set; }
+        public int ProductEntityId { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace Epico.Models
     public class EditTaskViewModel
     {
         public int TaskId { get; set; }
-        public int FeatureId { get; set; }
+        public int ProductEntityId { get; set; }
 
         [Required(ErrorMessage = "*Обязательное поле")]
         public string Name { get; set; }
