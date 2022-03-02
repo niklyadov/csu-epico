@@ -4,6 +4,7 @@ namespace Epico.Entity
     {
         Now,
         Then,
-        After
+        After,
+        None
     }
 }

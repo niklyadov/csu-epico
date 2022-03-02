@@ -33,7 +33,7 @@
             <div class="columns">
                 <div class="column is-four-fifths">
                     <p><span class="bold">Название:</span> @sprint.Name</p>
-                    <p><span class="bold">Сроки:</span> (@sprint.StartDate --- @sprint.EndDate)</p>
+                    <p><span class="bold">Сроки:</span> (@sprint.StartDate.ToShortDateString() --- @sprint.EndDate.ToShortDateString())</p>
 
                     <div class="container-text-button">
                         <span class="bold">Список фич и гипотез: </span>
@@ -65,22 +65,38 @@
                                     {
                                         <td>Фича:</td>
                                         <td>@feature.Name [@feature.State]</td>
+                                        @if (User.IsInRole("Manager"))
+                                        {
+                                            <td>
+                                                <a class="is-24-height"
+                                                   asp-controller="Feature"
+                                                   asp-action="Edit"
+                                                   asp-route-id="@feature.ID">
+                                                    <img class="edit-button" src="~/img/edit.svg" />
+                                                </a>
+                                            </td>
+
+                                        }
                                     }
                                     else
                                     {
                                         <td>Гипотеза:</td>
                                         <td>@feature.Name</td>
+                                        @if (User.IsInRole("Manager"))
+                                        {
+                                            <td>
+                                                <a class="is-24-height"
+                                                   asp-controller="Hypothesis"
+                                                   asp-action="Edit"
+                                                   asp-route-id="@feature.ID">
+                                                    <img class="edit-button" src="~/img/edit.svg" />
+                                                </a>
+                                            </td>
+
+                                        }
                                     }
                                     @if (User.IsInRole("Manager"))
                                     {
-                                        <td>
-                                            <a class="is-24-height"
-                                               asp-controller="Feature"
-                                               asp-action="Edit"
-                                               asp-route-id="@feature.ID">
-                                                <img class="edit-button" src="~/img/edit.svg" />
-                                            </a>
-                                        </td>
                                         <td>
                                             <a class="is-24-height"
                                                asp-controller="Sprint"

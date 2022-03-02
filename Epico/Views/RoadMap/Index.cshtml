@@ -23,8 +23,10 @@
         </div>
         @foreach (var feature in Model.Features.Where(x => x.Roadmap == RoadmapType.Now))
         {
-            <div class="box">
-                <p>@feature.Name</p>
+            <div class="box word-break none-padding">
+                <a class="button is-fullwidth roadmap-button" asp-controller="Feature"
+                   asp-action="Show"
+                   asp-route-id="@feature.ID">@feature.Name</a>
             </div>
         }
     </div>
@@ -46,8 +48,10 @@
         </div>
         @foreach (var feature in Model.Features.Where(x => x.Roadmap == RoadmapType.Then))
         {
-            <div class="box">
-                <p>@feature.Name</p>
+            <div class="box word-break none-padding">
+                <a class="button is-fullwidth roadmap-button" asp-controller="Feature"
+                   asp-action="Show"
+                   asp-route-id="@feature.ID">@feature.Name</a>
             </div>
         }
     </div>
@@ -69,8 +73,10 @@
         </div>
         @foreach (var feature in Model.Features.Where(x => x.Roadmap == RoadmapType.After))
         {
-            <div class="box word-break">
-                <p>@feature.Name</p>
+            <div class="box word-break none-padding">
+                <a class="button is-fullwidth roadmap-button" asp-controller="Feature"
+                   asp-action="Show"
+                   asp-route-id="@feature.ID">@feature.Name</a>
             </div>
         }
     </div>

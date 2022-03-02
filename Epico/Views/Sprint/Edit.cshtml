@@ -36,7 +36,7 @@
         <div class="field">
             <label class="label" asp-for="StartDate">Дата начала спринта</label>
             <div class="control">
-                <input type="datetime-local" asp-for="StartDate" value="@Model.StartDate" />
+                <input type="datetime-local" asp-for="StartDate" value="@Model.StartDate.ToString("yyyy-MM-ddTHH:mm:ss")" />
                 <span asp-validation-for="StartDate" class="error-message"></span>
             </div>
         </div>
@@ -44,7 +44,7 @@
         <div class="field">
             <label class="label" asp-for="EndDate">Дата окончания спринта</label>
             <div class="control">
-                <input type="datetime-local" asp-for="EndDate" value="@Model.StartDate" />
+                <input type="datetime-local" asp-for="EndDate" value="@Model.EndDate.ToString("yyyy-MM-ddTHH:mm:ss")" />
                 <span asp-validation-for="EndDate" class="error-message"></span>
             </div>
         </div>

@@ -15,8 +15,6 @@ namespace Epico.Controllers
         {
         }
 
-        #region Index
-
         public async Task<IActionResult> Index([FromQuery] bool noneError, [FromQuery] bool sprintError)
         {
             if (!HasProduct) return RedirectToAction("New", "Product");
@@ -84,7 +82,7 @@ namespace Epico.Controllers
         public async Task<NewSprintViewModel> GetNewSprintViewModel()
         {
             var allFeatures = await FeatureService.GetAll();
-            var possibleFeatures = allFeatures.Where(x => x.State != FeatureState.Delivery)
+            var possibleFeatures = allFeatures.Where(x => x.State != FeatureState.None && x.State != FeatureState.Rejected)
                                              .ToList();
 
             return new NewSprintViewModel

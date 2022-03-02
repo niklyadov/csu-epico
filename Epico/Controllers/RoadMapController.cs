@@ -1,5 +1,5 @@
 using Epico.Models;
-using Microsoft.AspNetCore.Authorization;
+using Epico.Entity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
@@ -40,10 +40,13 @@ namespace Epico.Controllers
             if (!HasProduct) return RedirectToAction("New", "Product");
 
             var features = await FeatureService.GetAllFeatures();
+            var query = features.Where(x => x.Roadmap != (RoadmapType)id)
+                                .Where(x => x.State != FeatureState.None && x.State != FeatureState.Rejected);
+
             return View(new AddRoadmapViewModel
             {
-                Roadmap = (Entity.RoadmapType)id,
-                Features = features.Where(x => x.Roadmap != (Entity.RoadmapType)id).ToList()
+                Roadmap = (RoadmapType)id,
+                Features = query.ToList()
             });
         }
 

@@ -26,9 +26,9 @@ namespace Epico.Models
         [BindProperty]
         public FeatureState State { get; set; }
 
-        [Required(ErrorMessage = "*Обязательно")]
-        [BindProperty]
-        public RoadmapType Roadmap { get; set; }
+        //[Required(ErrorMessage = "*Обязательно")]
+        //[BindProperty] 
+        //public RoadmapType Roadmap { get; set; }
 
         public List<User> PosibleUsers { get; set; }
         public List<Metric> PosibleMetrics { get; set; }

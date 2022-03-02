@@ -1,18 +1,18 @@
 ﻿.nav-top {
-  background: #ff4040;
-  height: 38px;
-  align-items: center;
+    background: #ff4040;
+    height: 38px;
+    align-items: center;
 }
 
 .nav-top .logo p {
-  color: #fff;
+    color: #fff;
 }
 
 .nav-top .display-username p {
-  color: #fff;
+    color: #fff;
 }
 
-.logo{
+.logo {
     padding: 0 0 0 5px;
 }
 
@@ -37,12 +37,12 @@
     font-weight: bold;
 }
 
-.left-nav a.active img {
-  filter: invert(11%) sepia(80%) saturate(5680%) hue-rotate(360deg) brightness(98%) contrast(118%);
-}
+    .left-nav a.active img {
+        filter: invert(11%) sepia(80%) saturate(5680%) hue-rotate(360deg) brightness(98%) contrast(118%);
+    }
 
 .main-container {
-  background: #ffffff;
+    background: #ffffff;
 }
 
 .left-nav_link {
@@ -52,9 +52,11 @@
     border-block-color: #ffffff;
     border-radius: 0;
 }
+
 .left-nav_link:hover {
     background-color: #e6e6e6
 }
+
 .left-nav_link:active {
     background-color: #cccccc
 }
@@ -70,6 +72,7 @@ a.button.is-fullwidth.left-nav_link:focus:not(:active) {
 
 .body-section {
     margin-top: 0px;
+    margin-bottom: 0px !important;
 }
 
 .center-element {
@@ -83,9 +86,11 @@ a.button.is-fullwidth.left-nav_link:focus:not(:active) {
 .plus-button, .delete-button, .edit-button, .status-button {
     cursor: pointer;
 }
+
 .metric-plus-button:hover, .plus-button:hover, .delete-button:hover, .edit-button:hover, .status-button:hover {
     filter: invert(13%) sepia(73%) saturate(7487%) hue-rotate(357deg) brightness(89%) contrast(127%);
 }
+
 .metric-plus-button:active, .plus-button:active, .delete-button:active, .edit-button:active, .status-button:active {
     filter: invert(20%) sepia(87%) saturate(3829%) hue-rotate(15deg) brightness(64%) contrast(145%);
 }
@@ -93,6 +98,7 @@ a.button.is-fullwidth.left-nav_link:focus:not(:active) {
 .bold {
     font-weight: bold;
 }
+
 .logun-registretion-window {
     max-width: 300px;
     margin: 0 auto;
@@ -107,7 +113,7 @@ a.button.is-fullwidth.left-nav_link:focus:not(:active) {
     word-break: break-all;
 }
 
-.error-message{
+.error-message {
     color: #ff0000;
 }
 
@@ -115,16 +121,70 @@ a.button.is-fullwidth.left-nav_link:focus:not(:active) {
     align-items: center;
     display: flex;
 }
-.container-text-button_button{
+
+.container-text-button_button {
     padding: 0 0 0 8px;
 }
+
+.tabsNew {
+    /*display: flex;*/
+    flex-direction: column;
+}
+
+.tabs__button {
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    order: 0;
+    white-space: nowrap;
+    background-color: #fff;
+    text-decoration: underline;
+    display: inline-block;
+    text-align: center;
+    color: #1e90ff;
+    padding: 6px 10px 6px 0px;
+    border: 0px;
+    font-size: 1rem;
+    cursor: pointer;
+    width: auto;
+}
+
+.tabs__button:hover {
+    /*background-color: #e6e6e6;*/
+    color: #1e90ff;
+}
+
+.tabs__button:active {
+    background-color: #ffffff;
+    font-weight: bold;
+    cursor: default;
+    color: #1e90ff;
+}
+
+.tabs__button:focus{
+    outline: 0 !important;
+}
+
+.tabs__button:focus:not(:active){
+    background-color: #ffffff;
+    font-weight: bold;
+    cursor: default;
+    color: #1e90ff;
+}
+
+.tabs__button-active {
+    font-weight: bold;
+}
+
 
 .is-red {
     color: #ffffff;
     background-color: #ff4040 !important;
 }
 
-.is-24-height{
+.is-24-height {
     max-height: 24px;
 }
 
@@ -136,6 +196,70 @@ a.button.is-fullwidth.left-nav_link:focus:not(:active) {
     font-size: 0.95vw;
 }
 
-.white-space-fix{
+.white-space-fix {
     white-space: normal;
+}
+
+.is-show-button {
+    cursor: pointer;
+    border: 0px;
+    border-color: #ffffff;
+    border-block-color: #ffffff;
+    border-radius: 6px;
+    padding: 1.25rem;
+    margin: 0;
+    justify-content: left;
+}
+
+.is-show-button:hover {
+    background-color: #e6e6e6
+}
+
+.is-show-button:active {
+    background-color: #cccccc
+}
+
+a.button.is-fullwidth.is-show-button {
+    box-shadow: 0 0 0 0;
+}
+
+.roadmap-button {
+    cursor: pointer;
+    border: 0px;
+    border-color: #ffffff;
+    border-block-color: #ffffff;
+    border-radius: 6px;
+    padding: 1.25rem;
+    margin: 0;
+    justify-content: left;
+}
+
+.roadmap-button:hover {
+    background-color: #e6e6e6
+}
+
+.roadmap-button:active {
+    background-color: #cccccc
+}
+
+a.button.is-fullwidth.roadmap-button {
+    box-shadow: 0 0 0 0;
+}
+
+.none-padding {
+    padding: 0;
+}
+
+.product-section {
+    padding: 10px;
+}
+
+.description {
+    padding: 0;
+    margin: 0 0 20px 0;
+}
+
+.product-title {
+    font-size: 1rem;
+    font-weight: bold;
 }
