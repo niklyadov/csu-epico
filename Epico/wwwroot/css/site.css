@@ -37,9 +37,9 @@
     font-weight: bold;
 }
 
-    .left-nav a.active img {
-        filter: invert(11%) sepia(80%) saturate(5680%) hue-rotate(360deg) brightness(98%) contrast(118%);
-    }
+.left-nav a.active img {
+    filter: invert(11%) sepia(80%) saturate(5680%) hue-rotate(360deg) brightness(98%) contrast(118%);
+}
 
 .main-container {
     background: #ffffff;
@@ -349,8 +349,14 @@ a.button.is-fullwidth.roadmap-button {
 .status-button:focus {
     border-color: #363636;
 }
-
-.status-button.is-focused:not(:active), .status-button:focus:not(:active) {
+.add-button.is-focused:not(:active),
+.add-button:focus:not(:active),
+.status-button.is-focused:not(:active),
+.status-button:focus:not(:active),
+.edit-button.is-focused:not(:active),
+.edit-button:focus:not(:active),
+.delete-button.is-focused:not(:active),
+.delete-button:focus:not(:active){
     box-shadow: 0 0 0 0 #fff;
 }
 
@@ -369,10 +375,9 @@ a.button.is-fullwidth.roadmap-button {
     background-color: #c9c9c9;
 }
 
-.add-button:focus {
+.add-button:focus,
+.status-button:focus,
+.edit-button:focus,
+.delete-button:focus{
     border-color: #363636;
-}
-
-.add-button.is-focused:not(:active), .add-button:focus:not(:active) {
-    box-shadow: 0 0 0 0 #fff;
 }
