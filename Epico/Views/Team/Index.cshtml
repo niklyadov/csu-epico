@@ -8,16 +8,14 @@
 
 <div class="column box gray-container">
     <div class="container-text-button">
-        <span class="bold">Список всех юзеров: </span>
+        <span class="bold">List of users: </span> <!--Список всех юзеров: -->
         @if (User.IsInRole("Manager"))
         {
-            <div class="container-text-button_button">
-                <a class="is-32-height"
-                   asp-controller="Account"
-                   asp-action="Registration">
-                    <img class="plus-button" src="~/img/plus-square.svg" />
-                </a>
-            </div>
+            <a class="button add-button is-gray is-40-height"
+               asp-controller="Account"
+               asp-action="Registration">
+                Add new user
+            </a>
         }
     </div>
     <table>

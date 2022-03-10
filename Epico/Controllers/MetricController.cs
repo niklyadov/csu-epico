@@ -146,7 +146,8 @@ namespace Epico.Controllers
                 Name = metric.Name,
                 Description = metric.Description,
                 ParentMetricId = metric.ParentMetricId,
-                PosibleParentMetrics = possibleParentMetrics
+                PosibleParentMetrics = possibleParentMetrics,
+                IsNSM = metric.IsNSM
             };
         }
 

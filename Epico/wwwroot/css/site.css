@@ -87,11 +87,11 @@ a.button.is-fullwidth.left-nav_link:focus:not(:active) {
     cursor: pointer;
 }
 
-.metric-plus-button:hover, .plus-button:hover, .delete-button:hover, .edit-button:hover, .status-button:hover {
+.metric-plus-button:hover, .plus-button:hover{
     filter: invert(13%) sepia(73%) saturate(7487%) hue-rotate(357deg) brightness(89%) contrast(127%);
 }
 
-.metric-plus-button:active, .plus-button:active, .delete-button:active, .edit-button:active, .status-button:active {
+.metric-plus-button:active, .plus-button:active{
     filter: invert(20%) sepia(87%) saturate(3829%) hue-rotate(15deg) brightness(64%) contrast(145%);
 }
 
@@ -120,6 +120,7 @@ a.button.is-fullwidth.left-nav_link:focus:not(:active) {
 .container-text-button {
     align-items: center;
     display: flex;
+    margin-bottom: 10px;
 }
 
 .container-text-button_button {
@@ -262,4 +263,116 @@ a.button.is-fullwidth.roadmap-button {
 .product-title {
     font-size: 1rem;
     font-weight: bold;
+}
+
+.add-button {
+    margin-left: 10px;
+    padding: 0 12px 0 40px;
+    background: url("../img/plus-square.svg");
+    background-size: 24px;
+    background-repeat: no-repeat;
+    background-position: center left 5px;
+    color: white;
+    justify-content:flex-end;
+}
+
+.add-button:hover {
+    background: url("../img/plus-square-white.svg");
+    background-size: 24px;
+    background-repeat: no-repeat;
+    background-position: center left 5px;
+    color: white;
+}
+
+
+.edit-button {
+    margin-bottom: 10px;
+    margin-left: 10px;
+    padding: 0 12px 0 40px;
+    background: url("../img/edit-black.svg");
+    background-size: 24px;
+    background-repeat: no-repeat;
+    background-position: center left 5px;
+    color: white;
+    justify-content: flex-end;
+}
+
+.edit-button:hover {
+    background: url("../img/edit-white.svg");
+    background-size: 24px;
+    background-repeat: no-repeat;
+    background-position: center left 5px;
+    color: white;
+}
+
+
+.delete-button {
+    margin-bottom: 10px;
+    margin-left: 10px;
+    padding: 0 12px 0 40px;
+    background: url("../img/trash-black.svg");
+    background-size: 24px;
+    background-repeat: no-repeat;
+    background-position: center left 5px;
+    color: white;
+    justify-content: flex-end;
+}
+
+.delete-button:hover {
+    background: url("../img/trash-white.svg");
+    background-size: 24px;
+    background-repeat: no-repeat;
+    background-position: center left 5px;
+    color: white;
+}
+
+/* кнопка изменения статуса */
+.status-button {
+    margin-left: 10px;
+    padding: 0 12px 0 40px;
+    background: url("../img/check-circle-black.svg");
+    background-size: 24px;
+    background-repeat: no-repeat;
+    background-position: center left 5px;
+    color: white;
+    justify-content: flex-end;
+}
+
+.status-button:hover {
+    background: url("../img/check-circle-white.svg");
+    background-size: 24px;
+    background-repeat: no-repeat;
+    background-position: center left 5px;
+    color: white;
+}
+
+.status-button:focus {
+    border-color: #363636;
+}
+
+.status-button.is-focused:not(:active), .status-button:focus:not(:active) {
+    box-shadow: 0 0 0 0 #fff;
+}
+
+
+
+.is-40-height {
+    height: 40px;
+}
+
+.is-gray {
+    background-color: #e3e3e3;
+    color: black;
+}
+
+.is-gray:hover {
+    background-color: #c9c9c9;
+}
+
+.add-button:focus {
+    border-color: #363636;
+}
+
+.add-button.is-focused:not(:active), .add-button:focus:not(:active) {
+    box-shadow: 0 0 0 0 #fff;
 }

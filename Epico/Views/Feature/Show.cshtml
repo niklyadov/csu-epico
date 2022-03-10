@@ -42,14 +42,12 @@
                     <span class="bold">Список задач: </span>
                     @if (User.IsInRole("Manager"))
                     {
-                        <div class="container-text-button_button">
-                            <a class="is-24-height"
-                               asp-controller="Feature"
-                               asp-action="NewTask"
-                               asp-route-id="@Model.ID">
-                                <img class="plus-button" src="~/img/plus.svg" />
-                            </a>
-                        </div>
+                        <a class="button add-button is-gray is-40-height"
+                           asp-controller="Feature"
+                           asp-action="NewTask"
+                           asp-route-id="@Model.ID">
+                            Add new task
+                        </a>
                     }
                 </div>
                 <div>
@@ -82,21 +80,21 @@
                                         @if (User.IsInRole("Manager"))
                                         {
                                             <td>
-                                                <a class="is-24-height"
+                                                <a class="button edit-button is-gray is-40-height"
                                                    asp-controller="Feature"
                                                    asp-action="EditTask"
                                                    asp-route-id="@Model.ID"
                                                    asp-route-taskId="@task.ID">
-                                                    <img class="edit-button" src="~/img/edit.svg" />
+                                                    Edit
                                                 </a>
                                             </td>
                                             <td>
-                                                <a class="is-24-height"
-                                                   asp-controller="Feature"
-                                                   asp-action="DeleteTask"
-                                                   asp-route-id="@Model.ID"
-                                                   asp-route-taskId="@task.ID">
-                                                    <img class="delete-button" src="~/img/trash.svg" />
+                                                <a class="button delete-button is-gray is-40-height"
+                                                    asp-controller="Feature"
+                                                    asp-action="DeleteTask"
+                                                    asp-route-id="@Model.ID"
+                                                    asp-route-taskId="@task.ID">
+                                                     Delete
                                                 </a>
                                             </td>
                                         }
