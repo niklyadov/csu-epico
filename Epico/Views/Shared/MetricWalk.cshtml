@@ -11,11 +11,6 @@
                asp-route-id="@Model.ID">
                 Edit
             </a>
-            @*<a asp-controller="Metric"
-               asp-action="Edit"
-               asp-route-id="@Model.ID">
-                <img class="edit-button" src="~/img/edit.svg" />
-            </a>*@
             if (!Model.IsNSM && Model.Children.Count == 0)
             {
                 <a class="button delete-button is-gray is-40-height"
@@ -24,11 +19,6 @@
                    asp-route-id="@Model.ID">
                     Delete
                 </a>
-                @*<a asp-controller="Metric"
-                   asp-action="Delete"
-                   asp-route-id="@Model.ID">
-                    <img class="delete-button" src="~/img/trash.svg" />
-                </a>*@
             }
         }
         <ul style="list-style-type:none;">

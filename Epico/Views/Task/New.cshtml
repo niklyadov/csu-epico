@@ -1,21 +1,21 @@
 @model NewTaskViewModel
 @{
-    ViewBag.Title = "Добавление задачи";
+    ViewBag.Title = "New task";
 }
 <div class="content is-medium">
-    <h2>Добавление новой задачи</h2>
+    <h2>New task</h2>
 </div>
 <div class="box">
     <form method="post" asp-controller="Task" asp-action="New">
         <div class="field">
-            <label class="label" asp-for="Name">Название задачи</label>
+            <label class="label" asp-for="Name">Title</label>
             <div class="control">
                 <input class="input" asp-for="Name" />
                 <span asp-validation-for="Name" class="error-message"></span>
             </div>
         </div>
         <div class="field">
-            <label class="label" asp-for="Description">Описание</label>
+            <label class="label" asp-for="Description">Description</label>
             <div class="control">
                 <input class="input" asp-for="Description" />
                 <span asp-validation-for="Description" class="error-message"></span>
@@ -23,7 +23,7 @@
         </div>
         <br />
         <div class="field">
-            <label class="label" asp-for="UserId">Команда для задачи</label>
+            <label class="label" asp-for="UserId">Team: </label>
             <div class="control">
                 @foreach (var user in Model.PossibleUsers)
                 {
@@ -37,7 +37,7 @@
             </div>
         </div>
         <div class="has-text-centered">
-            <button class="button is-primary">Создать</button>
+            <button class="button is-primary">Create</button>
         </div>
     </form>
 </div>

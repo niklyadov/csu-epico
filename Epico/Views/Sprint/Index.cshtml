@@ -17,12 +17,12 @@
     </div>
     @if (Model.SprintError)
     {
-        <span class="error-message">*Нельзя создать спринт без указания фичи</span>
+        <span class="error-message">*You can't create a sprint without selecting a feature or hypothesis</span>
         <br />
     }
     @if (Model.NoneError)
     {
-        <span class="error-message">*Нельзя создать спринт, пока в проекте нет ни одной гипотезы или фичи (статус Discovery или Development)</span>
+        <span class="error-message">*It is impossible to create a sprint while the project does not have any hypotheses or features (Discovery or Development status)</span>
         <br />
     }
     @foreach (var sprint in Model.Sprints)
@@ -30,11 +30,11 @@
         <div class="box word-break">
             <div class="columns">
                 <div class="column is-four-fifths">
-                    <p><span class="bold">Название:</span> @sprint.Name</p>
-                    <p><span class="bold">Сроки:</span> (@sprint.StartDate.ToShortDateString() --- @sprint.EndDate.ToShortDateString())</p>
+                    <p><span class="bold">Title:</span> @sprint.Name</p>
+                    <p><span class="bold">Timing:</span> (@sprint.StartDate.ToShortDateString() --- @sprint.EndDate.ToShortDateString())</p>
 
                     <div class="container-text-button">
-                        <span class="bold">Список фич и гипотез: </span>
+                        <span class="bold">Features and hypothesis list: </span>
                         @if (User.IsInRole("Manager"))
                         {
                             <a class="button add-button is-gray is-40-height"
@@ -43,14 +43,6 @@
                                asp-route-id="@sprint.ID">
                                 Add new feature or hypothesis
                             </a>
-                            @*<div class="container-text-button_button ">
-                                <a class="is-24-height"
-                                   asp-controller="Sprint"
-                                   asp-action="AddFeature"
-                                   asp-route-id="@sprint.ID">
-                                    <img class="plus-button" src="~/img/plus.svg" />
-                                </a>
-                            </div>*@
                         }
                     </div>
 
@@ -67,7 +59,7 @@
                                 <tr>
                                     @if (feature.IsFeature)
                                     {
-                                        <td>Фича:</td>
+                                        <td>Feature:</td>
                                         <td>@feature.Name [@feature.State]</td>
                                         @if (User.IsInRole("Manager"))
                                         {
@@ -78,19 +70,13 @@
                                                    asp-route-id="@feature.ID">
                                                     Edit
                                                 </a>
-                                                @*<a class="is-24-height"
-                                                   asp-controller="Feature"
-                                                   asp-action="Edit"
-                                                   asp-route-id="@feature.ID">
-                                                    <img class="edit-button" src="~/img/edit.svg" />
-                                                </a>*@
                                             </td>
 
                                         }
                                     }
                                     else
                                     {
-                                        <td>Гипотеза:</td>
+                                        <td>Hypothesis:</td>
                                         <td>@feature.Name</td>
                                         @if (User.IsInRole("Manager"))
                                         {
@@ -101,14 +87,7 @@
                                                    asp-route-id="@feature.ID">
                                                     Edit
                                                 </a>
-                                                @*<a class="is-24-height"
-                                                   asp-controller="Hypothesis"
-                                                   asp-action="Edit"
-                                                   asp-route-id="@feature.ID">
-                                                    <img class="edit-button" src="~/img/edit.svg" />
-                                                </a>*@
                                             </td>
-
                                         }
                                     }
                                     @if (User.IsInRole("Manager"))
@@ -121,16 +100,8 @@
                                                 asp-route-taskId="@sprint.ID">
                                                  Delete
                                             </a>
-                                            @*<a class="is-24-height"
-                                               asp-controller="Sprint"
-                                               asp-action="DeleteFeature"
-                                               asp-route-id="@feature.ID"
-                                               asp-route-sprintId="@sprint.ID">
-                                                <img class="delete-button" src="~/img/trash.svg" />
-                                            </a>*@
                                         </td>
                                     }
-
                                 </tr>
                             }
                         </tbody>

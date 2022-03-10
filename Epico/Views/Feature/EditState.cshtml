@@ -1,14 +1,14 @@
 @using Epico.Entity;
 @model Epico.Models.ProductEntity.Feature.EditStateFeatureViewModel
 @{
-    ViewBag.Title = "Изменение статуса фичи";
+    ViewBag.Title = "Edit feature state";
 }
 
 <div class="tile is-2 is-vertical box" style="border: 5px;">
     <form method="post" asp-action="EditState" asp-controller="Feature">
         <input type="hidden" asp-for="Id" />
         <div class="field">
-            <label class="label" asp-for="State">Статус</label>
+            <label class="label" asp-for="State">State</label>
             <div class="control">
                 <label class="radio">
                     <input type="radio" value="@FeatureState.Accepted" checked=@Model.State.Equals(FeatureState.Accepted) name="State" />
@@ -39,6 +39,6 @@
             <span asp-validation-for="State"></span>
         </div>
 
-        <button class="button is-primary" type="submit">Сохранить</button>
+        <button class="button is-primary" type="submit">Save</button>
     </form>
 </div>

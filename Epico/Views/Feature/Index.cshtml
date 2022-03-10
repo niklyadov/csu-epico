@@ -17,12 +17,12 @@
     </div>
     @if (Model.TaskError)
     {
-        <span class="error-message">*Нельзя создать фичу без указания задач</span>
+        <span class="error-message">*You can't create a feature without selecting a tasks</span>
         <br />
     }
     @if (Model.MetricError)
     {
-        <span class="error-message">*Нельзя создать фичу без указания метрики</span>
+        <span class="error-message">*You can't create a feature without selecting a metric</span>
         <br />
     }
     @foreach (var feature in Model.ElementsList)

@@ -5,8 +5,8 @@
 
 <div class="content">
     <h2>North Star Metric:</h2>
-    <span>Название: @Model.Metric.Name</span><br />
-    <span>Описание: @Model.Metric.Description</span><br />
+    <span>Title: @Model.Metric.Name</span><br />
+    <span>Description: @Model.Metric.Description</span><br />
 </div>
 <br />
 <div class="content">
@@ -23,15 +23,15 @@
     </div>
     @if (Model.Error)
     {
-        <span class="error-message">*Для создания метрики обязательно нужно указывать родительскую метрику</span>
+        <span class="error-message">*To create a metric, you must specify the parent metric</span>
     }
     @if (Model.ParentError)
     {
-        <span class="error-message">*Нельзя привязать метрику к её потомкам или к самой себе</span>
+        <span class="error-message">*You cannot bind a metric to its descendants or to itself</span>
     }
     @if (Model.DeleteMetricError)
     {
-        <span class="error-message">*Нельзя удалить метрику, если у неё есть потомки</span>
+        <span class="error-message">*You cannot delete a metric if it has children</span>
     }
 
     @await Html.PartialAsync("MetricWalk", Model.Metric)

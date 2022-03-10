@@ -4,7 +4,7 @@
     ViewBag.Title = "Изменение гипотезы";
 }
 <div class="content is-medium">
-    <h2>Изменение гипотезы</h2>
+    <h2>Edit hypothesis</h2>
 </div>
 <div class="box word-break">
     <form method="post" asp-action="Edit" asp-controller="Hypothesis">
@@ -13,7 +13,7 @@
 
         <!--Название [input]-->
         <div class="field">
-            <label class="label" asp-for="Name">Название</label>
+            <label class="label" asp-for="Name">Title</label>
             <div class="control">
                 <input class="input" asp-for="Name" value="@Model.Name" />
                 <span asp-validation-for="Name" class="error-message"></span>
@@ -22,7 +22,7 @@
 
         <!--Описание [input]-->
         <div class="field">
-            <label class="label" asp-for="Description">Описание</label>
+            <label class="label" asp-for="Description">Description</label>
             <div class="control">
                 <input class="input" asp-for="Description" value="@Model.Description" />
                 <span asp-validation-for="Description" class="error-message"></span>
@@ -31,7 +31,7 @@
 
         <!--Выбор команды [checkbox]-->
         <div class="field">
-            <label class="label" asp-for="UserIds">Выбор команды</label>
+            <label class="label" asp-for="UserIds">Select team</label>
             <div class="control">
                 @foreach (var user in Model.PosibleUsers)
                 {
@@ -47,7 +47,7 @@
 
         <!--Выбор метрик [radio]-->
         <div class="field">
-            <label class="label" asp-for="MetricId">Выбор метрики</label>
+            <label class="label" asp-for="MetricId">Select metric</label>
             <div class="control">
                 <label class="radio">
                     <input type="radio" value="0" name="MetricId" checked=@Model.MetricId.Equals(null) />
@@ -69,7 +69,7 @@
         <input type="hidden" value="@FeatureState.Discovery" name="State" />
         <input type="hidden" value="@RoadmapType.Now" name="Roadmap" />
         <div class="has-text-centered">
-            <button class="button is-primary">Сохранить</button>
+            <button class="button is-primary">Save</button>
         </div>
     </form>
 </div>

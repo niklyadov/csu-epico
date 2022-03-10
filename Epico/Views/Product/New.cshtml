@@ -1,17 +1,17 @@
 @model NewProductViewModel
 
 @{
-    ViewBag.Title = "Создание продукта";
+    ViewBag.Title = "New product";
 }
 
 <div class="content is-medium">
-    <h2>Создание продукта</h2>
+    <h2>New product</h2>
 </div>
 <div>
     <form method="post" asp-controller="Product" asp-action="New">
         <div asp-validation-summary="ModelOnly"></div>
         <div class="field">
-            <label class="label" asp-for="Name">Название</label>
+            <label class="label" asp-for="Name">Title</label>
             <div class="control">
                 <input class="input" asp-for="Name" />
                 <span asp-validation-for="Name" class="error-message"></span>
@@ -19,7 +19,7 @@
         </div>
 
         <div class="field">
-            <label class="label" asp-for="Vision">Виденье</label>
+            <label class="label" asp-for="Vision">Vision</label>
             <div class="control">
                 <input class="input" asp-for="Vision" />
                 <span asp-validation-for="Vision" class="error-message"></span>
@@ -27,7 +27,7 @@
         </div>
 
         <div class="field">
-            <label class="label" asp-for="Mission">Миссия</label>
+            <label class="label" asp-for="Mission">Mission</label>
             <div class="control">
                 <input class="input" asp-for="Mission" />
                 <span asp-validation-for="Mission" class="error-message"></span>
@@ -35,7 +35,7 @@
         </div>
 
         <div class="field">
-            <label class="label" asp-for="ProductFormula">Продуктовая формула</label>
+            <label class="label" asp-for="ProductFormula">Product formula</label>
             <div class="control">
                 <input class="input" asp-for="ProductFormula" />
                 <span asp-validation-for="ProductFormula" class="error-message"></span>
@@ -44,7 +44,7 @@
         <br />
 
         <div class="has-text-centered">
-            <button class="button is-primary">Создать</button>
+            <button class="button is-primary">Create</button>
         </div>
     </form>
 </div>

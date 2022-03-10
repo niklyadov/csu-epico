@@ -1,17 +1,17 @@
 @model NewSprintViewModel
 
 @{
-    ViewBag.Title = "Добавление спринта";
+    ViewBag.Title = "New sprint";
 }
 
 <div class="content is-medium">
-    <h2>Добавление нового спринта</h2>
+    <h2>New sprint</h2>
 </div>
 <div class="box">
     <form method="post" asp-controller="Sprint" asp-action="New">
         <div asp-validation-summary="ModelOnly"></div>
         <div class="field">
-            <label class="label" asp-for="Name">Название Спринта</label>
+            <label class="label" asp-for="Name">Title</label>
             <div class="control">
                 <input class="input" asp-for="Name" />
                 <span asp-validation-for="Name" class="error-message"></span>
@@ -19,12 +19,12 @@
         </div>
 
         <div class="field">
-            <label class="label" asp-for="Features">Фичи и гипотезы для спринта</label>
+            <label class="label" asp-for="Features">Features and hypothesis list: </label>
             @foreach (var feature in Model.PosibleFeatures.OrderBy(x => x.IsFeature))
             {
                 <label class="checkbox">
                     <input type="checkbox" value="@feature.ID" name="Features" />
-                    @feature.Name [@(feature.IsFeature ? "Фича" : "Гипотеза")]
+                    @feature.Name [@(feature.IsFeature ? "Feature" : "Hypothesis")]
                 </label>
                 <br />
             }
@@ -32,7 +32,7 @@
         </div>
         <br />
         <div class="field">
-            <label class="label" asp-for="StartDate">Дата начала спринта</label>
+            <label class="label" asp-for="StartDate">Sprint start date</label>
             <div class="control">
                 <input type="date" asp-for="StartDate" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
                 <span asp-validation-for="StartDate" class="error-message"></span>
@@ -40,14 +40,14 @@
         </div>
         <br />
         <div class="field">
-            <label class="label" asp-for="EndDate">Дата окончания спринта</label>
+            <label class="label" asp-for="EndDate">Sprint end date</label>
             <div class="control">
                 <input type="date" asp-for="EndDate" value="@DateTime.Now.AddDays(14).ToString("yyyy-MM-dd")" />
                 <span asp-validation-for="EndDate" class="error-message"></span>
             </div>
         </div>
         <div class="has-text-centered">
-            <button class="button is-primary">Создать</button>
+            <button class="button is-primary">Create</button>
         </div>
     </form>
 </div>

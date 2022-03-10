@@ -1,14 +1,14 @@
 @using Epico.Entity;
 @model EditStateTaskViewModel
 @{
-    ViewBag.Title = "Изменение статуса задачи";
+    ViewBag.Title = "Edit task state";
 }
 
 <div class="tile is-2 is-vertical box" style="border: 5px;">
     <form method="post" asp-action="EditState" asp-controller="Task">
         <input type="hidden" asp-for="TaskId" />
         <div class="field">
-            <label class="label" asp-for="State">Статус</label>
+            <label class="label" asp-for="State">State</label>
             <div class="control">
                 <label class="radio">
                     <input type="radio" value="@TaskState.NotStarted" @Html.Raw(Model.Task.State == TaskState.NotStarted ? "checked" : "") name="State" />
@@ -29,6 +29,6 @@
             <span asp-validation-for="State"></span>
         </div>
 
-        <button class="button is-primary" type="submit">Сохранить</button>
+        <button class="button is-primary" type="submit">Save</button>
     </form>
 </div>

@@ -1,21 +1,21 @@
 ﻿@model Epico.Entity.Feature
 @{
-    ViewBag.Title = "Просмотр фичи";
+    ViewBag.Title = "View feature";
 }
 <div class="content is-medium">
-    <h2>Просмотр фичи</h2>
+    <h2>View feature</h2>
 </div>
 <div class="box word-break">
     <div class="columns">
         <div class="column is-four-fifths">
             <div class="word-break">
-                <span><span class="bold">Название: </span>@Model.Name</span>
+                <span><span class="bold">Title: </span>@Model.Name</span>
             </div>
             <div class="word-break">
-                <span><span class="bold">Описание: </span>@Model.Description</span>
+                <span><span class="bold">Description: </span>@Model.Description</span>
             </div>
             <div class="word-break">
-                <span class="bold">Продуктовая команда фичи: </span>
+                <span class="bold">Feature team: </span>
             </div>
             <div class="word-break">
                 @foreach (var user in Model.Users)
@@ -24,18 +24,18 @@
                 }
             </div>
             <div class="word-break">
-                <span class="bold">Привязанная метрика:</span><br />
+                <span class="bold">Binded metric:</span><br />
                 @if (Model.Metric != null)
                 {
                     <span>@Model.Metric.Name</span>
                 }
                 else
                 {
-                    <span>Нет привязанной метрики</span>
+                    <span>Metric not binded</span>
                 }
             </div>
             <div class="word-break">
-                <span><span class="bold">Статус фичи: </span>@Model.State</span>
+                <span><span class="bold">Feature status: </span>@Model.State</span>
             </div>
             <div>
                 <div class="container-text-button">
@@ -53,7 +53,7 @@
                 <div>
                     @if (Model.Tasks.Count == 0)
                     {
-                        <p>Здесь пока нет задач.</p>
+                        <p>No tasks.</p>
                     }
                     else
                     {
@@ -71,7 +71,7 @@
                                     @if (!task.HasResponsibleUser)
                                     {
                                         <tr>
-                                            <td class="error-message"> *Ответственный не назначен</td>
+                                            <td class="error-message"> *Responsible not selected</td>
                                         </tr>
                                     }
                                     <tr>
