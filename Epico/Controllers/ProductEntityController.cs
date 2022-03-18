@@ -128,8 +128,12 @@ namespace Epico.Controllers
 
         protected async SystemTask EditPreparationPost(EditProductEntityViewModel model, bool isFeature)
         {
+            Metric metric = null;
+            if (model.MetricId != 0)
+            {
+                metric = await MetricService.GetById(model.MetricId);
+            }
             var users = await UserService.GetByIds(model.UserIds);
-            var metric = await MetricService.GetById(model.MetricId);
             var productEntity = await FeatureService.GetById(model.Id);
 
             // Отвязка ответственного если его убрали из команды
