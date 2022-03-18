@@ -68,7 +68,11 @@ namespace Epico.Controllers
 
         protected async SystemTask NewPreparationPost(NewProductEntityViewModel model, bool isFeature)
         {
-            var metric = await MetricService.GetById(model.MetricId);
+            Metric metric = null;
+            if (model.MetricId != 0)
+            {
+                metric = await MetricService.GetById(model.MetricId);
+            }
             var users = await UserService.GetByIds(model.UserIds);
 
             Feature productEntity = new Feature
